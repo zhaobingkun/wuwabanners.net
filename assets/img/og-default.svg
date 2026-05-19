@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">WuWa Banners</title>
+  <desc id="desc">Wuthering Waves banner tracker and guide artwork.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#b67a1f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#f5f1e8"/>
+  <circle cx="180" cy="120" r="180" fill="#dff5f1"/>
+  <circle cx="1040" cy="540" r="220" fill="#f4e2b9"/>
+  <rect x="70" y="70" width="1060" height="490" rx="40" fill="url(#bg)" opacity="0.96"/>
+  <text x="120" y="250" fill="#ffffff" font-family="Space Grotesk, Arial, sans-serif" font-size="74" font-weight="700">WuWa Banners</text>
+  <text x="120" y="330" fill="#f8f3ea" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30">Wuthering Waves current banner, next banner, history, pity, and pull advice.</text>
+  <text x="120" y="420" fill="#e4f5f2" font-family="IBM Plex Sans, Arial, sans-serif" font-size="28">Updated after official Convene notices and in-game checks.</text>
+</svg>

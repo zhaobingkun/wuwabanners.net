@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Banner History</title>
+  <desc id="desc">Recent Wuthering Waves banner flow generated from CSV.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5667d8"/>
+      <stop offset="100%" stop-color="#242b65"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="#f5f1e8"/>
+  <rect x="50" y="50" width="1100" height="575" rx="34" fill="url(#bg)"/>
+  <text x="95" y="150" fill="#dff5f1" font-family="Space Grotesk, Arial, sans-serif" font-size="34" font-weight="700">BANNER HISTORY</text>
+  <text x="95" y="245" fill="#ffffff" font-family="Space Grotesk, Arial, sans-serif" font-size="64" font-weight="700">Recent Version Flow</text>
+  <text x="95" y="325" fill="#ffffff" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34">3.2 Phase 2: Sigrika, Qiuyuan</text>
+  <text x="95" y="380" fill="#ffffff" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34">3.3 Phase 1: Hiyuki, Mornye, Iuno</text>
+  <text x="95" y="435" fill="#ffffff" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34">3.3 Phase 2: Denia, Chisa, Phrolova</text>
+  <text x="95" y="585" fill="#dff5f1" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24">Use the full table on-site for rerun timing and phase spacing.</text>
+</svg>
