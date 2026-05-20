@@ -46,7 +46,8 @@ def render_video_embed(title: str, video_id: str = "viOkAhoa0k8") -> str:
     watch_url = f"https://www.youtube.com/watch?v={video_id}"
     poster_url = f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
     return f"""<div class="video-embed">
-            <button class="video-lite" type="button" data-video-id="{video_id}" data-video-title="{safe_title}" aria-label="Load video: {safe_title}" style="--video-poster:url('{poster_url}');">
+            <button class="video-lite" type="button" data-video-id="{video_id}" data-video-title="{safe_title}" aria-label="Load video: {safe_title}">
+              <img src="{poster_url}" alt="{safe_title}" loading="lazy" decoding="async">
               <span class="video-lite-badge">YouTube</span>
               <span class="video-lite-play" aria-hidden="true"></span>
               <span class="video-lite-title">{safe_title}</span>
@@ -830,7 +831,7 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
   </script>
 </head>
 <body>
-  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/pull-advice/">Pull advice</a> / {character}</div>
     <h1>Should You Pull {character} in Wuthering Waves?</h1>
