@@ -24,6 +24,16 @@ SITEMAP_XML = ROOT / "sitemap.xml"
 BANNERS_HUB_HTML = ROOT / "banners" / "index.html"
 GUIDES_HUB_HTML = ROOT / "guides" / "index.html"
 
+GTAG_SNIPPET = """<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C73K15FD00"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C73K15FD00');
+</script>"""
+
 BASE_URLS = [
     "https://wuwabanners.net/",
     "https://wuwabanners.net/banners/",
@@ -785,6 +795,7 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
 {build_character_sources(page, snapshot["updated"])}
     </section>
   </div></main>
+{GTAG_SNIPPET}
 </body>
 </html>
 """

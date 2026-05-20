@@ -79,12 +79,15 @@ img {
   width: 44px;
   height: 44px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #0f766e 0%, #d08e21 100%);
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
+  background:
+    linear-gradient(135deg, rgba(13, 95, 115, 0.18), rgba(33, 75, 136, 0.18)),
+    url("/assets/img/brand-mark.svg") center/cover no-repeat;
+  display: inline-block;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+  flex: 0 0 44px;
   box-shadow: var(--shadow);
 }
 
