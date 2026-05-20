@@ -353,6 +353,7 @@ th {
   overflow: hidden;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.75);
+  aspect-ratio: 1200 / 675;
 }
 
 .banner-art img {
@@ -375,6 +376,78 @@ th {
   border-radius: 18px;
   overflow: hidden;
   background: #111;
+  contain: content;
+}
+
+.video-lite {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  padding: 1.15rem;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.85rem;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at top left, rgba(72, 214, 199, 0.18), transparent 32%),
+    linear-gradient(135deg, rgba(15, 118, 110, 0.88), rgba(33, 75, 136, 0.92));
+}
+
+.video-lite:hover {
+  background:
+    radial-gradient(circle at top left, rgba(72, 214, 199, 0.22), transparent 32%),
+    linear-gradient(135deg, rgba(15, 118, 110, 0.94), rgba(33, 75, 136, 0.98));
+}
+
+.video-lite:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.72);
+  outline-offset: -6px;
+}
+
+.video-lite-badge,
+.video-lite-note {
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+
+.video-lite-badge {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.video-lite-play {
+  width: 74px;
+  height: 74px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+}
+
+.video-lite-play::before {
+  content: "";
+  margin-left: 4px;
+  border-style: solid;
+  border-width: 13px 0 13px 20px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.video-lite-title {
+  max-width: 28ch;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.video-lite-note {
+  color: rgba(255, 255, 255, 0.84);
 }
 
 .video-embed iframe {

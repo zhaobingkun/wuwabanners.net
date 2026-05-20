@@ -62,6 +62,9 @@ Submit these after Batch 2:
 14. `https://wuwabanners.net/wuthering-waves-next-banner-date/`
 15. `https://wuwabanners.net/wuthering-waves-current-banner-end-date/`
 16. `https://wuwabanners.net/wuthering-waves-next-banner-countdown/`
+17. `https://wuwabanners.net/wuthering-waves-characters/`
+18. `https://wuwabanners.net/wuthering-waves-weapons/`
+19. `https://wuwabanners.net/wuthering-waves-items/`
 
 Why:
 

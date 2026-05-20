@@ -15,7 +15,8 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/assets/css/site.css">
   <script type="application/ld+json">
   {
@@ -60,12 +61,18 @@
     <div class="answer-box"><strong>Direct answer:</strong> As of May 19, 2026, the next tracked featured characters are Denia, Chisa, and Phrolova in Version 3.3 Phase 2, beginning on May 21, 2026.</div>
     <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art">
-        <img src="/assets/img/next-banner-card.svg" alt="Next Wuthering Waves character snapshot.">
+        <img src="/assets/img/next-banner-card.svg" alt="Next Wuthering Waves character snapshot." width="1200" height="675" decoding="async">
       </div>
       <div class="video-card">
         <h2>Official preview media</h2>
         <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/viOkAhoa0k8" title="Wuthering Waves Version 3.3 Preview Special Broadcast" loading="lazy" allowfullscreen></iframe>
+          <button class="video-lite" type="button" data-video-id="viOkAhoa0k8" data-video-title="Wuthering Waves Version 3.3 Preview Special Broadcast" aria-label="Load video: Wuthering Waves Version 3.3 Preview Special Broadcast">
+            <span class="video-lite-badge">Official Video</span>
+            <span class="video-lite-play" aria-hidden="true"></span>
+            <span class="video-lite-title">Wuthering Waves Version 3.3 Preview Special Broadcast</span>
+            <span class="video-lite-note">Click to load the YouTube player.</span>
+          </button>
+          <noscript><p class="muted" style="padding:1rem;">JavaScript is off. <a href="https://www.youtube.com/watch?v=viOkAhoa0k8">Watch this video on YouTube</a>.</p></noscript>
         </div>
       </div>
     </div>
@@ -107,6 +114,7 @@
       </div>
     </section>
   </div></main>
+<script defer src="/assets/js/site.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C73K15FD00"></script>
 <script>

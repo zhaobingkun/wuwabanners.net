@@ -34,6 +34,26 @@ GTAG_SNIPPET = """<!-- Google tag (gtag.js) -->
   gtag('config', 'G-C73K15FD00');
 </script>"""
 
+FONT_STYLESHEET_URL = "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+FONT_PRELOAD_BLOCK = f"""  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="{FONT_STYLESHEET_URL}" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="{FONT_STYLESHEET_URL}" rel="stylesheet"></noscript>"""
+
+
+def render_video_embed(title: str, video_id: str = "viOkAhoa0k8") -> str:
+    safe_title = html.escape(title)
+    watch_url = f"https://www.youtube.com/watch?v={video_id}"
+    return f"""<div class="video-embed">
+            <button class="video-lite" type="button" data-video-id="{video_id}" data-video-title="{safe_title}" aria-label="Load video: {safe_title}">
+              <span class="video-lite-badge">Official Video</span>
+              <span class="video-lite-play" aria-hidden="true"></span>
+              <span class="video-lite-title">{safe_title}</span>
+              <span class="video-lite-note">Click to load the YouTube player.</span>
+            </button>
+            <noscript><p class="muted" style="padding:1rem;">JavaScript is off. <a href="{watch_url}">Watch this video on YouTube</a>.</p></noscript>
+          </div>"""
+
 BASE_URLS = [
     "https://wuwabanners.net/",
     "https://wuwabanners.net/banners/",
@@ -57,6 +77,9 @@ BASE_URLS = [
     "https://wuwabanners.net/wuthering-waves-next-banner-date/",
     "https://wuwabanners.net/wuthering-waves-current-banner-end-date/",
     "https://wuwabanners.net/wuthering-waves-next-banner-countdown/",
+    "https://wuwabanners.net/wuthering-waves-items/",
+    "https://wuwabanners.net/wuthering-waves-weapons/",
+    "https://wuwabanners.net/wuthering-waves-characters/",
     "https://wuwabanners.net/pull-advice/",
 ]
 
@@ -281,14 +304,12 @@ def slugify_character(name: str) -> str:
 def build_home_media(updated: str) -> str:
     return f"""      <div class="container media-grid">
         <div class="banner-art">
-          <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot generated from the latest CSV build.">
+          <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot generated from the latest CSV build." width="1200" height="675" decoding="async" fetchpriority="high">
         </div>
         <div class="video-card">
           <h2>Official preview video slot</h2>
           <p class="section-intro">Use one official broadcast or trailer on the homepage. This keeps the front page visually stronger without turning the site into a video-first layout.</p>
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/viOkAhoa0k8" title="Wuthering Waves Version 3.3 Preview Special Broadcast" loading="lazy" allowfullscreen></iframe>
-          </div>
+          {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
         </div>
       </div>"""
 
@@ -310,14 +331,12 @@ def build_next_media(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     return f"""      <div class="media-grid" style="margin-top:1.25rem;">
         <div class="banner-art">
-          <img src="/assets/img/next-banner-card.svg" alt="Next Wuthering Waves banner snapshot for {next_item["banner_name"]}.">
+          <img src="/assets/img/next-banner-card.svg" alt="Next Wuthering Waves banner snapshot for {next_item["banner_name"]}." width="1200" height="675" decoding="async">
         </div>
         <div class="video-card">
           <h2>Official preview media</h2>
           <p class="muted">Keep one official preview video on the page and let the text carry the primary answer.</p>
-          <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/viOkAhoa0k8" title="Wuthering Waves Version 3.3 Preview Special Broadcast" loading="lazy" allowfullscreen></iframe>
-          </div>
+          {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
         </div>
       </div>"""
 
@@ -390,14 +409,12 @@ def build_current_media(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     return f"""    <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art">
-        <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot for {current["banner_name"]}.">
+        <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot for {current["banner_name"]}." width="1200" height="675" decoding="async">
       </div>
       <div class="video-card">
         <h2>Official preview media slot</h2>
         <p class="muted">Use the preview broadcast or official trailer to support the page visually, but keep the live answer in text above it.</p>
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/viOkAhoa0k8" title="Wuthering Waves Version 3.3 Preview Special Broadcast" loading="lazy" allowfullscreen></iframe>
-        </div>
+        {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
       </div>
     </div>"""
 
@@ -444,7 +461,7 @@ def build_history_intro(snapshot: dict[str, object]) -> str:
 def build_history_media(snapshot: dict[str, object]) -> str:
     return """    <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art">
-        <img src="/assets/img/banner-history-card.svg" alt="Wuthering Waves banner history snapshot generated from the latest CSV build.">
+        <img src="/assets/img/banner-history-card.svg" alt="Wuthering Waves banner history snapshot generated from the latest CSV build." width="1200" height="675" decoding="async">
       </div>
       <div class="card">
         <h2>Why this page benefits from an image</h2>
@@ -495,7 +512,7 @@ def build_rerun_intro(snapshot: dict[str, object]) -> str:
 def build_rerun_media() -> str:
     return """    <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art">
-        <img src="/assets/img/banner-history-card.svg" alt="Wuthering Waves rerun watch image based on recent banner history.">
+        <img src="/assets/img/banner-history-card.svg" alt="Wuthering Waves rerun watch image based on recent banner history." width="1200" height="675" decoding="async">
       </div>
       <div class="card">
         <h2>Use history, not guesswork</h2>
@@ -551,10 +568,10 @@ def build_countdown_intro(snapshot: dict[str, object]) -> str:
 def build_countdown_media(snapshot: dict[str, object]) -> str:
     return """    <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art">
-        <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves countdown context card.">
+        <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves countdown context card." width="1200" height="675" decoding="async">
       </div>
       <div class="banner-art">
-        <img src="/assets/img/next-banner-card.svg" alt="Next Wuthering Waves countdown context card.">
+        <img src="/assets/img/next-banner-card.svg" alt="Next Wuthering Waves countdown context card." width="1200" height="675" decoding="async">
       </div>
     </div>"""
 
@@ -670,13 +687,11 @@ def build_character_intro(page: dict[str, str], snapshot: dict[str, object]) -> 
 def build_character_media(page: dict[str, str]) -> str:
     return f"""    <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art">
-        <img src="/assets/img/{page["card_name"]}" alt="Pull advice card for {page["character"]}.">
+        <img src="/assets/img/{page["card_name"]}" alt="Pull advice card for {page["character"]}." width="1200" height="675" decoding="async">
       </div>
       <div class="video-card">
         <h2>Phase reference video</h2>
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/viOkAhoa0k8" title="Wuthering Waves Version 3.3 Preview Special Broadcast" loading="lazy" allowfullscreen></iframe>
-        </div>
+        {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
       </div>
     </div>"""
 
@@ -786,9 +801,7 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
   <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+{FONT_PRELOAD_BLOCK}
   <link rel="stylesheet" href="/assets/css/site.css">
   <script type="application/ld+json">
 {faq_json}
@@ -808,6 +821,7 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
 {build_character_sources(page, snapshot["updated"])}
     </section>
   </div></main>
+  <script defer src="/assets/js/site.js"></script>
 {GTAG_SNIPPET}
 </body>
 </html>

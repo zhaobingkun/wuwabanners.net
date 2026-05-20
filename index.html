@@ -18,7 +18,9 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="/assets/img/current-banner-card.svg" type="image/svg+xml" fetchpriority="high">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/assets/css/site.css">
   <script type="application/ld+json">
   {
@@ -123,13 +125,19 @@
       <!-- AUTO:HOME_MEDIA -->
       <div class="container media-grid">
         <div class="banner-art">
-          <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot generated from the latest CSV build.">
+          <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot generated from the latest CSV build." width="1200" height="675" decoding="async" fetchpriority="high">
         </div>
         <div class="video-card">
           <h2>Official preview video slot</h2>
           <p class="section-intro">Use one official broadcast or trailer on the homepage. This keeps the front page visually stronger without turning the site into a video-first layout.</p>
           <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/viOkAhoa0k8" title="Wuthering Waves Version 3.3 Preview Special Broadcast" loading="lazy" allowfullscreen></iframe>
+            <button class="video-lite" type="button" data-video-id="viOkAhoa0k8" data-video-title="Wuthering Waves Version 3.3 Preview Special Broadcast" aria-label="Load video: Wuthering Waves Version 3.3 Preview Special Broadcast">
+              <span class="video-lite-badge">Official Video</span>
+              <span class="video-lite-play" aria-hidden="true"></span>
+              <span class="video-lite-title">Wuthering Waves Version 3.3 Preview Special Broadcast</span>
+              <span class="video-lite-note">Click to load the YouTube player.</span>
+            </button>
+            <noscript><p class="muted" style="padding:1rem;">JavaScript is off. <a href="https://www.youtube.com/watch?v=viOkAhoa0k8">Watch this video on YouTube</a>.</p></noscript>
           </div>
         </div>
       </div>
@@ -224,6 +232,11 @@
             <p class="muted">For users who want live windows, next windows, and timing context in one browser-friendly page.</p>
             <a href="/wuthering-waves-event-calendar/">Read page</a>
           </div>
+          <div class="mini-stat">
+            <strong>Characters</strong>
+            <p class="muted">For users who want a clean bridge from current and next banner lineups into pull and planning pages.</p>
+            <a href="/wuthering-waves-characters/">Read page</a>
+          </div>
         </div>
         <!-- AUTO:HOME_UPDATE -->
         <p class="update-stamp">Snapshot updated for May 19, 2026. Current and next banner values should be rechecked against official notices and in-game Convene at every phase change.</p>
@@ -244,10 +257,11 @@
       </div>
       <div>
         <strong>Guide pages</strong>
-        <p><a href="/wuthering-waves-pity-system/">Pity system</a><br><a href="/wuthering-waves-next-rerun/">Next rerun</a><br><a href="/pull-advice/">Pull advice hub</a><br><a href="/wuthering-waves-weapon-banner/">Weapon banner</a><br><a href="/wuthering-waves-timeline/">Timeline</a></p>
+        <p><a href="/wuthering-waves-pity-system/">Pity system</a><br><a href="/wuthering-waves-next-rerun/">Next rerun</a><br><a href="/pull-advice/">Pull advice hub</a><br><a href="/wuthering-waves-weapon-banner/">Weapon banner</a><br><a href="/wuthering-waves-timeline/">Timeline</a><br><a href="/wuthering-waves-characters/">Characters</a></p>
       </div>
     </div>
   </footer>
+<script defer src="/assets/js/site.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C73K15FD00"></script>
 <script>
