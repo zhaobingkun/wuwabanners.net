@@ -90,11 +90,6 @@ def extract_asset_url(block: str, preferred_prefix: str, fallback_prefix: str) -
     if fallback:
         return fallback.group("url"), "Icon"
 
-    generic = re.search(r'"(?:portraitSrc|iconSrc)":\{.*?"url":"(?P<url>/api/[^"]+/file/[^"]+)"', block, re.S)
-    if generic:
-        label = "Portrait" if "portrait" in generic.group("url") else "Icon"
-        return generic.group("url"), label
-
     return None, ""
 
 
@@ -144,6 +139,10 @@ def parse_weapons(html: str) -> list[dict[str, str]]:
 
 def sync_entries(entries: list[dict[str, str]], target_dir: Path, kind: str) -> list[dict[str, str]]:
     target_dir.mkdir(parents=True, exist_ok=True)
+    for existing in target_dir.iterdir():
+        if existing.is_file():
+            existing.unlink()
+
     output: list[dict[str, str]] = []
     for entry in entries:
         target_path = target_dir / entry["filename"]

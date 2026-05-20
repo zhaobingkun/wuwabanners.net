@@ -72,7 +72,7 @@ async function loadReferenceImages() {
         return;
       }
 
-      entries.slice(0, 12).forEach((entry) => {
+      entries.forEach((entry) => {
         const card = document.createElement("article");
         card.className = `reference-card ${kind === "weapons" ? "weapon" : "character"}`;
 

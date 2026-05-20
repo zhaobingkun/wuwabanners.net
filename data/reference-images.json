@@ -8,32 +8,11 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/lingyang.webp"
     },
     {
-      "name": "Sound-Keeping Tacet Core",
-      "slug": "sound-keeping-tacet-core",
-      "src": "/assets/img/reference/characters/sound-keeping-tacet-core.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/sound-keeping-tacet-core.webp"
-    },
-    {
-      "name": "Cadence Seed",
-      "slug": "cadence-seed",
-      "src": "/assets/img/reference/characters/cadence-seed.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/cadence-seed.webp"
-    },
-    {
       "name": "Zhezhi",
       "slug": "zhezhi",
       "src": "/assets/img/reference/characters/zhezhi.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/zhezhi.webp"
-    },
-    {
-      "name": "Monument Bell",
-      "slug": "monument-bell",
-      "src": "/assets/img/reference/characters/monument-bell.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/monument-bell.webp"
     },
     {
       "name": "Carlotta",
@@ -43,39 +22,11 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/carlotta.webp"
     },
     {
-      "name": "Platinum Core",
-      "slug": "platinum-core",
-      "src": "/assets/img/reference/characters/platinum-core.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/platinum-core.webp"
-    },
-    {
-      "name": "Impure Phlogiston",
-      "slug": "impure-phlogiston",
-      "src": "/assets/img/reference/characters/impure-phlogiston.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/impure-phlogiston.webp"
-    },
-    {
       "name": "Hiyuki",
       "slug": "hiyuki",
       "src": "/assets/img/reference/characters/hiyuki.png",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/hiyuki-portrait.png"
-    },
-    {
-      "name": "Our Choice",
-      "slug": "our-choice",
-      "src": "/assets/img/reference/characters/our-choice.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/our-choice.webp"
-    },
-    {
-      "name": "Redbell",
-      "slug": "redbell",
-      "src": "/assets/img/reference/characters/redbell.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/redbell.webp"
     },
     {
       "name": "Encore",
@@ -85,25 +36,11 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/encore.webp"
     },
     {
-      "name": "Pecok Flower",
-      "slug": "pecok-flower",
-      "src": "/assets/img/reference/characters/pecok-flower.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/pecok-flower.webp"
-    },
-    {
       "name": "Changli",
       "slug": "changli",
       "src": "/assets/img/reference/characters/changli.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/changli.webp"
-    },
-    {
-      "name": "Sentinel's Dagger",
-      "slug": "sentinels-dagger",
-      "src": "/assets/img/reference/characters/sentinels-dagger.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/sentinels-dagger.webp"
     },
     {
       "name": "Brant",
@@ -113,25 +50,11 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/brant.webp"
     },
     {
-      "name": "Blazing Bone",
-      "slug": "blazing-bone",
-      "src": "/assets/img/reference/characters/blazing-bone.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/blazing-bone.webp"
-    },
-    {
       "name": "Lupa",
       "slug": "lupa",
       "src": "/assets/img/reference/characters/lupa.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/lupa.webp"
-    },
-    {
-      "name": "Bloodleaf Viburnum",
-      "slug": "bloodleaf-viburnum",
-      "src": "/assets/img/reference/characters/bloodleaf-viburnum.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/bloodleaf-viburnum.webp"
     },
     {
       "name": "Galbrena",
@@ -141,13 +64,6 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/galbrena.png"
     },
     {
-      "name": "Curse of the Abyss",
-      "slug": "curse-of-the-abyss",
-      "src": "/assets/img/reference/characters/curse-of-the-abyss.png",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/curse-of-the-abyss.png"
-    },
-    {
       "name": "Mornye",
       "slug": "mornye",
       "src": "/assets/img/reference/characters/mornye.webp",
@@ -155,32 +71,11 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/mornye-portrait.webp"
     },
     {
-      "name": "Burning Judgment",
-      "slug": "burning-judgment",
-      "src": "/assets/img/reference/characters/burning-judgment.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/burning-judgment.webp"
-    },
-    {
-      "name": "LF Carved Crystal",
-      "slug": "lf-carved-crystal",
-      "src": "/assets/img/reference/characters/lf-carved-crystal.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/lf-carved-crystal.webp"
-    },
-    {
       "name": "Aemeath",
       "slug": "aemeath",
       "src": "/assets/img/reference/characters/aemeath.png",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/aemeath-portrait.png"
-    },
-    {
-      "name": "Moss Amber",
-      "slug": "moss-amber",
-      "src": "/assets/img/reference/characters/moss-amber.png",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/moss-amber.png"
     },
     {
       "name": "Denia",
@@ -197,25 +92,11 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/calcharo.webp"
     },
     {
-      "name": "Iris",
-      "slug": "iris",
-      "src": "/assets/img/reference/characters/iris.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/iris.webp"
-    },
-    {
       "name": "Yinlin",
       "slug": "yinlin",
       "src": "/assets/img/reference/characters/yinlin.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/yinlin.webp"
-    },
-    {
-      "name": "Dreamless Feather",
-      "slug": "dreamless-feather",
-      "src": "/assets/img/reference/characters/dreamless-feather.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/dreamless-feather.webp"
     },
     {
       "name": "Jinhsi",
@@ -225,32 +106,11 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/jinhsi.webp"
     },
     {
-      "name": "Loong's Pearl",
-      "slug": "loongs-pearl",
-      "src": "/assets/img/reference/characters/loongs-pearl.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/loongs-pearl.webp"
-    },
-    {
       "name": "Xiangli Yao",
       "slug": "xiangli-yao",
       "src": "/assets/img/reference/characters/xiangli-yao.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/xiangli-yao.webp"
-    },
-    {
-      "name": "Violet Coral",
-      "slug": "violet-coral",
-      "src": "/assets/img/reference/characters/violet-coral.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/violet-coral.webp"
-    },
-    {
-      "name": "Augusta",
-      "slug": "augusta",
-      "src": "/assets/img/reference/characters/augusta.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/when-irises-bloom.webp"
     },
     {
       "name": "Jiyan",
@@ -288,13 +148,6 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/cartethyia.webp"
     },
     {
-      "name": "Iuno",
-      "slug": "iuno",
-      "src": "/assets/img/reference/characters/iuno.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/abyssal-husk.webp"
-    },
-    {
       "name": "Qiuyuan",
       "slug": "qiuyuan",
       "src": "/assets/img/reference/characters/qiuyuan.png",
@@ -307,20 +160,6 @@
       "src": "/assets/img/reference/characters/sigrika.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/sigrika-portrait.webp"
-    },
-    {
-      "name": "Arithmetic Shell",
-      "slug": "arithmetic-shell",
-      "src": "/assets/img/reference/characters/arithmetic-shell.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/arithmetic-shell.webp"
-    },
-    {
-      "name": "Rover: Spectro",
-      "slug": "rover-spectro",
-      "src": "/assets/img/reference/characters/rover-spectro.png",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-skill-icons/file/srover-basic.png"
     },
     {
       "name": "Verina",
@@ -337,25 +176,11 @@
       "source": "https://wuwatracker.com/api/character-portraits/file/shorekeeper.webp"
     },
     {
-      "name": "Nova",
-      "slug": "nova",
-      "src": "/assets/img/reference/characters/nova.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/nova.webp"
-    },
-    {
       "name": "Phoebe",
       "slug": "phoebe",
       "src": "/assets/img/reference/characters/phoebe.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/phoebe.webp"
-    },
-    {
-      "name": "Firecracker Jewelweed",
-      "slug": "firecracker-jewelweed",
-      "src": "/assets/img/reference/characters/firecracker-jewelweed.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/firecracker-jewelweed.webp"
     },
     {
       "name": "Zani",
@@ -377,13 +202,6 @@
       "src": "/assets/img/reference/characters/lynae.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/lynae-portrait.webp"
-    },
-    {
-      "name": "Rimewisp",
-      "slug": "rimewisp",
-      "src": "/assets/img/reference/characters/rimewisp.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/rimewisp.webp"
     },
     {
       "name": "Luuk Herssen",
@@ -535,13 +353,6 @@
       "source": "https://wuwatracker.com/api/weapon-portraits/file/wildfire-mark"
     },
     {
-      "name": "Fractured Exoswarm Pendant",
-      "slug": "fractured-exoswarm-pendant",
-      "src": "/assets/img/reference/weapons/fractured-exoswarm-pendant.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/fractured-exoswarm-pendant.webp"
-    },
-    {
       "name": "Thunderflare Dominion",
       "slug": "thunderflare-dominion",
       "src": "/assets/img/reference/weapons/thunderflare-dominion.webp",
@@ -575,13 +386,6 @@
       "src": "/assets/img/reference/weapons/unflickering-valor.png",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/weapon-portraits/file/unflickering-valor.png"
-    },
-    {
-      "name": "LF Mech Core",
-      "slug": "lf-mech-core",
-      "src": "/assets/img/reference/weapons/lf-mech-core.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/item-icons/file/lf-mech-core.webp"
     },
     {
       "name": "Bloodpact's Pledge",
