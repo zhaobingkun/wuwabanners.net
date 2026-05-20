@@ -58,6 +58,10 @@ Submit these after Batch 2:
 10. `https://wuwabanners.net/wuthering-waves-weekly-reset-time/`
 11. `https://wuwabanners.net/wuthering-waves-event-calendar/`
 12. `https://wuwabanners.net/wuthering-waves-banner-order/`
+13. `https://wuwabanners.net/wuthering-waves-current-banner-characters/`
+14. `https://wuwabanners.net/wuthering-waves-next-banner-date/`
+15. `https://wuwabanners.net/wuthering-waves-current-banner-end-date/`
+16. `https://wuwabanners.net/wuthering-waves-next-banner-countdown/`
 
 Why:
 

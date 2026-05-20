@@ -53,6 +53,10 @@ BASE_URLS = [
     "https://wuwabanners.net/wuthering-waves-weekly-reset-time/",
     "https://wuwabanners.net/wuthering-waves-event-calendar/",
     "https://wuwabanners.net/wuthering-waves-banner-order/",
+    "https://wuwabanners.net/wuthering-waves-current-banner-characters/",
+    "https://wuwabanners.net/wuthering-waves-next-banner-date/",
+    "https://wuwabanners.net/wuthering-waves-current-banner-end-date/",
+    "https://wuwabanners.net/wuthering-waves-next-banner-countdown/",
     "https://wuwabanners.net/pull-advice/",
 ]
 
