@@ -1,3 +1,27 @@
+function prettifySlug(value) {
+  return String(value || "")
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function looksMojibake(value) {
+  return /[ÃÅÆÇÐÑØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ]/.test(value || "");
+}
+
+function getReferenceTitle(entry) {
+  if (entry && entry.name && !looksMojibake(entry.name)) {
+    return entry.name;
+  }
+
+  if (entry && entry.slug) {
+    return prettifySlug(entry.slug);
+  }
+
+  return "Reference";
+}
+
 document.addEventListener("click", (event) => {
   const trigger = event.target.closest(".video-lite");
   if (!trigger) {
@@ -57,14 +81,14 @@ async function loadReferenceImages() {
 
         const img = document.createElement("img");
         img.src = entry.src;
-        img.alt = entry.name || entry.slug || "Reference image";
+        img.alt = getReferenceTitle(entry);
         img.loading = "lazy";
         img.decoding = "async";
         art.appendChild(img);
 
         const meta = document.createElement("div");
         meta.className = "reference-meta";
-        meta.innerHTML = `<h3>${entry.name || entry.slug || "Reference"}</h3><p>${entry.note || entry.slug || ""}</p>`;
+        meta.innerHTML = `<h3>${getReferenceTitle(entry)}</h3>`;
 
         card.appendChild(art);
         card.appendChild(meta);

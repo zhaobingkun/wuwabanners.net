@@ -1,1150 +1,940 @@
 {
   "characters": [
     {
-      "name": "åé³",
+      "name": "Lingyang",
       "slug": "lingyang",
       "src": "/assets/img/reference/characters/lingyang.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/lingyang.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/lingyang.webp"
     },
     {
-      "name": "ææ",
+      "name": "Sound-Keeping Tacet Core",
+      "slug": "sound-keeping-tacet-core",
+      "src": "/assets/img/reference/characters/sound-keeping-tacet-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/sound-keeping-tacet-core.webp"
+    },
+    {
+      "name": "Cadence Seed",
+      "slug": "cadence-seed",
+      "src": "/assets/img/reference/characters/cadence-seed.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/cadence-seed.webp"
+    },
+    {
+      "name": "Zhezhi",
       "slug": "zhezhi",
       "src": "/assets/img/reference/characters/zhezhi.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/zhezhi.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/zhezhi.webp"
     },
     {
-      "name": "çè±å¡",
+      "name": "Monument Bell",
+      "slug": "monument-bell",
+      "src": "/assets/img/reference/characters/monument-bell.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/monument-bell.webp"
+    },
+    {
+      "name": "Carlotta",
       "slug": "carlotta",
       "src": "/assets/img/reference/characters/carlotta.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/carlotta.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/carlotta.webp"
     },
     {
-      "name": "ç»¯éª",
+      "name": "Platinum Core",
+      "slug": "platinum-core",
+      "src": "/assets/img/reference/characters/platinum-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/platinum-core.webp"
+    },
+    {
+      "name": "Impure Phlogiston",
+      "slug": "impure-phlogiston",
+      "src": "/assets/img/reference/characters/impure-phlogiston.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/impure-phlogiston.webp"
+    },
+    {
+      "name": "Hiyuki",
       "slug": "hiyuki",
-      "src": "/assets/img/reference/characters/hiyuki.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/hiyuki-icon.webp"
+      "src": "/assets/img/reference/characters/hiyuki.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/hiyuki-portrait.png"
     },
     {
-      "name": "å®å¯",
+      "name": "Our Choice",
+      "slug": "our-choice",
+      "src": "/assets/img/reference/characters/our-choice.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/our-choice.webp"
+    },
+    {
+      "name": "Redbell",
+      "slug": "redbell",
+      "src": "/assets/img/reference/characters/redbell.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/redbell.webp"
+    },
+    {
+      "name": "Encore",
       "slug": "encore",
       "src": "/assets/img/reference/characters/encore.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/encore.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/encore.webp"
     },
     {
-      "name": "é¿ç¦»",
+      "name": "Pecok Flower",
+      "slug": "pecok-flower",
+      "src": "/assets/img/reference/characters/pecok-flower.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/pecok-flower.webp"
+    },
+    {
+      "name": "Changli",
       "slug": "changli",
       "src": "/assets/img/reference/characters/changli.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/changli.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/changli.webp"
     },
     {
-      "name": "å¸å°ç¹",
+      "name": "Sentinel's Dagger",
+      "slug": "sentinels-dagger",
+      "src": "/assets/img/reference/characters/sentinels-dagger.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/sentinels-dagger.webp"
+    },
+    {
+      "name": "Brant",
       "slug": "brant",
       "src": "/assets/img/reference/characters/brant.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/brant.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/brant.webp"
     },
     {
-      "name": "é²å¸",
+      "name": "Blazing Bone",
+      "slug": "blazing-bone",
+      "src": "/assets/img/reference/characters/blazing-bone.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/blazing-bone.webp"
+    },
+    {
+      "name": "Lupa",
       "slug": "lupa",
       "src": "/assets/img/reference/characters/lupa.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/lupa.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/lupa.webp"
     },
     {
-      "name": "åè´èå¨",
+      "name": "Bloodleaf Viburnum",
+      "slug": "bloodleaf-viburnum",
+      "src": "/assets/img/reference/characters/bloodleaf-viburnum.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/bloodleaf-viburnum.webp"
+    },
+    {
+      "name": "Galbrena",
       "slug": "galbrena",
-      "src": "/assets/img/reference/characters/galbrena.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/galbrena.webp"
+      "src": "/assets/img/reference/characters/galbrena.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/galbrena.png"
     },
     {
-      "name": "è«å®",
+      "name": "Curse of the Abyss",
+      "slug": "curse-of-the-abyss",
+      "src": "/assets/img/reference/characters/curse-of-the-abyss.png",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/curse-of-the-abyss.png"
+    },
+    {
+      "name": "Mornye",
       "slug": "mornye",
       "src": "/assets/img/reference/characters/mornye.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/mornye-icon.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/mornye-portrait.webp"
     },
     {
-      "name": "ç±å¼¥æ¯",
+      "name": "Burning Judgment",
+      "slug": "burning-judgment",
+      "src": "/assets/img/reference/characters/burning-judgment.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/burning-judgment.webp"
+    },
+    {
+      "name": "LF Carved Crystal",
+      "slug": "lf-carved-crystal",
+      "src": "/assets/img/reference/characters/lf-carved-crystal.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/lf-carved-crystal.webp"
+    },
+    {
+      "name": "Aemeath",
       "slug": "aemeath",
       "src": "/assets/img/reference/characters/aemeath.png",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/aemeath-icon.png"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/aemeath-portrait.png"
     },
     {
-      "name": "è¾¾å¦®å¨",
+      "name": "Moss Amber",
+      "slug": "moss-amber",
+      "src": "/assets/img/reference/characters/moss-amber.png",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/moss-amber.png"
+    },
+    {
+      "name": "Denia",
       "slug": "denia",
       "src": "/assets/img/reference/characters/denia.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/character-icons/file/denia-icon.webp"
     },
     {
-      "name": "å¡å¡ç½",
+      "name": "Calcharo",
       "slug": "calcharo",
       "src": "/assets/img/reference/characters/calcharo.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/calcharo.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/calcharo.webp"
     },
     {
-      "name": "åé",
+      "name": "Iris",
+      "slug": "iris",
+      "src": "/assets/img/reference/characters/iris.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/iris.webp"
+    },
+    {
+      "name": "Yinlin",
       "slug": "yinlin",
       "src": "/assets/img/reference/characters/yinlin.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/yinlin.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/yinlin.webp"
     },
     {
-      "name": "ä»æ±",
+      "name": "Dreamless Feather",
+      "slug": "dreamless-feather",
+      "src": "/assets/img/reference/characters/dreamless-feather.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/dreamless-feather.webp"
+    },
+    {
+      "name": "Jinhsi",
       "slug": "jinhsi",
       "src": "/assets/img/reference/characters/jinhsi.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/jinhsi.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/jinhsi.webp"
     },
     {
-      "name": "ç¸éè¦",
+      "name": "Loong's Pearl",
+      "slug": "loongs-pearl",
+      "src": "/assets/img/reference/characters/loongs-pearl.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/loongs-pearl.webp"
+    },
+    {
+      "name": "Xiangli Yao",
       "slug": "xiangli-yao",
       "src": "/assets/img/reference/characters/xiangli-yao.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/xiangli-yao.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/xiangli-yao.webp"
     },
     {
-      "name": "å¥¥å¤æ¯å¡",
+      "name": "Violet Coral",
+      "slug": "violet-coral",
+      "src": "/assets/img/reference/characters/violet-coral.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/violet-coral.webp"
+    },
+    {
+      "name": "Augusta",
       "slug": "augusta",
       "src": "/assets/img/reference/characters/augusta.webp",
       "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/augusta.webp"
+      "source": "https://wuwatracker.com/api/item-icons/file/when-irises-bloom.webp"
     },
     {
-      "name": "å¿ç",
+      "name": "Jiyan",
       "slug": "jiyan",
       "src": "/assets/img/reference/characters/jiyan.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/jiyan.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/jiyan.webp"
     },
     {
-      "name": "é´å¿",
+      "name": "Jianxin",
       "slug": "jianxin",
       "src": "/assets/img/reference/characters/jianxin.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/jianxin.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/jianxin.webp"
     },
     {
-      "name": "æ¼æ³èï¼æ°å¨",
+      "name": "Rover: Aero",
       "slug": "rover-aero",
       "src": "/assets/img/reference/characters/rover-aero.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/mrover.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/mrover.webp"
     },
     {
-      "name": "å¤ç©º",
+      "name": "Ciaccona",
       "slug": "ciaccona",
       "src": "/assets/img/reference/characters/ciaccona.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/ciaccona.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/ciaccona.webp"
     },
     {
-      "name": "å¡æå¸å¨",
+      "name": "Cartethyia",
       "slug": "cartethyia",
       "src": "/assets/img/reference/characters/cartethyia.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/cartethyia.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/cartethyia.webp"
     },
     {
-      "name": "å°¤è¯º",
+      "name": "Iuno",
       "slug": "iuno",
       "src": "/assets/img/reference/characters/iuno.webp",
       "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/iuno.webp"
+      "source": "https://wuwatracker.com/api/item-icons/file/abyssal-husk.webp"
     },
     {
-      "name": "ä»è¿",
+      "name": "Qiuyuan",
       "slug": "qiuyuan",
-      "src": "/assets/img/reference/characters/qiuyuan.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/qiuyuan.webp"
+      "src": "/assets/img/reference/characters/qiuyuan.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/qiuyuan.png"
     },
     {
-      "name": "è¥¿æ ¼èå¡",
+      "name": "Sigrika",
       "slug": "sigrika",
       "src": "/assets/img/reference/characters/sigrika.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/sigrika-icon.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/sigrika-portrait.webp"
     },
     {
-      "name": "æ¼æ³èï¼è¡å°",
+      "name": "Arithmetic Shell",
+      "slug": "arithmetic-shell",
+      "src": "/assets/img/reference/characters/arithmetic-shell.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/arithmetic-shell.webp"
+    },
+    {
+      "name": "Rover: Spectro",
       "slug": "rover-spectro",
-      "src": "/assets/img/reference/characters/rover-spectro.webp",
+      "src": "/assets/img/reference/characters/rover-spectro.png",
       "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/verina.webp"
+      "source": "https://wuwatracker.com/api/character-skill-icons/file/srover-basic.png"
     },
     {
-      "name": "å®å²¸äºº",
+      "name": "Verina",
+      "slug": "verina",
+      "src": "/assets/img/reference/characters/verina.webp",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/verina.webp"
+    },
+    {
+      "name": "Shorekeeper",
       "slug": "shorekeeper",
       "src": "/assets/img/reference/characters/shorekeeper.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/shorekeeper.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/shorekeeper.webp"
     },
     {
-      "name": "è²æ¯",
+      "name": "Nova",
+      "slug": "nova",
+      "src": "/assets/img/reference/characters/nova.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/nova.webp"
+    },
+    {
+      "name": "Phoebe",
       "slug": "phoebe",
       "src": "/assets/img/reference/characters/phoebe.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/phoebe.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/phoebe.webp"
     },
     {
-      "name": "èµå¦®",
+      "name": "Firecracker Jewelweed",
+      "slug": "firecracker-jewelweed",
+      "src": "/assets/img/reference/characters/firecracker-jewelweed.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/firecracker-jewelweed.webp"
+    },
+    {
+      "name": "Zani",
       "slug": "zani",
       "src": "/assets/img/reference/characters/zani.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/zani.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/zani.webp"
     },
     {
-      "name": "åå²",
+      "name": "Chisa",
       "slug": "chisa",
       "src": "/assets/img/reference/characters/chisa.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/chisa.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/chisa.webp"
     },
     {
-      "name": "ç³å¥",
+      "name": "Lynae",
       "slug": "lynae",
       "src": "/assets/img/reference/characters/lynae.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/lynae-icon.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/lynae-portrait.webp"
     },
     {
-      "name": "éÂ·èµ«æ¯",
+      "name": "Rimewisp",
+      "slug": "rimewisp",
+      "src": "/assets/img/reference/characters/rimewisp.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/rimewisp.webp"
+    },
+    {
+      "name": "Luuk Herssen",
       "slug": "luuk-herssen",
       "src": "/assets/img/reference/characters/luuk-herssen.png",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/luuk-herssen-icon.png"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/luuk-herssen-portrait.png"
     },
     {
-      "name": "æ¤¿",
+      "name": "Camellya",
       "slug": "camellya",
       "src": "/assets/img/reference/characters/camellya.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/camellya.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/camellya.webp"
     },
     {
-      "name": "æ¼æ³èï¼æ¹®ç­",
+      "name": "Rover: Havoc",
       "slug": "rover-havoc",
       "src": "/assets/img/reference/characters/rover-havoc.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/frover.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/frover.webp"
     },
     {
-      "name": "æ´å¯å¯",
+      "name": "Roccia",
       "slug": "roccia",
       "src": "/assets/img/reference/characters/roccia.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/roccia.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/roccia.webp"
     },
     {
-      "name": "åç¹è¾æ",
+      "name": "Cantarella",
       "slug": "cantarella",
       "src": "/assets/img/reference/characters/cantarella.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/cantarella.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/cantarella.webp"
     },
     {
-      "name": "å¼æ´æ´",
+      "name": "Phrolova",
       "slug": "phrolova",
       "src": "/assets/img/reference/characters/phrolova.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/phrolova.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/phrolova.webp"
     },
     {
-      "name": "æ£å",
+      "name": "Sanhua",
       "slug": "sanhua",
       "src": "/assets/img/reference/characters/sanhua.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/sanhua.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/sanhua.webp"
     },
     {
-      "name": "ç½è·",
+      "name": "Baizhi",
       "slug": "baizhi",
       "src": "/assets/img/reference/characters/baizhi.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/baizhi.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/baizhi.webp"
     },
     {
-      "name": "éç",
+      "name": "Youhu",
       "slug": "youhu",
       "src": "/assets/img/reference/characters/youhu.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/youhu.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/youhu.webp"
     },
     {
-      "name": "ç½é",
+      "name": "Chixia",
       "slug": "chixia",
       "src": "/assets/img/reference/characters/chixia.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/chixia.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/chixia.webp"
     },
     {
-      "name": "è«ç¹æ",
+      "name": "Mortefi",
       "slug": "mortefi",
       "src": "/assets/img/reference/characters/mortefi.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/mortefi.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/mortefi.webp"
     },
     {
-      "name": "æ¸æ­¦",
+      "name": "Yuanwu",
       "slug": "yuanwu",
       "src": "/assets/img/reference/characters/yuanwu.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/yuanwu.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/yuanwu.webp"
     },
     {
-      "name": "åçµ",
+      "name": "Buling",
       "slug": "buling",
       "src": "/assets/img/reference/characters/buling.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/buling.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/buling.webp"
     },
     {
-      "name": "ç§§ç§§",
+      "name": "Yangyang",
       "slug": "yangyang",
       "src": "/assets/img/reference/characters/yangyang.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/yangyang.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/yangyang.webp"
     },
     {
-      "name": "ç§æ°´",
+      "name": "Aalto",
       "slug": "aalto",
       "src": "/assets/img/reference/characters/aalto.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/aalto.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/aalto.webp"
     },
     {
-      "name": "ç¯ç¯",
+      "name": "Lumi",
       "slug": "lumi",
       "src": "/assets/img/reference/characters/lumi.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/lumi.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/lumi.webp"
     },
     {
-      "name": "æ¡ç¥",
+      "name": "Taoqi",
       "slug": "taoqi",
       "src": "/assets/img/reference/characters/taoqi.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/taoqi.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/taoqi.webp"
     },
     {
-      "name": "ä¸¹ç¾",
+      "name": "Danjin",
       "slug": "danjin",
       "src": "/assets/img/reference/characters/danjin.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/character-icons/file/danjin.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/character-portraits/file/danjin.webp"
     }
   ],
   "weapons": [
     {
-      "name": "æµ©å¢ç²¼å",
+      "name": "Lustrous Razor",
       "slug": "lustrous-razor",
       "src": "/assets/img/reference/weapons/lustrous-razor.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/lustrous-razor.webp"
     },
     {
-      "name": "èé³åå¶",
+      "name": "Verdant Summit",
       "slug": "verdant-summit",
-      "src": "/assets/img/reference/weapons/verdant-summit.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/verdant-summit.webp"
+      "src": "/assets/img/reference/weapons/verdant-summit.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/verdant-summit.png"
     },
     {
-      "name": "æ¶åå²ç¨",
-      "slug": "ages-of-harvest",
-      "src": "/assets/img/reference/weapons/ages-of-harvest.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/ages-of-harvest.webp"
-    },
-    {
-      "name": "ç°ç",
+      "name": "Wildfire Mark",
       "slug": "wildfire-mark",
       "src": "/assets/img/reference/weapons/wildfire-mark.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/wildfire-mark.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/wildfire-mark"
     },
     {
-      "name": "æºè½æºé",
-      "slug": "radiance-cleaver",
-      "src": "/assets/img/reference/weapons/radiance-cleaver.webp",
+      "name": "Fractured Exoswarm Pendant",
+      "slug": "fractured-exoswarm-pendant",
+      "src": "/assets/img/reference/weapons/fractured-exoswarm-pendant.webp",
       "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/radiance-cleaver.webp"
+      "source": "https://wuwatracker.com/api/item-icons/file/fractured-exoswarm-pendant.webp"
     },
     {
-      "name": "é©­åé¸é·ä¹æ",
+      "name": "Thunderflare Dominion",
       "slug": "thunderflare-dominion",
       "src": "/assets/img/reference/weapons/thunderflare-dominion.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/thunderflare-dominion.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/thunderflare-dominion.webp"
     },
     {
-      "name": "æå",
-      "slug": "kumokiri",
-      "src": "/assets/img/reference/weapons/kumokiri.png",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/kumokiri.png"
-    },
-    {
-      "name": "å®ç®ä»ªè½¨",
+      "name": "Starfield Calibrator",
       "slug": "starfield-calibrator",
-      "src": "/assets/img/reference/weapons/starfield-calibrator.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/starfield-calibrator.webp"
+      "src": "/assets/img/reference/weapons/starfield-calibrator.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/starfield-calibrator-portrait.png"
     },
     {
-      "name": "åå¤æ´æµ",
-      "slug": "emerald-of-genesis",
-      "src": "/assets/img/reference/weapons/emerald-of-genesis.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/emerald-of-genesis.webp"
+      "name": "LF Howler Core",
+      "slug": "lf-howler-core",
+      "src": "/assets/img/reference/weapons/lf-howler-core.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/emerald-of-genesis.png"
     },
     {
-      "name": "èµ«å¥æµæ",
+      "name": "Blazing Brilliance",
       "slug": "blazing-brilliance",
-      "src": "/assets/img/reference/weapons/blazing-brilliance.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/blazing-brilliance.webp"
+      "src": "/assets/img/reference/weapons/blazing-brilliance.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/blazing-brilliance.png"
     },
     {
-      "name": "è£æ¥",
-      "slug": "red-spring",
-      "src": "/assets/img/reference/weapons/red-spring.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/red-spring.webp"
-    },
-    {
-      "name": "ä¸ç­èªè·¯",
+      "name": "Unflickering Valor",
       "slug": "unflickering-valor",
-      "src": "/assets/img/reference/weapons/unflickering-valor.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/unflickering-valor.webp"
+      "src": "/assets/img/reference/weapons/unflickering-valor.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/unflickering-valor.png"
     },
     {
-      "name": "é­å°åå",
-      "slug": "laser-shearer",
-      "src": "/assets/img/reference/weapons/laser-shearer.webp",
+      "name": "LF Mech Core",
+      "slug": "lf-mech-core",
+      "src": "/assets/img/reference/weapons/lf-mech-core.webp",
       "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/laser-shearer.webp"
+      "source": "https://wuwatracker.com/api/item-icons/file/lf-mech-core.webp"
     },
     {
-      "name": "è¡èªççº¦",
+      "name": "Bloodpact's Pledge",
       "slug": "bloodpacts-pledge",
       "src": "/assets/img/reference/weapons/bloodpacts-pledge.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/bloodpacts-pledge.webp"
     },
     {
-      "name": "ä¸å±å½å®ä¹å ",
-      "slug": "defiers-thorn",
-      "src": "/assets/img/reference/weapons/defiers-thorn.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/defiers-thorn.webp"
-    },
-    {
-      "name": "è£ç«¹",
+      "name": "Emerald Sentence",
       "slug": "emerald-sentence",
-      "src": "/assets/img/reference/weapons/emerald-sentence.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/emerald-sentence.webp"
+      "src": "/assets/img/reference/weapons/emerald-sentence.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/emerald-sentence.png"
     },
     {
-      "name": "æ°¸è¿çå¯ææ",
-      "slug": "everbright-polestar",
-      "src": "/assets/img/reference/weapons/everbright-polestar.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/everbright-polestar.webp"
-    },
-    {
-      "name": "ç¼é",
+      "name": "Frostburn",
       "slug": "frostburn",
-      "src": "/assets/img/reference/weapons/frostburn.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/frostburn-icon.webp"
+      "src": "/assets/img/reference/weapons/frostburn.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/frostburn-portrait.png"
     },
     {
-      "name": "åé©»ä¹ç",
-      "slug": "static-mist",
-      "src": "/assets/img/reference/weapons/static-mist.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/static-mist.webp"
+      "name": "Crude Ring",
+      "slug": "crude-ring",
+      "src": "/assets/img/reference/weapons/crude-ring.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/static-mist.png"
     },
     {
-      "name": "æ­»ä¸è",
-      "slug": "the-last-dance",
-      "src": "/assets/img/reference/weapons/the-last-dance.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/the-last-dance.webp"
-    },
-    {
-      "name": "æé´çåå¹è°",
+      "name": "Woodland Aria",
       "slug": "woodland-aria",
-      "src": "/assets/img/reference/weapons/woodland-aria.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/woodland-aria.webp"
+      "src": "/assets/img/reference/weapons/woodland-aria.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/woodland-aria.png"
     },
     {
-      "name": "åå½±åç",
-      "slug": "lux-and-umbra",
-      "src": "/assets/img/reference/weapons/lux-and-umbra.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/lux-and-umbra.webp"
-    },
-    {
-      "name": "ç¸ä½æ¶æ¼ª",
+      "name": "Phasic Homogenizer",
       "slug": "phasic-homogenizer",
       "src": "/assets/img/reference/weapons/phasic-homogenizer.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/phasic-homogenizer.webp"
     },
     {
-      "name": "æº¢å½©è§è¾",
+      "name": "Spectrum Blaster",
       "slug": "spectrum-blaster",
-      "src": "/assets/img/reference/weapons/spectrum-blaster.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/spectrum-blaster.webp"
+      "src": "/assets/img/reference/weapons/spectrum-blaster.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/spectrum-blaster.png"
     },
     {
-      "name": "ææ¸ææ¶",
-      "slug": "abyss-surges",
-      "src": "/assets/img/reference/weapons/abyss-surges.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/abyss-surges.webp"
+      "name": "Cadence Seed",
+      "slug": "cadence-seed",
+      "src": "/assets/img/reference/weapons/cadence-seed.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/abyss-surges.png"
     },
     {
-      "name": "è¯¸æ¹çæ¢",
-      "slug": "veritys-handle",
-      "src": "/assets/img/reference/weapons/veritys-handle.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/veritys-handle.webp"
-    },
-    {
-      "name": "æ²åå§",
+      "name": "Tragicomedy",
       "slug": "tragicomedy",
-      "src": "/assets/img/reference/weapons/tragicomedy.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/tragicomedy.webp"
+      "src": "/assets/img/reference/weapons/tragicomedy.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/tragicomedy.png"
     },
     {
-      "name": "ç°åè£å®",
-      "slug": "blazing-justice",
-      "src": "/assets/img/reference/weapons/blazing-justice.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/blazing-justice.webp"
-    },
-    {
-      "name": "èå²åè",
+      "name": "Pulsation Bracer",
       "slug": "pulsation-bracer",
       "src": "/assets/img/reference/weapons/pulsation-bracer.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/pulsation-bracer.webp"
     },
     {
-      "name": "ä¸ç©æå­çæ³¨é",
+      "name": "Moongazer's Sigil",
       "slug": "moongazers-sigil",
       "src": "/assets/img/reference/weapons/moongazers-sigil.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/moongazers-sigil.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/moongazers-sigil.webp"
     },
     {
-      "name": "ç½æ¼ä¹è",
-      "slug": "daybreakers-spine",
-      "src": "/assets/img/reference/weapons/daybreakers-spine.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/daybreakers-spine.webp"
-    },
-    {
-      "name": "æ­æ¥è¯æ³¨",
+      "name": "Solsworn Ciphers",
       "slug": "solsworn-ciphers",
-      "src": "/assets/img/reference/weapons/solsworn-ciphers.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/solsworn-ciphers-icon.webp"
+      "src": "/assets/img/reference/weapons/solsworn-ciphers.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/solsworn-ciphers-portrait.png"
     },
     {
-      "name": "æ¼ªæ¾æµ®å½",
-      "slug": "cosmic-ripples",
-      "src": "/assets/img/reference/weapons/cosmic-ripples.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/cosmic-ripples.webp"
+      "name": "Lento Helix",
+      "slug": "lento-helix",
+      "src": "/assets/img/reference/weapons/lento-helix.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/cosmic-ripples.png"
     },
     {
-      "name": "æ£åä¹æ",
-      "slug": "stringmaster",
-      "src": "/assets/img/reference/weapons/stringmaster.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/stringmaster.webp"
-    },
-    {
-      "name": "ç¼æå°ç»¡",
+      "name": "Rime-Draped Sprouts",
       "slug": "rime-draped-sprouts",
-      "src": "/assets/img/reference/weapons/rime-draped-sprouts.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/rime-draped-sprouts.webp"
+      "src": "/assets/img/reference/weapons/rime-draped-sprouts.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/rime-draped-sprouts.png"
     },
     {
-      "name": "æåºåå",
-      "slug": "stellar-symphony",
-      "src": "/assets/img/reference/weapons/stellar-symphony.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/stellar-symphony.webp"
-    },
-    {
-      "name": "ç»è²æä»ª",
+      "name": "Boson Astrolabe",
       "slug": "boson-astrolabe",
       "src": "/assets/img/reference/weapons/boson-astrolabe.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/boson-astrolabe.webp"
     },
     {
-      "name": "åååå±",
-      "slug": "luminous-hymn",
-      "src": "/assets/img/reference/weapons/luminous-hymn.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/luminous-hymn.webp"
+      "name": "Spliced String",
+      "slug": "spliced-string",
+      "src": "/assets/img/reference/weapons/spliced-string.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/boson-astrolabe-portrait.png"
     },
     {
-      "name": "æµ·çå¢å",
+      "name": "Whispers of Sirens",
       "slug": "whispers-of-sirens",
       "src": "/assets/img/reference/weapons/whispers-of-sirens.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/whispers-of-sirens.webp"
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/whispers-of-sirens.webp"
     },
     {
-      "name": "å¹½å¥çå¿å¿§ç« ",
-      "slug": "lethean-elegy",
-      "src": "/assets/img/reference/weapons/lethean-elegy.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/lethean-elegy.webp"
-    },
-    {
-      "name": "èµä½çç®æ",
+      "name": "Forged Dwarf Star",
       "slug": "forged-dwarf-star",
-      "src": "/assets/img/reference/weapons/forged-dwarf-star.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/forged-dwarf-star-icon.webp"
+      "src": "/assets/img/reference/weapons/forged-dwarf-star.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/forged-dwarf-star-portrait.png"
     },
     {
-      "name": "å¼åç©ºçµ",
-      "slug": "discord",
-      "src": "/assets/img/reference/weapons/discord.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/discord.webp"
-    },
-    {
-      "name": "éç ´å-41å",
+      "name": "Broadblade#41",
       "slug": "broadblade-41",
       "src": "/assets/img/reference/weapons/broadblade-41.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/broadblade-41.webp"
     },
     {
-      "name": "æ°¸å¤é¿æ",
-      "slug": "dauntless-evernight",
-      "src": "/assets/img/reference/weapons/dauntless-evernight.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/dauntless-evernight.webp"
-    },
-    {
-      "name": "ä¸è½",
+      "name": "Helios Cleaver",
       "slug": "helios-cleaver",
       "src": "/assets/img/reference/weapons/helios-cleaver.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/helios-cleaver.webp"
     },
     {
-      "name": "çº¹ç§",
-      "slug": "autumntrace",
-      "src": "/assets/img/reference/weapons/autumntrace.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/autumntrace.webp"
-    },
-    {
-      "name": "åäº¡é¢ç§»",
+      "name": "Waning Redshift",
       "slug": "waning-redshift",
       "src": "/assets/img/reference/weapons/waning-redshift.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/waning-redshift.webp"
     },
     {
-      "name": "å®¹èµ¦çæ²æå½",
-      "slug": "meditations-on-mercy",
-      "src": "/assets/img/reference/weapons/meditations-on-mercy.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/meditations-on-mercy.webp"
-    },
-    {
-      "name": "éç©¹",
+      "name": "Aureate Zenith",
       "slug": "aureate-zenith",
       "src": "/assets/img/reference/weapons/aureate-zenith.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/aureate-zenith.webp"
     },
     {
-      "name": "å¿ä¹é",
-      "slug": "somnoire-anchor",
-      "src": "/assets/img/reference/weapons/somnoire-anchor.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/somnoire-anchor.webp"
-    },
-    {
-      "name": "è¡è¿åºæ²",
+      "name": "Overture",
       "slug": "overture",
       "src": "/assets/img/reference/weapons/overture.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/overture.webp"
     },
     {
-      "name": "ç¬æ©å-18å",
-      "slug": "sword-18",
-      "src": "/assets/img/reference/weapons/sword-18.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/sword-18.webp"
-    },
-    {
-      "name": "ä¸å½å­¤å",
-      "slug": "commando-of-conviction",
-      "src": "/assets/img/reference/weapons/commando-of-conviction.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/commando-of-conviction.webp"
-    },
-    {
-      "name": "è¥¿å",
+      "name": "Lunar Cutter",
       "slug": "lunar-cutter",
       "src": "/assets/img/reference/weapons/lunar-cutter.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/lunar-cutter.webp"
     },
     {
-      "name": "é£æ¯",
-      "slug": "lumingloss",
-      "src": "/assets/img/reference/weapons/lumingloss.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/lumingloss.webp"
-    },
-    {
-      "name": "æ°¸ç»­åç¼©",
+      "name": "Endless Collapse",
       "slug": "endless-collapse",
       "src": "/assets/img/reference/weapons/endless-collapse.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/endless-collapse.webp"
     },
     {
-      "name": "é£æµçå¯è¨è¯",
-      "slug": "fables-of-wisdom",
-      "src": "/assets/img/reference/weapons/fables-of-wisdom.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/fables-of-wisdom.webp"
-    },
-    {
-      "name": "ç¿¼é",
+      "name": "Feather Edge",
       "slug": "feather-edge",
       "src": "/assets/img/reference/weapons/feather-edge.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/feather-edge.webp"
     },
     {
-      "name": "åå½©ä¹æ®µ",
-      "slug": "cadenza",
-      "src": "/assets/img/reference/weapons/cadenza.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/cadenza.webp"
-    },
-    {
-      "name": "ç©¿å»æª-26å",
+      "name": "Pistols#26",
       "slug": "pistols-26",
       "src": "/assets/img/reference/weapons/pistols-26.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/pistols-26.webp"
     },
     {
-      "name": "æ ç çç«",
-      "slug": "undying-flame",
-      "src": "/assets/img/reference/weapons/undying-flame.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/undying-flame.webp"
-    },
-    {
-      "name": "é£é",
-      "slug": "novaburst",
-      "src": "/assets/img/reference/weapons/novaburst.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/novaburst.webp"
-    },
-    {
-      "name": "å¥é·",
+      "name": "Thunderbolt",
       "slug": "thunderbolt",
       "src": "/assets/img/reference/weapons/thunderbolt.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/thunderbolt.webp"
     },
     {
-      "name": "æè®ºå·æµ",
-      "slug": "relativistic-jet",
-      "src": "/assets/img/reference/weapons/relativistic-jet.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/relativistic-jet.webp"
-    },
-    {
-      "name": "åå«çç½æ¼å²",
+      "name": "Romance in Farewell",
       "slug": "romance-in-farewell",
       "src": "/assets/img/reference/weapons/romance-in-farewell.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/romance-in-farewell.webp"
     },
     {
-      "name": "é³ç°",
-      "slug": "solar-flame",
-      "src": "/assets/img/reference/weapons/solar-flame.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/solar-flame.webp"
-    },
-    {
-      "name": "å¼å¸éé³",
+      "name": "Marcato",
       "slug": "marcato",
       "src": "/assets/img/reference/weapons/marcato.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/marcato.webp"
     },
     {
-      "name": "é¢å½±æ³-21ä¸å",
-      "slug": "gauntlets-21-d",
-      "src": "/assets/img/reference/weapons/gauntlets-21-d.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/gauntlets-21-d.webp"
-    },
-    {
-      "name": "è¢æ³½ä¹åº",
+      "name": "Amity Accord",
       "slug": "amity-accord",
       "src": "/assets/img/reference/weapons/amity-accord.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/amity-accord.webp"
     },
     {
-      "name": "éªè¡",
-      "slug": "hollow-mirage",
-      "src": "/assets/img/reference/weapons/hollow-mirage.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/hollow-mirage.webp"
-    },
-    {
-      "name": "éæ",
+      "name": "Stonard",
       "slug": "stonard",
       "src": "/assets/img/reference/weapons/stonard.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/stonard.webp"
     },
     {
-      "name": "å°äºæè",
-      "slug": "celestial-spiral",
-      "src": "/assets/img/reference/weapons/celestial-spiral.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/celestial-spiral.webp"
-    },
-    {
-      "name": "é©éçè±éå¿",
+      "name": "Legend of Drunken Hero",
       "slug": "legend-of-drunken-hero",
       "src": "/assets/img/reference/weapons/legend-of-drunken-hero.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/legend-of-drunken-hero.webp"
     },
     {
-      "name": "åç©º",
-      "slug": "aether-strike",
-      "src": "/assets/img/reference/weapons/aether-strike.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/aether-strike.webp"
-    },
-    {
-      "name": "æ¸æµ·åå£°",
+      "name": "Call of the Abyss",
       "slug": "call-of-the-abyss",
       "src": "/assets/img/reference/weapons/call-of-the-abyss.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/call-of-the-abyss.webp"
     },
     {
-      "name": "å¥å¹»åå¥",
-      "slug": "variation",
-      "src": "/assets/img/reference/weapons/variation.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/variation.webp"
-    },
-    {
-      "name": "å¤§æµ·çé¦èµ ",
+      "name": "Ocean's Gift",
       "slug": "oceans-gift",
       "src": "/assets/img/reference/weapons/oceans-gift.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/oceans-gift.webp"
     },
     {
-      "name": "é¸£å¨ä»ª-25å",
-      "slug": "rectifier-25",
-      "src": "/assets/img/reference/weapons/rectifier-25.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/rectifier-25.webp"
-    },
-    {
-      "name": "ä»å·å®æ",
-      "slug": "jinzhou-keeper",
-      "src": "/assets/img/reference/weapons/jinzhou-keeper.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/jinzhou-keeper.webp"
-    },
-    {
-      "name": "å¼åº¦",
+      "name": "Comet Flare",
       "slug": "comet-flare",
       "src": "/assets/img/reference/weapons/comet-flare.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/comet-flare.webp"
     },
     {
-      "name": "æ¸é³",
-      "slug": "augment",
-      "src": "/assets/img/reference/weapons/augment.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/augment.webp"
-    },
-    {
-      "name": "æ ¸çæç",
-      "slug": "fusion-accretion",
-      "src": "/assets/img/reference/weapons/fusion-accretion.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/fusion-accretion.webp"
-    },
-    {
-      "name": "èé¥°çåå°å¹",
+      "name": "Waltz in Masquerade",
       "slug": "waltz-in-masquerade",
       "src": "/assets/img/reference/weapons/waltz-in-masquerade.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/waltz-in-masquerade.webp"
     },
     {
-      "name": "æå",
-      "slug": "radiant-dawn",
-      "src": "/assets/img/reference/weapons/radiant-dawn.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/radiant-dawn.webp"
-    },
-    {
-      "name": "æå¤é¿åã»çæ",
+      "name": "Broadblade of Night",
       "slug": "broadblade-of-night",
       "src": "/assets/img/reference/weapons/broadblade-of-night.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/broadblade-of-night.webp"
     },
     {
-      "name": "æºè½é¿åã»æµå£¹",
-      "slug": "originite-type-i",
-      "src": "/assets/img/reference/weapons/originite-type-i.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/originite-type-i.webp"
-    },
-    {
-      "name": "è¿è¡èé¿åã»è¾è·¯",
+      "name": "Broadblade of Voyager",
       "slug": "broadblade-of-voyager",
       "src": "/assets/img/reference/weapons/broadblade-of-voyager.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/broadblade-of-voyager.webp"
     },
     {
-      "name": "æå³é¿åã»å®å",
-      "slug": "guardian-broadblade",
-      "src": "/assets/img/reference/weapons/guardian-broadblade.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/guardian-broadblade.webp"
-    },
-    {
-      "name": "é§å¤©æ­£é³",
+      "name": "Beguiling Melody",
       "slug": "beguiling-melody",
       "src": "/assets/img/reference/weapons/beguiling-melody.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/beguiling-melody.webp"
     },
     {
-      "name": "æå¤è¿åã»é»éª",
-      "slug": "sword-of-night",
-      "src": "/assets/img/reference/weapons/sword-of-night.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/sword-of-night.webp"
-    },
-    {
-      "name": "æºè½è¿åã»æµè´°",
-      "slug": "originite-type-ii",
-      "src": "/assets/img/reference/weapons/originite-type-ii.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/originite-type-ii.webp"
-    },
-    {
-      "name": "è¿è¡èè¿åã»æè¿¹",
+      "name": "Sword of Voyager",
       "slug": "sword-of-voyager",
       "src": "/assets/img/reference/weapons/sword-of-voyager.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/sword-of-voyager.webp"
     },
     {
-      "name": "æå³è¿åã»éæµ·",
-      "slug": "guardian-sword",
-      "src": "/assets/img/reference/weapons/guardian-sword.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/guardian-sword.webp"
-    },
-    {
-      "name": "æå¤ä½©æªã»ææ",
+      "name": "Pistols of Night",
       "slug": "pistols-of-night",
       "src": "/assets/img/reference/weapons/pistols-of-night.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/pistols-of-night.webp"
     },
     {
-      "name": "æºè½ä½©æªã»æµå",
-      "slug": "originite-type-iii",
-      "src": "/assets/img/reference/weapons/originite-type-iii.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/originite-type-iii.webp"
-    },
-    {
-      "name": "è¿è¡èä½©æªã»æ´å¯",
+      "name": "Pistols of Voyager",
       "slug": "pistols-of-voyager",
       "src": "/assets/img/reference/weapons/pistols-of-voyager.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/pistols-of-voyager.webp"
     },
     {
-      "name": "æå³ä½©æªã»å¹³äº",
-      "slug": "guardian-pistols",
-      "src": "/assets/img/reference/weapons/guardian-pistols.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/guardian-pistols.webp"
-    },
-    {
-      "name": "æå¤èé ã»å¤è",
+      "name": "Gauntlets of Night",
       "slug": "gauntlets-of-night",
       "src": "/assets/img/reference/weapons/gauntlets-of-night.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/gauntlets-of-night.webp"
     },
     {
-      "name": "æºè½èé ã»æµè",
-      "slug": "originite-type-iv",
-      "src": "/assets/img/reference/weapons/originite-type-iv.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/originite-type-iv.webp"
-    },
-    {
-      "name": "è¿è¡èèé ã»ç ´é",
+      "name": "Gauntlets of Voyager",
       "slug": "gauntlets-of-voyager",
       "src": "/assets/img/reference/weapons/gauntlets-of-voyager.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/gauntlets-of-voyager.webp"
     },
     {
-      "name": "æå³èé ã»æå±±",
-      "slug": "guardian-gauntlets",
-      "src": "/assets/img/reference/weapons/guardian-gauntlets.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/guardian-gauntlets.webp"
-    },
-    {
-      "name": "æå¤ç©éµã»æå",
+      "name": "Rectifier of Night",
       "slug": "rectifier-of-night",
       "src": "/assets/img/reference/weapons/rectifier-of-night.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/rectifier-of-night.webp"
     },
     {
-      "name": "æºè½é³æä»ªã»æµäº",
-      "slug": "originite-type-v",
-      "src": "/assets/img/reference/weapons/originite-type-v.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/originite-type-v.webp"
-    },
-    {
-      "name": "è¿è¡èç©éµã»æ¢å¹½",
+      "name": "Rectifier of Voyager",
       "slug": "rectifier-of-voyager",
-      "src": "/assets/img/reference/weapons/rectifier-of-voyager.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/rectifier-of-voyager.webp"
+      "src": "/assets/img/reference/weapons/rectifier-of-voyager.png",
+      "note": "Portrait",
+      "source": "https://wuwatracker.com/api/weapon-portraits/file/rectifier-of-voyager.png"
     },
     {
-      "name": "æå³é³æä»ªã»çå",
-      "slug": "guardian-rectifier",
-      "src": "/assets/img/reference/weapons/guardian-rectifier.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/guardian-rectifier.webp"
-    },
-    {
-      "name": "ååé¿åã»æ´ç³",
+      "name": "Tyro Broadblade",
       "slug": "tyro-broadblade",
       "src": "/assets/img/reference/weapons/tyro-broadblade.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/tyro-broadblade.webp"
     },
     {
-      "name": "ååè¿åã»é¸£é¨",
-      "slug": "tyro-sword",
-      "src": "/assets/img/reference/weapons/tyro-sword.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/tyro-sword.webp"
-    },
-    {
-      "name": "ååä½©æªã»ç©¿æ",
-      "slug": "tyro-pistols",
-      "src": "/assets/img/reference/weapons/tyro-pistols.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/tyro-pistols.webp"
-    },
-    {
-      "name": "ååèé ã»ç£å²©",
+      "name": "Tyro Gauntlets",
       "slug": "tyro-gauntlets",
       "src": "/assets/img/reference/weapons/tyro-gauntlets.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/tyro-gauntlets.webp"
     },
     {
-      "name": "ååé³æä»ªã»å¬æµª",
-      "slug": "tyro-rectifier",
-      "src": "/assets/img/reference/weapons/tyro-rectifier.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/tyro-rectifier.webp"
-    },
-    {
-      "name": "æå­¦é¿å",
-      "slug": "training-broadblade",
-      "src": "/assets/img/reference/weapons/training-broadblade.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/training-broadblade.webp"
-    },
-    {
-      "name": "æå­¦è¿å",
+      "name": "Training Sword",
       "slug": "training-sword",
       "src": "/assets/img/reference/weapons/training-sword.webp",
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/training-sword.webp"
     },
     {
-      "name": "æå­¦ä½©æª",
-      "slug": "training-pistols",
-      "src": "/assets/img/reference/weapons/training-pistols.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/training-pistols.webp"
-    },
-    {
-      "name": "æå­¦èé ",
-      "slug": "training-gauntlets",
-      "src": "/assets/img/reference/weapons/training-gauntlets.webp",
-      "note": "Icon",
-      "source": "https://wuwatracker.com/api/weapon-icons/file/training-gauntlets.webp"
-    },
-    {
-      "name": "æå­¦é³æä»ª",
+      "name": "Training Rectifier",
       "slug": "training-rectifier",
       "src": "/assets/img/reference/weapons/training-rectifier.webp",
       "note": "Icon",

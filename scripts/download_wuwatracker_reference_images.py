@@ -15,8 +15,8 @@ CHAR_DIR = ROOT / "assets" / "img" / "reference" / "characters"
 WEAPON_DIR = ROOT / "assets" / "img" / "reference" / "weapons"
 
 PAGES = {
-    "characters": "https://wuwatracker.com/zh-CN/characters",
-    "weapons": "https://wuwatracker.com/zh-CN/weapons",
+    "characters": "https://wuwatracker.com/characters",
+    "weapons": "https://wuwatracker.com/weapons",
 }
 
 BASE_URL = "https://wuwatracker.com"
@@ -81,15 +81,32 @@ def decode_next_payload(html: str) -> str:
     return "\n".join(decoded)
 
 
+def extract_asset_url(block: str, preferred_prefix: str, fallback_prefix: str) -> tuple[str | None, str]:
+    preferred = re.search(rf'"portraitSrc":\{{.*?"url":"(?P<url>{re.escape(preferred_prefix)}[^"]+)"', block, re.S)
+    if preferred:
+        return preferred.group("url"), "Portrait"
+
+    fallback = re.search(rf'"iconSrc":\{{.*?"url":"(?P<url>{re.escape(fallback_prefix)}[^"]+)"', block, re.S)
+    if fallback:
+        return fallback.group("url"), "Icon"
+
+    generic = re.search(r'"(?:portraitSrc|iconSrc)":\{.*?"url":"(?P<url>/api/[^"]+/file/[^"]+)"', block, re.S)
+    if generic:
+        label = "Portrait" if "portrait" in generic.group("url") else "Icon"
+        return generic.group("url"), label
+
+    return None, ""
+
+
 def parse_characters(html: str) -> list[dict[str, str]]:
     text = decode_next_payload(html)
-    pattern = re.compile(
-        r'"name":"(?P<name>[^"]+)","slug":"(?P<slug>[^"]+)","rarity":[^,]+,"element":"[^"]+","weapon":"[^"]+".*?"iconSrc":\{.*?"url":"(?P<icon>/api/character-icons/file/[^"]+)"',
-        re.S,
-    )
+    pattern = re.compile(r'"name":"(?P<name>[^"]+)","slug":"(?P<slug>[^"]+)".{0,1600}', re.S)
     entries: list[dict[str, str]] = []
     for match in pattern.finditer(text):
-        url = match.group("icon")
+        block = match.group(0)
+        url, label = extract_asset_url(block, "/api/character-portraits/file/", "/api/character-icons/file/")
+        if not url:
+            continue
         ext = Path(url).suffix or ".webp"
         entries.append(
             {
@@ -97,7 +114,7 @@ def parse_characters(html: str) -> list[dict[str, str]]:
                 "slug": match.group("slug"),
                 "remote_url": BASE_URL + url,
                 "filename": match.group("slug") + ext,
-                "note": "Icon",
+                "note": label,
             }
         )
     return unique_by_slug(entries)
@@ -105,13 +122,13 @@ def parse_characters(html: str) -> list[dict[str, str]]:
 
 def parse_weapons(html: str) -> list[dict[str, str]]:
     text = decode_next_payload(html)
-    pattern = re.compile(
-        r'"name":"(?P<name>[^"]+)","slug":"(?P<slug>[^"]+)","rarity":[^,]+,"type":"[^"]+".*?"iconSrc":\{.*?"url":"(?P<icon>/api/weapon-icons/file/[^"]+)"',
-        re.S,
-    )
+    pattern = re.compile(r'"name":"(?P<name>[^"]+)","slug":"(?P<slug>[^"]+)".{0,1600}', re.S)
     entries: list[dict[str, str]] = []
     for match in pattern.finditer(text):
-        url = match.group("icon")
+        block = match.group(0)
+        url, label = extract_asset_url(block, "/api/weapon-portraits/file/", "/api/weapon-icons/file/")
+        if not url:
+            continue
         ext = Path(url).suffix or ".webp"
         entries.append(
             {
@@ -119,7 +136,7 @@ def parse_weapons(html: str) -> list[dict[str, str]]:
                 "slug": match.group("slug"),
                 "remote_url": BASE_URL + url,
                 "filename": match.group("slug") + ext,
-                "note": "Icon",
+                "note": label,
             }
         )
     return unique_by_slug(entries)

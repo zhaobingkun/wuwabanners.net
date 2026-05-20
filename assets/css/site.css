@@ -524,8 +524,8 @@ th {
 
 .reference-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 0.85rem;
 }
 
 .reference-card {
@@ -534,6 +534,9 @@ th {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+  max-width: 176px;
+  width: 100%;
+  justify-self: center;
 }
 
 .reference-art {
@@ -550,21 +553,25 @@ th {
 
 .reference-card.weapon .reference-art {
   aspect-ratio: 1 / 1;
+  padding: 0.7rem;
+}
+
+.reference-card.weapon {
+  max-width: 160px;
+}
+
+.reference-card.weapon .reference-art img {
+  object-fit: contain;
 }
 
 .reference-meta {
-  padding: 0.95rem 1rem 1.05rem;
+  padding: 0.78rem 0.85rem 0.88rem;
 }
 
 .reference-meta h3 {
-  margin: 0 0 0.2rem;
-  font-size: 1.05rem;
-}
-
-.reference-meta p {
   margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
+  line-height: 1.3;
 }
 
 .reference-empty {
@@ -576,8 +583,7 @@ th {
   .two-col,
   .card-grid,
   .footer-grid,
-  .media-grid,
-  .reference-grid {
+  .media-grid {
     grid-template-columns: 1fr;
   }
 
