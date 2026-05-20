@@ -393,14 +393,16 @@ th {
   color: #fff;
   cursor: pointer;
   background:
-    radial-gradient(circle at top left, rgba(72, 214, 199, 0.18), transparent 32%),
-    linear-gradient(135deg, rgba(15, 118, 110, 0.88), rgba(33, 75, 136, 0.92));
+    linear-gradient(135deg, rgba(7, 18, 39, 0.36), rgba(7, 18, 39, 0.58)),
+    radial-gradient(circle at top left, rgba(72, 214, 199, 0.16), transparent 32%),
+    var(--video-poster, linear-gradient(135deg, rgba(15, 118, 110, 0.88), rgba(33, 75, 136, 0.92))) center/cover no-repeat;
 }
 
 .video-lite:hover {
   background:
+    linear-gradient(135deg, rgba(7, 18, 39, 0.26), rgba(7, 18, 39, 0.48)),
     radial-gradient(circle at top left, rgba(72, 214, 199, 0.22), transparent 32%),
-    linear-gradient(135deg, rgba(15, 118, 110, 0.94), rgba(33, 75, 136, 0.98));
+    var(--video-poster, linear-gradient(135deg, rgba(15, 118, 110, 0.94), rgba(33, 75, 136, 0.98))) center/cover no-repeat;
 }
 
 .video-lite:focus-visible {
@@ -417,7 +419,7 @@ th {
 .video-lite-badge {
   padding: 0.35rem 0.7rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.34);
 }
 
 .video-lite-play {

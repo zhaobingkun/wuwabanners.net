@@ -44,9 +44,10 @@ FONT_PRELOAD_BLOCK = f"""  <link rel="preconnect" href="https://fonts.googleapis
 def render_video_embed(title: str, video_id: str = "viOkAhoa0k8") -> str:
     safe_title = html.escape(title)
     watch_url = f"https://www.youtube.com/watch?v={video_id}"
+    poster_url = f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
     return f"""<div class="video-embed">
-            <button class="video-lite" type="button" data-video-id="{video_id}" data-video-title="{safe_title}" aria-label="Load video: {safe_title}">
-              <span class="video-lite-badge">Official Video</span>
+            <button class="video-lite" type="button" data-video-id="{video_id}" data-video-title="{safe_title}" aria-label="Load video: {safe_title}" style="--video-poster:url('{poster_url}');">
+              <span class="video-lite-badge">YouTube</span>
               <span class="video-lite-play" aria-hidden="true"></span>
               <span class="video-lite-title">{safe_title}</span>
               <span class="video-lite-note">Click to load the YouTube player.</span>
@@ -316,6 +317,27 @@ def build_home_media(updated: str) -> str:
 
 def build_home_update(updated: str) -> str:
     return f'        <p class="update-stamp">Snapshot updated for {fmt_human_date(updated + " 00:00")}. Current and next banner values should be rechecked against official notices and in-game Convene at every phase change.</p>'
+
+
+def build_home_timeline(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    history = snapshot["history"]
+    recent = history[0]
+    return f"""      <div class="container">
+        <h2>Current timeline snapshot</h2>
+        <p class="section-intro">Start with the live phase, the next phase, and the most relevant recent reference. This gives homepage visitors the fastest way to understand where the game is right now without opening three separate pages first.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>Name</th><th>Window</th><th>Best next page</th></tr></thead>
+            <tbody>
+              <tr><td>Live banner phase</td><td>{current["banner_name"]}</td><td>{fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
+              <tr><td>Next banner phase</td><td>{next_item["banner_name"]}</td><td>{fmt_human_date(next_item["start_date"])} to {fmt_human_date(next_item["end_date"])}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+              <tr><td>Recent reference</td><td>{recent["banner_name"]}</td><td>{fmt_human_date(recent["start_date"])} to {fmt_human_date(recent["end_date"])}</td><td><a href="/wuthering-waves-banner-history/">Banner history</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>"""
 
 
 def build_next_intro(snapshot: dict[str, object]) -> str:
@@ -840,6 +862,7 @@ def update_pages(snapshot: dict[str, object]) -> None:
     pull_pages = get_pull_pages(snapshot)
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
+    index_text = replace_block_exact(index_text, "HOME_TIMELINE", build_home_timeline(snapshot))
     index_text = replace_block_exact(index_text, "HOME_MEDIA", build_home_media(snapshot["updated"]))
     index_text = replace_block_exact(index_text, "HOME_UPDATE", build_home_update(snapshot["updated"]))
     INDEX_HTML.write_text(index_text, encoding="utf-8")
