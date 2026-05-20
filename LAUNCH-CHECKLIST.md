@@ -57,6 +57,7 @@ Check for:
    - next banner page
    - current banner page
    - pull advice hub
+   - then follow `SEARCH-CONSOLE-SUBMIT-ORDER.md` for the rest
 4. Check that Google can fetch:
    - `robots.txt`
    - `sitemap.xml`

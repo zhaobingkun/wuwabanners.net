@@ -44,6 +44,15 @@ BASE_URLS = [
     "https://wuwabanners.net/wuthering-waves-pity-system/",
     "https://wuwabanners.net/wuthering-waves-next-rerun/",
     "https://wuwabanners.net/wuthering-waves-banner-countdown/",
+    "https://wuwabanners.net/wuthering-waves-banner-schedule/",
+    "https://wuwabanners.net/wuthering-waves-weapon-banner/",
+    "https://wuwabanners.net/wuthering-waves-all-banners/",
+    "https://wuwabanners.net/wuthering-waves-next-character/",
+    "https://wuwabanners.net/wuthering-waves-timeline/",
+    "https://wuwabanners.net/wuthering-waves-daily-reset-time/",
+    "https://wuwabanners.net/wuthering-waves-weekly-reset-time/",
+    "https://wuwabanners.net/wuthering-waves-event-calendar/",
+    "https://wuwabanners.net/wuthering-waves-banner-order/",
     "https://wuwabanners.net/pull-advice/",
 ]
 
