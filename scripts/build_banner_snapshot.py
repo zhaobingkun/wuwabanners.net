@@ -178,6 +178,7 @@ def build_snapshot(rows: list[dict[str, str]]) -> dict[str, object]:
                 "phase": row["phase"],
                 "banner_name": row["banner_name"],
                 "featured_characters": split_field(row["featured_characters"]),
+                "featured_weapons": split_field(find_weapon_row(rows, row["version"], row["phase"])["featured_weapons"]) if find_weapon_row(rows, row["version"], row["phase"]) else [],
                 "start_date": row["start_date"],
                 "end_date": row["end_date"],
                 "source_url": row["source_url"],
@@ -327,7 +328,12 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
     recent = history[0]
     return f"""      <div class="container">
         <h2>Current timeline snapshot</h2>
-        <p class="section-intro">Start with the live phase, the next phase, and the most relevant recent reference. This gives homepage visitors the fastest way to understand where the game is right now without opening three separate pages first.</p>
+        <p class="section-intro">Start with the live phase, the next phase, and the most important pull timing details first. This gives homepage visitors the fastest way to understand what is live now, what ends next, and when the next saving or pull decision matters.</p>
+        <div class="card-grid" style="margin-bottom:1.25rem;">
+          <article class="card"><h3>Current banner ends</h3><p><strong>{fmt_human_date(current["end_date"])}</strong></p><p>{", ".join(current["featured_characters"])} stay live through the current tracked phase.</p><p><a href="/wuthering-waves-current-banner-end-date/">Open current banner end date</a></p></article>
+          <article class="card"><h3>Next banner starts</h3><p><strong>{fmt_human_date(next_item["start_date"])}</strong></p><p>{", ".join(next_item["featured_characters"])} are the next tracked featured characters.</p><p><a href="/wuthering-waves-next-banner-date/">Open next banner date</a></p></article>
+          <article class="card"><h3>Fastest pull path</h3><p><strong>{current["banner_name"]} vs {next_item["banner_name"]}</strong></p><p>Use the live phase if you need to spend now. Use the next phase if you are deciding whether to save.</p><p><a href="/pull-advice/">Open pull advice</a></p></article>
+        </div>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Type</th><th>Name</th><th>Window</th><th>Best next page</th></tr></thead>
@@ -476,8 +482,8 @@ def build_current_sources(snapshot: dict[str, object]) -> str:
 
 def build_history_intro(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
-    return f"""    <p class="lead">A banner history page is more than an archive. It gives users a way to compare version pacing, judge rerun timing, and decide whether waiting is realistic or too costly for their account goals. This timeline snapshot is generated from the site CSV so phase updates stay consistent.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The best Wuthering Waves banner history page shows version, phase, featured characters, featured weapons, and dates in a table that makes rerun patterns easy to scan.</div>
+    return f"""    <p class="lead">This banner history page now works as a real list page. Users can scan recent version phases first, then open the matching phase detail page for lineup, timing, and rerun context. The history structure is generated from the site CSV so future updates stay consistent.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> The best Wuthering Waves banner history page shows version, phase, featured characters, featured weapons, dates, and a clear route into a dedicated detail page for each tracked phase.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -487,28 +493,47 @@ def build_history_media(snapshot: dict[str, object]) -> str:
         <img src="/assets/img/banner-history-card.svg" alt="Wuthering Waves banner history snapshot generated from the latest CSV build." width="1200" height="675" decoding="async">
       </div>
       <div class="card">
-        <h2>Why this page benefits from an image</h2>
-        <p>History pages often look too dense. A single visual summary makes the section less intimidating while the table still carries the real SEO value.</p>
+        <h2>Use the list page first</h2>
+        <p>Start with the history list to compare phases quickly. Then open the matching detail page when you need the exact lineup, weapons, dates, or rerun context for one banner cycle.</p>
         <p><a href="/wuthering-waves-next-banner/">Compare history against the next banner page</a></p>
       </div>
     </div>"""
+
+
+def history_row_slug(item: dict[str, object]) -> str:
+    phase_slug = str(item["phase"]).lower().replace(" ", "-")
+    version_slug = str(item["version"]).replace(".", "-")
+    return f"version-{version_slug}-{phase_slug}"
+
+
+def history_row_path(item: dict[str, object]) -> str:
+    return f"/wuthering-waves-banner-history/{history_row_slug(item)}/"
 
 
 def build_history_table(snapshot: dict[str, object]) -> str:
     rows = []
     for item in snapshot["history"]:
         rows.append(
-            f'            <tr><td>{item["version"]}</td><td>{item["phase"]}</td><td>{", ".join(item["featured_characters"])}</td><td>{fmt_human_date(item["start_date"])} to {fmt_human_date(item["end_date"])}</td></tr>'
+            f'            <tr><td>{item["version"]}</td><td>{item["phase"]}</td><td>{item["banner_name"]}</td><td>{", ".join(item["featured_characters"])}</td><td>{", ".join(item["featured_weapons"]) if item["featured_weapons"] else "Not tracked"}</td><td>{fmt_human_date(item["start_date"])} to {fmt_human_date(item["end_date"])}</td><td><a href="{history_row_path(item)}">Open detail</a></td></tr>'
         )
     rows_html = "\n".join(rows)
-    return f"""      <h2>Recent banner timeline snapshot</h2>
+    cards = []
+    for item in snapshot["history"]:
+        cards.append(
+            f'        <article class="card"><h3>{item["banner_name"]}</h3><p>{", ".join(item["featured_characters"])}<br>{fmt_human_date(item["start_date"])} to {fmt_human_date(item["end_date"])}</p><p><a href="{history_row_path(item)}">Open phase detail</a></p></article>'
+        )
+    cards_html = "\n".join(cards)
+    return f"""      <h2>Recent banner history list</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Version</th><th>Phase</th><th>Featured 5-stars</th><th>Dates</th></tr></thead>
+          <thead><tr><th>Version</th><th>Phase</th><th>Banner</th><th>Featured characters</th><th>Featured weapons</th><th>Dates</th><th>Detail page</th></tr></thead>
           <tbody>
 {rows_html}
           </tbody>
         </table>
+      </div>
+      <div class="card-grid" style="margin-top:1.25rem;">
+{cards_html}
       </div>"""
 
 
@@ -521,6 +546,162 @@ def build_history_sources(snapshot: dict[str, object]) -> str:
 {lines}<br>
         Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
       </div>"""
+
+
+def get_history_detail_pages(snapshot: dict[str, object]) -> list[dict[str, object]]:
+    pages = []
+    for item in snapshot["history"]:
+        pages.append(
+            {
+                "version": item["version"],
+                "phase": item["phase"],
+                "banner_name": item["banner_name"],
+                "featured_characters": item["featured_characters"],
+                "featured_weapons": item["featured_weapons"],
+                "start_date": item["start_date"],
+                "end_date": item["end_date"],
+                "source_url": item["source_url"],
+                "slug": history_row_slug(item),
+                "path": history_row_path(item),
+            }
+        )
+    return pages
+
+
+def render_history_detail_page(page: dict[str, object], snapshot: dict[str, object]) -> str:
+    banner_name = str(page["banner_name"])
+    version = str(page["version"])
+    phase = str(page["phase"])
+    path = str(page["path"])
+    characters_text = ", ".join(str(name) for name in page["featured_characters"])
+    weapons_text = ", ".join(str(name) for name in page["featured_weapons"]) if page["featured_weapons"] else "No weapon row tracked for this phase."
+    title = f"Wuthering Waves {banner_name} Banner History | WuWa Banners"
+    description = f"View the {banner_name} banner history detail page with featured characters, featured weapons, dates, and rerun context."
+    faq_json = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "headline": f"Wuthering Waves {banner_name} Banner History",
+                    "description": description,
+                    "author": {"@type": "Organization", "name": "WuWa Banners"},
+                    "publisher": {"@type": "Organization", "name": "WuWa Banners"},
+                    "mainEntityOfPage": f"https://wuwabanners.net{path}",
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": f"What does the {banner_name} history detail page show?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": f"It shows the banner window, featured characters, featured weapons, and why {banner_name} matters inside the broader rerun and history timeline."
+                            },
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Why use a detail page instead of one giant history table?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Because the list page should stay fast to scan, while the detail page can hold the exact lineup and timing for one tracked phase."
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+        ensure_ascii=False,
+        indent=2,
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{html.escape(title)}</title>
+  <meta name="description" content="{html.escape(description)}">
+  <link rel="canonical" href="https://wuwabanners.net{path}">
+  <meta property="og:title" content="Wuthering Waves {html.escape(banner_name)} Banner History">
+  <meta property="og:description" content="{html.escape(description)}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wuwabanners.net{path}">
+  <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{FONT_PRELOAD_BLOCK}
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script type="application/ld+json">
+{faq_json}
+  </script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <main class="section"><div class="container">
+    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/banners/">Banners</a> / <a href="/wuthering-waves-banner-history/">Banner history</a> / {html.escape(banner_name)}</div>
+    <h1>Wuthering Waves {html.escape(banner_name)} Banner History</h1>
+    <p class="lead">This detail page isolates one tracked banner phase so users can see the lineup, timing, and rerun context without scanning a larger history table first.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> {html.escape(banner_name)} ran from {fmt_human_date(str(page["start_date"]))} to {fmt_human_date(str(page["end_date"]))}, featuring {html.escape(characters_text)}. The tracked weapons for this phase are {html.escape(weapons_text)}</div>
+    <p class="update-stamp">Last updated: {fmt_human_date(snapshot["updated"] + " 00:00")}.</p>
+    <div class="media-grid" style="margin-top:1.25rem;">
+      <div class="banner-art">
+        <img src="/assets/img/banner-history-card.svg" alt="{html.escape(banner_name)} history detail image." width="1200" height="675" decoding="async">
+      </div>
+      <div class="card">
+        <h2>Why this phase matters</h2>
+        <p>{html.escape(banner_name)} sits inside the broader version flow of {html.escape(version)} {html.escape(phase)}. Use this page when you need one phase in isolation instead of a compressed list view.</p>
+        <p><a href="/wuthering-waves-next-rerun/">Compare this phase against rerun watch</a></p>
+      </div>
+    </div>
+    <section class="section">
+      <h2>{html.escape(banner_name)} detail snapshot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Field</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Version</td><td>{html.escape(version)}</td></tr>
+            <tr><td>Phase</td><td>{html.escape(phase)}</td></tr>
+            <tr><td>Banner name</td><td>{html.escape(banner_name)}</td></tr>
+            <tr><td>Featured characters</td><td>{html.escape(characters_text)}</td></tr>
+            <tr><td>Featured weapons</td><td>{html.escape(weapons_text)}</td></tr>
+            <tr><td>Banner window</td><td>{fmt_human_date(str(page["start_date"]))} to {fmt_human_date(str(page["end_date"]))}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="section two-col">
+      <div class="card">
+        <h2>Best next pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-banner-history/">Back to banner history list</a></li>
+          <li><a href="/wuthering-waves-next-rerun/">Next rerun</a></li>
+          <li><a href="/wuthering-waves-next-banner/">Next banner</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>How to use this detail page</h2>
+        <p>Use the list page for scanning. Use this detail page when you want the exact phase lineup, window, and source in one place before comparing it against current or future banner decisions.</p>
+      </div>
+    </section>
+    <section class="section">
+      <h2>FAQ</h2>
+      <div class="faq-list">
+        <article class="faq-item"><h3>What does the {html.escape(banner_name)} history detail page show?</h3><p>It shows the banner window, featured characters, featured weapons, and why this phase matters inside the broader banner timeline.</p></article>
+        <article class="faq-item"><h3>Why use a detail page instead of one giant history table?</h3><p>Because the list page should stay fast to scan, while a detail page can hold the exact lineup and timing for one tracked phase.</p></article>
+      </div>
+      <div class="sources">
+        <strong>Source used for this {html.escape(banner_name)} detail page</strong><br>
+        Timeline source: {html.escape(str(page["source_url"]))}<br>
+        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+      </div>
+    </section>
+  </div></main>
+  <script defer src="/assets/js/site.js"></script>
+{GTAG_SNIPPET}
+</body>
+</html>
+"""
 
 
 def build_rerun_intro(snapshot: dict[str, object]) -> str:
@@ -835,26 +1016,64 @@ def build_support_media(page: dict[str, str]) -> str:
     </div>"""
 
 
+def support_phase_context(page: dict[str, str], snapshot: dict[str, object]) -> tuple[dict[str, object], dict[str, object]]:
+    primary = snapshot["current"] if page["mode"] == "current" else snapshot["next"]
+    compare = snapshot["next"] if page["mode"] == "current" else snapshot["current"]
+    return primary, compare
+
+
 def build_support_cards(page: dict[str, str], snapshot: dict[str, object]) -> str:
     character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
     if page["kind"] == "materials":
-        compare_name = snapshot["next"]["banner_name"] if page["mode"] == "current" else snapshot["current"]["banner_name"]
         return f"""    <div class="card-grid">
       <article class="card"><h2>What to farm first</h2><p>Start with the stable {character} routes that are least likely to change between preview, official post, and live in-game confirmation.</p></article>
-      <article class="card"><h2>What to verify</h2><p>Before heavy pre-farm, confirm the exact boss-drop and shared-upgrade path that matters most for {character}.</p></article>
-      <article class="card"><h2>Why this matters now</h2><p>This page should keep your material plan aligned with {compare_name}, so you do not burn resources on the wrong phase.</p></article>
+      <article class="card"><h2>What to verify</h2><p>Before heavy pre-farm, confirm the exact boss-drop and shared-upgrade path that matters most for {character} in {primary["banner_name"]}.</p></article>
+      <article class="card"><h2>Why this matters now</h2><p>This page should keep your material plan aligned with {primary["banner_name"]}, while still protecting resources you may need for {compare["banner_name"]}.</p></article>
     </div>"""
     if page["kind"] == "build":
         return f"""    <div class="card-grid">
       <article class="card"><h2>Role framing first</h2><p>Decide whether {character} is your main on-field investment, quick-swap slot, or flexible utility piece before you lock a build route.</p></article>
-      <article class="card"><h2>Cheap decisions first</h2><p>Lock the weapon and upgrade-order decisions that stay useful even if live testing later shifts the ideal final setup.</p></article>
-      <article class="card"><h2>What not to rush</h2><p>Do not over-invest in niche stat tuning until official details and actual in-game usage confirm the most efficient build direction.</p></article>
+      <article class="card"><h2>Cheap decisions first</h2><p>Lock the weapon and upgrade-order decisions that stay useful even if live testing later shifts the ideal final setup in {primary["banner_name"]}.</p></article>
+      <article class="card"><h2>What not to rush</h2><p>Do not over-invest in niche stat tuning until official details and actual in-game usage confirm the most efficient build direction, especially if you may pivot into {compare["banner_name"]}.</p></article>
     </div>"""
     return f"""    <div class="card-grid">
       <article class="card"><h2>Role slot</h2><p>Start by asking what team slot {character} is supposed to solve for your account, not just who looks strongest on paper.</p></article>
-      <article class="card"><h2>Rotation comfort</h2><p>Team comps should stay realistic about setup speed, sustain needs, and how much field time {character} wants.</p></article>
+      <article class="card"><h2>Rotation comfort</h2><p>Team comps should stay realistic about setup speed, sustain needs, and how much field time {character} wants in {primary["banner_name"]} testing.</p></article>
       <article class="card"><h2>Future-proofing</h2><p>Keep one flexible team shell ready so {character} can be tested with future reruns or later phase additions without rebuilding from zero.</p></article>
     </div>"""
+
+
+def build_support_strategy(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    primary_weapons = ", ".join(primary["featured_weapons"]) if primary["featured_weapons"] else "the tracked phase weapon set"
+    compare_characters = ", ".join(compare["featured_characters"])
+    if page["kind"] == "materials":
+        left_title = "What you can safely do now"
+        left_body = f"Use this page to pre-plan stamina around {primary['banner_name']}. Safe work usually means shared credits, common field drops, and broad upgrade routes that still help even if {character} changes slightly at live confirmation."
+        right_title = "What should wait"
+        right_body = f"Leave rare boss routing, weekly lock-ins, and one-character-only farming until {character} is fully confirmed in-game. That matters even more if you may switch resources toward {compare_characters} in {compare['banner_name']}."
+    elif page["kind"] == "build":
+        left_title = "Build decisions to lock early"
+        left_body = f"Lock the role, a fallback weapon route, and a practical first upgrade order. If the tracked weapon set is {primary_weapons}, this page should help you decide whether that path is realistic for your account before you commit."
+        right_title = "Build decisions to leave flexible"
+        right_body = f"Final stat tuning, niche set choices, and premium-only assumptions should stay flexible until live play confirms how {character} actually feels. This is where many users decide to save for {compare['banner_name']} instead."
+    else:
+        left_title = "Best first team question"
+        left_body = f"Ask what problem {character} solves first: field time, burst window, sustain pressure, or slot efficiency. Good team comps pages help users choose a shell that works now, not just an idealized future roster."
+        right_title = "Fallback shell matters"
+        right_body = f"Every {character} team page should also give one realistic fallback shell in case the best-looking pairing is tied to weapons, units, or resources better spent on {compare['banner_name']}."
+    return f"""    <section class="section two-col">
+      <div class="card">
+        <h2>{left_title}</h2>
+        <p>{left_body}</p>
+      </div>
+      <div class="card">
+        <h2>{right_title}</h2>
+        <p>{right_body}</p>
+      </div>
+    </section>"""
 
 
 def build_support_table(page: dict[str, str]) -> str:
@@ -900,6 +1119,11 @@ def build_support_table(page: dict[str, str]) -> str:
 def build_support_related(page: dict[str, str]) -> str:
     character = page["character"]
     slug = page["slug"]
+    context_copy = (
+        f"{character} is part of the live tracked phase, so the best path is to keep this page connected to current-banner timing, current weapons, and immediate pull decisions."
+        if page["mode"] == "current"
+        else f"{character} is part of the next tracked phase, so this page should help users compare pre-farm and save decisions against the still-live current banner."
+    )
     return f"""    <section class="section two-col">
       <div class="card">
         <h2>Related pages</h2>
@@ -911,8 +1135,8 @@ def build_support_related(page: dict[str, str]) -> str:
         </ul>
       </div>
       <div class="card">
-        <h2>Best next banner page</h2>
-        <p>Keep this character support page tied to the live banner cluster, pity system, and rerun watch pages so users can move from a character query back to a real account decision.</p>
+        <h2>How this page should be used</h2>
+        <p>{context_copy}</p>
       </div>
     </section>"""
 
@@ -1018,6 +1242,7 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
 {build_support_intro(page, snapshot)}
 {build_support_media(page)}
 {build_support_cards(page, snapshot)}
+{build_support_strategy(page, snapshot)}
 {build_support_table(page)}
 {build_support_related(page)}
     <section class="section">
@@ -1140,6 +1365,7 @@ def render_sitemap(extra_urls: list[str]) -> str:
 def update_pages(snapshot: dict[str, object]) -> None:
     pull_pages = get_pull_pages(snapshot)
     support_pages = get_support_pages(pull_pages)
+    history_pages = get_history_detail_pages(snapshot)
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
     index_text = replace_block_exact(index_text, "HOME_TIMELINE", build_home_timeline(snapshot))
@@ -1209,7 +1435,15 @@ def update_pages(snapshot: dict[str, object]) -> None:
         page_path.write_text(render_support_page(page, snapshot), encoding="utf-8")
         support_urls.append(f"https://wuwabanners.net{page['path']}")
 
-    SITEMAP_XML.write_text(render_sitemap(character_urls + support_urls), encoding="utf-8")
+    history_urls = []
+    for page in history_pages:
+        page_dir = ROOT / page["path"].strip("/")
+        page_dir.mkdir(parents=True, exist_ok=True)
+        page_path = page_dir / "index.html"
+        page_path.write_text(render_history_detail_page(page, snapshot), encoding="utf-8")
+        history_urls.append(f"https://wuwabanners.net{page['path']}")
+
+    SITEMAP_XML.write_text(render_sitemap(character_urls + support_urls + history_urls), encoding="utf-8")
 
     banners_hub = BANNERS_HUB_HTML.read_text(encoding="utf-8")
     if "/wuthering-waves-banner-countdown/" not in banners_hub:

@@ -45,6 +45,7 @@
         "Sigrika",
         "Qiuyuan"
       ],
+      "featured_weapons": [],
       "start_date": "2026-03-19 00:00",
       "end_date": "2026-04-09 23:59",
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/"
@@ -58,6 +59,11 @@
         "Mornye",
         "Iuno"
       ],
+      "featured_weapons": [
+        "Frostburn",
+        "Starfield Calibrator",
+        "Moongazer's Sigil"
+      ],
       "start_date": "2026-04-30 00:00",
       "end_date": "2026-05-21 23:59",
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/"
@@ -70,6 +76,11 @@
         "Denia",
         "Chisa",
         "Phrolova"
+      ],
+      "featured_weapons": [
+        "Forged Dwarf Star",
+        "Kumokiri",
+        "Lethean Elegy"
       ],
       "start_date": "2026-05-21 00:00",
       "end_date": "2026-06-11 23:59",
