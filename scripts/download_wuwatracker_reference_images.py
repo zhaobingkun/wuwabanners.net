@@ -13,10 +13,12 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_JSON = ROOT / "data" / "reference-images.json"
 CHAR_DIR = ROOT / "assets" / "img" / "reference" / "characters"
 WEAPON_DIR = ROOT / "assets" / "img" / "reference" / "weapons"
+ITEM_DIR = ROOT / "assets" / "img" / "reference" / "items"
 
 PAGES = {
     "characters": "https://wuwatracker.com/characters",
     "weapons": "https://wuwatracker.com/weapons",
+    "items": "https://wuwatracker.com/items",
 }
 
 BASE_URL = "https://wuwatracker.com"
@@ -137,6 +139,28 @@ def parse_weapons(html: str) -> list[dict[str, str]]:
     return unique_by_slug(entries)
 
 
+def parse_items(html: str) -> list[dict[str, str]]:
+    text = decode_next_payload(html)
+    pattern = re.compile(r'"name":"(?P<name>[^"]+)","slug":"(?P<slug>[^"]+)".{0,1800}', re.S)
+    entries: list[dict[str, str]] = []
+    for match in pattern.finditer(text):
+        block = match.group(0)
+        url, label = extract_asset_url(block, "/api/item-portraits/file/", "/api/item-icons/file/")
+        if not url:
+            continue
+        ext = Path(url).suffix or ".webp"
+        entries.append(
+            {
+                "name": match.group("name"),
+                "slug": match.group("slug"),
+                "remote_url": BASE_URL + url,
+                "filename": match.group("slug") + ext,
+                "note": label or "Icon",
+            }
+        )
+    return unique_by_slug(entries)
+
+
 def sync_entries(entries: list[dict[str, str]], target_dir: Path, kind: str) -> list[dict[str, str]]:
     target_dir.mkdir(parents=True, exist_ok=True)
     for existing in target_dir.iterdir():
@@ -162,19 +186,23 @@ def sync_entries(entries: list[dict[str, str]], target_dir: Path, kind: str) -> 
 def main() -> int:
     char_html = fetch_text(PAGES["characters"])
     weapon_html = fetch_text(PAGES["weapons"])
+    item_html = fetch_text(PAGES["items"])
 
     character_entries = parse_characters(char_html)
     weapon_entries = parse_weapons(weapon_html)
+    item_entries = parse_items(item_html)
 
     data = {
         "characters": sync_entries(character_entries, CHAR_DIR, "characters"),
         "weapons": sync_entries(weapon_entries, WEAPON_DIR, "weapons"),
+        "items": sync_entries(item_entries, ITEM_DIR, "items"),
     }
 
     DATA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(f"Downloaded {len(data['characters'])} character reference images into {CHAR_DIR}")
     print(f"Downloaded {len(data['weapons'])} weapon reference images into {WEAPON_DIR}")
+    print(f"Downloaded {len(data['items'])} item reference images into {ITEM_DIR}")
     print(f"Wrote {DATA_JSON}")
     return 0
 

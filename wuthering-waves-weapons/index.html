@@ -79,9 +79,16 @@
     </section>
     <section class="section">
       <h2>Weapon reference gallery</h2>
-      <p class="section-intro">This section is designed for locally downloaded WuWa Tracker weapon art. The downloader prefers portrait assets when available and falls back to icon assets when portrait files do not exist.</p>
+      <p class="section-intro">This section is designed for locally downloaded WuWa Tracker weapon art. Each image and weapon name opens a dedicated detail page, so this gallery now works as the visual list layer before the deeper weapon page.</p>
       <div class="reference-grid" data-reference-gallery="weapons">
         <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this gallery.</article>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Weapon detail directory</h2>
+      <p class="section-intro">If you prefer a fast text list over image browsing, use this directory. It acts like the clean list layer between the weapons hub and each weapon detail page.</p>
+      <div class="reference-directory" data-reference-directory="weapons">
+        <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this directory.</article>
       </div>
     </section>
     <section class="section two-col">
@@ -95,7 +102,7 @@
       </div>
       <div class="card">
         <h2>Why this page matters</h2>
-        <p>Weapons pages help the site move from pure timing content into account-building content, which is a healthier long-term structure.</p>
+        <p>Weapons pages now work in a cleaner chain: navigation to the weapons hub, list browsing by image or name, then a dedicated detail page before users jump into banners, characters, or upgrade planning.</p>
       </div>
     </section>
     <section class="section">

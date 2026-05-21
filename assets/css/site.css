@@ -539,6 +539,16 @@ th {
   justify-self: center;
 }
 
+.reference-link {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.reference-link:hover {
+  text-decoration: none;
+}
+
 .reference-art {
   aspect-ratio: 404 / 560;
   background: linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(182, 122, 31, 0.08));
@@ -560,7 +570,20 @@ th {
   max-width: 160px;
 }
 
+.reference-card.item .reference-art {
+  aspect-ratio: 1 / 1;
+  padding: 0.85rem;
+}
+
+.reference-card.item {
+  max-width: 160px;
+}
+
 .reference-card.weapon .reference-art img {
+  object-fit: contain;
+}
+
+.reference-card.item .reference-art img {
   object-fit: contain;
 }
 
@@ -576,6 +599,32 @@ th {
 
 .reference-empty {
   padding: 1.1rem 1.2rem;
+}
+
+.reference-directory {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.directory-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.92);
+  border: 1px solid rgba(216, 203, 180, 0.95);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.directory-link:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 960px) {

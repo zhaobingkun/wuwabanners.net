@@ -744,5 +744,350 @@
       "note": "Icon",
       "source": "https://wuwatracker.com/api/weapon-icons/file/training-rectifier.webp"
     }
+  ],
+  "items": [
+    {
+      "name": "FF Whisperin Core",
+      "slug": "ff-whisperin-core",
+      "src": "/assets/img/reference/items/ff-whisperin-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/ff-whisperin-core.webp"
+    },
+    {
+      "name": "FF Polygon Core",
+      "slug": "ff-polygon-core",
+      "src": "/assets/img/reference/items/ff-polygon-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/ff-polygon-core.webp"
+    },
+    {
+      "name": "FF Mech Core",
+      "slug": "ff-mech-core",
+      "src": "/assets/img/reference/items/ff-mech-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/ff-mech-core.webp"
+    },
+    {
+      "name": "Mask of Insanity",
+      "slug": "mask-of-insanity",
+      "src": "/assets/img/reference/items/mask-of-insanity.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/mask-of-insanity.webp"
+    },
+    {
+      "name": "Premium Energy Core",
+      "slug": "premium-energy-core",
+      "src": "/assets/img/reference/items/premium-energy-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/premium-energy-core.webp"
+    },
+    {
+      "name": "Presto Helix",
+      "slug": "presto-helix",
+      "src": "/assets/img/reference/items/presto-helix.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/presto-helix.webp"
+    },
+    {
+      "name": "Layered Wing Polarizer",
+      "slug": "layered-wing-polarizer",
+      "src": "/assets/img/reference/items/layered-wing-polarizer.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/layered-wing-polarizer.webp"
+    },
+    {
+      "name": "FF Carved Crystal",
+      "slug": "ff-carved-crystal",
+      "src": "/assets/img/reference/items/ff-carved-crystal.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/ff-carved-crystal.webp"
+    },
+    {
+      "name": "HF Howler Core",
+      "slug": "hf-howler-core",
+      "src": "/assets/img/reference/items/hf-howler-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/hf-howler-core.webp"
+    },
+    {
+      "name": "HF Tidal Residuum",
+      "slug": "hf-tidal-residuum",
+      "src": "/assets/img/reference/items/hf-tidal-residuum.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/hf-tidal-residuum.webp"
+    },
+    {
+      "name": "Chipped Exoswarm Pendant",
+      "slug": "chipped-exoswarm-pendant",
+      "src": "/assets/img/reference/items/chipped-exoswarm-pendant.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/chipped-exoswarm-pendant.webp"
+    },
+    {
+      "name": "Thundering Tacet Core",
+      "slug": "thundering-tacet-core",
+      "src": "/assets/img/reference/items/thundering-tacet-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/thundering-tacet-core.webp"
+    },
+    {
+      "name": "Roaring Rock Fist",
+      "slug": "roaring-rock-fist",
+      "src": "/assets/img/reference/items/roaring-rock-fist.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/roaring-rock-fist.webp"
+    },
+    {
+      "name": "Group Abomination Tacet Core",
+      "slug": "group-abomination-tacet-core",
+      "src": "/assets/img/reference/items/group-abomination-tacet-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/group-abomination-tacet-core.webp"
+    },
+    {
+      "name": "Unending Destruction",
+      "slug": "unending-destruction",
+      "src": "/assets/img/reference/items/unending-destruction.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/unending-destruction.webp"
+    },
+    {
+      "name": "Sentinel's Dagger",
+      "slug": "sentinels-dagger",
+      "src": "/assets/img/reference/items/sentinels-dagger.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/sentinels-dagger.webp"
+    },
+    {
+      "name": "Platinum Core",
+      "slug": "platinum-core",
+      "src": "/assets/img/reference/items/platinum-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/platinum-core.webp"
+    },
+    {
+      "name": "When Irises Bloom",
+      "slug": "when-irises-bloom",
+      "src": "/assets/img/reference/items/when-irises-bloom.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/when-irises-bloom.webp"
+    },
+    {
+      "name": "Abyssal Husk",
+      "slug": "abyssal-husk",
+      "src": "/assets/img/reference/items/abyssal-husk.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/abyssal-husk.webp"
+    },
+    {
+      "name": "Burning Judgment",
+      "slug": "burning-judgment",
+      "src": "/assets/img/reference/items/burning-judgment.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/burning-judgment.webp"
+    },
+    {
+      "name": "We Who Question",
+      "slug": "we-who-question",
+      "src": "/assets/img/reference/items/we-who-question.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/we-who-question.webp"
+    },
+    {
+      "name": "Polarized Metallic Drip",
+      "slug": "polarized-metallic-drip",
+      "src": "/assets/img/reference/items/polarized-metallic-drip.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/polarized-metallic-drip.webp"
+    },
+    {
+      "name": "Waveworn Residue 235",
+      "slug": "waveworn-residue-235",
+      "src": "/assets/img/reference/items/waveworn-residue-235.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/waveworn-residue-235.webp"
+    },
+    {
+      "name": "Remnant Combustor",
+      "slug": "remnant-combustor",
+      "src": "/assets/img/reference/items/remnant-combustor.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/remnant-combustor.webp"
+    },
+    {
+      "name": "HF Waveworn Shard",
+      "slug": "hf-waveworn-shard",
+      "src": "/assets/img/reference/items/hf-waveworn-shard.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/hf-waveworn-shard.webp"
+    },
+    {
+      "name": "MF Howler Core",
+      "slug": "mf-howler-core",
+      "src": "/assets/img/reference/items/mf-howler-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/mf-howler-core.webp"
+    },
+    {
+      "name": "MF Tidal Residuum",
+      "slug": "mf-tidal-residuum",
+      "src": "/assets/img/reference/items/mf-tidal-residuum.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/mf-tidal-residuum.webp"
+    },
+    {
+      "name": "Worn Exoswarm Pendant",
+      "slug": "worn-exoswarm-pendant",
+      "src": "/assets/img/reference/items/worn-exoswarm-pendant.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/worn-exoswarm-pendant.webp"
+    },
+    {
+      "name": "Medium Energy Core",
+      "slug": "medium-energy-core",
+      "src": "/assets/img/reference/items/medium-energy-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/medium-energy-core.webp"
+    },
+    {
+      "name": "Adagio Helix",
+      "slug": "adagio-helix",
+      "src": "/assets/img/reference/items/adagio-helix.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/adagio-helix.webp"
+    },
+    {
+      "name": "Monowing Polarizer",
+      "slug": "monowing-polarizer",
+      "src": "/assets/img/reference/items/monowing-polarizer.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/monowing-polarizer.webp"
+    },
+    {
+      "name": "MF Carved Crystal",
+      "slug": "mf-carved-crystal",
+      "src": "/assets/img/reference/items/mf-carved-crystal.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/mf-carved-crystal.webp"
+    },
+    {
+      "name": "LF Howler Core",
+      "slug": "lf-howler-core",
+      "src": "/assets/img/reference/items/lf-howler-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/lf-howler-core.webp"
+    },
+    {
+      "name": "LF Tidal Residuum",
+      "slug": "lf-tidal-residuum",
+      "src": "/assets/img/reference/items/lf-tidal-residuum.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/lf-tidal-residuum.webp"
+    },
+    {
+      "name": "Fractured Exoswarm Pendant",
+      "slug": "fractured-exoswarm-pendant",
+      "src": "/assets/img/reference/items/fractured-exoswarm-pendant.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/fractured-exoswarm-pendant.webp"
+    },
+    {
+      "name": "Basic Energy Core",
+      "slug": "basic-energy-core",
+      "src": "/assets/img/reference/items/basic-energy-core.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/basic-energy-core.webp"
+    },
+    {
+      "name": "Lento Helix",
+      "slug": "lento-helix",
+      "src": "/assets/img/reference/items/lento-helix.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/lento-helix.webp"
+    },
+    {
+      "name": "Broken Wing Polarizer",
+      "slug": "broken-wing-polarizer",
+      "src": "/assets/img/reference/items/broken-wing-polarizer.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/broken-wing-polarizer.webp"
+    },
+    {
+      "name": "LF Carved Crystal",
+      "slug": "lf-carved-crystal",
+      "src": "/assets/img/reference/items/lf-carved-crystal.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/lf-carved-crystal.webp"
+    },
+    {
+      "name": "Terraspawn Fungus",
+      "slug": "terraspawn-fungus",
+      "src": "/assets/img/reference/items/terraspawn-fungus.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/terraspawn-fungus.webp"
+    },
+    {
+      "name": "Coriolus",
+      "slug": "coriolus",
+      "src": "/assets/img/reference/items/coriolus.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/coriolus.webp"
+    },
+    {
+      "name": "Loong's Pearl",
+      "slug": "loongs-pearl",
+      "src": "/assets/img/reference/items/loongs-pearl.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/loongs-pearl.webp"
+    },
+    {
+      "name": "Firecracker Jewelweed",
+      "slug": "firecracker-jewelweed",
+      "src": "/assets/img/reference/items/firecracker-jewelweed.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/firecracker-jewelweed.webp"
+    },
+    {
+      "name": "Stone Rose",
+      "slug": "stone-rose",
+      "src": "/assets/img/reference/items/stone-rose.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/stone-rose.webp"
+    },
+    {
+      "name": "Gemini Spore",
+      "slug": "gemini-spore",
+      "src": "/assets/img/reference/items/gemini-spore.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/gemini-spore.webp"
+    },
+    {
+      "name": "Arithmetic Shell",
+      "slug": "arithmetic-shell",
+      "src": "/assets/img/reference/items/arithmetic-shell.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/arithmetic-shell.webp"
+    },
+    {
+      "name": "Moss Amber",
+      "slug": "moss-amber",
+      "src": "/assets/img/reference/items/moss-amber.png",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/moss-amber.png"
+    },
+    {
+      "name": "Waxweaver Web",
+      "slug": "waxweaver-web",
+      "src": "/assets/img/reference/items/waxweaver-web.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/waxweaver-web.webp"
+    },
+    {
+      "name": "Redbell",
+      "slug": "redbell",
+      "src": "/assets/img/reference/items/redbell.webp",
+      "note": "Icon",
+      "source": "https://wuwatracker.com/api/item-icons/file/redbell.webp"
+    }
   ]
 }

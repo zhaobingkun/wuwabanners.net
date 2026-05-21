@@ -832,9 +832,34 @@ def get_pull_pages(snapshot: dict[str, object]) -> list[dict[str, str]]:
                     "mode": mode,
                     "source_url": phase["source_url"],
                     "banner_name": phase["banner_name"],
+                    "phase_label": phase["banner_name"],
+                    "start_date": phase["start_date"],
+                    "end_date": phase["end_date"],
                     "card_name": card_name,
                 }
             )
+    return pages
+
+
+def character_overview_path(slug: str) -> str:
+    return f"/wuthering-waves-characters/{slug}/"
+
+
+def get_character_overview_pages(pull_pages: list[dict[str, str]]) -> list[dict[str, str]]:
+    pages: list[dict[str, str]] = []
+    for page in pull_pages:
+        pages.append(
+            {
+                "character": page["character"],
+                "slug": page["slug"],
+                "mode": page["mode"],
+                "phase_label": page["phase_label"],
+                "source_url": page["source_url"],
+                "start_date": page["start_date"],
+                "end_date": page["end_date"],
+                "path": character_overview_path(page["slug"]),
+            }
+        )
     return pages
 
 
@@ -1354,6 +1379,132 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
 """
 
 
+def render_character_overview_page(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = html.escape(page["character"])
+    slug = page["slug"]
+    path = page["path"]
+    phase_copy = "current tracked phase" if page["mode"] == "current" else "next tracked phase"
+    compare = snapshot["next"] if page["mode"] == "current" else snapshot["current"]
+    title = f"Wuthering Waves {page['character']} Guide Hub | WuWa Banners"
+    description = f"Browse the Wuthering Waves {page['character']} guide hub with pull advice, materials, build, and team comps pages in one place."
+    faq_json = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "CollectionPage",
+                    "name": f"Wuthering Waves {page['character']} Guide Hub",
+                    "url": f"https://wuwabanners.net{path}",
+                    "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "WuWa Banners",
+                        "url": "https://wuwabanners.net/",
+                    },
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": f"What should a {page['character']} overview page do first?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": f"It should route users into the fastest next page: pull advice, materials, build, or team comps, depending on where they are in the decision process for {page['character']}."
+                            },
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Why make a character overview page instead of only support pages?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Because a clean overview page makes the site structure easier to scan and keeps character intent from scattering across unrelated URLs."
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+        ensure_ascii=False,
+        indent=2,
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{html.escape(title)}</title>
+  <meta name="description" content="{html.escape(description)}">
+  <link rel="canonical" href="https://wuwabanners.net{path}">
+  <meta property="og:title" content="Wuthering Waves {character} Guide Hub">
+  <meta property="og:description" content="{html.escape(description)}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wuwabanners.net{path}">
+  <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{FONT_PRELOAD_BLOCK}
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script type="application/ld+json">
+{faq_json}
+  </script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <main class="section"><div class="container">
+    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/guides/">Guides</a> / <a href="/wuthering-waves-characters/">Characters</a> / {character}</div>
+    <h1>Wuthering Waves {character} Guide Hub</h1>
+    <p class="lead">{character} is part of the {phase_copy}. This page works as the clean detail layer between the characters list and the deeper support pages, so users can choose the exact next page without guessing.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> Use the {character} overview page when you want one place that links pull advice, materials, build, and team comps. That is more useful than dropping users directly into one narrow page if they have not decided what they need yet.</div>
+    <p class="update-stamp">Last updated: {fmt_human_date(snapshot["updated"] + " 00:00")}.</p>
+    <div class="card-grid">
+      <article class="card"><h2>Tracked phase</h2><p>{character} is currently tied to {html.escape(page["phase_label"])}.</p></article>
+      <article class="card"><h2>Banner window</h2><p>{fmt_human_date(page["start_date"])} to {fmt_human_date(page["end_date"])}</p></article>
+      <article class="card"><h2>Compare point</h2><p>If you are still deciding, compare this route against {html.escape(compare["banner_name"])} before locking resources.</p></article>
+    </div>
+    <section class="section">
+      <h2>{character} page list</h2>
+      <div class="card-grid">
+        <article class="card"><h2>Should you pull {character}?</h2><p>Start here if your main question is whether {character} is worth spending on right now.</p><p><a href="/wuthering-waves-should-you-pull-{slug}/">Open pull advice</a></p></article>
+        <article class="card"><h2>{character} materials</h2><p>Use this page for pre-farm planning, ascension notes, and safe-versus-risky material decisions.</p><p><a href="{support_page_path(slug, "materials")}">Open materials</a></p></article>
+        <article class="card"><h2>{character} build</h2><p>Use this page for role framing, early upgrade order, and practical build decisions.</p><p><a href="{support_page_path(slug, "build")}">Open build</a></p></article>
+        <article class="card"><h2>{character} team comps</h2><p>Use this page for role slot decisions, fallback shell planning, and realistic team structure.</p><p><a href="{support_page_path(slug, "team-comps")}">Open team comps</a></p></article>
+      </div>
+    </section>
+    <section class="section two-col">
+      <div class="card">
+        <h2>Best next pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-should-you-pull-{slug}/">Should you pull {character}?</a></li>
+          <li><a href="{support_page_path(slug, "materials")}">{character} materials</a></li>
+          <li><a href="{support_page_path(slug, "build")}">{character} build</a></li>
+          <li><a href="{support_page_path(slug, "team-comps")}">{character} team comps</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>How this page should be used</h2>
+        <p>Use the characters list for scanning. Use this character hub when you know the unit you care about but still need to choose whether your next click should be pull advice, materials, build, or team comps.</p>
+      </div>
+    </section>
+    <section class="section">
+      <h2>FAQ</h2>
+      <div class="faq-list">
+        <article class="faq-item"><h3>What should a {character} overview page do first?</h3><p>It should route you into the fastest next page: pull advice, materials, build, or team comps.</p></article>
+        <article class="faq-item"><h3>Why make a character overview page instead of only support pages?</h3><p>Because a clean overview page makes the structure easier to scan and stops character intent from scattering across unrelated URLs.</p></article>
+      </div>
+      <div class="sources">
+        <strong>Source used for this {character} overview page</strong><br>
+        Character phase source: {html.escape(page["source_url"])}<br>
+        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+      </div>
+    </section>
+  </div></main>
+  <script defer src="/assets/js/site.js"></script>
+{GTAG_SNIPPET}
+</body>
+</html>
+"""
+
+
 def render_sitemap(extra_urls: list[str]) -> str:
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for url in BASE_URLS + extra_urls:
@@ -1362,8 +1513,23 @@ def render_sitemap(extra_urls: list[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def discover_reference_urls() -> list[str]:
+    urls: list[str] = []
+    for section in ("wuthering-waves-characters", "wuthering-waves-weapons", "wuthering-waves-items"):
+        base = ROOT / section
+        if not base.exists():
+            continue
+        for path in sorted(base.glob("*/index.html")):
+            slug = path.parent.name
+            if slug == "index":
+                continue
+            urls.append(f"https://wuwabanners.net/{section}/{slug}/")
+    return urls
+
+
 def update_pages(snapshot: dict[str, object]) -> None:
     pull_pages = get_pull_pages(snapshot)
+    overview_pages = get_character_overview_pages(pull_pages)
     support_pages = get_support_pages(pull_pages)
     history_pages = get_history_detail_pages(snapshot)
 
@@ -1427,6 +1593,14 @@ def update_pages(snapshot: dict[str, object]) -> None:
         page_path.write_text(render_character_page(page, snapshot), encoding="utf-8")
         character_urls.append(f"https://wuwabanners.net/wuthering-waves-should-you-pull-{page['slug']}/")
 
+    overview_urls = []
+    for page in overview_pages:
+        page_dir = ROOT / page["path"].strip("/")
+        page_dir.mkdir(parents=True, exist_ok=True)
+        page_path = page_dir / "index.html"
+        page_path.write_text(render_character_overview_page(page, snapshot), encoding="utf-8")
+        overview_urls.append(f"https://wuwabanners.net{page['path']}")
+
     support_urls = []
     for page in support_pages:
         page_dir = ROOT / page["path"].strip("/")
@@ -1443,7 +1617,8 @@ def update_pages(snapshot: dict[str, object]) -> None:
         page_path.write_text(render_history_detail_page(page, snapshot), encoding="utf-8")
         history_urls.append(f"https://wuwabanners.net{page['path']}")
 
-    SITEMAP_XML.write_text(render_sitemap(character_urls + support_urls + history_urls), encoding="utf-8")
+    reference_urls = discover_reference_urls()
+    SITEMAP_XML.write_text(render_sitemap(character_urls + overview_urls + support_urls + history_urls + reference_urls), encoding="utf-8")
 
     banners_hub = BANNERS_HUB_HTML.read_text(encoding="utf-8")
     if "/wuthering-waves-banner-countdown/" not in banners_hub:

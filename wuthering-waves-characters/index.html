@@ -58,21 +58,24 @@
     <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/guides/">Guides</a> / Characters</div>
     <h1>Wuthering Waves Characters</h1>
     <p class="lead">A characters page should work as a bridge between broad banner intent and specific pull pages. Users usually want the live featured characters, the next tracked characters, and the shortest route into deeper character decisions.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> As of May 19, 2026, the current tracked featured characters are Hiyuki, Mornye, and Iuno, while the next tracked featured characters are Denia, Chisa, and Phrolova. The most useful characters page turns that summary into clear next steps.</div>
+    <div class="answer-box"><strong>Direct answer:</strong> As of May 19, 2026, the current tracked featured characters are Hiyuki, Mornye, and Iuno, while the next tracked featured characters are Denia, Chisa, and Phrolova. The best characters page should first act like a list page, then send users into a character detail hub before narrower support pages.</div>
     <div class="card-grid" style="margin-top:1.25rem;">
       <article class="card"><h2>Current featured characters</h2><p>Hiyuki, Mornye, and Iuno are the live tracked characters in Version 3.3 Phase 1.</p></article>
       <article class="card"><h2>Next featured characters</h2><p>Denia, Chisa, and Phrolova are the next tracked characters in Version 3.3 Phase 2.</p></article>
       <article class="card"><h2>Why users search this</h2><p>This query often sits between broad banner discovery and character-specific pull or materials intent.</p></article>
     </div>
     <section class="section">
-      <h2>Current and next character snapshot</h2>
+      <h2>Current and next character list</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Status</th><th>Characters</th><th>Best next page</th></tr></thead>
+          <thead><tr><th>Status</th><th>Characters</th><th>List action</th></tr></thead>
           <tbody>
-            <tr><td>Current</td><td>Hiyuki, Mornye, Iuno</td><td><a href="/wuthering-waves-current-banner-characters/">Current banner characters</a></td></tr>
-            <tr><td>Next</td><td>Denia, Chisa, Phrolova</td><td><a href="/wuthering-waves-next-character/">Next character</a></td></tr>
-            <tr><td>Decision support</td><td>Character-specific pull choices</td><td><a href="/pull-advice/">Pull advice</a></td></tr>
+            <tr><td>Current</td><td>Hiyuki</td><td><a href="/wuthering-waves-characters/hiyuki/">Open Hiyuki hub</a></td></tr>
+            <tr><td>Current</td><td>Mornye</td><td><a href="/wuthering-waves-characters/mornye/">Open Mornye hub</a></td></tr>
+            <tr><td>Current</td><td>Iuno</td><td><a href="/wuthering-waves-characters/iuno/">Open Iuno hub</a></td></tr>
+            <tr><td>Next</td><td>Denia</td><td><a href="/wuthering-waves-characters/denia/">Open Denia hub</a></td></tr>
+            <tr><td>Next</td><td>Chisa</td><td><a href="/wuthering-waves-characters/chisa/">Open Chisa hub</a></td></tr>
+            <tr><td>Next</td><td>Phrolova</td><td><a href="/wuthering-waves-characters/phrolova/">Open Phrolova hub</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -85,18 +88,25 @@
       </div>
     </section>
     <section class="section">
-      <h2>Character support page sets</h2>
-      <p class="section-intro">Each tracked featured character now has a three-page support set. This lets the characters page act like a real wiki branch instead of a dead-end reference page.</p>
+      <h2>Character detail directory</h2>
+      <p class="section-intro">Use this text directory if you want to jump straight from the character list into a detail hub without scanning the full portrait grid first.</p>
+      <div class="reference-directory" data-reference-directory="characters">
+        <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this directory.</article>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Character detail hubs</h2>
+      <p class="section-intro">Each tracked featured character now gets a real detail layer. The detail hub sits between the characters list and the narrower support pages, which makes the site structure easier to scan.</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Character</th><th>Status</th><th>Support pages</th></tr></thead>
+          <thead><tr><th>Character</th><th>Status</th><th>Detail hub</th><th>Support pages</th></tr></thead>
           <tbody>
-            <tr><td>Hiyuki</td><td>Current phase</td><td><a href="/wuthering-waves-hiyuki-materials/">Materials</a> · <a href="/wuthering-waves-hiyuki-build/">Build</a> · <a href="/wuthering-waves-hiyuki-team-comps/">Team comps</a></td></tr>
-            <tr><td>Mornye</td><td>Current phase</td><td><a href="/wuthering-waves-mornye-materials/">Materials</a> · <a href="/wuthering-waves-mornye-build/">Build</a> · <a href="/wuthering-waves-mornye-team-comps/">Team comps</a></td></tr>
-            <tr><td>Iuno</td><td>Current phase</td><td><a href="/wuthering-waves-iuno-materials/">Materials</a> · <a href="/wuthering-waves-iuno-build/">Build</a> · <a href="/wuthering-waves-iuno-team-comps/">Team comps</a></td></tr>
-            <tr><td>Denia</td><td>Next phase</td><td><a href="/wuthering-waves-denia-materials/">Materials</a> · <a href="/wuthering-waves-denia-build/">Build</a> · <a href="/wuthering-waves-denia-team-comps/">Team comps</a></td></tr>
-            <tr><td>Chisa</td><td>Next phase</td><td><a href="/wuthering-waves-chisa-materials/">Materials</a> · <a href="/wuthering-waves-chisa-build/">Build</a> · <a href="/wuthering-waves-chisa-team-comps/">Team comps</a></td></tr>
-            <tr><td>Phrolova</td><td>Next phase</td><td><a href="/wuthering-waves-phrolova-materials/">Materials</a> · <a href="/wuthering-waves-phrolova-build/">Build</a> · <a href="/wuthering-waves-phrolova-team-comps/">Team comps</a></td></tr>
+            <tr><td>Hiyuki</td><td>Current phase</td><td><a href="/wuthering-waves-characters/hiyuki/">Open hub</a></td><td><a href="/wuthering-waves-hiyuki-materials/">Materials</a> · <a href="/wuthering-waves-hiyuki-build/">Build</a> · <a href="/wuthering-waves-hiyuki-team-comps/">Team comps</a></td></tr>
+            <tr><td>Mornye</td><td>Current phase</td><td><a href="/wuthering-waves-characters/mornye/">Open hub</a></td><td><a href="/wuthering-waves-mornye-materials/">Materials</a> · <a href="/wuthering-waves-mornye-build/">Build</a> · <a href="/wuthering-waves-mornye-team-comps/">Team comps</a></td></tr>
+            <tr><td>Iuno</td><td>Current phase</td><td><a href="/wuthering-waves-characters/iuno/">Open hub</a></td><td><a href="/wuthering-waves-iuno-materials/">Materials</a> · <a href="/wuthering-waves-iuno-build/">Build</a> · <a href="/wuthering-waves-iuno-team-comps/">Team comps</a></td></tr>
+            <tr><td>Denia</td><td>Next phase</td><td><a href="/wuthering-waves-characters/denia/">Open hub</a></td><td><a href="/wuthering-waves-denia-materials/">Materials</a> · <a href="/wuthering-waves-denia-build/">Build</a> · <a href="/wuthering-waves-denia-team-comps/">Team comps</a></td></tr>
+            <tr><td>Chisa</td><td>Next phase</td><td><a href="/wuthering-waves-characters/chisa/">Open hub</a></td><td><a href="/wuthering-waves-chisa-materials/">Materials</a> · <a href="/wuthering-waves-chisa-build/">Build</a> · <a href="/wuthering-waves-chisa-team-comps/">Team comps</a></td></tr>
+            <tr><td>Phrolova</td><td>Next phase</td><td><a href="/wuthering-waves-characters/phrolova/">Open hub</a></td><td><a href="/wuthering-waves-phrolova-materials/">Materials</a> · <a href="/wuthering-waves-phrolova-build/">Build</a> · <a href="/wuthering-waves-phrolova-team-comps/">Team comps</a></td></tr>
           </tbody>
         </table>
       </div>
