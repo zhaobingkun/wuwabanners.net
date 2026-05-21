@@ -24,6 +24,10 @@ python3 scripts/build_banner_snapshot.py
 
 In most cases, this is the only file you need to edit.
 
+Daily maintenance checklist:
+
+- [DAILY-UPDATE-SOP.md](/Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net/DAILY-UPDATE-SOP.md)
+
 ## What the build updates
 
 The build script refreshes:
@@ -42,6 +46,10 @@ The build script refreshes:
   - `pull-advice/index.html`
 - generated character pages:
   - `wuthering-waves-should-you-pull-*/index.html`
+- generated character support pages:
+  - `wuthering-waves-*-materials/`
+  - `wuthering-waves-*-build/`
+  - `wuthering-waves-*-team-comps/`
 - `sitemap.xml`
 
 ## Data source rules

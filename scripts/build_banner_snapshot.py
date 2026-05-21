@@ -657,6 +657,29 @@ def get_pull_pages(snapshot: dict[str, object]) -> list[dict[str, str]]:
     return pages
 
 
+def support_page_path(slug: str, kind: str) -> str:
+    return f"/wuthering-waves-{slug}-{kind}/"
+
+
+def get_support_pages(pull_pages: list[dict[str, str]]) -> list[dict[str, str]]:
+    pages: list[dict[str, str]] = []
+    for page in pull_pages:
+        for kind, label in (
+            ("materials", "Materials"),
+            ("build", "Build"),
+            ("team-comps", "Team Comps"),
+        ):
+            pages.append(
+                {
+                    **page,
+                    "kind": kind,
+                    "kind_label": label,
+                    "path": support_page_path(page["slug"], kind),
+                }
+            )
+    return pages
+
+
 def build_pull_intro(snapshot: dict[str, object], pull_pages: list[dict[str, str]]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
@@ -736,6 +759,19 @@ def build_character_blocks(page: dict[str, str], snapshot: dict[str, object]) ->
     </div>"""
 
 
+def build_character_support_links(page: dict[str, str]) -> str:
+    slug = page["slug"]
+    character = page["character"]
+    return f"""    <section class="section">
+      <h2>{character} support pages</h2>
+      <div class="card-grid">
+        <article class="card"><h3>{character} materials</h3><p>Track ascension, forte, boss, and pre-farm planning without leaving the banner cluster.</p><p><a href="{support_page_path(slug, "materials")}">Open materials page</a></p></article>
+        <article class="card"><h3>{character} build</h3><p>Use a build planning page to keep weapon path, upgrade order, and stat decisions in one place.</p><p><a href="{support_page_path(slug, "build")}">Open build page</a></p></article>
+        <article class="card"><h3>{character} team comps</h3><p>Keep team-role questions tied to the same pull decision instead of sending users into disconnected posts.</p><p><a href="{support_page_path(slug, "team-comps")}">Open team comps page</a></p></article>
+      </div>
+    </section>"""
+
+
 def build_character_faq(page: dict[str, str]) -> str:
     if page["mode"] == "current":
         return """      <div class="faq-list">
@@ -754,6 +790,247 @@ def build_character_sources(page: dict[str, str], updated: str) -> str:
         Character phase source: {page["source_url"]}<br>
         Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
       </div>"""
+
+
+def build_support_intro(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    updated = snapshot["updated"]
+    character = page["character"]
+    kind = page["kind"]
+    if kind == "materials":
+        lead = (
+            f"Use this {character} materials page to keep ascension, forte, boss-drop, and pre-farm planning tied to the same banner decision."
+        )
+        answer = (
+            f"Farm only the stable and broadly confirmed {character} material routes first. Save heavy stamina spending on uncertain drops until official or in-game confirmation is live."
+        )
+    elif kind == "build":
+        lead = (
+            f"Use this {character} build page to keep weapon path, upgrade order, and role framing connected to the same current-versus-next banner choice."
+        )
+        answer = (
+            f"Lock the cheap and flexible parts of a {character} build first, then wait for final role and live-testing confirmation before overcommitting to expensive refinements."
+        )
+    else:
+        lead = (
+            f"Use this {character} team comps page to connect pull decisions with actual party-slot planning, not just abstract banner hype."
+        )
+        answer = (
+            f"Plan {character} teams around role fit, sustain slot pressure, and rotation comfort first. Treat final meta pairings as something to confirm after official or live-game evidence settles."
+        )
+    return f"""    <p class="lead">{lead}</p>
+    <div class="answer-box"><strong>Direct answer:</strong> {answer}</div>
+    <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
+
+
+def build_support_media(page: dict[str, str]) -> str:
+    character = page["character"]
+    return f"""    <div class="media-grid" style="margin-top:1.25rem;">
+      <div class="banner-art">
+        <img src="/assets/img/{page["card_name"]}" alt="{character} support snapshot tied to the tracked phase card." width="1200" height="675" decoding="async">
+      </div>
+      <div class="video-card">
+        <h2>Official reference video</h2>
+        {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
+      </div>
+    </div>"""
+
+
+def build_support_cards(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    if page["kind"] == "materials":
+        compare_name = snapshot["next"]["banner_name"] if page["mode"] == "current" else snapshot["current"]["banner_name"]
+        return f"""    <div class="card-grid">
+      <article class="card"><h2>What to farm first</h2><p>Start with the stable {character} routes that are least likely to change between preview, official post, and live in-game confirmation.</p></article>
+      <article class="card"><h2>What to verify</h2><p>Before heavy pre-farm, confirm the exact boss-drop and shared-upgrade path that matters most for {character}.</p></article>
+      <article class="card"><h2>Why this matters now</h2><p>This page should keep your material plan aligned with {compare_name}, so you do not burn resources on the wrong phase.</p></article>
+    </div>"""
+    if page["kind"] == "build":
+        return f"""    <div class="card-grid">
+      <article class="card"><h2>Role framing first</h2><p>Decide whether {character} is your main on-field investment, quick-swap slot, or flexible utility piece before you lock a build route.</p></article>
+      <article class="card"><h2>Cheap decisions first</h2><p>Lock the weapon and upgrade-order decisions that stay useful even if live testing later shifts the ideal final setup.</p></article>
+      <article class="card"><h2>What not to rush</h2><p>Do not over-invest in niche stat tuning until official details and actual in-game usage confirm the most efficient build direction.</p></article>
+    </div>"""
+    return f"""    <div class="card-grid">
+      <article class="card"><h2>Role slot</h2><p>Start by asking what team slot {character} is supposed to solve for your account, not just who looks strongest on paper.</p></article>
+      <article class="card"><h2>Rotation comfort</h2><p>Team comps should stay realistic about setup speed, sustain needs, and how much field time {character} wants.</p></article>
+      <article class="card"><h2>Future-proofing</h2><p>Keep one flexible team shell ready so {character} can be tested with future reruns or later phase additions without rebuilding from zero.</p></article>
+    </div>"""
+
+
+def build_support_table(page: dict[str, str]) -> str:
+    character = page["character"]
+    kind = page["kind"]
+    if kind == "materials":
+        rows = [
+            ("Ascension materials", f"List the exact level-up materials for {character} once official or in-game confirmation is locked.", "Confirm on official post or in-game page"),
+            ("Forte / skill materials", f"Track the shared talent route for {character} and note where it overlaps with your other planned units.", "Keep this route pre-farm friendly"),
+            ("Weekly boss items", f"Do not hard-commit until {character} is live or directly confirmed by official sources.", "High-risk pre-farm item"),
+            ("Weapon overlap", f"Check whether the likely weapon path for {character} shares farm routes with other current or next banner units.", "Saves stamina if aligned"),
+        ]
+    elif kind == "build":
+        rows = [
+            ("Role shape", f"Define whether {character} is being planned as an on-field carry, a swap-heavy slot, or a supportive flex.", "Decide before finalizing gear"),
+            ("Weapon path", f"Keep one safe fallback weapon route for {character} even if the signature option is still undecided.", "Avoid build dead-ends"),
+            ("Upgrade order", f"Prioritize the upgrade path that keeps {character} usable quickly before chasing expensive refinements.", "Fast early value"),
+            ("Stat / gear notes", f"Only lock deep min-max decisions for {character} after official details and live testing settle.", "Late-stage optimization"),
+        ]
+    else:
+        rows = [
+            ("Core slot", f"Write down what job {character} must solve in the team before choosing partners.", "Defines team direction"),
+            ("Sustain slot", f"Reserve a realistic sustain option so {character} teams are practical, not just theoretical.", "Stability before hype"),
+            ("Flex partner", f"Keep one flexible partner slot open while {character} synergy details are still being tested.", "Best for evolving patches"),
+            ("Fallback team", f"Plan one lower-cost team shell for {character} in case the premium pairing does not fit your account.", "Useful for broader audiences"),
+        ]
+    rows_html = "\n".join(
+        f"            <tr><td>{label}</td><td>{plan}</td><td>{note}</td></tr>" for label, plan, note in rows
+    )
+    return f"""    <section class="section">
+      <h2>{character} {page["kind_label"].lower()} planning table</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Focus area</th><th>What this page should answer</th><th>Why it matters</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_support_related(page: dict[str, str]) -> str:
+    character = page["character"]
+    slug = page["slug"]
+    return f"""    <section class="section two-col">
+      <div class="card">
+        <h2>Related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-should-you-pull-{slug}/">Should you pull {character}?</a></li>
+          <li><a href="{support_page_path(slug, "materials")}">{character} materials</a></li>
+          <li><a href="{support_page_path(slug, "build")}">{character} build</a></li>
+          <li><a href="{support_page_path(slug, "team-comps")}">{character} team comps</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Best next banner page</h2>
+        <p>Keep this character support page tied to the live banner cluster, pity system, and rerun watch pages so users can move from a character query back to a real account decision.</p>
+      </div>
+    </section>"""
+
+
+def build_support_faq(page: dict[str, str]) -> str:
+    character = page["character"]
+    if page["kind"] == "materials":
+        return f"""      <div class="faq-list">
+        <article class="faq-item"><h3>Should you pre-farm {character} materials before final confirmation?</h3><p>Pre-farm only the low-risk routes first, then wait for official or in-game confirmation before overcommitting to rare or weekly materials.</p></article>
+        <article class="faq-item"><h3>What should a good {character} materials page show?</h3><p>It should show ascension, forte, boss, and overlap planning in one place, plus clear notes on what is safe to farm early.</p></article>
+      </div>"""
+    if page["kind"] == "build":
+        return f"""      <div class="faq-list">
+        <article class="faq-item"><h3>What should you lock first on a {character} build page?</h3><p>Lock the role, fallback weapon route, and broad upgrade order first. Save fine-tuned optimization for after official and live confirmation settles.</p></article>
+        <article class="faq-item"><h3>Why should a {character} build page stay connected to banner pages?</h3><p>Because users usually move from pull intent into build planning, not into a disconnected guide tree.</p></article>
+      </div>"""
+    return f"""      <div class="faq-list">
+        <article class="faq-item"><h3>What should you decide first on a {character} team comps page?</h3><p>Decide the role slot {character} must fill for your account before chasing idealized partner lists.</p></article>
+        <article class="faq-item"><h3>Why should {character} team comps stay in the banner cluster?</h3><p>Because team planning is one of the main reasons users move from “should I pull” into deeper character pages.</p></article>
+      </div>"""
+
+
+def build_support_sources(page: dict[str, str], updated: str) -> str:
+    return f"""      <div class="sources">
+        <strong>Sources used for this {fmt_human_date(updated + " 00:00")} {page["kind_label"].lower()} snapshot</strong><br>
+        Character phase source: {page["source_url"]}<br>
+        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+      </div>"""
+
+
+def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = html.escape(page["character"])
+    kind = page["kind"]
+    kind_label = page["kind_label"]
+    path = page["path"]
+    title = f"Wuthering Waves {page['character']} {kind_label} | WuWa Banners"
+    description = f"Use this {page['character']} {kind_label.lower()} page for banner-linked planning, fast internal links, and a cleaner update path as official details settle."
+    og_description = f"A focused {page['character']} {kind_label.lower()} support page connected to banner timing, pull advice, and account planning."
+    faq_json = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "headline": f"Wuthering Waves {page['character']} {kind_label}",
+                    "description": description,
+                    "author": {"@type": "Organization", "name": "WuWa Banners"},
+                    "publisher": {"@type": "Organization", "name": "WuWa Banners"},
+                    "mainEntityOfPage": f"https://wuwabanners.net{path}",
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": f"What should a {page['character']} {kind_label.lower()} page answer first?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": f"It should answer the fastest account-planning question first, then link back to banner timing, pity, and pull advice for {page['character']}."
+                            },
+                        },
+                        {
+                            "@type": "Question",
+                            "name": f"Why keep {page['character']} {kind_label.lower()} inside the banner site structure?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Because users usually reach these pages from a current-banner or next-banner decision, not from a standalone character database query."
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+        ensure_ascii=False,
+        indent=2,
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{html.escape(title)}</title>
+  <meta name="description" content="{html.escape(description)}">
+  <link rel="canonical" href="https://wuwabanners.net{path}">
+  <meta property="og:title" content="Wuthering Waves {character} {kind_label}">
+  <meta property="og:description" content="{html.escape(og_description)}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wuwabanners.net{path}">
+  <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{FONT_PRELOAD_BLOCK}
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script type="application/ld+json">
+{faq_json}
+  </script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <main class="section"><div class="container">
+    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/guides/">Guides</a> / <a href="/wuthering-waves-should-you-pull-{page["slug"]}/">{character}</a> / {kind_label}</div>
+    <h1>Wuthering Waves {character} {kind_label}</h1>
+{build_support_intro(page, snapshot)}
+{build_support_media(page)}
+{build_support_cards(page, snapshot)}
+{build_support_table(page)}
+{build_support_related(page)}
+    <section class="section">
+      <h2>FAQ</h2>
+{build_support_faq(page)}
+{build_support_sources(page, snapshot["updated"])}
+    </section>
+  </div></main>
+  <script defer src="/assets/js/site.js"></script>
+{GTAG_SNIPPET}
+</body>
+</html>
+"""
 
 
 def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> str:
@@ -831,13 +1108,14 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
   </script>
 </head>
 <body>
-  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/pull-advice/">Pull advice</a> / {character}</div>
     <h1>Should You Pull {character} in Wuthering Waves?</h1>
 {build_character_intro(page, snapshot)}
 {build_character_media(page)}
 {build_character_blocks(page, snapshot)}
+{build_character_support_links(page)}
     <section class="section">
       <h2>FAQ</h2>
 {build_character_faq(page)}
@@ -861,6 +1139,7 @@ def render_sitemap(extra_urls: list[str]) -> str:
 
 def update_pages(snapshot: dict[str, object]) -> None:
     pull_pages = get_pull_pages(snapshot)
+    support_pages = get_support_pages(pull_pages)
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
     index_text = replace_block_exact(index_text, "HOME_TIMELINE", build_home_timeline(snapshot))
@@ -922,7 +1201,15 @@ def update_pages(snapshot: dict[str, object]) -> None:
         page_path.write_text(render_character_page(page, snapshot), encoding="utf-8")
         character_urls.append(f"https://wuwabanners.net/wuthering-waves-should-you-pull-{page['slug']}/")
 
-    SITEMAP_XML.write_text(render_sitemap(character_urls), encoding="utf-8")
+    support_urls = []
+    for page in support_pages:
+        page_dir = ROOT / page["path"].strip("/")
+        page_dir.mkdir(parents=True, exist_ok=True)
+        page_path = page_dir / "index.html"
+        page_path.write_text(render_support_page(page, snapshot), encoding="utf-8")
+        support_urls.append(f"https://wuwabanners.net{page['path']}")
+
+    SITEMAP_XML.write_text(render_sitemap(character_urls + support_urls), encoding="utf-8")
 
     banners_hub = BANNERS_HUB_HTML.read_text(encoding="utf-8")
     if "/wuthering-waves-banner-countdown/" not in banners_hub:
