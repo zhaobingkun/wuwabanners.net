@@ -114,6 +114,20 @@ h3 {
 .nav-links a {
   color: var(--text);
   font-weight: 600;
+  padding: 0.42rem 0.7rem;
+  border-radius: 999px;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.nav-links a:hover {
+  text-decoration: none;
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.nav-links a.is-current,
+.nav-links a[aria-current="page"] {
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .hero {

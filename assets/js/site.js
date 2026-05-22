@@ -48,6 +48,50 @@ function buildReferenceLink(kind, entry) {
   return href && title ? { href, title } : null;
 }
 
+function normalizePathname(value) {
+  if (!value) {
+    return "/";
+  }
+
+  let normalized = value;
+  if (!normalized.endsWith("/")) {
+    normalized = `${normalized}/`;
+  }
+  if (normalized === "/index.html/") {
+    return "/";
+  }
+  return normalized.replace(/\/index\.html\/$/, "/");
+}
+
+function highlightCurrentNav() {
+  const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+  if (!navLinks.length) {
+    return;
+  }
+
+  const currentPath = normalizePathname(window.location.pathname);
+  let bestMatch = null;
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (!href) {
+      return;
+    }
+
+    const linkPath = normalizePathname(new URL(href, window.location.origin).pathname);
+    if (currentPath === linkPath || (linkPath !== "/" && currentPath.startsWith(linkPath))) {
+      if (!bestMatch || linkPath.length > bestMatch.path.length) {
+        bestMatch = { link, path: linkPath };
+      }
+    }
+  });
+
+  if (bestMatch) {
+    bestMatch.link.classList.add("is-current");
+    bestMatch.link.setAttribute("aria-current", "page");
+  }
+}
+
 document.addEventListener("click", (event) => {
   const trigger = event.target.closest(".video-lite");
   if (!trigger) {
@@ -182,6 +226,7 @@ async function loadReferenceDirectories() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  highlightCurrentNav();
   loadReferenceImages();
   loadReferenceDirectories();
 });
