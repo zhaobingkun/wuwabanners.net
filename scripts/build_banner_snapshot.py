@@ -547,6 +547,32 @@ def build_current_decision_matrix(snapshot: dict[str, object]) -> str:
         </div>"""
 
 
+def build_current_account_routes(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    return f"""      <div class="card">
+        <h2>If you want the fastest live answer</h2>
+        <p>Start with the current phase if you only care about what is usable right now. This is the best route for accounts that need immediate value from {", ".join(current["featured_characters"])} before the phase ends.</p>
+      </div>
+      <div class="card">
+        <h2>If you are comparing before spending</h2>
+        <p>Use the current banner page as the live baseline, then jump to next banner and pity. This route is stronger than deciding from one character page without phase context.</p>
+      </div>"""
+
+
+def build_current_character_links(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    cards = []
+    for name in current["featured_characters"]:
+        slug = slugify_character(name)
+        cards.append(
+            f'        <article class="card"><h2>{name}</h2><p>Open the guide hub, pull page, and support pages for the live character before committing resources.</p><p><a href="/wuthering-waves-characters/{slug}/">Open {name} hub</a></p></article>'
+        )
+    return f"""      <h2>Live character starting points</h2>
+      <div class="card-grid">
+{chr(10).join(cards)}
+      </div>"""
+
+
 def build_current_sources(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     updated = snapshot["updated"]
@@ -1956,32 +1982,35 @@ def update_pages(snapshot: dict[str, object]) -> None:
     current_text = replace_block_exact(current_text, "CURRENT_CARDS", build_current_cards(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_TABLE", build_current_table(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_SOURCES", build_current_sources(snapshot))
-    current_insert_after = """      <section class="section">
-        <!-- AUTO:CURRENT_TABLE -->"""
     if "AUTO:CURRENT_DECISION" not in current_text:
-        current_text = current_text.replace(
-            current_insert_after,
-            f"""      <section class="section">
-        <!-- AUTO:CURRENT_TABLE -->""",
-            1,
-        )
         current_table_end = """<!-- /AUTO:CURRENT_TABLE -->
-      </section>"""
+    </section>"""
         current_text = current_text.replace(
             current_table_end,
-            """<!-- /AUTO:CURRENT_TABLE -->
-      </section>
+            f"""<!-- /AUTO:CURRENT_TABLE -->
+    </section>
 
-      <section class="section">
-        <!-- AUTO:CURRENT_DECISION -->
-PLACEHOLDER_CURRENT_DECISION
+    <section class="section">
+      <!-- AUTO:CURRENT_DECISION -->
+{build_current_decision_matrix(snapshot)}
 <!-- /AUTO:CURRENT_DECISION -->
-      </section>""",
+    </section>
+    <section class="section two-col">
+      <!-- AUTO:CURRENT_ROUTES -->
+{build_current_account_routes(snapshot)}
+<!-- /AUTO:CURRENT_ROUTES -->
+    </section>
+    <section class="section">
+      <!-- AUTO:CURRENT_CHARACTER_LINKS -->
+{build_current_character_links(snapshot)}
+<!-- /AUTO:CURRENT_CHARACTER_LINKS -->
+    </section>""",
             1,
         )
-        current_text = current_text.replace("PLACEHOLDER_CURRENT_DECISION", build_current_decision_matrix(snapshot), 1)
     else:
         current_text = replace_block_exact(current_text, "CURRENT_DECISION", build_current_decision_matrix(snapshot))
+        current_text = replace_block_exact(current_text, "CURRENT_ROUTES", build_current_account_routes(snapshot))
+        current_text = replace_block_exact(current_text, "CURRENT_CHARACTER_LINKS", build_current_character_links(snapshot))
     CURRENT_HTML.write_text(current_text, encoding="utf-8")
 
     history_text = HISTORY_HTML.read_text(encoding="utf-8")
