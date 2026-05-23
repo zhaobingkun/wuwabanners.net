@@ -1521,6 +1521,69 @@ def build_focus_support_cases(page: dict[str, str], snapshot: dict[str, object])
     </section>"""
 
 
+def build_focus_support_playbook(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    if page["slug"] not in {"hiyuki", "denia"}:
+        return ""
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        if page["slug"] == "hiyuki":
+            rows = [
+                ("Safe bucket", "Credits, common drops, broad upgrade stock", "These are the least risky ways to prep while Hiyuki is already relevant in the live phase."),
+                ("Confirm-at-live bucket", "Rare boss and weekly-locked items", f"These should wait for final in-game confirmation, especially if {compare['banner_name']} is still competing for your resources."),
+                ("Do-not-overfarm bucket", "One-character-only routes with no overlap", "These are the first places where players waste stamina if they force the decision too early."),
+            ]
+        else:
+            rows = [
+                ("Safe bucket", "Shared materials and reusable stock", f"These are the right pre-farm targets while {character} is still part of {primary['banner_name']} planning rather than a confirmed live spend."),
+                ("Wait-for-live bucket", "Rare locked drops and route-specific items", "These should stay flexible until Denia is fully live or fully confirmed in-game."),
+                ("Compare-first bucket", "Anything that competes directly with live-banner spending", f"If the live phase still matters, compare against {compare['banner_name']} before locking stamina."),
+            ]
+        section_title = f"{character} materials playbook"
+    elif page["kind"] == "build":
+        if page["slug"] == "hiyuki":
+            rows = [
+                ("Starter route", "Usable live build with fallback weapon logic", "Best for accounts that need Hiyuki working fast before worrying about perfect tuning."),
+                ("Balanced route", "Role-first build with flexible stat expectations", "Best when Hiyuki matters but you still want room to pivot later."),
+                ("High-commit route", "Premium path only after testing settles", f"This should wait until you are sure Hiyuki beats the pull value in {compare['banner_name']}."),
+            ]
+        else:
+            rows = [
+                ("Preview route", "Role and fallback weapon path before release", "Best for pre-planning Denia without pretending every detail is locked already."),
+                ("Balanced route", "One safe build path that does not require ideal conditions", "Best for accounts saving for Denia but still protecting pity and flexibility."),
+                ("Release-day route", "Deep tuning after live confirmation", f"Only use this after {primary['banner_name']} goes fully live and Denia has real in-game evidence."),
+            ]
+        section_title = f"{character} build playbook"
+    else:
+        if page["slug"] == "hiyuki":
+            rows = [
+                ("Safe shell", "On-field core + sustain + broad support/flex", "Best for users who want one live team that works without perfect partners."),
+                ("Test shell", "Hiyuki core + one flex partner left movable", "Best for users who want to try Hiyuki without freezing the whole roster around her."),
+                ("Premium shell", "High-commit version after comfort is proven", f"Only push here if Hiyuki still clearly beats redirecting toward {compare['banner_name']}."),
+            ]
+        else:
+            rows = [
+                ("Preview shell", "Role-first shell before final release testing", "Best for planning Denia as a concept instead of locking one fragile lineup too early."),
+                ("Comparison shell", "One Denia shell versus one live-phase shell", f"Best for users deciding whether Denia really beats the immediate value in {compare['banner_name']}."),
+                ("Premium shell", "Higher-commit version once live play confirms the role", "Use this only after Denia has a clear live identity and the shell still feels worth the spend."),
+            ]
+        section_title = f"{character} team shell playbook"
+    rows_html = "\n".join(
+        f"            <tr><td>{lane}</td><td>{move}</td><td>{why}</td></tr>" for lane, move, why in rows
+    )
+    return f"""    <section class="section">
+      <h2>{section_title}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Lane</th><th>Best move</th><th>Why it exists</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
 def build_support_related(page: dict[str, str]) -> str:
     character = page["character"]
     slug = page["slug"]
@@ -1652,6 +1715,7 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
 {build_support_branch_context(page, snapshot)}
 {build_focus_character_module(page, snapshot)}
 {build_focus_support_cases(page, snapshot)}
+{build_focus_support_playbook(page, snapshot)}
 {build_support_table(page)}
 {build_support_priority_lanes(page, snapshot)}
 {build_support_related(page)}

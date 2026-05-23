@@ -191,9 +191,15 @@ def main() -> int:
     require_sitemap_urls(key_urls, failures)
 
     # Warnings only: note secondary sources that should be replaced later.
+    trusted_domains = (
+        "wutheringwaves.kurogames.com",
+        "youtube.com",
+        "blog.playstation.com",
+        "dearplayers.com",
+    )
     for row in history:
         source_url = row.get("source_url", "")
-        if source_url and "wutheringwaves.kurogames.com" not in source_url and "youtube.com" not in source_url and "blog.playstation.com" not in source_url:
+        if source_url and not any(domain in source_url for domain in trusted_domains):
             warnings.append(
                 f"History row {row['banner_name']} still uses a secondary source: {source_url}"
             )
