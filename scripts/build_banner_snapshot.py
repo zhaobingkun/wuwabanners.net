@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA_CSV = ROOT / "data" / "banner-data.csv"
 DATA_JSON = ROOT / "data" / "banner-snapshot.json"
+REFERENCE_JSON = ROOT / "data" / "reference-images.json"
 IMG_DIR = ROOT / "assets" / "img"
 INDEX_HTML = ROOT / "index.html"
 NEXT_HTML = ROOT / "wuthering-waves-next-banner" / "index.html"
@@ -93,6 +94,50 @@ def load_rows() -> list[dict[str, str]]:
 
 def split_field(value: str) -> list[str]:
     return [part.strip() for part in value.split("|") if part.strip()]
+
+
+def load_reference_payload() -> dict[str, list[dict[str, str]]]:
+    if not REFERENCE_JSON.exists():
+        return {"characters": [], "weapons": [], "items": []}
+    return json.loads(REFERENCE_JSON.read_text(encoding="utf-8"))
+
+
+REFERENCE_PAYLOAD = load_reference_payload()
+
+
+def slugify_name(value: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", value.lower())
+    return slug.strip("-")
+
+
+def get_reference_src(kind: str, name: str) -> str | None:
+    for entry in REFERENCE_PAYLOAD.get(kind, []):
+        if entry.get("name") == name:
+            return entry.get("src")
+    wanted = slugify_name(name)
+    for entry in REFERENCE_PAYLOAD.get(kind, []):
+        if entry.get("slug") == wanted:
+            return entry.get("src")
+    return None
+
+
+def render_history_entity_strip(kind: str, names: list[str]) -> str:
+    cards = []
+    variant = "weapon" if kind == "weapons" else "character"
+    for name in names:
+        src = get_reference_src(kind, name)
+        if src:
+            cards.append(
+                f'<figure class="history-entity {variant}"><div class="history-thumb"><img src="{src}" alt="{html.escape(name)}" loading="lazy" decoding="async"></div><figcaption>{html.escape(name)}</figcaption></figure>'
+            )
+        else:
+            cards.append(
+                f'''<figure class="history-entity {variant} history-entity-placeholder">
+  <div class="history-thumb"><span class="history-placeholder-label">{html.escape("Art pending")}</span></div>
+  <figcaption>{html.escape(name)}</figcaption>
+</figure>'''
+            )
+    return "".join(cards)
 
 
 def parse_date(value: str) -> date | None:
@@ -519,8 +564,26 @@ def build_history_table(snapshot: dict[str, object]) -> str:
     rows_html = "\n".join(rows)
     cards = []
     for item in snapshot["history"]:
+        character_strip = render_history_entity_strip("characters", item["featured_characters"])
+        weapon_strip = render_history_entity_strip("weapons", item["featured_weapons"]) if item["featured_weapons"] else '<span class="history-name-chip">Weapons not tracked</span>'
         cards.append(
-            f'        <article class="card"><h3>{item["banner_name"]}</h3><p>{", ".join(item["featured_characters"])}<br>{fmt_human_date(item["start_date"])} to {fmt_human_date(item["end_date"])}</p><p><a href="{history_row_path(item)}">Open phase detail</a></p></article>'
+            f'''        <article class="card history-phase-card">
+          <div class="history-phase-top">
+            <div>
+              <h3>{item["banner_name"]}</h3>
+              <p class="muted">{fmt_human_date(item["start_date"])} to {fmt_human_date(item["end_date"])}</p>
+            </div>
+            <a class="directory-link" href="{history_row_path(item)}">Open phase detail</a>
+          </div>
+          <div class="history-entity-block">
+            <strong>Featured characters</strong>
+            <div class="history-entity-row">{character_strip}</div>
+          </div>
+          <div class="history-entity-block">
+            <strong>Featured weapons</strong>
+            <div class="history-entity-row">{weapon_strip}</div>
+          </div>
+        </article>'''
         )
     cards_html = "\n".join(cards)
     return f"""      <h2>Recent banner history list</h2>
@@ -568,6 +631,16 @@ def get_history_detail_pages(snapshot: dict[str, object]) -> list[dict[str, obje
     return pages
 
 
+def get_history_neighbors(pages: list[dict[str, object]], current_slug: str) -> tuple[dict[str, object] | None, dict[str, object] | None]:
+    for index, item in enumerate(pages):
+        if item["slug"] != current_slug:
+            continue
+        previous_item = pages[index - 1] if index > 0 else None
+        next_item = pages[index + 1] if index + 1 < len(pages) else None
+        return previous_item, next_item
+    return None, None
+
+
 def render_history_detail_page(page: dict[str, object], snapshot: dict[str, object]) -> str:
     banner_name = str(page["banner_name"])
     version = str(page["version"])
@@ -575,6 +648,28 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
     path = str(page["path"])
     characters_text = ", ".join(str(name) for name in page["featured_characters"])
     weapons_text = ", ".join(str(name) for name in page["featured_weapons"]) if page["featured_weapons"] else "No weapon row tracked for this phase."
+    character_strip = render_history_entity_strip("characters", list(page["featured_characters"]))
+    weapon_strip = render_history_entity_strip("weapons", list(page["featured_weapons"])) if page["featured_weapons"] else '<span class="history-name-chip">Weapons not tracked</span>'
+    history_pages = get_history_detail_pages(snapshot)
+    previous_page, next_page = get_history_neighbors(history_pages, str(page["slug"]))
+    history_nav_cards = []
+    if previous_page:
+        history_nav_cards.append(
+            f'''      <a class="history-phase-nav-card" href="{previous_page["path"]}">
+        <span class="history-phase-nav-label">Previous phase</span>
+        <strong>{html.escape(str(previous_page["banner_name"]))}</strong>
+        <span class="muted">{fmt_human_date(str(previous_page["start_date"]))} to {fmt_human_date(str(previous_page["end_date"]))}</span>
+      </a>'''
+        )
+    if next_page:
+        history_nav_cards.append(
+            f'''      <a class="history-phase-nav-card" href="{next_page["path"]}">
+        <span class="history-phase-nav-label">Next phase</span>
+        <strong>{html.escape(str(next_page["banner_name"]))}</strong>
+        <span class="muted">{fmt_human_date(str(next_page["start_date"]))} to {fmt_human_date(str(next_page["end_date"]))}</span>
+      </a>'''
+        )
+    history_nav_html = "\n".join(history_nav_cards) if history_nav_cards else '      <p class="muted">This is the only tracked phase in the current history window.</p>'
     title = f"Wuthering Waves {banner_name} Banner History | WuWa Banners"
     description = f"View the {banner_name} banner history detail page with featured characters, featured weapons, dates, and rerun context."
     faq_json = json.dumps(
@@ -655,6 +750,19 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
       </div>
     </div>
     <section class="section">
+      <h2>{html.escape(banner_name)} lineup cards</h2>
+      <div class="card history-phase-card">
+        <div class="history-entity-block">
+          <strong>Featured characters</strong>
+          <div class="history-entity-row">{character_strip}</div>
+        </div>
+        <div class="history-entity-block">
+          <strong>Featured weapons</strong>
+          <div class="history-entity-row">{weapon_strip}</div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
       <h2>{html.escape(banner_name)} detail snapshot</h2>
       <div class="table-wrap">
         <table>
@@ -668,6 +776,12 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
             <tr><td>Banner window</td><td>{fmt_human_date(str(page["start_date"]))} to {fmt_human_date(str(page["end_date"]))}</td></tr>
           </tbody>
         </table>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Browse nearby history phases</h2>
+      <div class="history-phase-nav-grid">
+{history_nav_html}
       </div>
     </section>
     <section class="section two-col">
@@ -1047,6 +1161,10 @@ def support_phase_context(page: dict[str, str], snapshot: dict[str, object]) -> 
     return primary, compare
 
 
+def character_hub_path(slug: str) -> str:
+    return f"/wuthering-waves-characters/{slug}/"
+
+
 def build_support_cards(page: dict[str, str], snapshot: dict[str, object]) -> str:
     character = page["character"]
     primary, compare = support_phase_context(page, snapshot)
@@ -1097,6 +1215,35 @@ def build_support_strategy(page: dict[str, str], snapshot: dict[str, object]) ->
       <div class="card">
         <h2>{right_title}</h2>
         <p>{right_body}</p>
+      </div>
+    </section>"""
+
+
+def build_support_branch_context(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    slug = page["slug"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        compare_copy = f"Before heavy stamina spending, compare {character} against the still competing needs of {', '.join(compare['featured_characters'])}. Materials pages are strongest when they tell users what is safe now and what should wait."
+    elif page["kind"] == "build":
+        compare_copy = f"Before locking premium gear assumptions, compare {character} against the other tracked phase. Build pages should protect users from over-committing before {primary['banner_name']} or {compare['banner_name']} settles fully."
+    else:
+        compare_copy = f"Before chasing idealized pairings, compare {character} against your current roster pressure and the other tracked phase. Team comps pages should keep one realistic shell ready even if premium partners are delayed."
+    return f"""    <section class="section two-col">
+      <div class="card">
+        <h2>Where this page sits</h2>
+        <p>Use this support page as the narrow layer after the {character} guide hub. The clean route is character list, then {character} hub, then this page, then the sibling support page you need next.</p>
+        <div class="reference-directory">
+          <a class="directory-link" href="{character_hub_path(slug)}">{character} guide hub</a>
+          <a class="directory-link" href="/wuthering-waves-should-you-pull-{slug}/">Should you pull {character}?</a>
+          <a class="directory-link" href="{support_page_path(slug, "materials")}">Materials</a>
+          <a class="directory-link" href="{support_page_path(slug, "build")}">Build</a>
+          <a class="directory-link" href="{support_page_path(slug, "team-comps")}">Team comps</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>What to compare before locking</h2>
+        <p>{compare_copy}</p>
       </div>
     </section>"""
 
@@ -1153,6 +1300,7 @@ def build_support_related(page: dict[str, str]) -> str:
       <div class="card">
         <h2>Related pages</h2>
         <ul class="list">
+          <li><a href="{character_hub_path(slug)}">{character} guide hub</a></li>
           <li><a href="/wuthering-waves-should-you-pull-{slug}/">Should you pull {character}?</a></li>
           <li><a href="{support_page_path(slug, "materials")}">{character} materials</a></li>
           <li><a href="{support_page_path(slug, "build")}">{character} build</a></li>
@@ -1262,12 +1410,13 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
 <body>
   <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
   <main class="section"><div class="container">
-    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/guides/">Guides</a> / <a href="/wuthering-waves-should-you-pull-{page["slug"]}/">{character}</a> / {kind_label}</div>
+    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/guides/">Guides</a> / <a href="{character_hub_path(page["slug"])}">{character}</a> / {kind_label}</div>
     <h1>Wuthering Waves {character} {kind_label}</h1>
 {build_support_intro(page, snapshot)}
 {build_support_media(page)}
 {build_support_cards(page, snapshot)}
 {build_support_strategy(page, snapshot)}
+{build_support_branch_context(page, snapshot)}
 {build_support_table(page)}
 {build_support_related(page)}
     <section class="section">
@@ -1462,12 +1611,37 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
       <article class="card"><h2>Compare point</h2><p>If you are still deciding, compare this route against {html.escape(compare["banner_name"])} before locking resources.</p></article>
     </div>
     <section class="section">
+      <h2>How to use the {character} hub</h2>
+      <div class="card-grid">
+        <article class="card"><h3>1. Start here if you know the character</h3><p>Use this hub after the characters list when you already know the unit you care about but still need to choose which narrow page to open next.</p></article>
+        <article class="card"><h3>2. Open the decision page first</h3><p>If the main question is still whether to spend, open the pull page before you drop into materials, build, or team comps.</p></article>
+        <article class="card"><h3>3. Go into one support page</h3><p>Only after the main decision is clear should you move into one support page and keep the next click inside the same {character} branch.</p></article>
+      </div>
+    </section>
+    <section class="section">
       <h2>{character} page list</h2>
       <div class="card-grid">
         <article class="card"><h2>Should you pull {character}?</h2><p>Start here if your main question is whether {character} is worth spending on right now.</p><p><a href="/wuthering-waves-should-you-pull-{slug}/">Open pull advice</a></p></article>
         <article class="card"><h2>{character} materials</h2><p>Use this page for pre-farm planning, ascension notes, and safe-versus-risky material decisions.</p><p><a href="{support_page_path(slug, "materials")}">Open materials</a></p></article>
         <article class="card"><h2>{character} build</h2><p>Use this page for role framing, early upgrade order, and practical build decisions.</p><p><a href="{support_page_path(slug, "build")}">Open build</a></p></article>
         <article class="card"><h2>{character} team comps</h2><p>Use this page for role slot decisions, fallback shell planning, and realistic team structure.</p><p><a href="{support_page_path(slug, "team-comps")}">Open team comps</a></p></article>
+      </div>
+    </section>
+    <section class="section two-col">
+      <div class="card">
+        <h2>{character} branch context</h2>
+        <p>{character} sits between the broad character list and the narrow support pages. This hub should stop users from bouncing between unrelated guides just because they have not chosen whether they need pull advice, materials, build, or teams yet.</p>
+        <div class="reference-directory">
+          <a class="directory-link" href="/wuthering-waves-characters/">Back to characters list</a>
+          <a class="directory-link" href="/wuthering-waves-should-you-pull-{slug}/">Open pull page</a>
+          <a class="directory-link" href="{support_page_path(slug, "materials")}">Open materials</a>
+          <a class="directory-link" href="{support_page_path(slug, "build")}">Open build</a>
+          <a class="directory-link" href="{support_page_path(slug, "team-comps")}">Open team comps</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>What to compare before committing</h2>
+        <p>Do not read {character} in isolation. Compare the spend case, the farm case, and the roster-pressure case against {html.escape(compare["banner_name"])} so this hub helps users make a real account choice instead of only opening more tabs.</p>
       </div>
     </section>
     <section class="section two-col">
