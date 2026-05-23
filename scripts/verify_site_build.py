@@ -84,8 +84,8 @@ def main() -> int:
             "Current timeline snapshot",
             current["banner_name"],
             nxt["banner_name"],
-            "Browse by section",
-            "Reference branches at a glance",
+            "Best starting points",
+            "Choose your next page by question type",
         ],
         failures,
     )

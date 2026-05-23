@@ -57,14 +57,14 @@
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/index.html">Home</a> / Weapons</div>
     <h1>Wuthering Waves Weapons</h1>
-    <p class="lead">Use the weapons branch when the user wants a weapon list first, then one weapon detail page, then a planning page only if they still need to compare banner, character, or upgrade implications.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The best Wuthering Waves weapons page groups weapons by planning intent first, then routes users into weapon banner, items, and character pages depending on what they are trying to decide.</div>
+    <p class="lead">Use the weapons hub when the user wants a weapon list first, then one weapon detail page, then a planning page only if they still need banner, character, or upgrade context.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> Group weapons by planning intent first, then route users into weapon banner, items, or character pages depending on the next question.</div>
     <section class="section">
       <h2>How to use the weapons branch</h2>
       <div class="card-grid">
-        <article class="card"><h3>1. Start from the weapons list</h3><p>Use the hub when the user wants to browse by image or name before deciding whether a weapon is even the right next question.</p></article>
-        <article class="card"><h3>2. Open one weapon detail page</h3><p>Move into the weapon detail page for the clean visual confirmation layer before the user jumps into banners, items, or characters.</p></article>
-        <article class="card"><h3>3. Move into planning pages</h3><p>Only after that should the user move into weapon banner, items, or character pages depending on the actual decision they need to make.</p></article>
+        <article class="card"><h3>1. Start from the weapons list</h3><p>Use this page when the user wants to browse by image or name before opening a deeper page.</p></article>
+        <article class="card"><h3>2. Open one weapon detail page</h3><p>Open the weapon detail page for the clean visual confirmation layer.</p></article>
+        <article class="card"><h3>3. Move into planning pages</h3><p>Then move into weapon banner, items, or character pages only if needed.</p></article>
       </div>
     </section>
     <div class="card-grid" style="margin-top:1.25rem;">
@@ -87,6 +87,36 @@
       </div>
     </section>
     <section class="section">
+      <h2>Choose the weapon path by question type</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>I want the banner-linked answer first</h3>
+          <p>Start with weapon banner, current banner, or next banner if the real question is whether a weapon pull matters more than a character pull right now.</p>
+          <div class="reference-directory">
+            <a class="directory-link" href="/wuthering-waves-weapon-banner/">Weapon banner</a>
+            <a class="directory-link" href="/wuthering-waves-current-banner/">Current banner</a>
+            <a class="directory-link" href="/wuthering-waves-next-banner/">Next banner</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>I already know the weapon name</h3>
+          <p>Start with the gallery or text directory if you want one exact weapon detail page before making any banner, character, or upgrade decision.</p>
+          <div class="reference-directory">
+            <a class="directory-link" href="#weapon-reference-gallery">Weapon gallery</a>
+            <a class="directory-link" href="#weapon-detail-directory">Weapon directory</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>I need character or material context</h3>
+          <p>Start with characters or items if the weapon itself is not the final question and you really need the character fit or resource-planning layer next.</p>
+          <div class="reference-directory">
+            <a class="directory-link" href="/wuthering-waves-characters/">Characters</a>
+            <a class="directory-link" href="/wuthering-waves-items/">Items</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section">
       <h2>Weapons page structure</h2>
       <div class="table-wrap">
         <table>
@@ -100,14 +130,14 @@
       </div>
     </section>
     <section class="section">
-      <h2>Weapon reference gallery</h2>
+      <h2 id="weapon-reference-gallery">Weapon reference gallery</h2>
       <p class="section-intro">This section is designed for locally downloaded WuWa Tracker weapon art. Each image and weapon name opens a dedicated detail page, so this gallery now works as the visual list layer before the deeper weapon page.</p>
       <div class="reference-grid" data-reference-gallery="weapons">
         <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this gallery.</article>
       </div>
     </section>
     <section class="section">
-      <h2>Weapon detail directory</h2>
+      <h2 id="weapon-detail-directory">Weapon detail directory</h2>
       <p class="section-intro">If you prefer a fast text list over image browsing, use this directory. It acts like the clean list layer between the weapons hub and each weapon detail page.</p>
       <div class="reference-directory" data-reference-directory="weapons">
         <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this directory.</article>
@@ -124,7 +154,7 @@
       </div>
       <div class="card">
         <h2>Why this page matters</h2>
-        <p>Weapons pages now work in a cleaner chain: navigation to the weapons hub, list browsing by image or name, then a dedicated detail page before users jump into banners, characters, or upgrade planning.</p>
+        <p>Weapons pages now follow the same chain as the rest of the site: hub, detail, then planning only if needed.</p>
       </div>
     </section>
     <section class="section">

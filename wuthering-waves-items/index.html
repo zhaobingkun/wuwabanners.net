@@ -57,14 +57,14 @@
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/index.html">Home</a> / Items</div>
     <h1>Wuthering Waves Items</h1>
-    <p class="lead">Use the items branch when the user needs a resource list first, then one item detail page, then a narrower planning page only if they still need character, weapon, or timing context afterward.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The most useful Wuthering Waves items page groups materials by use case first: currencies, character materials, weapon materials, and progression resources, then links into the exact page users need next.</div>
+    <p class="lead">Use the items hub when the user needs a resource list first, then one item detail page, then a narrower planning page only if they still need character, weapon, or timing context.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> Group materials by use case first, then link into the exact page the user needs next.</div>
     <section class="section">
       <h2>How to use the items branch</h2>
       <div class="card-grid">
-        <article class="card"><h3>1. Start from the items list</h3><p>Use the hub when the user knows the query is about a resource but still needs the broad list layer before opening one exact item.</p></article>
-        <article class="card"><h3>2. Open one item detail page</h3><p>Move into the item detail page for the exact material, currency, or upgrade item before sending the user into a deeper planning branch.</p></article>
-        <article class="card"><h3>3. Move into the next planning branch</h3><p>Only after the item is identified should the user move into characters, weapons, pity, or timeline, depending on why that resource matters.</p></article>
+        <article class="card"><h3>1. Start from the items list</h3><p>Use this page when the query is about a resource but still needs the broad list layer first.</p></article>
+        <article class="card"><h3>2. Open one item detail page</h3><p>Open the exact material, currency, or upgrade item before moving deeper.</p></article>
+        <article class="card"><h3>3. Move into the next planning branch</h3><p>Then move into characters, weapons, pity, or timeline only if needed.</p></article>
       </div>
     </section>
     <div class="card-grid" style="margin-top:1.25rem;">
@@ -87,6 +87,36 @@
       </div>
     </section>
     <section class="section">
+      <h2>Choose the item path by question type</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>I need a resource answer first</h3>
+          <p>Start with the gallery or text directory if the main question is just identifying one material, currency, or resource item before doing anything deeper.</p>
+          <div class="reference-directory">
+            <a class="directory-link" href="#item-reference-gallery">Item gallery</a>
+            <a class="directory-link" href="#item-detail-directory">Item directory</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>I need character or weapon planning next</h3>
+          <p>Start with characters or weapons if the item is only important because it supports a build, team, or weapon-upgrade decision.</p>
+          <div class="reference-directory">
+            <a class="directory-link" href="/wuthering-waves-characters/">Characters</a>
+            <a class="directory-link" href="/wuthering-waves-weapons/">Weapons</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>I need banner or timing context</h3>
+          <p>Start with pity, current banner, or timeline if the item question is really about spending, saving, or when a resource matters in the cycle.</p>
+          <div class="reference-directory">
+            <a class="directory-link" href="/wuthering-waves-pity-system/">Pity system</a>
+            <a class="directory-link" href="/wuthering-waves-current-banner/">Current banner</a>
+            <a class="directory-link" href="/wuthering-waves-timeline/">Timeline</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section">
       <h2>Item reference structure</h2>
       <div class="table-wrap">
         <table>
@@ -101,14 +131,14 @@
       </div>
     </section>
     <section class="section">
-      <h2>Item reference gallery</h2>
+      <h2 id="item-reference-gallery">Item reference gallery</h2>
       <p class="section-intro">This section is designed for locally downloaded WuWa Tracker item art. Each image and item name opens a dedicated detail page, so this gallery now works as the visual list layer before deeper materials planning.</p>
       <div class="reference-grid" data-reference-gallery="items">
         <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this gallery.</article>
       </div>
     </section>
     <section class="section">
-      <h2>Item detail directory</h2>
+      <h2 id="item-detail-directory">Item detail directory</h2>
       <p class="section-intro">Use this text directory if you want the fastest route into a specific item detail page. It gives the items hub a cleaner list-to-detail structure for browser users.</p>
       <div class="reference-directory" data-reference-directory="items">
         <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this directory.</article>
@@ -124,8 +154,8 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Why it fits this site</h2>
-        <p>Items pages now work more like a proper reference branch: top navigation to the items hub, image or text list browsing, then a lightweight item detail page before users move into characters, weapons, or pity planning.</p>
+        <h2>Why this page matters</h2>
+        <p>Items pages now follow the same chain as the rest of the site: hub, detail, then planning only if needed.</p>
       </div>
     </section>
     <section class="section">

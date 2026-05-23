@@ -1446,22 +1446,20 @@ def build_support_priority_lanes(page: dict[str, str], snapshot: dict[str, objec
 
 
 def build_focus_character_module(page: dict[str, str], snapshot: dict[str, object]) -> str:
-    if page["slug"] not in {"hiyuki", "denia"}:
-        return ""
     character = page["character"]
     primary, compare = support_phase_context(page, snapshot)
-    if page["slug"] == "hiyuki":
-        heading = "Hiyuki-specific planning notes"
-        left_title = "If Hiyuki is your immediate target"
-        left_body = f"Treat Hiyuki as a live-banner decision. If she is the reason to spend in {primary['banner_name']}, the page should keep you focused on low-risk prep and immediate usability instead of overbuilding for hypothetical later shifts."
-        right_title = "If Hiyuki is only a side option"
-        right_body = f"If Hiyuki is not the main reason you are spending, compare her path against {compare['banner_name']} before locking too much stamina, gear, or pity pressure into one live cycle."
+    if page["mode"] == "current":
+        heading = f"{character}-specific planning notes"
+        left_title = f"If {character} is your immediate target"
+        left_body = f"Treat {character} as a live-banner decision. If {character} is the reason to spend in {primary['banner_name']}, this page should keep you focused on low-risk prep and immediate usability instead of overbuilding for hypothetical later shifts."
+        right_title = f"If {character} is only a side option"
+        right_body = f"If {character} is not the main reason you are spending, compare this route against {compare['banner_name']} before locking too much stamina, gear, or pity pressure into one live cycle."
     else:
-        heading = "Denia-specific planning notes"
-        left_title = "If Denia is your planned save target"
-        left_body = f"Use Denia pages to prep in layers before {primary['banner_name']} goes live. This is the right moment to decide role, fallback weapon path, and what can safely be prepared before final live confirmation."
-        right_title = "If Denia is competing with the live phase"
-        right_body = f"If Denia is only one option among several, the page should keep comparing her against the immediate pull value in {compare['banner_name']} instead of assuming the next phase automatically wins."
+        heading = f"{character}-specific planning notes"
+        left_title = f"If {character} is your planned save target"
+        left_body = f"Use {character} pages to prep in layers before {primary['banner_name']} goes live. This is the right moment to decide role, fallback weapon path, and what can safely be prepared before final live confirmation."
+        right_title = f"If {character} is competing with the live phase"
+        right_body = f"If {character} is only one option among several, this page should keep comparing that route against the immediate pull value in {compare['banner_name']} instead of assuming the next phase automatically wins."
     return f"""    <section class="section two-col">
       <div class="card">
         <h2>{heading}</h2>
@@ -1475,36 +1473,51 @@ def build_focus_character_module(page: dict[str, str], snapshot: dict[str, objec
 
 
 def build_focus_support_cases(page: dict[str, str], snapshot: dict[str, object]) -> str:
-    if page["slug"] not in {"hiyuki", "denia"}:
-        return ""
     character = page["character"]
     primary, compare = support_phase_context(page, snapshot)
-    if page["slug"] == "hiyuki" and page["kind"] == "build":
+    if page["mode"] == "current" and page["kind"] == "build":
         rows = [
             ("You want immediate live value", "Lock a practical build now", f"{character} is already inside {primary['banner_name']}, so a usable early build matters more than future-perfect tuning."),
             ("You may still pivot to the next phase", "Keep the build flexible", f"Do not over-tune gear if {compare['banner_name']} can still redirect your spending plan."),
             ("You are pity-sensitive", "Use fallback options first", "A lower-risk weapon and upgrade route protects your account from expensive overcommitment."),
         ]
-    elif page["slug"] == "hiyuki" and page["kind"] == "team-comps":
+    elif page["mode"] == "current" and page["kind"] == "team-comps":
         rows = [
             ("You need one safe live team", "Build a stable shell first", f"Because {character} is live now, the first team should be easy to field, not dependent on ideal future partners."),
             ("You only want to test before committing", "Use a fallback partner slot", "Leave room to swap one slot later instead of assuming the first shell is final."),
             ("You may save for the next phase", "Avoid over-specialized teammates", f"Keep the team broad enough that {compare['banner_name']} can still change your direction."),
         ]
-    elif page["slug"] == "denia" and page["kind"] == "materials":
+    elif page["mode"] == "next" and page["kind"] == "materials":
         rows = [
-            ("You are definitely saving for Denia", "Pre-farm safe shared routes", f"{character} is in {primary['banner_name']}, so this is the right time to collect low-risk materials."),
-            ("You still may spend on the live phase", "Delay rare material lock-in", f"Keep room for {compare['banner_name']} until Denia is fully live or fully confirmed in-game."),
+            (f"You are definitely saving for {character}", "Pre-farm safe shared routes", f"{character} is in {primary['banner_name']}, so this is the right time to collect low-risk materials."),
+            ("You still may spend on the live phase", "Delay rare material lock-in", f"Keep room for {compare['banner_name']} until {character} is fully live or fully confirmed in-game."),
             ("You want the safest prep path", "Split farming into low-risk and high-risk buckets", "That keeps your stamina plan useful even if your pull decision changes."),
         ]
-    elif page["slug"] == "denia" and page["kind"] == "team-comps":
+    elif page["mode"] == "next" and page["kind"] == "team-comps":
         rows = [
             ("You are pre-planning before release", "Start with role-first shells", f"{character} team planning is strongest when it starts with job-to-fill, not hype around unreleased pairings."),
             ("You may skip if the live phase wins", "Keep one comparison shell", f"Make it easy to compare {character} against the immediate value of {compare['banner_name']}."),
             ("You want a publishable browser answer", "Show one practical and one ambitious shell", "That serves both conservative and premium-planning users."),
         ]
     else:
-        return ""
+        if page["kind"] == "materials":
+            rows = [
+                ("You want the safest prep path", "Split farming into low-risk and high-risk buckets", "That keeps your stamina plan useful even if your pull decision changes."),
+                ("You do not want to waste stamina", "Start with shared stock first", "Broadly reusable prep gives you a safer landing than locking rare routes too early."),
+                ("You are comparing across phases", "Delay route-locked farming", f"Keep comparing against {compare['banner_name']} before converting soft prep into a full commitment."),
+            ]
+        elif page["kind"] == "build":
+            rows = [
+                ("You want one usable route first", "Lock a practical build now", "A good build page should make the first workable route clear before deeper optimization."),
+                ("You may still redirect later", "Keep the build flexible", f"Do not over-tune gear if {compare['banner_name']} can still change your final account direction."),
+                ("You care about resource safety", "Use fallback options first", "A lower-risk weapon and upgrade route protects your account from expensive overcommitment."),
+            ]
+        else:
+            rows = [
+                ("You want one practical team first", "Build a stable shell first", "The first shell should be easy to field and not depend on ideal future partners."),
+                ("You only want to test before committing", "Use a fallback partner slot", "Leave room to swap one slot later instead of assuming the first shell is final."),
+                ("You still need comparison room", "Avoid over-specialized teammates", f"Keep the team broad enough that {compare['banner_name']} can still change your direction."),
+            ]
     rows_html = "\n".join(
         f"            <tr><td>{case}</td><td>{move}</td><td>{note}</td></tr>" for case, move, note in rows
     )
@@ -1522,50 +1535,48 @@ def build_focus_support_cases(page: dict[str, str], snapshot: dict[str, object])
 
 
 def build_focus_support_playbook(page: dict[str, str], snapshot: dict[str, object]) -> str:
-    if page["slug"] not in {"hiyuki", "denia"}:
-        return ""
     character = page["character"]
     primary, compare = support_phase_context(page, snapshot)
     if page["kind"] == "materials":
-        if page["slug"] == "hiyuki":
+        if page["mode"] == "current":
             rows = [
-                ("Safe bucket", "Credits, common drops, broad upgrade stock", "These are the least risky ways to prep while Hiyuki is already relevant in the live phase."),
+                ("Safe bucket", "Credits, common drops, broad upgrade stock", f"These are the least risky ways to prep while {character} is already relevant in the live phase."),
                 ("Confirm-at-live bucket", "Rare boss and weekly-locked items", f"These should wait for final in-game confirmation, especially if {compare['banner_name']} is still competing for your resources."),
                 ("Do-not-overfarm bucket", "One-character-only routes with no overlap", "These are the first places where players waste stamina if they force the decision too early."),
             ]
         else:
             rows = [
                 ("Safe bucket", "Shared materials and reusable stock", f"These are the right pre-farm targets while {character} is still part of {primary['banner_name']} planning rather than a confirmed live spend."),
-                ("Wait-for-live bucket", "Rare locked drops and route-specific items", "These should stay flexible until Denia is fully live or fully confirmed in-game."),
+                ("Wait-for-live bucket", "Rare locked drops and route-specific items", f"These should stay flexible until {character} is fully live or fully confirmed in-game."),
                 ("Compare-first bucket", "Anything that competes directly with live-banner spending", f"If the live phase still matters, compare against {compare['banner_name']} before locking stamina."),
             ]
         section_title = f"{character} materials playbook"
     elif page["kind"] == "build":
-        if page["slug"] == "hiyuki":
+        if page["mode"] == "current":
             rows = [
-                ("Starter route", "Usable live build with fallback weapon logic", "Best for accounts that need Hiyuki working fast before worrying about perfect tuning."),
-                ("Balanced route", "Role-first build with flexible stat expectations", "Best when Hiyuki matters but you still want room to pivot later."),
-                ("High-commit route", "Premium path only after testing settles", f"This should wait until you are sure Hiyuki beats the pull value in {compare['banner_name']}."),
+                ("Starter route", "Usable live build with fallback weapon logic", f"Best for accounts that need {character} working fast before worrying about perfect tuning."),
+                ("Balanced route", "Role-first build with flexible stat expectations", f"Best when {character} matters but you still want room to pivot later."),
+                ("High-commit route", "Premium path only after testing settles", f"This should wait until you are sure {character} beats the pull value in {compare['banner_name']}."),
             ]
         else:
             rows = [
-                ("Preview route", "Role and fallback weapon path before release", "Best for pre-planning Denia without pretending every detail is locked already."),
-                ("Balanced route", "One safe build path that does not require ideal conditions", "Best for accounts saving for Denia but still protecting pity and flexibility."),
-                ("Release-day route", "Deep tuning after live confirmation", f"Only use this after {primary['banner_name']} goes fully live and Denia has real in-game evidence."),
+                ("Preview route", "Role and fallback weapon path before release", f"Best for pre-planning {character} without pretending every detail is locked already."),
+                ("Balanced route", "One safe build path that does not require ideal conditions", f"Best for accounts saving for {character} but still protecting pity and flexibility."),
+                ("Release-day route", "Deep tuning after live confirmation", f"Only use this after {primary['banner_name']} goes fully live and {character} has real in-game evidence."),
             ]
         section_title = f"{character} build playbook"
     else:
-        if page["slug"] == "hiyuki":
+        if page["mode"] == "current":
             rows = [
                 ("Safe shell", "On-field core + sustain + broad support/flex", "Best for users who want one live team that works without perfect partners."),
-                ("Test shell", "Hiyuki core + one flex partner left movable", "Best for users who want to try Hiyuki without freezing the whole roster around her."),
-                ("Premium shell", "High-commit version after comfort is proven", f"Only push here if Hiyuki still clearly beats redirecting toward {compare['banner_name']}."),
+                ("Test shell", f"{character} core + one flex partner left movable", f"Best for users who want to try {character} without freezing the whole roster around them."),
+                ("Premium shell", "High-commit version after comfort is proven", f"Only push here if {character} still clearly beats redirecting toward {compare['banner_name']}."),
             ]
         else:
             rows = [
-                ("Preview shell", "Role-first shell before final release testing", "Best for planning Denia as a concept instead of locking one fragile lineup too early."),
-                ("Comparison shell", "One Denia shell versus one live-phase shell", f"Best for users deciding whether Denia really beats the immediate value in {compare['banner_name']}."),
-                ("Premium shell", "Higher-commit version once live play confirms the role", "Use this only after Denia has a clear live identity and the shell still feels worth the spend."),
+                ("Preview shell", "Role-first shell before final release testing", f"Best for planning {character} as a concept instead of locking one fragile lineup too early."),
+                ("Comparison shell", f"One {character} shell versus one live-phase shell", f"Best for users deciding whether {character} really beats the immediate value in {compare['banner_name']}."),
+                ("Premium shell", "Higher-commit version once live play confirms the role", f"Use this only after {character} has a clear live identity and the shell still feels worth the spend."),
             ]
         section_title = f"{character} team shell playbook"
     rows_html = "\n".join(
@@ -1580,6 +1591,444 @@ def build_focus_support_playbook(page: dict[str, str], snapshot: dict[str, objec
 {rows_html}
           </tbody>
         </table>
+      </div>
+    </section>"""
+
+
+def build_focus_support_reference(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        rows = [
+            ("Reusable stock", "Credits, common field drops, broad upgrade stock", "These are the safest materials to gather before any final lock-in."),
+            ("Semi-locked stock", "Forte and route-specific farm planning", f"Useful if {character} remains the likely target, but still worth comparing against {compare['banner_name']}."),
+            ("Live-confirm stock", "Rare boss, weekly, or route-locked items", f"Best confirmed after {character} is fully live in {primary['banner_name']}."),
+        ]
+        title = f"{character} materials reference layers"
+    elif page["kind"] == "build":
+        rows = [
+            ("Role layer", "What job the character is filling", "This should be locked before any stat or weapon assumptions."),
+            ("Weapon layer", "Fallback route and premium route", "A good build page should separate safe gear from aspirational gear."),
+            ("Optimization layer", "Fine tuning after live feel", f"This is the part to delay until {primary['banner_name']} evidence settles."),
+        ]
+        title = f"{character} build reference layers"
+    else:
+        rows = [
+            ("Core shell", "Main role plus sustain", "This is the first version a player should be able to use in practice."),
+            ("Flexible shell", "One open slot for testing", "This keeps the page useful before perfect partner assumptions are proven."),
+            ("High-commit shell", "Premium or narrow pairing route", "This should only be pushed once the broader shell already works."),
+        ]
+        title = f"{character} team shell reference layers"
+    rows_html = "\n".join(
+        f"            <tr><td>{layer}</td><td>{content}</td><td>{note}</td></tr>" for layer, content, note in rows
+    )
+    return f"""    <section class="section">
+      <h2>{title}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Layer</th><th>What belongs here</th><th>Why it matters</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_focus_support_checklist(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        items = [
+            f"Check whether {character} is still your first resource target compared with {compare['banner_name']}.",
+            "Separate low-risk shared farming from rare locked farming.",
+            "Do not treat weekly or rare drops as mandatory until live confirmation.",
+        ]
+        title = f"{character} materials checklist before heavy farming"
+    elif page["kind"] == "build":
+        items = [
+            f"Lock the role first, then choose the fallback weapon route for {character}.",
+            "Keep one version of the build that does not depend on premium assumptions.",
+            f"Delay deep optimization until {primary['banner_name']} live testing confirms the real feel.",
+        ]
+        title = f"{character} build checklist before full commitment"
+    else:
+        items = [
+            f"Define what job {character} must solve before naming ideal partners.",
+            "Keep one practical shell with sustain and one open testing slot.",
+            f"Compare your first shell against the pull value still available in {compare['banner_name']}.",
+        ]
+        title = f"{character} team checklist before locking a shell"
+    items_html = "\n".join(f"          <li>{item}</li>" for item in items)
+    return f"""    <section class="section">
+      <div class="card">
+        <h2>{title}</h2>
+        <ul class="list">
+{items_html}
+        </ul>
+      </div>
+    </section>"""
+
+
+def build_focus_support_archetypes(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        if page["mode"] == "current":
+            title = f"{character} material buckets"
+            rows = [
+                ("Always-safe stock", "Credits, broad shared drops, reusable upgrade stock", "Best for players who want to prepare without risking waste during the live phase."),
+                ("Likely-safe stock", "Planned forte routes and shared progression routes", f"Best when {character} is already close to becoming your real spend target."),
+                ("Live-confirm stock", "Rare or route-locked items", f"Best delayed until {character} is fully confirmed and still beats the pull direction in {compare['banner_name']}."),
+            ]
+        else:
+            title = f"{character} material buckets"
+            rows = [
+                ("Pre-save stock", "Shared and reusable materials", f"Best for players already leaning toward {character} without overcommitting too early."),
+                ("Soft-commit stock", f"Routes that matter if {character} stays your likely target", f"Useful while {character} is a strong candidate, but still compare against {compare['banner_name']}."),
+                ("Release-lock stock", "Rare locked items and final route commitments", f"Best delayed until {primary['banner_name']} is live and {character} still looks worth the full spend."),
+            ]
+    elif page["kind"] == "build":
+        if page["mode"] == "current":
+            title = f"{character} build route names"
+            rows = [
+                ("Live-starter route", "Fast usable setup with fallback weapon logic", f"Best for getting {character} on the field quickly inside the current live phase."),
+                ("Balanced route", "Role-first setup with flexible stat pressure", f"Best for players who want {character} usable without freezing every later decision."),
+                ("High-commit route", "Premium path after comfort is proven", f"Best only after {character} still looks stronger than pivoting into {compare['banner_name']}."),
+            ]
+        else:
+            title = f"{character} build route names"
+            rows = [
+                ("Preview route", "Plan role and fallback weapon before release", f"Best for pre-release planning {character} without pretending final testing is already done."),
+                ("Balanced save route", "One dependable path that protects flexibility", f"Best for players saving for {character} while still guarding pity and live-banner options."),
+                ("Release-day optimization route", "Full tuning only after live evidence", f"Best after {primary['banner_name']} goes live and {character} still looks like the correct spend."),
+            ]
+    else:
+        if page["mode"] == "current":
+            title = f"{character} shell archetypes"
+            rows = [
+                ("Safe live shell", "On-field core plus sustain plus one broad support", "Best for players who need one reliable live team now."),
+                ("Testing shell", "Core plus one movable slot", f"Best for players who want to test {character} without rebuilding the whole roster."),
+                ("Premium shell", "High-commit pairing after confidence is proven", f"Best only if {character} still wins over redirecting resources into {compare['banner_name']}."),
+            ]
+        else:
+            title = f"{character} shell archetypes"
+            rows = [
+                ("Preview shell", "Role-first shell before full release testing", f"Best for players planning {character} conceptually rather than locking one fragile lineup too early."),
+                ("Comparison shell", f"One {character} shell versus one live-phase shell", f"Best for deciding whether {character} really beats the immediate value still sitting in {compare['banner_name']}."),
+                ("Premium live shell", "High-commit shell after release confidence", f"Best once {character} has a clear role and the shell still justifies the spend."),
+            ]
+    rows_html = "\n".join(
+        f"            <tr><td>{name}</td><td>{setup}</td><td>{why}</td></tr>" for name, setup, why in rows
+    )
+    return f"""    <section class="section">
+      <h2>{title}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>What it means</th><th>Best for</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_focus_support_taxonomy(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        if page["mode"] == "current":
+            title = f"{character} resource type breakdown"
+            rows = [
+                ("General account stock", "Credits, broad reusable stock, common drops", f"Safe to gather even if you later reduce {character} commitment."),
+                ("Character-leaning stock", "Talent-route planning and likely overlap materials", f"Best for players who already think {character} will beat redirecting to {compare['banner_name']}."),
+                ("Lock-after-live stock", "Boss, weekly, or route-locked items", f"Best confirmed only after {character} remains the preferred spend during {primary['banner_name']}."),
+            ]
+        else:
+            title = f"{character} resource type breakdown"
+            rows = [
+                ("General save stock", "Credits, broad reusable stock, common drops", f"Good for players who are leaning toward {character} without forcing a final decision too early."),
+                ("Targeted prep stock", "Character-specific route planning with some overlap value", f"Best when {character} is your likely save target but {compare['banner_name']} still matters."),
+                ("Release-lock stock", "Final rare mats and strict route commitments", f"Best gathered after {primary['banner_name']} goes live and {character} still looks correct."),
+            ]
+    elif page["kind"] == "team-comps":
+        if page["mode"] == "current":
+            title = f"{character} role shell types"
+            rows = [
+                ("Safe live core", "Main damage slot plus sustain plus broad utility support", "Best for players who want one stable team right now."),
+                ("Testing flex core", "Main role plus one moveable synergy slot", f"Best for players who want to test {character} without locking every teammate."),
+                ("High-commit core", "Premium pairing around a narrower payoff", f"Best only if {character} still clearly beats the alternative value in {compare['banner_name']}."),
+            ]
+        else:
+            title = f"{character} role shell types"
+            rows = [
+                ("Preview core", "Role-first shell before exact live strengths settle", "Best for early planning without overclaiming finished team data."),
+                ("Comparison core", f"One {character}-first shell and one live-banner alternative shell", f"Best for players deciding whether {character} is really better than the value in {compare['banner_name']}."),
+                ("Premium live core", "Narrower shell that assumes strong confidence after release", f"Best after {primary['banner_name']} is live and {character} still justifies the premium route."),
+            ]
+    else:
+        return ""
+    rows_html = "\n".join(
+        f"            <tr><td>{kind}</td><td>{meaning}</td><td>{best_for}</td></tr>" for kind, meaning, best_for in rows
+    )
+    return f"""    <section class="section">
+      <h2>{title}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Meaning</th><th>Best use</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_focus_support_execution(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        if page["mode"] == "current":
+            title = f"{character} material ladder"
+            rows = [
+                ("Step 1", "Account-safe stock", "Credits, broad drops, reusable stock", f"Do this before deciding whether {character} gets the full live-phase resource share."),
+                ("Step 2", "Character-leaning stock", "Likely forte overlap and route planning", f"Do this once {character} still looks stronger than redirecting into {compare['banner_name']}."),
+                ("Step 3", "Locked stock", "Rare boss, weekly, and route-locked items", f"Do this only after {primary['banner_name']} live confirmation still keeps {character} as the priority."),
+            ]
+        else:
+            title = f"{character} material ladder"
+            rows = [
+                ("Step 1", "Save-friendly stock", "Credits, broad reusable stock, common drops", f"Do this while {character} is a serious save target but not yet a finished live commitment."),
+                ("Step 2", "Targeted prep stock", f"{character}-leaning prep with some overlap value", f"Do this once {character} still beats spending harder into {compare['banner_name']}."),
+                ("Step 3", "Release-lock stock", "Rare and route-locked items", f"Do this only after {primary['banner_name']} goes live and {character} still holds the better spend case."),
+            ]
+        headers = "<th>Step</th><th>Bucket</th><th>What goes here</th><th>When to unlock it</th>"
+        rows_html = "\n".join(
+            f"            <tr><td>{step}</td><td>{bucket}</td><td>{content}</td><td>{when}</td></tr>"
+            for step, bucket, content, when in rows
+        )
+    elif page["kind"] == "build":
+        if page["mode"] == "current":
+            title = f"{character} build fit matrix"
+            rows = [
+                ("You need a live answer now", "Live-starter route", f"{character} is already active inside the tracked phase, so fast usability matters more than perfect optimization."),
+                ("You may still pivot later", "Balanced route", f"Use this when {character} matters but {compare['banner_name']} can still change your final account direction."),
+                ("You only invest after comfort is proven", "High-commit route", "Use this only after the role, field time, and fallback weapon route all feel settled."),
+            ]
+        else:
+            title = f"{character} build fit matrix"
+            rows = [
+                ("You are saving before release", "Preview route", f"Use this when you need a planning path before {character} has full live confirmation."),
+                ("You want one safe route only", "Balanced save route", f"Use this when {character} still leads, but {compare['banner_name']} remains close enough to matter."),
+                ("You commit only after release proof", "Release-day optimization route", f"Use this after {primary['banner_name']} goes live and {character} still clears the final spend check."),
+            ]
+        headers = "<th>Account state</th><th>Best route</th><th>Why it fits</th>"
+        rows_html = "\n".join(
+            f"            <tr><td>{state}</td><td>{route}</td><td>{why}</td></tr>"
+            for state, route, why in rows
+        )
+    else:
+        if page["mode"] == "current":
+            title = f"{character} shell activation rules"
+            rows = [
+                ("Safe live shell", f"Use when you need one stable {character} team now", "Skip if the shell only works with narrow or unproven premium partners."),
+                ("Testing shell", f"Use when you want {character} online with one moveable slot", "Skip if you already know the shell has to be fully locked today."),
+                ("Premium shell", f"Use only if {character} still beats redirecting into {compare['banner_name']}", "Skip if live comfort is still shaky or the premium partner cost is too high."),
+            ]
+        else:
+            title = f"{character} shell activation rules"
+            rows = [
+                ("Preview shell", f"Use when {character} is still a save-and-plan target", "Skip if you are treating pre-release theory as finished team proof."),
+                ("Comparison shell", f"Use when you are actively comparing {character} against {compare['banner_name']}", f"Skip if you already know {character} is either a full skip or full commit."),
+                ("Premium live shell", f"Use after {primary['banner_name']} goes live and {character} still wins the roster check", "Skip if the practical shell is not stable yet."),
+            ]
+        headers = "<th>Shell</th><th>Use it when</th><th>Do not use it when</th>"
+        rows_html = "\n".join(
+            f"            <tr><td>{shell}</td><td>{good}</td><td>{bad}</td></tr>"
+            for shell, good, bad in rows
+        )
+    return f"""    <section class="section">
+      <h2>{title}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>{headers}</tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_focus_support_sourcesplit(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    if page["kind"] != "materials":
+        return ""
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["mode"] == "current":
+        title = f"{character} material source groups"
+        rows = [
+            ("Open-world stock", "Common drops, broad reusable stock", f"Best gathered first because it stays useful even if {character} becomes a lower-priority spend."),
+            ("Domain-style stock", "Planned forte and progression routes", f"Best gathered once {character} still clearly leads over saving harder for {compare['banner_name']}."),
+            ("Boss and weekly stock", "Rare locked items with low flexibility", f"Best gathered only after {primary['banner_name']} live confirmation keeps {character} as the correct target."),
+        ]
+    else:
+        title = f"{character} material source groups"
+        rows = [
+            ("Pre-release safe stock", "Credits, common drops, shared reusable stock", f"Best for saving toward {character} without converting soft prep into a hard commitment."),
+            ("Targeted route stock", f"{character}-leaning prep with some overlap value", f"Best once {character} still beats spending more into {compare['banner_name']}."),
+            ("Release-locked stock", "Rare boss and weekly route items", f"Best after {primary['banner_name']} goes live and {character} still wins the final spend comparison."),
+        ]
+    rows_html = "\n".join(
+        f"            <tr><td>{group}</td><td>{content}</td><td>{note}</td></tr>" for group, content, note in rows
+    )
+    return f"""    <section class="section">
+      <h2>{title}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Source group</th><th>What belongs here</th><th>Why it matters</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_focus_support_fit_rules(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    if page["kind"] != "build":
+        return ""
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["mode"] == "current":
+        title = f"{character} build use and avoid cases"
+        rows = [
+            ("Live-starter route", f"Use when you need {character} field-ready quickly in the current phase.", "Avoid if you are actually saving most resources for a likely Phase 2 pivot."),
+            ("Balanced route", f"Use when {character} matters but later redirects are still possible.", f"Avoid if you already know {character} clearly beats every option in {compare['banner_name']} and you want the higher-commit route."),
+            ("High-commit route", "Use after role feel and fallback weapon logic are stable.", "Avoid if your account still depends on fragile premium assumptions."),
+        ]
+    else:
+        title = f"{character} build use and avoid cases"
+        rows = [
+            ("Preview route", f"Use while {character} is still a planning target before release.", "Avoid if you are treating preview assumptions as final live proof."),
+            ("Balanced save route", f"Use when you want one safe {character} path without losing flexibility.", f"Avoid if {compare['banner_name']} is obviously the better immediate spend and {character} is slipping into backup status."),
+            ("Release-day optimization route", f"Use after {primary['banner_name']} goes live and {character} still wins the account check.", "Avoid if release-day testing still leaves major uncertainty about role or weapon path."),
+        ]
+    rows_html = "\n".join(
+        f"            <tr><td>{route}</td><td>{use_case}</td><td>{avoid_case}</td></tr>"
+        for route, use_case, avoid_case in rows
+    )
+    return f"""    <section class="section">
+      <h2>{title}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Route</th><th>Use it when</th><th>Avoid it when</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_focus_support_replacements(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    if page["kind"] != "team-comps":
+        return ""
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["mode"] == "current":
+        title = f"{character} shell replacement logic"
+        rows = [
+            ("Core slot", character, f"This slot should only move if the whole {character} pull decision changes."),
+            ("Sustain slot", "Broad sustain option", "Replace this first if the shell works but comfort is poor."),
+            ("Flex support slot", "Utility or synergy support", f"Replace this when {compare['banner_name']} or another roster need changes the best partner choice."),
+        ]
+    else:
+        title = f"{character} shell replacement logic"
+        rows = [
+            ("Core slot", character, f"This slot only changes if {character} loses the bigger pull comparison entirely."),
+            ("Practical sustain slot", "Stable sustain option", "Replace this before forcing a narrower premium shell."),
+            ("Comparison flex slot", "One open roster-dependent slot", f"Replace this when release testing or {compare['banner_name']} changes the best practical shell."),
+        ]
+    rows_html = "\n".join(
+        f"            <tr><td>{slot}</td><td>{default}</td><td>{replace_when}</td></tr>"
+        for slot, default, replace_when in rows
+    )
+    return f"""    <section class="section">
+      <h2>{title}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Slot</th><th>Default idea</th><th>When to replace it</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_focus_support_usage_rules(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        good_title = f"When this {character} materials route is right"
+        bad_title = f"When this {character} materials route is too early"
+        good_body = f"Use this route when {character} is already your leading target and you want to separate reusable stock from risky locked farming before spending more stamina."
+        bad_body = f"Do not use this as a full green light to hard-farm every route if {compare['banner_name']} is still competing for your resources or if rare drops are not fully confirmed in-game."
+    elif page["kind"] == "build":
+        good_title = f"When this {character} build route is right"
+        bad_title = f"When this {character} build route is too early"
+        good_body = f"Use this route when you need one workable version of {character} first, and you want to avoid overcommitting to premium tuning before the role is fully proven."
+        bad_body = f"Do not treat the high-commit route as mandatory if the role is still unclear, if premium assumptions are fragile, or if {compare['banner_name']} still offers a better use of your pity and resources."
+    else:
+        good_title = f"When this {character} shell logic is right"
+        bad_title = f"When this {character} shell logic is too early"
+        good_body = f"Use these shell types when you want one practical team frame, one flexible test frame, and one higher-commit option instead of pretending every account needs the same lineup."
+        bad_body = f"Do not lock a narrow premium shell too early if {character} still needs live testing or if the live or competing phase can still change your best team direction."
+    return f"""    <section class="section two-col">
+      <div class="card">
+        <h2>{good_title}</h2>
+        <p>{good_body}</p>
+      </div>
+      <div class="card">
+        <h2>{bad_title}</h2>
+        <p>{bad_body}</p>
+      </div>
+    </section>"""
+
+
+def build_focus_support_live_checks(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        items = [
+            f"Confirm {character} is still your main target once {primary['banner_name']} status is fully settled.",
+            "Confirm rare and weekly-locked routes before converting soft prep into full commitment.",
+            f"Re-check whether the competing value in {compare['banner_name']} still changes your farming priority.",
+        ]
+        title = f"{character} live confirmation checks for materials"
+    elif page["kind"] == "build":
+        items = [
+            f"Confirm the real role feel of {character} before moving from balanced route to high-commit route.",
+            "Confirm that the fallback weapon route still feels acceptable before investing into narrow premium assumptions.",
+            f"Re-check whether your best live value still comes from {character} instead of redirecting into {compare['banner_name']}.",
+        ]
+        title = f"{character} live confirmation checks for build"
+    else:
+        items = [
+            f"Confirm the first practical shell feels stable before upgrading into a narrower {character} shell.",
+            "Confirm whether the flexible slot actually needs to be locked or should stay open longer.",
+            f"Re-check whether the shell still beats the most practical alternative tied to {compare['banner_name']}.",
+        ]
+        title = f"{character} live confirmation checks for team shells"
+    items_html = "\n".join(f"          <li>{item}</li>" for item in items)
+    return f"""    <section class="section">
+      <div class="card">
+        <h2>{title}</h2>
+        <ul class="list">
+{items_html}
+        </ul>
       </div>
     </section>"""
 
@@ -1716,8 +2165,18 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
 {build_focus_character_module(page, snapshot)}
 {build_focus_support_cases(page, snapshot)}
 {build_focus_support_playbook(page, snapshot)}
+{build_focus_support_archetypes(page, snapshot)}
+{build_focus_support_taxonomy(page, snapshot)}
+{build_focus_support_execution(page, snapshot)}
+{build_focus_support_sourcesplit(page, snapshot)}
+{build_focus_support_fit_rules(page, snapshot)}
+{build_focus_support_replacements(page, snapshot)}
+{build_focus_support_usage_rules(page, snapshot)}
+{build_focus_support_reference(page, snapshot)}
 {build_support_table(page)}
 {build_support_priority_lanes(page, snapshot)}
+{build_focus_support_checklist(page, snapshot)}
+{build_focus_support_live_checks(page, snapshot)}
 {build_support_related(page)}
     <section class="section">
       <h2>FAQ</h2>
@@ -1829,6 +2288,169 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
 """
 
 
+def build_character_overview_entry_routes(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    slug = page["slug"]
+    compare = snapshot["next"] if page["mode"] == "current" else snapshot["current"]
+    if page["mode"] == "current":
+        rows = [
+            (
+                "You still do not know whether to spend now",
+                f"Should you pull {character}?",
+                f"Start here if the main question is whether {character} beats saving for {compare['banner_name']}.",
+                f"/wuthering-waves-should-you-pull-{slug}/",
+            ),
+            (
+                "You already want the character and need safe prep",
+                f"{character} materials",
+                "Start here if you want to separate low-risk farming from route-locked farming before spending more stamina.",
+                support_page_path(slug, "materials"),
+            ),
+            (
+                "You need one usable setup fast",
+                f"{character} build",
+                "Start here if your next question is weapon route, role framing, or what to lock before deeper optimization.",
+                support_page_path(slug, "build"),
+            ),
+            (
+                "You want one practical team first",
+                f"{character} team comps",
+                "Start here if you need a workable shell before testing premium or narrower lineups.",
+                support_page_path(slug, "team-comps"),
+            ),
+        ]
+    else:
+        rows = [
+            (
+                "You are still comparing save versus spend-now",
+                f"Should you pull {character}?",
+                f"Start here if the main question is whether {character} is worth saving for instead of spending into {compare['banner_name']}.",
+                f"/wuthering-waves-should-you-pull-{slug}/",
+            ),
+            (
+                "You want a pre-farm plan without overcommitting",
+                f"{character} materials",
+                "Start here if you want to split safe stock, targeted prep, and release-locked farming before the phase is fully live.",
+                support_page_path(slug, "materials"),
+            ),
+            (
+                "You want a pre-release build path",
+                f"{character} build",
+                "Start here if you need a preview route, fallback weapon logic, and a safe way to avoid premature optimization.",
+                support_page_path(slug, "build"),
+            ),
+            (
+                "You want one realistic shell to compare",
+                f"{character} team comps",
+                "Start here if you need a practical shell and one flexible comparison route before locking partners.",
+                support_page_path(slug, "team-comps"),
+            ),
+        ]
+    cards = "\n".join(
+        f"""        <article class="card">
+          <h3>{question}</h3>
+          <p><strong>{page_name}</strong></p>
+          <p>{why}</p>
+          <p><a href="{href}">Open {page_name}</a></p>
+        </article>"""
+        for question, page_name, why, href in rows
+    )
+    return f"""    <section class="section">
+      <h2>Fastest starting points for {character}</h2>
+      <div class="card-grid">
+{cards}
+      </div>
+    </section>"""
+
+
+def build_character_overview_decision_split(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    compare = snapshot["next"] if page["mode"] == "current" else snapshot["current"]
+    if page["mode"] == "current":
+        rows = [
+            ("Spend decision first", f"Open pull advice before any farming if you still need to decide whether {character} is better than waiting for {compare['banner_name']}."),
+            ("Farm decision first", f"Open materials first if you are already likely to spend and mainly need to protect stamina from overfarming."),
+            ("Build decision first", f"Open build first if the real blocker is role shape, fallback weapon path, or upgrade order."),
+            ("Team decision first", "Open team comps first if your account already knows the unit matters and the real question is shell stability."),
+        ]
+    else:
+        rows = [
+            ("Save decision first", f"Open pull advice before prep if you still need to decide whether saving for {character} beats spending into {compare['banner_name']}."),
+            ("Soft-prep decision first", "Open materials first if you want the safest pre-release prep without converting that prep into a hard commitment."),
+            ("Preview-build decision first", "Open build first if you want a route that stays usable before live testing fully settles."),
+            ("Comparison-shell decision first", "Open team comps first if the real question is what practical shell would justify the save."),
+        ]
+    items_html = "\n".join(f"          <li><strong>{label}:</strong> {copy}</li>" for label, copy in rows)
+    return f"""    <section class="section two-col">
+      <div class="card">
+        <h2>Choose your next page by question type</h2>
+        <ul class="list">
+{items_html}
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why this branch exists</h2>
+        <p>The {character} hub should shorten the path from “I know the character name” to “I know which page solves my next question.” That is the main job of this layer between the character list and the deeper support pages.</p>
+      </div>
+    </section>"""
+
+
+def build_character_overview_account_fit(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    compare = snapshot["next"] if page["mode"] == "current" else snapshot["current"]
+    if page["mode"] == "current":
+        rows = [
+            (
+                "Best when you need a live answer",
+                f"Use {character} first if the current phase is where you are actually willing to spend.",
+                f"This keeps the decision tied to the live window instead of drifting into vague comparison with {compare['banner_name']}.",
+            ),
+            (
+                "Best when you need safe prep",
+                f"Open {character} materials or build if the spend case is already mostly settled and the real risk is wasting stamina or upgrade stock.",
+                "That route is stronger than reopening broad banner pages once the unit choice is mostly clear.",
+            ),
+            (
+                "Not the best start when you are still saving",
+                f"Leave this branch and go back to pull advice if {compare['banner_name']} is still the real candidate.",
+                "The character hub is strongest after the unit question is mostly settled.",
+            ),
+        ]
+    else:
+        rows = [
+            (
+                "Best when you are planning ahead",
+                f"Use {character} first if the next phase is the likely spend target and you want one clean place to compare prep, build, and shell routes.",
+                f"That keeps the save decision tied to {compare['banner_name']} as the current alternative.",
+            ),
+            (
+                "Best when you only want soft prep",
+                f"Open {character} materials or build if you want low-risk preparation without converting it into a hard release-day commitment.",
+                "This is the cleanest route for next-phase planning without overcommitting too early.",
+            ),
+            (
+                "Not the best start when the live phase still wins",
+                f"Go back to current banner or pull advice if {compare['banner_name']} is still the spend favorite.",
+                "The character hub is stronger once the save direction is mostly settled.",
+            ),
+        ]
+    rows_html = "\n".join(
+        f"""            <tr><td>{label}</td><td>{best_move}</td><td>{why}</td></tr>"""
+        for label, best_move, why in rows
+    )
+    return f"""    <section class="section">
+      <h2>{character} account fit at a glance</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Situation</th><th>Best move</th><th>Why</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
 def render_character_overview_page(page: dict[str, str], snapshot: dict[str, object]) -> str:
     character = html.escape(page["character"])
     slug = page["slug"]
@@ -1911,6 +2533,9 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
       <article class="card"><h2>Banner window</h2><p>{fmt_human_date(page["start_date"])} to {fmt_human_date(page["end_date"])}</p></article>
       <article class="card"><h2>Compare point</h2><p>If you are still deciding, compare this route against {html.escape(compare["banner_name"])} before locking resources.</p></article>
     </div>
+{build_character_overview_entry_routes(page, snapshot)}
+{build_character_overview_decision_split(page, snapshot)}
+{build_character_overview_account_fit(page, snapshot)}
     <section class="section">
       <h2>How to use the {character} hub</h2>
       <div class="card-grid">
