@@ -459,6 +459,22 @@ def build_next_pull(snapshot: dict[str, object]) -> str:
         </div>"""
 
 
+def build_next_compare_matrix(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    return f"""        <h2>Current versus next banner decision matrix</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Decision path</th><th>When it wins</th><th>Watch first</th><th>Best next page</th></tr></thead>
+            <tbody>
+              <tr><td>Spend in {current["banner_name"]}</td><td>The live phase solves an immediate account hole faster than waiting.</td><td>{", ".join(current["featured_characters"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
+              <tr><td>Save for {next_item["banner_name"]}</td><td>The next phase matches your planned roster better than the current rotation.</td><td>{", ".join(next_item["featured_characters"])}</td><td><a href="/pull-advice/">Pull advice</a></td></tr>
+              <tr><td>Delay both phases</td><td>Your real target is a rerun or your pity state is too valuable to force a spend now.</td><td>History spacing and pity carry-over</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td></tr>
+            </tbody>
+          </table>
+        </div>"""
+
+
 def build_next_sources(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
     current = snapshot["current"]
@@ -513,6 +529,22 @@ def build_current_table(snapshot: dict[str, object]) -> str:
           </tbody>
         </table>
       </div>"""
+
+
+def build_current_decision_matrix(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    return f"""        <h2>Spend-now versus save-now matrix</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Account state</th><th>Safer choice</th><th>Why</th><th>Best next page</th></tr></thead>
+            <tbody>
+              <tr><td>You need immediate value</td><td>Spend in {current["banner_name"]}</td><td>The live phase is already confirmed and usable right now.</td><td><a href="/wuthering-waves-current-banner-characters/">Current banner characters</a></td></tr>
+              <tr><td>You are planning the next roster step</td><td>Compare against {next_item["banner_name"]}</td><td>The next phase may match your longer plan better than the live one.</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+              <tr><td>You are protecting pity</td><td>Save</td><td>Pity and weapon pressure matter more than forcing a live spend.</td><td><a href="/wuthering-waves-pity-system/">Pity system</a></td></tr>
+            </tbody>
+          </table>
+        </div>"""
 
 
 def build_current_sources(snapshot: dict[str, object]) -> str:
@@ -1038,6 +1070,35 @@ def build_pull_links(pull_pages: list[dict[str, str]]) -> str:
       </div>"""
 
 
+def build_pull_decision_routes(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    return f"""      <h2>Fast decision routes by account state</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>If this sounds like you</th><th>Start here</th><th>Why</th><th>Then open</th></tr></thead>
+          <tbody>
+            <tr><td>You want to spend now and need the safest live answer</td><td>{", ".join(current["featured_characters"])}</td><td>The current phase can be judged against a real live timer and weapon set.</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
+            <tr><td>You already expect to save for the next rotation</td><td>{", ".join(next_item["featured_characters"])}</td><td>The next phase should be compared against current pity, not against hype alone.</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+            <tr><td>You are unsure whether to spend at all</td><td>Open the comparison path first</td><td>A comparison pass is better than jumping straight into one character page.</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td></tr>
+          </tbody>
+        </table>
+      </div>"""
+
+
+def build_pull_compare_cards(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    return f"""      <div class="card">
+        <h2>When the current phase wins</h2>
+        <p>Use the current phase when {", ".join(current["featured_characters"])} fixes a live roster problem now, not later. This is the path for accounts that need immediate value from active banners.</p>
+      </div>
+      <div class="card">
+        <h2>When the next phase wins</h2>
+        <p>Use the next phase when {", ".join(next_item["featured_characters"])} better matches your long-plan roster direction, and when protecting pity matters more than immediate live-banner pressure.</p>
+      </div>"""
+
+
 def build_character_intro(page: dict[str, str], snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
     character = page["character"]
@@ -1077,6 +1138,39 @@ def build_character_blocks(page: dict[str, str], snapshot: dict[str, object]) ->
       <article class="card"><h2>Reasons to save</h2><p>Save for {character} if your pity position and account plan already point toward the next phase instead of the current lineup: {current_names}.</p></article>
       <article class="card"><h2>Reasons to wait longer</h2><p>Wait even beyond {character} if your real target is a rerun unit and the next phase still does not match your account needs.</p></article>
     </div>"""
+
+
+def build_character_decision_matrix(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    if page["mode"] == "current":
+        return f"""    <section class="section">
+      <h2>{character} decision matrix</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>If this is true</th><th>Decision</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>{character} fixes your biggest immediate roster issue</td><td>Pull now</td><td>The live phase is real, active, and easier to judge than waiting on a later solve.</td></tr>
+            <tr><td>You already prefer {", ".join(next_item["featured_characters"])}</td><td>Save</td><td>The next phase is a better direction fit than forcing a live spend.</td></tr>
+            <tr><td>You mainly care about pity efficiency</td><td>Delay</td><td>Checking pity and rerun timing first is safer than impulse spending.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+    return f"""    <section class="section">
+      <h2>{character} decision matrix</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>If this is true</th><th>Decision</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>{character} is already your planned next target</td><td>Save</td><td>The next phase should win if your roster path is already pointing there.</td></tr>
+            <tr><td>{", ".join(current["featured_characters"])} solves a bigger live problem</td><td>Spend now instead</td><td>Current utility can beat a future preference when the account need is urgent.</td></tr>
+            <tr><td>You are also holding for reruns</td><td>Delay both</td><td>Phase comparison and rerun timing matter more than forcing one banner cycle.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>"""
 
 
 def build_character_support_links(page: dict[str, str]) -> str:
@@ -1288,6 +1382,119 @@ def build_support_table(page: dict[str, str]) -> str:
     </section>"""
 
 
+def build_support_priority_lanes(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["kind"] == "materials":
+        rows = [
+            ("Step 1", "Farm low-risk shared routes", f"Do this before locking one-character-only routes for {character}."),
+            ("Step 2", "Confirm rare material paths", f"Use official or in-game confirmation before hard-committing to {primary['banner_name']}."),
+            ("Step 3", "Compare against the other phase", f"Make sure {compare['banner_name']} is not the better resource destination."),
+        ]
+    elif page["kind"] == "build":
+        rows = [
+            ("Step 1", "Choose a realistic role", f"Decide whether {character} is solving an immediate job or a future optimization job."),
+            ("Step 2", "Lock a fallback weapon route", "Keep one route that does not depend on ideal conditions."),
+            ("Step 3", "Delay premium tuning", f"Only commit to deeper tuning after {primary['banner_name']} evidence settles."),
+        ]
+    else:
+        rows = [
+            ("Step 1", "Define the slot first", f"Choose the job {character} fills before naming partners."),
+            ("Step 2", "Build one practical shell", "Use a team that works with real roster limits, not only ideal pairings."),
+            ("Step 3", "Protect flexibility", f"Leave room to pivot if {compare['banner_name']} changes your best path."),
+        ]
+    rows_html = "\n".join(
+        f"            <tr><td>{step}</td><td>{action}</td><td>{note}</td></tr>" for step, action, note in rows
+    )
+    return f"""    <section class="section">
+      <h2>{character} {page["kind_label"].lower()} priority lanes</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Step</th><th>Action</th><th>Why now</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
+def build_focus_character_module(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    if page["slug"] not in {"hiyuki", "denia"}:
+        return ""
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["slug"] == "hiyuki":
+        heading = "Hiyuki-specific planning notes"
+        left_title = "If Hiyuki is your immediate target"
+        left_body = f"Treat Hiyuki as a live-banner decision. If she is the reason to spend in {primary['banner_name']}, the page should keep you focused on low-risk prep and immediate usability instead of overbuilding for hypothetical later shifts."
+        right_title = "If Hiyuki is only a side option"
+        right_body = f"If Hiyuki is not the main reason you are spending, compare her path against {compare['banner_name']} before locking too much stamina, gear, or pity pressure into one live cycle."
+    else:
+        heading = "Denia-specific planning notes"
+        left_title = "If Denia is your planned save target"
+        left_body = f"Use Denia pages to prep in layers before {primary['banner_name']} goes live. This is the right moment to decide role, fallback weapon path, and what can safely be prepared before final live confirmation."
+        right_title = "If Denia is competing with the live phase"
+        right_body = f"If Denia is only one option among several, the page should keep comparing her against the immediate pull value in {compare['banner_name']} instead of assuming the next phase automatically wins."
+    return f"""    <section class="section two-col">
+      <div class="card">
+        <h2>{heading}</h2>
+        <p>{left_body}</p>
+      </div>
+      <div class="card">
+        <h2>{right_title}</h2>
+        <p>{right_body}</p>
+      </div>
+    </section>"""
+
+
+def build_focus_support_cases(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    if page["slug"] not in {"hiyuki", "denia"}:
+        return ""
+    character = page["character"]
+    primary, compare = support_phase_context(page, snapshot)
+    if page["slug"] == "hiyuki" and page["kind"] == "build":
+        rows = [
+            ("You want immediate live value", "Lock a practical build now", f"{character} is already inside {primary['banner_name']}, so a usable early build matters more than future-perfect tuning."),
+            ("You may still pivot to the next phase", "Keep the build flexible", f"Do not over-tune gear if {compare['banner_name']} can still redirect your spending plan."),
+            ("You are pity-sensitive", "Use fallback options first", "A lower-risk weapon and upgrade route protects your account from expensive overcommitment."),
+        ]
+    elif page["slug"] == "hiyuki" and page["kind"] == "team-comps":
+        rows = [
+            ("You need one safe live team", "Build a stable shell first", f"Because {character} is live now, the first team should be easy to field, not dependent on ideal future partners."),
+            ("You only want to test before committing", "Use a fallback partner slot", "Leave room to swap one slot later instead of assuming the first shell is final."),
+            ("You may save for the next phase", "Avoid over-specialized teammates", f"Keep the team broad enough that {compare['banner_name']} can still change your direction."),
+        ]
+    elif page["slug"] == "denia" and page["kind"] == "materials":
+        rows = [
+            ("You are definitely saving for Denia", "Pre-farm safe shared routes", f"{character} is in {primary['banner_name']}, so this is the right time to collect low-risk materials."),
+            ("You still may spend on the live phase", "Delay rare material lock-in", f"Keep room for {compare['banner_name']} until Denia is fully live or fully confirmed in-game."),
+            ("You want the safest prep path", "Split farming into low-risk and high-risk buckets", "That keeps your stamina plan useful even if your pull decision changes."),
+        ]
+    elif page["slug"] == "denia" and page["kind"] == "team-comps":
+        rows = [
+            ("You are pre-planning before release", "Start with role-first shells", f"{character} team planning is strongest when it starts with job-to-fill, not hype around unreleased pairings."),
+            ("You may skip if the live phase wins", "Keep one comparison shell", f"Make it easy to compare {character} against the immediate value of {compare['banner_name']}."),
+            ("You want a publishable browser answer", "Show one practical and one ambitious shell", "That serves both conservative and premium-planning users."),
+        ]
+    else:
+        return ""
+    rows_html = "\n".join(
+        f"            <tr><td>{case}</td><td>{move}</td><td>{note}</td></tr>" for case, move, note in rows
+    )
+    return f"""    <section class="section">
+      <h2>{character} scenario guide</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>If this is you</th><th>Best move</th><th>Why</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>"""
+
+
 def build_support_related(page: dict[str, str]) -> str:
     character = page["character"]
     slug = page["slug"]
@@ -1417,7 +1624,10 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
 {build_support_cards(page, snapshot)}
 {build_support_strategy(page, snapshot)}
 {build_support_branch_context(page, snapshot)}
+{build_focus_character_module(page, snapshot)}
+{build_focus_support_cases(page, snapshot)}
 {build_support_table(page)}
+{build_support_priority_lanes(page, snapshot)}
 {build_support_related(page)}
     <section class="section">
       <h2>FAQ</h2>
@@ -1514,6 +1724,7 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
 {build_character_intro(page, snapshot)}
 {build_character_media(page)}
 {build_character_blocks(page, snapshot)}
+{build_character_decision_matrix(page, snapshot)}
 {build_character_support_links(page)}
     <section class="section">
       <h2>FAQ</h2>
@@ -1720,6 +1931,23 @@ def update_pages(snapshot: dict[str, object]) -> None:
     next_text = replace_block_exact(next_text, "NEXT_TABLE", build_next_table(snapshot))
     next_text = replace_block_exact(next_text, "NEXT_PULL", build_next_pull(snapshot))
     next_text = replace_block_exact(next_text, "NEXT_SOURCES", build_next_sources(snapshot))
+    insert_after = """      <section class="section two-col">
+        <!-- AUTO:NEXT_PULL -->"""
+    if "AUTO:NEXT_COMPARE" not in next_text:
+        next_text = next_text.replace(
+            insert_after,
+            f"""      <section class="section">
+        <!-- AUTO:NEXT_COMPARE -->
+{build_next_compare_matrix(snapshot)}
+<!-- /AUTO:NEXT_COMPARE -->
+      </section>
+
+      <section class="section two-col">
+        <!-- AUTO:NEXT_PULL -->""",
+            1,
+        )
+    else:
+        next_text = replace_block_exact(next_text, "NEXT_COMPARE", build_next_compare_matrix(snapshot))
     NEXT_HTML.write_text(next_text, encoding="utf-8")
 
     current_text = CURRENT_HTML.read_text(encoding="utf-8")
@@ -1728,6 +1956,32 @@ def update_pages(snapshot: dict[str, object]) -> None:
     current_text = replace_block_exact(current_text, "CURRENT_CARDS", build_current_cards(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_TABLE", build_current_table(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_SOURCES", build_current_sources(snapshot))
+    current_insert_after = """      <section class="section">
+        <!-- AUTO:CURRENT_TABLE -->"""
+    if "AUTO:CURRENT_DECISION" not in current_text:
+        current_text = current_text.replace(
+            current_insert_after,
+            f"""      <section class="section">
+        <!-- AUTO:CURRENT_TABLE -->""",
+            1,
+        )
+        current_table_end = """<!-- /AUTO:CURRENT_TABLE -->
+      </section>"""
+        current_text = current_text.replace(
+            current_table_end,
+            """<!-- /AUTO:CURRENT_TABLE -->
+      </section>
+
+      <section class="section">
+        <!-- AUTO:CURRENT_DECISION -->
+PLACEHOLDER_CURRENT_DECISION
+<!-- /AUTO:CURRENT_DECISION -->
+      </section>""",
+            1,
+        )
+        current_text = current_text.replace("PLACEHOLDER_CURRENT_DECISION", build_current_decision_matrix(snapshot), 1)
+    else:
+        current_text = replace_block_exact(current_text, "CURRENT_DECISION", build_current_decision_matrix(snapshot))
     CURRENT_HTML.write_text(current_text, encoding="utf-8")
 
     history_text = HISTORY_HTML.read_text(encoding="utf-8")
@@ -1757,6 +2011,30 @@ def update_pages(snapshot: dict[str, object]) -> None:
     pull_text = replace_block_exact(pull_text, "PULL_INTRO", build_pull_intro(snapshot, pull_pages))
     pull_text = replace_block_exact(pull_text, "PULL_GRID", build_pull_grid(snapshot))
     pull_text = replace_block_exact(pull_text, "PULL_LINKS", build_pull_links(pull_pages))
+    pull_links_end = """<!-- /AUTO:PULL_LINKS -->
+    </section>"""
+    if "AUTO:PULL_ROUTES" not in pull_text:
+        pull_text = pull_text.replace(
+            pull_links_end,
+            """<!-- /AUTO:PULL_LINKS -->
+    </section>
+    <section class="section">
+      <!-- AUTO:PULL_ROUTES -->
+PLACEHOLDER_PULL_ROUTES
+<!-- /AUTO:PULL_ROUTES -->
+    </section>
+    <section class="section two-col">
+      <!-- AUTO:PULL_COMPARE -->
+PLACEHOLDER_PULL_COMPARE
+<!-- /AUTO:PULL_COMPARE -->
+    </section>""",
+            1,
+        )
+        pull_text = pull_text.replace("PLACEHOLDER_PULL_ROUTES", build_pull_decision_routes(snapshot), 1)
+        pull_text = pull_text.replace("PLACEHOLDER_PULL_COMPARE", build_pull_compare_cards(snapshot), 1)
+    else:
+        pull_text = replace_block_exact(pull_text, "PULL_ROUTES", build_pull_decision_routes(snapshot))
+        pull_text = replace_block_exact(pull_text, "PULL_COMPARE", build_pull_compare_cards(snapshot))
     PULL_HUB_HTML.write_text(pull_text, encoding="utf-8")
 
     character_urls = []

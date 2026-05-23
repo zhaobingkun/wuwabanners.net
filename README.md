@@ -27,6 +27,8 @@ In most cases, this is the only file you need to edit.
 Daily maintenance checklist:
 
 - [DAILY-UPDATE-SOP.md](/Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net/DAILY-UPDATE-SOP.md)
+- [POST-LAUNCH-CONTENT-AUDIT.md](/Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net/POST-LAUNCH-CONTENT-AUDIT.md)
+- [AI-HANDOFF.md](/Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net/AI-HANDOFF.md)
 
 ## What the build updates
 
@@ -80,7 +82,7 @@ The current build script detects the active and next banner rows from the dated 
 ## Normal update workflow
 
 1. Update `data/banner-data.csv` from official sources.
-2. Run `python3 scripts/build_banner_snapshot.py`.
+2. Run `python3 scripts/run_banner_update_cycle.py`.
 3. Preview locally.
 4. Check homepage and these URLs:
    - `/wuthering-waves-next-banner/`
@@ -113,6 +115,23 @@ You still need to edit HTML manually when:
 - changing FAQ structure site-wide
 - changing hub strategy
 - redesigning the site
+
+## One-command maintenance cycle
+
+After you edit banner data, use:
+
+```bash
+cd /Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net
+python3 scripts/run_banner_update_cycle.py
+```
+
+This will:
+
+- rebuild reference detail pages
+- rebuild banner snapshot pages
+- compile-check the Python scripts
+- syntax-check `assets/js/site.js`
+- verify core hubs, pages, focus character support pages, and key sitemap URLs
 
 ## Directory map
 

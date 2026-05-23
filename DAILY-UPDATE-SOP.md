@@ -69,10 +69,10 @@ Fields that usually change:
 
 ```bash
 cd /Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net
-python3 scripts/build_banner_snapshot.py
+python3 scripts/run_banner_update_cycle.py
 ```
 
-This rebuild refreshes:
+This update cycle refreshes:
 
 - `data/banner-snapshot.json`
 - homepage dynamic blocks
@@ -88,6 +88,23 @@ This rebuild refreshes:
   - `*-build`
   - `*-team-comps`
 - `sitemap.xml`
+
+It also:
+
+- rebuilds reference detail pages
+- compile-checks the Python scripts
+- syntax-checks `assets/js/site.js`
+- verifies key pages and sitemap coverage
+
+## Fallback Manual Commands
+
+If you only need part of the chain, the old direct commands still work:
+
+```bash
+python3 scripts/build_reference_pages.py
+python3 scripts/build_banner_snapshot.py
+python3 scripts/verify_site_build.py
+```
 
 ## Preview Command
 
@@ -133,4 +150,3 @@ Most days:
 - check official sources
 - update CSV only if needed
 - rebuild only if something actually changed
-
