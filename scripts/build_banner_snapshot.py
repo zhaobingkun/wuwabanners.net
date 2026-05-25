@@ -455,6 +455,11 @@ def build_next_pull(snapshot: dict[str, object]) -> str:
         <div class="card">
           <h2>Weapon banner snapshot</h2>
           <p>The current weapon focus is {", ".join(current["featured_weapons"])} through {fmt_human_date(current["end_date"])}. The next weapon group is {", ".join(next_item["featured_weapons"])} in the next phase.</p>
+          <ul class="list">
+            <li><strong>Character-first accounts:</strong> compare roster gain before comparing weapon upside.</li>
+            <li><strong>Weapon-first accounts:</strong> check whether the current or next weapon set creates the bigger pity trap.</li>
+            <li><strong>Do not skip this check:</strong> one character plan can still fail if the weapon side is too expensive.</li>
+          </ul>
           <p><a href="/wuthering-waves-pity-system/">Check pity carry-over before spending more tides</a></p>
         </div>"""
 
@@ -469,6 +474,7 @@ def build_next_compare_matrix(snapshot: dict[str, object]) -> str:
             <tbody>
               <tr><td>Spend in {current["banner_name"]}</td><td>The live phase solves an immediate account hole faster than waiting.</td><td>{", ".join(current["featured_characters"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
               <tr><td>Save for {next_item["banner_name"]}</td><td>The next phase matches your planned roster better than the current rotation.</td><td>{", ".join(next_item["featured_characters"])}</td><td><a href="/pull-advice/">Pull advice</a></td></tr>
+              <tr><td>Spend only after checking weapon risk</td><td>Your character choice looks clear, but the weapon side could still make the full plan too expensive.</td><td>{", ".join(current["featured_weapons"])} vs {", ".join(next_item["featured_weapons"])}</td><td><a href="/wuthering-waves-weapon-banner/">Weapon banner</a></td></tr>
               <tr><td>Delay both phases</td><td>Your real target is a rerun or your pity state is too valuable to force a spend now.</td><td>History spacing and pity carry-over</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td></tr>
             </tbody>
           </table>
@@ -514,6 +520,7 @@ def build_current_cards(snapshot: dict[str, object]) -> str:
     return f"""    <div class="card-grid">
       <article class="card"><h2>Live status matters more than speculation</h2><p>Users on the current banner page care more about what is active now than what might happen later. That means the live box, dates, and role summary should stay at the top.</p></article>
       <article class="card"><h2>Current phase snapshot</h2><p>The featured five-star lineup is {", ".join(current["featured_characters"])}. The companion weapon focus is {", ".join(current["featured_weapons"])} through {fmt_human_date(current["end_date"])}.</p></article>
+      <article class="card"><h2>Do not judge current value in isolation</h2><p>The live phase only makes sense after you compare pity protection, weapon pressure, and whether the next tracked phase solves the same job with lower resource strain.</p></article>
       <article class="card"><h2>What to link next</h2><p>After checking the current banner, users usually need the next banner, pity system, or a pull advice page. Those are the highest-value internal links.</p></article>
     </div>"""
 
@@ -552,10 +559,20 @@ def build_current_account_routes(snapshot: dict[str, object]) -> str:
     return f"""      <div class="card">
         <h2>If you want the fastest live answer</h2>
         <p>Start with the current phase if you only care about what is usable right now. This is the best route for accounts that need immediate value from {", ".join(current["featured_characters"])} before the phase ends.</p>
+        <ul class="list">
+          <li><strong>Best for:</strong> accounts that need a live fix more than they need long-range planning.</li>
+          <li><strong>Check after this:</strong> current banner characters, then the pity page.</li>
+          <li><strong>Skip this route:</strong> if your real blocker is weapon cost, not character value.</li>
+        </ul>
       </div>
       <div class="card">
         <h2>If you are comparing before spending</h2>
         <p>Use the current banner page as the live baseline, then jump to next banner and pity. This route is stronger than deciding from one character page without phase context.</p>
+        <ul class="list">
+          <li><strong>Best for:</strong> single-pity or low-Astrite accounts that cannot afford a wrong turn.</li>
+          <li><strong>Check after this:</strong> next banner, next rerun, then weapon banner if pressure is split.</li>
+          <li><strong>Do not stop here:</strong> comparison-only users still need a final pity and weapon pass.</li>
+        </ul>
       </div>"""
 
 
@@ -1074,6 +1091,7 @@ def build_pull_grid(snapshot: dict[str, object]) -> str:
       <article class="card"><h2>Account-need framing</h2><p>Good pull advice starts with user context: missing DPS, missing sustain, saving for a rerun, or targeting a specific team role.</p></article>
       <article class="card"><h2>Current phase pool</h2><p>The live phase pages cover {", ".join(current["featured_characters"])} and should answer whether spending now is worth the pity and Astrite cost.</p></article>
       <article class="card"><h2>Next phase pool</h2><p>The next phase pages cover {", ".join(next_item["featured_characters"])} and should answer whether saving beats the current live banner.</p></article>
+      <article class="card"><h2>Weapon and pity pressure</h2><p>Do not compare characters in isolation. If the real account question is weapon dependence, pity carry-over, or whether one banner demands too many tides at once, route the user to weapon and pity pages before locking a pull plan.</p></article>
     </div>"""
 
 
@@ -1106,6 +1124,8 @@ def build_pull_decision_routes(snapshot: dict[str, object]) -> str:
           <tbody>
             <tr><td>You want to spend now and need the safest live answer</td><td>{", ".join(current["featured_characters"])}</td><td>The current phase can be judged against a real live timer and weapon set.</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
             <tr><td>You already expect to save for the next rotation</td><td>{", ".join(next_item["featured_characters"])}</td><td>The next phase should be compared against current pity, not against hype alone.</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+            <tr><td>You only have one real pity window left</td><td>Open the phase comparison first</td><td>Single-pity accounts should compare current value, next value, and rerun spacing before committing to any one featured unit.</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+            <tr><td>Your real pressure is the weapon side, not the character side</td><td>Open weapon and pity pages before character pages</td><td>Weapon pressure changes the true cost of a pull plan and can flip a yes into a save call.</td><td><a href="/wuthering-waves-weapon-banner/">Weapon banner</a></td></tr>
             <tr><td>You are unsure whether to spend at all</td><td>Open the comparison path first</td><td>A comparison pass is better than jumping straight into one character page.</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td></tr>
           </tbody>
         </table>
@@ -1118,10 +1138,20 @@ def build_pull_compare_cards(snapshot: dict[str, object]) -> str:
     return f"""      <div class="card">
         <h2>When the current phase wins</h2>
         <p>Use the current phase when {", ".join(current["featured_characters"])} fixes a live roster problem now, not later. This is the path for accounts that need immediate value from active banners.</p>
+        <ul class="list">
+          <li><strong>Best fit:</strong> accounts with an urgent hole that the live banner solves immediately.</li>
+          <li><strong>Safer timing:</strong> players who prefer a confirmed live lineup over future speculation.</li>
+          <li><strong>Check next:</strong> current banner, current banner characters, then pity.</li>
+        </ul>
       </div>
       <div class="card">
-        <h2>When the next phase wins</h2>
+        <h2>When the next phase or rerun path wins</h2>
         <p>Use the next phase when {", ".join(next_item["featured_characters"])} better matches your long-plan roster direction, and when protecting pity matters more than immediate live-banner pressure.</p>
+        <ul class="list">
+          <li><strong>Best fit:</strong> accounts already aiming at the next roster step or a later rerun lane.</li>
+          <li><strong>Resource logic:</strong> saving wins when pity protection matters more than solving a short-term live problem.</li>
+          <li><strong>Check next:</strong> next banner, next rerun, then pity system.</li>
+        </ul>
       </div>"""
 
 

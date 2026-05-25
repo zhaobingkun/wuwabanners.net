@@ -1,0 +1,213 @@
+{
+  "generated_at": "2026-05-23T22:21:12",
+  "csv_path": "data/banner-data.csv",
+  "row_checks": [
+    {
+      "record_id": "ww-3.2-phase-2-character",
+      "banner_name": "Version 3.2 Phase 2",
+      "banner_type": "character",
+      "version": "3.2",
+      "phase": "Phase 2",
+      "status": "official",
+      "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
+      "source_type": "official_social",
+      "last_checked": "2026-05-19",
+      "age_days": 4,
+      "needs_review": true,
+      "reasons": [
+        "source fetch failed: fetch-failed"
+      ]
+    },
+    {
+      "record_id": "ww-3.3-phase-1-character",
+      "banner_name": "Version 3.3 Phase 1",
+      "banner_type": "character",
+      "version": "3.3",
+      "phase": "Phase 1",
+      "status": "official",
+      "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
+      "source_type": "official_site",
+      "last_checked": "2026-05-19",
+      "age_days": 4,
+      "needs_review": true,
+      "reasons": [
+        "source fetch failed: fetch-failed"
+      ]
+    },
+    {
+      "record_id": "ww-3.3-phase-1-weapon",
+      "banner_name": "Version 3.3 Phase 1 Weapons",
+      "banner_type": "weapon",
+      "version": "3.3",
+      "phase": "Phase 1",
+      "status": "official",
+      "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
+      "source_type": "secondary_media",
+      "last_checked": "2026-05-19",
+      "age_days": 4,
+      "needs_review": true,
+      "reasons": [
+        "source_type is secondary_media",
+        "source fetch failed: fetch-failed"
+      ]
+    },
+    {
+      "record_id": "ww-3.3-phase-2-character",
+      "banner_name": "Version 3.3 Phase 2",
+      "banner_type": "character",
+      "version": "3.3",
+      "phase": "Phase 2",
+      "status": "official",
+      "source_url": "https://www.youtube.com/watch?v=viOkAhoa0k8",
+      "source_type": "official_social",
+      "last_checked": "2026-05-19",
+      "age_days": 4,
+      "needs_review": true,
+      "reasons": [
+        "source fetch failed: fetch-failed"
+      ]
+    },
+    {
+      "record_id": "ww-3.3-phase-2-weapon",
+      "banner_name": "Version 3.3 Phase 2 Weapons",
+      "banner_type": "weapon",
+      "version": "3.3",
+      "phase": "Phase 2",
+      "status": "official",
+      "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
+      "source_type": "secondary_media",
+      "last_checked": "2026-05-19",
+      "age_days": 4,
+      "needs_review": true,
+      "reasons": [
+        "source_type is secondary_media",
+        "source fetch failed: fetch-failed"
+      ]
+    },
+    {
+      "record_id": "ww-3.4-phase-1-preview",
+      "banner_name": "Version 3.4 Preview",
+      "banner_type": "preview",
+      "version": "3.4",
+      "phase": "Phase 1",
+      "status": "expected",
+      "source_url": "https://www.youtube.com/@WutheringWaves",
+      "source_type": "official_social",
+      "last_checked": "2026-05-19",
+      "age_days": 4,
+      "needs_review": true,
+      "reasons": [
+        "source fetch failed: fetch-failed"
+      ]
+    }
+  ],
+  "source_checks": [
+    {
+      "url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723']' returned non-zero exit status 6."
+      ]
+    },
+    {
+      "url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/']' returned non-zero exit status 6."
+      ]
+    },
+    {
+      "url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 6."
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=viOkAhoa0k8",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/watch?v=viOkAhoa0k8']' returned non-zero exit status 6."
+      ]
+    },
+    {
+      "url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 6."
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/@WutheringWaves",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/@WutheringWaves']' returned non-zero exit status 6."
+      ]
+    }
+  ],
+  "feed_checks": [
+    {
+      "label": "official_site",
+      "url": "https://wutheringwaves.kurogames.com/",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "matched_terms": [],
+      "matched_names": [],
+      "version_hits": [],
+      "suggested_new_versions": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://wutheringwaves.kurogames.com/']' returned non-zero exit status 6."
+      ]
+    },
+    {
+      "label": "official_youtube",
+      "url": "https://www.youtube.com/@WutheringWaves/videos",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "matched_terms": [],
+      "matched_names": [],
+      "version_hits": [],
+      "suggested_new_versions": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/@WutheringWaves/videos']' returned non-zero exit status 6."
+      ]
+    },
+    {
+      "label": "dearplayers_updates",
+      "url": "https://www.dearplayers.com/en-US/updates/wuthering-waves",
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "matched_terms": [],
+      "matched_names": [],
+      "version_hits": [],
+      "suggested_new_versions": [],
+      "notes": [
+        "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-US/updates/wuthering-waves']' returned non-zero exit status 6."
+      ]
+    }
+  ],
+  "summary": {
+    "rows_checked": 6,
+    "rows_needing_review": 6,
+    "failed_source_fetches": 6,
+    "possible_new_versions": []
+  }
+}

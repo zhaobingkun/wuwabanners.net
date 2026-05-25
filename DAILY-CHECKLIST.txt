@@ -1,0 +1,64 @@
+WuWa Banners 每日检查清单
+
+这份是最快的日常流程。
+如果没有变化，走到第 2 步就可以停。
+
+1. 看官方来源
+- 官网 / 新闻： https://wutheringwaves.kurogames.com/
+- 官方 YouTube： https://www.youtube.com/@WutheringWaves
+- 官方社媒 / 前瞻贴
+- 切池当天看游戏内 Convene
+
+2. 只问一个问题
+- 当前卡池、下个卡池、日期、featured characters、featured weapons、source links 有没有变？
+- 如果没有，停止。
+- 如果有，继续。
+
+可选的快速命令：
+- `python3 scripts/check_official_banner_updates.py`
+- 看终端输出或 `data/banner-update-report.json`
+- 如果你想先拿一份安全草稿，再运行 `python3 scripts/prepare_banner_csv_candidate.py`
+- 然后检查：
+  - `data/banner-data.candidate.csv`
+  - `data/banner-data.diff.txt`
+
+3. 更新数据
+- 编辑： `data/banner-data.csv`
+- 只改真正发生变化的行
+- `source_url` 和来源说明要和你刚确认的官方源对上
+
+4. 跑更新链
+- 命令：
+  cd /Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net
+  python3 scripts/run_banner_update_cycle.py
+
+5. 检查结果
+- 确认脚本没有报 `FAIL`
+- 抽查这些页面：
+  - `/`
+  - `/wuthering-waves-current-banner/`
+  - `/wuthering-waves-next-banner/`
+  - `/pull-advice/`
+  - `/wuthering-waves-banner-history/`
+
+6. 如果今天是切池日
+- 再额外检查：
+  - `/wuthering-waves-next-banner-date/`
+  - `/wuthering-waves-current-banner-end-date/`
+  - 一个当前期角色 hub
+  - 一个下一期角色 hub
+
+7. 发布
+- 部署更新后的站点文件
+
+8. 发布后
+- 打开线上首页
+- 打开一个更新过的 banner 页
+- 打开一个更新过的角色页
+- 如果有需要，在 Search Console 里请求几个重点 URL 的重新收录
+
+备注
+- 不需要每天都改 CSV
+- 只有官方信息变了，才改 CSV
+- 日常最重要的重建命令是：
+  `python3 scripts/run_banner_update_cycle.py`

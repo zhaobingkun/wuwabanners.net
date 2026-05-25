@@ -1,57 +1,58 @@
 # Daily Update SOP
 
-Use this workflow for normal `wuwabanners.net` maintenance.
+这份文档用于 `wuwabanners.net` 的日常维护。
 
-## What To Check Every Day
+## 每天先检查什么
 
-On a normal day, do one light pass.
+普通日常，先做一次轻检查。
 
-Check these sources first:
+优先看这些来源：
 
-1. Official site news / patch notes  
+1. 官网新闻 / patch notes  
    `https://wutheringwaves.kurogames.com/`
 
-2. Official YouTube / preview broadcast posts  
+2. 官方 YouTube / 前瞻直播  
    `https://www.youtube.com/@WutheringWaves`
 
-3. Official social / launch posts  
-   Use the same official source chain already referenced in `data/banner-data.csv`.
+3. 官方社媒 / 官宣贴  
+   尽量沿用 `data/banner-data.csv` 里已经在用的官方来源链。
 
-4. In-game `Convene` page on banner-switch days  
-   This is the best final confirmation for live phase timing and lineup.
+4. 切池当天的游戏内 `Convene`  
+   这是确认 live 卡池时间和 lineup 最稳的一层。
 
-## Normal Daily Rhythm
+## 日常更新节奏
 
-### Normal no-event day
+### 普通无事件日
 
-- Check once in the morning.
-- If there is no new official post, do not change `data/banner-data.csv`.
-- No rebuild needed.
+- 早上检查一次
+- 运行 `python3 scripts/check_official_banner_updates.py`
+- 如果没有新的官方变化，不要改 `data/banner-data.csv`
+- 不需要重建
 
-### Pre-preview / pre-banner window
+### 前瞻前 / 切池前窗口
 
-- Check `2-3` times in the day:
-  - morning
-  - afternoon
-  - evening if an official stream or post is expected
+- 一天检查 `2-3` 次：
+  - 早上
+  - 下午
+  - 如果晚上有直播或官宣预期，再看一次
 
-### Banner switch day
+### 切池当天
 
-- Check once before the switch
-- Check again after the switch is live in-game
-- Confirm:
-  - current phase
-  - next phase
-  - current weapons
-  - start / end dates
+- 切池前看一次
+- 切池生效后再看一次游戏内
+- 重点确认：
+  - 当前 phase
+  - 下一个 phase
+  - 当前武器
+  - 开始 / 结束日期
 
-## What To Update When Something Changes
+## 什么时候要改数据
 
-Main source file:
+主数据文件：
 
 - [data/banner-data.csv](/Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net/data/banner-data.csv)
 
-Fields that usually change:
+通常会变化的字段：
 
 - `version`
 - `phase`
@@ -65,88 +66,90 @@ Fields that usually change:
 - `status`
 - `last_checked`
 
-## Rebuild Command
+## 重建命令
 
 ```bash
 cd /Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net
 python3 scripts/run_banner_update_cycle.py
 ```
 
-This update cycle refreshes:
+这条更新链会刷新：
 
 - `data/banner-snapshot.json`
-- homepage dynamic blocks
+- 首页动态区块
 - `next banner`
 - `current banner`
 - `banner history`
 - `next rerun`
 - `banner countdown`
 - `pull advice`
-- generated `should-you-pull-*` pages
-- generated character support pages:
+- 自动生成的 `should-you-pull-*`
+- 自动生成的角色支撑页：
   - `*-materials`
   - `*-build`
   - `*-team-comps`
 - `sitemap.xml`
 
-It also:
+它还会：
 
-- rebuilds reference detail pages
-- compile-checks the Python scripts
-- syntax-checks `assets/js/site.js`
-- verifies key pages and sitemap coverage
+- 重建 reference detail pages
+- 编译检查 Python 脚本
+- 检查 `assets/js/site.js` 语法
+- 校验关键页面和 sitemap 覆盖
 
-## Fallback Manual Commands
+## 需要时可单独运行的命令
 
-If you only need part of the chain, the old direct commands still work:
+如果你只想跑部分流程，可以单独运行：
 
 ```bash
+python3 scripts/check_official_banner_updates.py
+python3 scripts/prepare_banner_csv_candidate.py
 python3 scripts/build_reference_pages.py
 python3 scripts/build_banner_snapshot.py
 python3 scripts/verify_site_build.py
 ```
 
-## Preview Command
+## 本地预览
 
 ```bash
 cd /Users/zhaobingkun/dev/wuthering-waves-next-banner/wuwabanners.net
 python3 -m http.server 4173
 ```
 
-Open and check:
+打开并检查：
 
 - `http://127.0.0.1:4173/`
 - `http://127.0.0.1:4173/wuthering-waves-next-banner/`
 - `http://127.0.0.1:4173/wuthering-waves-current-banner/`
 - `http://127.0.0.1:4173/pull-advice/`
 
-Also spot-check one current-phase character and one next-phase character:
+再额外抽查一个当前期角色和一个下一期角色：
 
 - `should-you-pull-*`
 - `*-materials`
 - `*-build`
 - `*-team-comps`
 
-## What To Verify After Rebuild
+## 重建后要核对什么
 
-1. Homepage current / next timeline is correct.
-2. `next banner` and `current banner` dates are correct.
-3. `pull advice` still lists the right current and next characters.
-4. Generated character support pages match the current snapshot.
-5. `sitemap.xml` includes the generated character support URLs.
+1. 首页 current / next 时间线是否正确
+2. `next banner` 和 `current banner` 的日期是否正确
+3. `pull advice` 里 current / next 角色是否正确
+4. 自动生成的角色支撑页是否和当前 snapshot 对应
+5. `sitemap.xml` 是否包含这些角色支撑页 URL
 
-## When You Need New Pages
+## 什么时候才需要加新页面
 
-Do **not** add new pages every day.
+**不要每天加新页。**
 
-Add or expand pages when:
+只有这些情况才考虑新增或扩页：
 
-- a new current/next phase rotates in
-- a new featured character enters the tracked set
-- an official reveal creates a new durable search intent
+- current / next phase 切换了
+- 有新的 featured character 进入当前跟踪集合
+- 新的官方揭示带来了一个能持续存在的搜索意图
 
-Most days:
+大多数日子里，你真正要做的是：
 
-- check official sources
-- update CSV only if needed
-- rebuild only if something actually changed
+- 看官方有没有变
+- 只有需要时才改 CSV
+- 只有数据真变了才重建
