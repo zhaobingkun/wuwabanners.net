@@ -1,0 +1,42 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="520" rx="36" fill="url(#paint0_linear)"/>
+  <rect x="16" y="16" width="1168" height="488" rx="24" stroke="url(#paint1_linear)" stroke-opacity="0.32" stroke-width="2"/>
+  <ellipse cx="1020" cy="118" rx="235" ry="138" fill="url(#paint2_radial)"/>
+  <path d="M711 330L806 256L913 282L954 384L911 470L808 496L725 444L691 366L711 330Z" fill="url(#paint3_linear)"/>
+  <rect x="100" y="92" width="284" height="334" rx="30" fill="url(#paint4_linear)"/>
+  <rect x="100" y="92" width="284" height="334" rx="30" stroke="url(#paint5_linear)" stroke-opacity="0.32" stroke-width="1.5"/>
+  <rect x="138" y="138" width="112" height="12" rx="6" fill="#67D5DC"/>
+  <rect x="138" y="172" width="186" height="16" rx="8" fill="#EEF7FF"/>
+  <rect x="138" y="209" width="144" height="12" rx="6" fill="#A4B7D2" fill-opacity="0.72"/>
+  <rect x="138" y="238" width="188" height="12" rx="6" fill="#A4B7D2" fill-opacity="0.5"/>
+  <rect x="138" y="285" width="208" height="84" rx="18" fill="#152536"/>
+  <path d="M733 128C797 185 863 214 944 214C1019 214 1082 186 1137 136" stroke="#EAF8FF" stroke-opacity="0.36" stroke-width="1.5"/>
+  <path d="M760 176C816 226 875 248 944 248C1009 248 1067 227 1115 183" stroke="#67D5DC" stroke-opacity="0.34" stroke-width="1.5"/>
+  <defs>
+    <linearGradient id="paint0_linear" x1="77" y1="35" x2="1112" y2="469" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F1927"/>
+      <stop offset="1" stop-color="#0A121B"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear" x1="76" y1="46" x2="1124" y2="469" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6FDCE5"/>
+      <stop offset="0.55" stop-color="#9DB5FF"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.14"/>
+    </linearGradient>
+    <radialGradient id="paint2_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1020 118) rotate(90) scale(138 235)">
+      <stop stop-color="#7EE7ED" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#0A121B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="paint3_linear" x1="691" y1="256" x2="954" y2="496" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#DFFBFF" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#67D5DC" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="paint4_linear" x1="100" y1="92" x2="384" y2="426" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#152233" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#122031" stop-opacity="0.92"/>
+    </linearGradient>
+    <linearGradient id="paint5_linear" x1="113" y1="102" x2="369" y2="404" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7EE7ED"/>
+      <stop offset="1" stop-color="#93B2FF" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+</svg>
