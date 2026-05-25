@@ -1183,16 +1183,20 @@ def build_character_blocks(page: dict[str, str], snapshot: dict[str, object]) ->
     character = page["character"]
     if page["mode"] == "current":
         next_names = ", ".join(snapshot["next"]["featured_characters"])
+        current_weapons = ", ".join(snapshot["current"]["featured_weapons"])
         return f"""    <div class="card-grid">
       <article class="card"><h2>Best for who</h2><p>Best for accounts that want to invest in the current live phase instead of waiting for the next banner rotation.</p></article>
       <article class="card"><h2>Reasons to pull</h2><p>Pull when {character} is the clearest answer to your current roster gap and you are not preserving pity for the next phase lineup: {next_names}.</p></article>
       <article class="card"><h2>Reasons to skip</h2><p>Skip if you are already aiming at the next phase or holding resources for a rerun target that matters more.</p></article>
+      <article class="card"><h2>Weapon and pity pressure</h2><p>Do not rate {character} only on character appeal. If the real cost question is whether the live weapon set {current_weapons} stretches your pity too far, compare the full phase plan before spending.</p></article>
     </div>"""
     current_names = ", ".join(snapshot["current"]["featured_characters"])
+    next_weapons = ", ".join(snapshot["next"]["featured_weapons"])
     return f"""    <div class="card-grid">
       <article class="card"><h2>Best for who</h2><p>Best for accounts planning around the next phase rather than using resources immediately in the current rotation.</p></article>
       <article class="card"><h2>Reasons to save</h2><p>Save for {character} if your pity position and account plan already point toward the next phase instead of the current lineup: {current_names}.</p></article>
       <article class="card"><h2>Reasons to wait longer</h2><p>Wait even beyond {character} if your real target is a rerun unit and the next phase still does not match your account needs.</p></article>
+      <article class="card"><h2>Weapon and pity pressure</h2><p>Saving for {character} only wins if the next phase weapon set {next_weapons} does not turn the plan into a worse pity trap than the live banner.</p></article>
     </div>"""
 
 
@@ -1209,6 +1213,8 @@ def build_character_decision_matrix(page: dict[str, str], snapshot: dict[str, ob
           <tbody>
             <tr><td>{character} fixes your biggest immediate roster issue</td><td>Pull now</td><td>The live phase is real, active, and easier to judge than waiting on a later solve.</td></tr>
             <tr><td>You already prefer {", ".join(next_item["featured_characters"])}</td><td>Save</td><td>The next phase is a better direction fit than forcing a live spend.</td></tr>
+            <tr><td>You only have one real pity window left</td><td>Compare current versus next before spending</td><td>Single-pity accounts should treat {character} as one option inside a bigger phase choice, not as an automatic yes.</td></tr>
+            <tr><td>Your real concern is the weapon side</td><td>Check weapon banner first</td><td>If the live weapon set is the expensive part, a strong character answer can still become a bad full-banner plan.</td></tr>
             <tr><td>You mainly care about pity efficiency</td><td>Delay</td><td>Checking pity and rerun timing first is safer than impulse spending.</td></tr>
           </tbody>
         </table>
@@ -1222,6 +1228,8 @@ def build_character_decision_matrix(page: dict[str, str], snapshot: dict[str, ob
           <tbody>
             <tr><td>{character} is already your planned next target</td><td>Save</td><td>The next phase should win if your roster path is already pointing there.</td></tr>
             <tr><td>{", ".join(current["featured_characters"])} solves a bigger live problem</td><td>Spend now instead</td><td>Current utility can beat a future preference when the account need is urgent.</td></tr>
+            <tr><td>You only have one pity cycle left</td><td>Keep comparing phases</td><td>Single-pity accounts should test whether {character} beats the full live-to-next comparison, not just the current banner in isolation.</td></tr>
+            <tr><td>The next weapon set is the real issue</td><td>Check weapon risk before saving</td><td>Saving for a character is weaker if the next-phase weapon pressure makes the whole plan too expensive.</td></tr>
             <tr><td>You are also holding for reruns</td><td>Delay both</td><td>Phase comparison and rerun timing matter more than forcing one banner cycle.</td></tr>
           </tbody>
         </table>
@@ -1247,10 +1255,12 @@ def build_character_faq(page: dict[str, str]) -> str:
         return """      <div class="faq-list">
         <article class="faq-item"><h3>Should you pull this current featured character now?</h3><p>Pull only if the live phase matches your roster needs better than saving for the next banner or your rerun watchlist.</p></article>
         <article class="faq-item"><h3>What should you check before pulling?</h3><p>Check your pity state, the current banner end date, and whether your next target is close enough to justify saving.</p></article>
+        <article class="faq-item"><h3>What if the weapon cost is the real problem?</h3><p>Open the weapon banner and pity pages before deciding. A current character can still be the wrong spend if the full character-plus-weapon plan is too expensive.</p></article>
       </div>"""
     return """      <div class="faq-list">
         <article class="faq-item"><h3>Should you save for this next featured character?</h3><p>Save when the upcoming phase fits your planned roster better than the current one and your pity state supports waiting.</p></article>
         <article class="faq-item"><h3>What should you compare before deciding?</h3><p>Compare the current banner end date, your pity progress, your rerun watchlist, and whether the upcoming phase solves a bigger problem for your account.</p></article>
+        <article class="faq-item"><h3>Can the next-phase weapon pressure change the answer?</h3><p>Yes. A save decision is weaker if the next-phase weapon side makes the full plan less efficient than spending in the live phase or delaying for a rerun.</p></article>
       </div>"""
 
 
