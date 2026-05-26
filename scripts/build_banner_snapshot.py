@@ -121,6 +121,44 @@ def get_reference_src(kind: str, name: str) -> str | None:
     return None
 
 
+DEFAULT_VISUALS = {
+    "characters": "/assets/img/reference/characters/cantarella.webp",
+    "weapons": "/assets/img/reference/weapons/frostburn.png",
+    "items": "/assets/img/reference/items/platinum-core.webp",
+}
+
+
+def get_visual_src(kind: str, names: list[str]) -> str:
+    for name in names:
+        if not name:
+            continue
+        src = get_reference_src(kind, name)
+        if src:
+            return src
+    return DEFAULT_VISUALS[kind]
+
+
+def render_phase_collage(main_src: str, main_label: str, side_tiles: list[tuple[str, str, bool]]) -> str:
+    side_html = []
+    for src, label, is_artifact in side_tiles:
+        artifact_class = " hub-hero-tile--artifact" if is_artifact else ""
+        side_html.append(
+            f'''          <figure class="hub-hero-tile hub-hero-tile--wide{artifact_class}">
+            <img src="{src}" alt="" width="512" height="512" decoding="async">
+            <span class="hub-hero-label">{html.escape(label)}</span>
+          </figure>'''
+        )
+    return f"""<div class="phase-collage" aria-hidden="true">
+          <figure class="hub-hero-tile hub-hero-tile--major">
+            <img src="{main_src}" alt="" width="512" height="512" decoding="async">
+            <span class="hub-hero-label">{html.escape(main_label)}</span>
+          </figure>
+          <div class="phase-collage-stack">
+{chr(10).join(side_html)}
+          </div>
+        </div>"""
+
+
 def render_history_entity_strip(kind: str, names: list[str]) -> str:
     cards = []
     variant = "weapon" if kind == "weapons" else "character"
@@ -814,16 +852,7 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
     <p class="lead">This detail page isolates one tracked banner phase so users can see the lineup, timing, and rerun context without scanning a larger history table first.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {html.escape(banner_name)} ran from {fmt_human_date(str(page["start_date"]))} to {fmt_human_date(str(page["end_date"]))}, featuring {html.escape(characters_text)}. The tracked weapons for this phase are {html.escape(weapons_text)}</div>
     <p class="update-stamp">Last updated: {fmt_human_date(snapshot["updated"] + " 00:00")}.</p>
-    <div class="media-grid" style="margin-top:1.25rem;">
-      <div class="banner-art">
-        <img src="/assets/img/banner-history-card.svg" alt="{html.escape(banner_name)} history detail image." width="1200" height="675" decoding="async">
-      </div>
-      <div class="card">
-        <h2>Why this phase matters</h2>
-        <p>{html.escape(banner_name)} sits inside the broader version flow of {html.escape(version)} {html.escape(phase)}. Use this page when you need one phase in isolation instead of a compressed list view.</p>
-        <p><a href="/wuthering-waves-next-rerun/">Compare this phase against rerun watch</a></p>
-      </div>
-    </div>
+{build_history_detail_media(page)}
     <section class="section">
       <h2>{html.escape(banner_name)} lineup cards</h2>
       <div class="card history-phase-card">
@@ -1009,6 +1038,7 @@ def get_pull_pages(snapshot: dict[str, object]) -> list[dict[str, str]]:
     seen: set[str] = set()
     for mode, key, card_name in (("current", "current", "current-banner-card.svg"), ("next", "next", "next-banner-card.svg")):
         phase = snapshot[key]
+        compare_phase = snapshot["next"] if key == "current" else snapshot["current"]
         for character in phase["featured_characters"]:
             slug = slugify_character(character)
             if slug in seen:
@@ -1025,6 +1055,10 @@ def get_pull_pages(snapshot: dict[str, object]) -> list[dict[str, str]]:
                     "start_date": phase["start_date"],
                     "end_date": phase["end_date"],
                     "card_name": card_name,
+                    "phase_featured_characters": "|".join(phase["featured_characters"]),
+                    "phase_featured_weapons": "|".join(phase["featured_weapons"]),
+                    "compare_featured_characters": "|".join(compare_phase["featured_characters"]),
+                    "compare_featured_weapons": "|".join(compare_phase["featured_weapons"]),
                 }
             )
     return pages
@@ -1168,9 +1202,15 @@ def build_character_intro(page: dict[str, str], snapshot: dict[str, object]) -> 
 
 
 def build_character_media(page: dict[str, str]) -> str:
+    phase_src = get_visual_src("characters", [page["character"]])
+    compare_names = page["compare_featured_characters"].split("|")
+    side_character = get_visual_src("characters", compare_names)
+    weapon_names = page["phase_featured_weapons"].split("|")
+    phase_weapon = get_visual_src("weapons", weapon_names)
+    support_item = get_visual_src("items", ["platinum core", "coriolus", "redbell"])
     return f"""    <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art">
-        <img src="/assets/img/{page["card_name"]}" alt="Pull advice card for {page["character"]}." width="1200" height="675" decoding="async">
+        {render_phase_collage(phase_src, page["character"], [(side_character, "Compare phase", False), (phase_weapon, "Weapon pressure", True), (support_item, "Farm context", True)])}
       </div>
       <div class="video-card">
         <h2>Phase reference video</h2>
@@ -1248,6 +1288,71 @@ def build_character_support_links(page: dict[str, str]) -> str:
         <article class="card"><h3>{character} team comps</h3><p>Keep team-role questions tied to the same pull decision instead of sending users into disconnected posts.</p><p><a href="{support_page_path(slug, "team-comps")}">Open team comps page</a></p></article>
       </div>
     </section>"""
+
+
+def build_history_detail_media(page: dict[str, object]) -> str:
+    character_names = list(page["featured_characters"])
+    weapon_names = list(page["featured_weapons"])
+    main_src = get_visual_src("characters", character_names)
+    secondary_src = get_visual_src("characters", character_names[1:] or character_names)
+    weapon_src = get_visual_src("weapons", weapon_names)
+    compare_src = get_visual_src("characters", ["cantarella", "jinhsi", "camellya"])
+    return f"""    <div class="media-grid" style="margin-top:1.25rem;">
+      <div class="banner-art">
+        {render_phase_collage(main_src, str(page["banner_name"]), [(secondary_src, "Featured lineup", False), (weapon_src, "Phase weapon", True), (compare_src, "Timeline context", False)])}
+      </div>
+      <div class="card">
+        <h2>Why this phase matters</h2>
+        <p>{html.escape(str(page["banner_name"]))} sits inside the broader version flow of {html.escape(str(page["version"]))} {html.escape(str(page["phase"]))}. Use this page when you need one phase in isolation instead of a compressed list view.</p>
+        <p><a href="/wuthering-waves-next-rerun/">Compare this phase against rerun watch</a></p>
+      </div>
+    </div>"""
+
+
+def build_character_overview_media(page: dict[str, str], snapshot: dict[str, object]) -> str:
+    primary = snapshot["current"] if page["mode"] == "current" else snapshot["next"]
+    compare = snapshot["next"] if page["mode"] == "current" else snapshot["current"]
+    main_src = get_visual_src("characters", [page["character"]])
+    branch_mate = get_visual_src(
+        "characters",
+        [name for name in primary["featured_characters"] if name != page["character"]],
+    )
+    compare_src = get_visual_src("characters", list(compare["featured_characters"]))
+    weapon_src = get_visual_src("weapons", list(primary["featured_weapons"]))
+    item_src = get_visual_src("items", ["platinum core", "coriolus", "redbell"])
+    return f"""    <div class="hub-hero">
+      <div class="hub-hero-media" aria-hidden="true">
+        <figure class="hub-hero-tile hub-hero-tile--major">
+          <img src="{main_src}" alt="" width="512" height="512" decoding="async">
+          <span class="hub-hero-label">{html.escape(page["character"])}</span>
+        </figure>
+        <div class="hub-hero-stack">
+          <figure class="hub-hero-tile hub-hero-tile--wide">
+            <img src="{branch_mate}" alt="" width="512" height="512" decoding="async">
+            <span class="hub-hero-label">Same phase</span>
+          </figure>
+          <figure class="hub-hero-tile hub-hero-tile--wide hub-hero-tile--artifact">
+            <img src="{weapon_src}" alt="" width="512" height="512" decoding="async">
+            <span class="hub-hero-label">Weapon route</span>
+          </figure>
+        </div>
+        <div class="hub-hero-stack">
+          <figure class="hub-hero-tile hub-hero-tile--wide">
+            <img src="{compare_src}" alt="" width="512" height="512" decoding="async">
+            <span class="hub-hero-label">Compare phase</span>
+          </figure>
+          <figure class="hub-hero-tile hub-hero-tile--wide hub-hero-tile--artifact">
+            <img src="{item_src}" alt="" width="512" height="512" decoding="async">
+            <span class="hub-hero-label">Farm path</span>
+          </figure>
+        </div>
+      </div>
+      <div class="hub-hero-copy">
+        <span class="eyebrow">Character hub</span>
+        <strong>{html.escape(page["character"])} should route users into one clean next step, not force them to guess.</strong>
+        <p>Use the hub when the character name is already clear and the real question is whether the next click should be pull advice, materials, build, or team comps.</p>
+      </div>
+    </div>"""
 
 
 def build_character_faq(page: dict[str, str]) -> str:
@@ -2568,6 +2673,7 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
     <p class="lead">{character} is part of the {phase_copy}. This page works as the clean detail layer between the characters list and the deeper support pages, so users can choose the exact next page without guessing.</p>
     <div class="answer-box"><strong>Direct answer:</strong> Use the {character} overview page when you want one place that links pull advice, materials, build, and team comps. That is more useful than dropping users directly into one narrow page if they have not decided what they need yet.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(snapshot["updated"] + " 00:00")}.</p>
+{build_character_overview_media(page, snapshot)}
     <div class="card-grid">
       <article class="card"><h2>Tracked phase</h2><p>{character} is currently tied to {html.escape(page["phase_label"])}.</p></article>
       <article class="card"><h2>Banner window</h2><p>{fmt_human_date(page["start_date"])} to {fmt_human_date(page["end_date"])}</p></article>

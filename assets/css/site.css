@@ -640,6 +640,24 @@ th {
   height: auto;
 }
 
+.phase-collage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 0.95rem;
+  height: 100%;
+  padding: 1rem;
+}
+
+.phase-collage-stack {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.95rem;
+}
+
+.phase-collage .hub-hero-tile--major {
+  min-height: 100%;
+}
+
 .video-card {
   background: rgba(18, 25, 37, 0.9);
   border: 1px solid rgba(130, 158, 190, 0.18);
@@ -1055,6 +1073,7 @@ th {
 
   .hero-showcase-media,
   .hub-hero-media,
+  .phase-collage,
   .hub-hero-grid--four,
   .hub-hero-grid--three {
     grid-template-columns: 1fr;
@@ -1068,6 +1087,10 @@ th {
   }
 
   .hub-hero-stack {
+    grid-template-rows: auto;
+  }
+
+  .phase-collage-stack {
     grid-template-rows: auto;
   }
 
