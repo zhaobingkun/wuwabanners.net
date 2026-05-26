@@ -25,7 +25,7 @@ FONT_PRELOAD_BLOCK = f"""  <link rel="preconnect" href="https://fonts.googleapis
   <link href="{FONT_STYLESHEET_URL}" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="{FONT_STYLESHEET_URL}" rel="stylesheet"></noscript>"""
 
-NAV = '<header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>'
+NAV = '<header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>'
 
 
 def should_preserve_character_hub(index_path: Path) -> bool:
@@ -207,7 +207,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
 <body>
   {NAV}
   <main class="section"><div class="container">
-    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/wuthering-waves-{kind}/">{label}</a> / {name}</div>
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/wuthering-waves-{kind}/">{label}</a> / {name}</div>
     <h1>Wuthering Waves {name}</h1>
     <p class="lead">This is a simple {singular.lower()} detail page that gives the image, the exact name, and the cleanest next links deeper into the site structure.</p>
     <div class="answer-box"><strong>Direct answer:</strong> Use this page as the detail layer for {name}, then move into the related planning pages that match what you are actually trying to decide.</div>

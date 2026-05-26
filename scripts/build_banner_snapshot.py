@@ -845,9 +845,9 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
   </script>
 </head>
 <body>
-  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
   <main class="section"><div class="container">
-    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/banners/">Banners</a> / <a href="/wuthering-waves-banner-history/">Banner history</a> / {html.escape(banner_name)}</div>
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/banners/">Banners</a> / <a href="/wuthering-waves-banner-history/">Banner history</a> / {html.escape(banner_name)}</div>
     <h1>Wuthering Waves {html.escape(banner_name)} Banner History</h1>
     <p class="lead">This detail page isolates one tracked banner phase so users can see the lineup, timing, and rerun context without scanning a larger history table first.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {html.escape(banner_name)} ran from {fmt_human_date(str(page["start_date"]))} to {fmt_human_date(str(page["end_date"]))}, featuring {html.escape(characters_text)}. The tracked weapons for this phase are {html.escape(weapons_text)}</div>
@@ -2298,9 +2298,9 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
   </script>
 </head>
 <body>
-  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
   <main class="section"><div class="container">
-    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/guides/">Guides</a> / <a href="{character_hub_path(page["slug"])}">{character}</a> / {kind_label}</div>
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="{character_hub_path(page["slug"])}">{character}</a> / {kind_label}</div>
     <h1>Wuthering Waves {character} {kind_label}</h1>
 {build_support_intro(page, snapshot)}
 {build_support_media(page)}
@@ -2411,9 +2411,9 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
   </script>
 </head>
 <body>
-  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
   <main class="section"><div class="container">
-    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/pull-advice/">Pull advice</a> / {character}</div>
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/pull-advice/">Pull advice</a> / {character}</div>
     <h1>Should You Pull {character} in Wuthering Waves?</h1>
 {build_character_intro(page, snapshot)}
 {build_character_media(page)}
@@ -2666,9 +2666,9 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
   </script>
 </head>
 <body>
-  <header class="site-header"><div class="container nav"><a class="brand" href="/index.html"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/index.html">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
   <main class="section"><div class="container">
-    <div class="breadcrumbs"><a href="/index.html">Home</a> / <a href="/guides/">Guides</a> / <a href="/wuthering-waves-characters/">Characters</a> / {character}</div>
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/wuthering-waves-characters/">Characters</a> / {character}</div>
     <h1>Wuthering Waves {character} Guide Hub</h1>
     <p class="lead">{character} is part of the {phase_copy}. This page works as the clean detail layer between the characters list and the deeper support pages, so users can choose the exact next page without guessing.</p>
     <div class="answer-box"><strong>Direct answer:</strong> Use the {character} overview page when you want one place that links pull advice, materials, build, and team comps. That is more useful than dropping users directly into one narrow page if they have not decided what they need yet.</div>
