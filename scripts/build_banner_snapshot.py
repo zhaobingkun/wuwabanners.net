@@ -20,10 +20,18 @@ CURRENT_HTML = ROOT / "wuthering-waves-current-banner" / "index.html"
 HISTORY_HTML = ROOT / "wuthering-waves-banner-history" / "index.html"
 RERUN_HTML = ROOT / "wuthering-waves-next-rerun" / "index.html"
 COUNTDOWN_HTML = ROOT / "wuthering-waves-banner-countdown" / "index.html"
+NEXT_COUNTDOWN_HTML = ROOT / "wuthering-waves-next-banner-countdown" / "index.html"
+NEXT_DATE_HTML = ROOT / "wuthering-waves-next-banner-date" / "index.html"
+CURRENT_END_HTML = ROOT / "wuthering-waves-current-banner-end-date" / "index.html"
+CURRENT_CHARACTERS_HTML = ROOT / "wuthering-waves-current-banner-characters" / "index.html"
+NEXT_CHARACTER_HTML = ROOT / "wuthering-waves-next-character" / "index.html"
+SCHEDULE_HTML = ROOT / "wuthering-waves-banner-schedule" / "index.html"
+ORDER_HTML = ROOT / "wuthering-waves-banner-order" / "index.html"
 PULL_HUB_HTML = ROOT / "pull-advice" / "index.html"
 SITEMAP_XML = ROOT / "sitemap.xml"
 BANNERS_HUB_HTML = ROOT / "banners" / "index.html"
 GUIDES_HUB_HTML = ROOT / "guides" / "index.html"
+CHARACTERS_HUB_HTML = ROOT / "wuthering-waves-characters" / "index.html"
 
 GTAG_SNIPPET = """<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C73K15FD00"></script>
@@ -56,6 +64,10 @@ def render_video_embed(title: str, video_id: str = "viOkAhoa0k8") -> str:
             </button>
             <noscript><p class="muted" style="padding:1rem;">JavaScript is off. <a href="{watch_url}">Watch this video on YouTube</a>.</p></noscript>
           </div>"""
+
+
+def render_reference_video_embed() -> str:
+    return render_video_embed("Official Wuthering Waves update reference")
 
 BASE_URLS = [
     "https://wuwabanners.net/",
@@ -192,6 +204,19 @@ def latest_checked(rows: list[dict[str, str]]) -> date:
     return picked
 
 
+def version_sort_key(version: str) -> tuple[int, ...]:
+    return tuple(int(part) for part in version.split("."))
+
+
+def phase_sort_key(phase: str) -> int:
+    match = re.search(r"\d+", phase)
+    return int(match.group(0)) if match else 0
+
+
+def row_sort_key(row: dict[str, str]) -> tuple[tuple[int, ...], int]:
+    return version_sort_key(row["version"]), phase_sort_key(row["phase"])
+
+
 def pick_current_and_next(rows: list[dict[str, str]], updated: date) -> tuple[dict[str, str], dict[str, str], list[dict[str, str]]]:
     char_rows = [
         row
@@ -201,6 +226,12 @@ def pick_current_and_next(rows: list[dict[str, str]], updated: date) -> tuple[di
     char_rows.sort(key=lambda row: parse_date(row["start_date"]) or date.max)
     if not char_rows:
         raise RuntimeError("No character banner rows with dates found in banner-data.csv")
+    preview_rows = [
+        row
+        for row in rows
+        if row["banner_type"] == "preview" and row["status"] in {"official", "expected"}
+    ]
+    preview_rows.sort(key=row_sort_key)
 
     current_row = next(
         (
@@ -215,8 +246,16 @@ def pick_current_and_next(rows: list[dict[str, str]], updated: date) -> tuple[di
         current_row = past[-1] if past else char_rows[0]
 
     current_index = char_rows.index(current_row)
-    next_row = char_rows[current_index + 1] if current_index + 1 < len(char_rows) else current_row
-    history_rows = char_rows[max(0, current_index - 1) : min(len(char_rows), current_index + 2)]
+    next_row = char_rows[current_index + 1] if current_index + 1 < len(char_rows) else None
+    if next_row is None:
+        current_key = row_sort_key(current_row)
+        next_row = next((row for row in preview_rows if row_sort_key(row) > current_key), None)
+    if next_row is None:
+        next_row = current_row
+    if current_index + 1 < len(char_rows):
+        history_rows = char_rows[max(0, current_index - 1) : min(len(char_rows), current_index + 2)]
+    else:
+        history_rows = char_rows[max(0, len(char_rows) - 3) :]
     return current_row, next_row, history_rows
 
 
@@ -238,22 +277,28 @@ def build_snapshot(rows: list[dict[str, str]]) -> dict[str, object]:
         "current": {
             "version": current_char["version"],
             "phase": current_char["phase"],
+            "banner_type": current_char["banner_type"],
             "banner_name": current_char["banner_name"],
             "featured_characters": split_field(current_char["featured_characters"]),
             "featured_weapons": split_field(current_weapon["featured_weapons"]) if current_weapon else [],
             "start_date": current_char["start_date"],
             "end_date": current_char["end_date"],
             "source_url": current_char["source_url"],
+            "announcement_date": current_char["announcement_date"],
+            "status": current_char["status"],
         },
         "next": {
             "version": next_char["version"],
             "phase": next_char["phase"],
+            "banner_type": next_char["banner_type"],
             "banner_name": next_char["banner_name"],
             "featured_characters": split_field(next_char["featured_characters"]),
             "featured_weapons": split_field(next_weapon["featured_weapons"]) if next_weapon else [],
             "start_date": next_char["start_date"],
             "end_date": next_char["end_date"],
             "source_url": next_char["source_url"],
+            "announcement_date": next_char["announcement_date"],
+            "status": next_char["status"],
         },
         "history": [
             {
@@ -331,9 +376,9 @@ def write_cards(snapshot: dict[str, object]) -> None:
         "#66352c",
         [
             next_item["banner_name"],
-            ", ".join(next_item["featured_characters"]),
-            "Weapons: " + ", ".join(next_item["featured_weapons"]),
-            "Starts " + fmt_human_date(next_item["start_date"]),
+            next_character_copy(next_item),
+            "Weapons: " + next_weapon_copy(next_item),
+            phase_window_label(next_item),
         ],
         "Keep next banner pages tied to official preview or in-game Convene updates.",
     )
@@ -372,6 +417,69 @@ def fmt_human_date(value: str) -> str:
     return f"{month_names[month]} {int(day)}, {year}"
 
 
+def join_or_fallback(values: list[str], fallback: str) -> str:
+    return ", ".join(values) if values else fallback
+
+
+def is_preview_phase(phase: dict[str, object]) -> bool:
+    return str(phase.get("banner_type") or "") == "preview"
+
+
+def phase_event_date(phase: dict[str, object]) -> str:
+    start_date = str(phase.get("start_date") or "")
+    if start_date:
+        return start_date
+    announcement_date = str(phase.get("announcement_date") or "")
+    return f"{announcement_date} 00:00" if announcement_date else ""
+
+
+def phase_event_label(phase: dict[str, object]) -> str:
+    event_date = phase_event_date(phase)
+    return fmt_human_date(event_date) if event_date else "TBA"
+
+
+def phase_window_label(phase: dict[str, object]) -> str:
+    if is_preview_phase(phase):
+        event_label = phase_event_label(phase)
+        return f"Preview broadcast on {event_label}" if event_label != "TBA" else "Preview timing pending"
+    start_date = str(phase.get("start_date") or "")
+    end_date = str(phase.get("end_date") or "")
+    if start_date and end_date:
+        return f"{fmt_human_date(start_date)} to {fmt_human_date(end_date)}"
+    if start_date:
+        return f"Starts {fmt_human_date(start_date)}"
+    return "TBA"
+
+
+def next_character_copy(next_item: dict[str, object]) -> str:
+    return join_or_fallback(
+        list(next_item["featured_characters"]),
+        "full featured characters are still unconfirmed before the next official preview",
+    )
+
+
+def next_weapon_copy(next_item: dict[str, object]) -> str:
+    return join_or_fallback(
+        list(next_item["featured_weapons"]),
+        "weapon details are still unconfirmed before the next official preview",
+    )
+
+
+def next_event_copy(next_item: dict[str, object]) -> str:
+    if is_preview_phase(next_item):
+        event_label = phase_event_label(next_item)
+        if event_label == "TBA":
+            return f"The next tracked official update is {next_item['banner_name']}, but its broadcast timing has not been posted yet."
+        return f"The next tracked official update is {next_item['banner_name']} on {event_label}."
+    return f"{next_item['banner_name']} is scheduled to begin on {fmt_human_date(str(next_item['start_date']))}."
+
+
+def next_focus_name(next_item: dict[str, object]) -> str:
+    if next_item["featured_characters"]:
+        return str(next_item["featured_characters"][0])
+    return "the first officially revealed 3.4 featured unit"
+
+
 def replace_block_exact(text: str, name: str, inner: str) -> str:
     pattern = re.compile(rf"(<!-- AUTO:{name} -->)(.*?)(<!-- /AUTO:{name} -->)", re.S)
     new_text, count = pattern.subn(f"<!-- AUTO:{name} -->\n{inner}\n<!-- /AUTO:{name} -->", text, count=1)
@@ -393,9 +501,9 @@ def build_home_media(updated: str) -> str:
           <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot generated from the latest CSV build." width="1200" height="675" decoding="async" fetchpriority="high">
         </div>
         <div class="video-card">
-          <h2>Official preview video slot</h2>
+          <h2>Official update video slot</h2>
           <p class="section-intro">Use one official broadcast or trailer on the homepage. This keeps the front page visually stronger without turning the site into a video-first layout.</p>
-          {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
+          {render_reference_video_embed()}
         </div>
       </div>"""
 
@@ -409,12 +517,19 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     history = snapshot["history"]
     recent = history[0]
+    next_card_title = "Next banner starts" if not is_preview_phase(next_item) else "Next official preview"
+    next_card_body = (
+        f"{next_character_copy(next_item)} are the next tracked featured characters."
+        if next_item["featured_characters"]
+        else "The next full lineup is still pending the next official preview reveal."
+    )
+    next_row_type = "Next banner phase" if not is_preview_phase(next_item) else "Next official preview"
     return f"""      <div class="container">
         <h2>Current timeline snapshot</h2>
         <p class="section-intro">Start with the live phase, the next phase, and the most important pull timing details first. This gives homepage visitors the fastest way to understand what is live now, what ends next, and when the next saving or pull decision matters.</p>
         <div class="card-grid" style="margin-bottom:1.25rem;">
           <article class="card"><h3>Current banner ends</h3><p><strong>{fmt_human_date(current["end_date"])}</strong></p><p>{", ".join(current["featured_characters"])} stay live through the current tracked phase.</p><p><a href="/wuthering-waves-current-banner-end-date/">Open current banner end date</a></p></article>
-          <article class="card"><h3>Next banner starts</h3><p><strong>{fmt_human_date(next_item["start_date"])}</strong></p><p>{", ".join(next_item["featured_characters"])} are the next tracked featured characters.</p><p><a href="/wuthering-waves-next-banner-date/">Open next banner date</a></p></article>
+          <article class="card"><h3>{next_card_title}</h3><p><strong>{phase_event_label(next_item)}</strong></p><p>{next_card_body}</p><p><a href="/wuthering-waves-next-banner-date/">Open next banner date</a></p></article>
           <article class="card"><h3>Fastest pull path</h3><p><strong>{current["banner_name"]} vs {next_item["banner_name"]}</strong></p><p>Use the live phase if you need to spend now. Use the next phase if you are deciding whether to save.</p><p><a href="/pull-advice/">Open pull advice</a></p></article>
         </div>
         <div class="table-wrap">
@@ -422,7 +537,7 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
             <thead><tr><th>Type</th><th>Name</th><th>Window</th><th>Best next page</th></tr></thead>
             <tbody>
               <tr><td>Live banner phase</td><td>{current["banner_name"]}</td><td>{fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
-              <tr><td>Next banner phase</td><td>{next_item["banner_name"]}</td><td>{fmt_human_date(next_item["start_date"])} to {fmt_human_date(next_item["end_date"])}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+              <tr><td>{next_row_type}</td><td>{next_item["banner_name"]}</td><td>{phase_window_label(next_item)}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
               <tr><td>Recent reference</td><td>{recent["banner_name"]}</td><td>{fmt_human_date(recent["start_date"])} to {fmt_human_date(recent["end_date"])}</td><td><a href="/wuthering-waves-banner-history/">Banner history</a></td></tr>
             </tbody>
           </table>
@@ -434,8 +549,17 @@ def build_next_intro(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
     updated = snapshot["updated"]
-    return f"""      <p class="lead">As of {fmt_human_date(updated + " 00:00")}, the active Wuthering Waves banners are in {current["banner_name"]}, while the next banner rotation is {next_item["banner_name"]} scheduled to begin on {fmt_human_date(next_item["start_date"])}. This page combines a live-style snapshot with the structure needed for long-term updates: current banner, next banner, countdown logic, and pull-or-save context.</p>
-      <div class="answer-box"><strong>Direct answer:</strong> The current {current["banner_name"]} banners feature {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next {next_item["banner_name"]} banners are {", ".join(next_item["featured_characters"])}, with the next phase expected to begin on {fmt_human_date(next_item["start_date"])}.</div>
+    if is_preview_phase(next_item):
+        answer = (
+            f"""      <p class="lead">As of {fmt_human_date(updated + " 00:00")}, the active Wuthering Waves banners are in {current["banner_name"]}. The next tracked official banner-related update is {next_item["banner_name"]}, which is the best placeholder until the next full phase is officially announced.</p>
+      <div class="answer-box"><strong>Direct answer:</strong> The current {current["banner_name"]} banners feature {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. {next_event_copy(next_item)} The full next featured-character lineup is still unconfirmed.</div>"""
+        )
+    else:
+        answer = (
+            f"""      <p class="lead">As of {fmt_human_date(updated + " 00:00")}, the active Wuthering Waves banners are in {current["banner_name"]}, while the next banner rotation is {next_item["banner_name"]} scheduled to begin on {fmt_human_date(next_item["start_date"])}. This page combines a live-style snapshot with the structure needed for long-term updates: current banner, next banner, countdown logic, and pull-or-save context.</p>
+      <div class="answer-box"><strong>Direct answer:</strong> The current {current["banner_name"]} banners feature {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next {next_item["banner_name"]} banners are {", ".join(next_item["featured_characters"])}, with the next phase expected to begin on {fmt_human_date(next_item["start_date"])}.</div>"""
+        )
+    return f"""{answer}
       <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -448,7 +572,7 @@ def build_next_media(snapshot: dict[str, object]) -> str:
         <div class="video-card">
           <h2>Official preview media</h2>
           <p class="muted">Keep one official preview video on the page and let the text carry the primary answer.</p>
-          {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
+          {render_reference_video_embed()}
         </div>
       </div>"""
 
@@ -456,9 +580,14 @@ def build_next_media(snapshot: dict[str, object]) -> str:
 def build_next_cards(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    next_snapshot = (
+        f"The next phase is {next_item['banner_name']}. The featured five-stars are {', '.join(next_item['featured_characters'])}, and the weapon focus is {', '.join(next_item['featured_weapons'])}."
+        if not is_preview_phase(next_item)
+        else f"{next_event_copy(next_item)} The full character and weapon lineup is still pending official confirmation."
+    )
     return f"""      <div class="card-grid">
         <article class="card"><h2>Current live phase</h2><p>{current["banner_name"]} is live right now. The featured five-stars are {", ".join(current["featured_characters"])}, and the weapon focus is {", ".join(current["featured_weapons"])}.</p></article>
-        <article class="card"><h2>Next phase snapshot</h2><p>The next phase is {next_item["banner_name"]}. The featured five-stars are {", ".join(next_item["featured_characters"])}, and the weapon focus is {", ".join(next_item["featured_weapons"])}.</p></article>
+        <article class="card"><h2>Next phase snapshot</h2><p>{next_snapshot}</p></article>
         <article class="card"><h2>What users want first</h2><p>Users usually want four facts first: the live banner, the next banner, the end date, and whether the next phase is already official. If those four are missing, the page feels slow even when it has more words.</p></article>
       </div>"""
 
@@ -472,7 +601,7 @@ def build_next_table(snapshot: dict[str, object]) -> str:
             <thead><tr><th>Status</th><th>Banner group</th><th>5-star focus</th><th>Weapon focus</th><th>Dates</th></tr></thead>
             <tbody>
               <tr><td>Current</td><td>{current["banner_name"]}</td><td>{", ".join(current["featured_characters"])}</td><td>{", ".join(current["featured_weapons"])}</td><td>{fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}</td></tr>
-              <tr><td>Next</td><td>{next_item["banner_name"]}</td><td>{", ".join(next_item["featured_characters"])}</td><td>{", ".join(next_item["featured_weapons"])}</td><td>Starts {fmt_human_date(next_item["start_date"])}</td></tr>
+              <tr><td>Next</td><td>{next_item["banner_name"]}</td><td>{next_character_copy(next_item)}</td><td>{next_weapon_copy(next_item)}</td><td>{phase_window_label(next_item)}</td></tr>
             </tbody>
           </table>
         </div>"""
@@ -481,18 +610,24 @@ def build_next_table(snapshot: dict[str, object]) -> str:
 def build_next_pull(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    if is_preview_phase(next_item):
+        wait_copy = f"wait for {next_item['banner_name']} before locking the next save target"
+        weapon_copy = "The next weapon group is still unconfirmed until the next official preview reveals more detail."
+    else:
+        wait_copy = f"consider waiting if {', '.join(next_item['featured_characters'])} better matches your roster direction"
+        weapon_copy = f"The next weapon group is {', '.join(next_item['featured_weapons'])} in the next phase."
     return f"""        <div class="card">
           <h2>Should you pull now or wait?</h2>
-          <p>For a new or lightly built account, the key question is whether {", ".join(current["featured_characters"])} fills an urgent team hole before {current["banner_name"]} ends. For users already saving for {next_item["featured_characters"][0]} or a later rerun, the page should say that clearly instead of forcing them to infer it from the table.</p>
+          <p>For a new or lightly built account, the key question is whether {", ".join(current["featured_characters"])} fills an urgent team hole before {current["banner_name"]} ends. For users already saving for {next_focus_name(next_item)} or a later rerun, the page should say that clearly instead of forcing them to infer it from the table.</p>
           <ul class="list">
             <li><strong>Pull now:</strong> if the current phase solves an immediate roster need.</li>
-            <li><strong>Consider waiting:</strong> if {", ".join(next_item["featured_characters"])} better matches your roster direction.</li>
+            <li><strong>Consider waiting:</strong> if {wait_copy}.</li>
             <li><strong>Save harder:</strong> if your main goal is a future rerun or a later patch target.</li>
           </ul>
         </div>
         <div class="card">
           <h2>Weapon banner snapshot</h2>
-          <p>The current weapon focus is {", ".join(current["featured_weapons"])} through {fmt_human_date(current["end_date"])}. The next weapon group is {", ".join(next_item["featured_weapons"])} in the next phase.</p>
+          <p>The current weapon focus is {", ".join(current["featured_weapons"])} through {fmt_human_date(current["end_date"])}. {weapon_copy}</p>
           <ul class="list">
             <li><strong>Character-first accounts:</strong> compare roster gain before comparing weapon upside.</li>
             <li><strong>Weapon-first accounts:</strong> check whether the current or next weapon set creates the bigger pity trap.</li>
@@ -505,14 +640,20 @@ def build_next_pull(snapshot: dict[str, object]) -> str:
 def build_next_compare_matrix(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    save_watch = next_character_copy(next_item) if next_item["featured_characters"] else next_item["banner_name"]
+    weapon_watch = (
+        f"{', '.join(current['featured_weapons'])} vs {', '.join(next_item['featured_weapons'])}"
+        if next_item["featured_weapons"]
+        else f"{', '.join(current['featured_weapons'])} vs next-phase weapon reveal"
+    )
     return f"""        <h2>Current versus next banner decision matrix</h2>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Decision path</th><th>When it wins</th><th>Watch first</th><th>Best next page</th></tr></thead>
             <tbody>
               <tr><td>Spend in {current["banner_name"]}</td><td>The live phase solves an immediate account hole faster than waiting.</td><td>{", ".join(current["featured_characters"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
-              <tr><td>Save for {next_item["banner_name"]}</td><td>The next phase matches your planned roster better than the current rotation.</td><td>{", ".join(next_item["featured_characters"])}</td><td><a href="/pull-advice/">Pull advice</a></td></tr>
-              <tr><td>Spend only after checking weapon risk</td><td>Your character choice looks clear, but the weapon side could still make the full plan too expensive.</td><td>{", ".join(current["featured_weapons"])} vs {", ".join(next_item["featured_weapons"])}</td><td><a href="/wuthering-waves-weapon-banner/">Weapon banner</a></td></tr>
+              <tr><td>Save for {next_item["banner_name"]}</td><td>The next tracked update matches your planned roster better than the current rotation.</td><td>{save_watch}</td><td><a href="/pull-advice/">Pull advice</a></td></tr>
+              <tr><td>Spend only after checking weapon risk</td><td>Your character choice looks clear, but the weapon side could still make the full plan too expensive.</td><td>{weapon_watch}</td><td><a href="/wuthering-waves-weapon-banner/">Weapon banner</a></td></tr>
               <tr><td>Delay both phases</td><td>Your real target is a rerun or your pity state is too valuable to force a spend now.</td><td>History spacing and pity carry-over</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td></tr>
             </tbody>
           </table>
@@ -527,7 +668,7 @@ def build_next_sources(snapshot: dict[str, object]) -> str:
           <strong>Sources used for this {fmt_human_date(updated + " 00:00")} snapshot</strong><br>
           Current phase source: {current["source_url"]}<br>
           Next phase source: {next_item["source_url"]}<br>
-          Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+          Official video archive: https://www.youtube.com/@WutheringWaves
         </div>"""
 
 
@@ -546,9 +687,9 @@ def build_current_media(snapshot: dict[str, object]) -> str:
         <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot for {current["banner_name"]}." width="1200" height="675" decoding="async">
       </div>
       <div class="video-card">
-        <h2>Official preview media slot</h2>
+        <h2>Official update media slot</h2>
         <p class="muted">Use the preview broadcast or official trailer to support the page visually, but keep the live answer in text above it.</p>
-        {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
+        {render_reference_video_embed()}
       </div>
     </div>"""
 
@@ -579,13 +720,18 @@ def build_current_table(snapshot: dict[str, object]) -> str:
 def build_current_decision_matrix(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    why_copy = (
+        "The next official preview may change your longer plan, so compare before locking a live spend."
+        if is_preview_phase(next_item)
+        else "The next phase may match your longer plan better than the live one."
+    )
     return f"""        <h2>Spend-now versus save-now matrix</h2>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Account state</th><th>Safer choice</th><th>Why</th><th>Best next page</th></tr></thead>
             <tbody>
               <tr><td>You need immediate value</td><td>Spend in {current["banner_name"]}</td><td>The live phase is already confirmed and usable right now.</td><td><a href="/wuthering-waves-current-banner-characters/">Current banner characters</a></td></tr>
-              <tr><td>You are planning the next roster step</td><td>Compare against {next_item["banner_name"]}</td><td>The next phase may match your longer plan better than the live one.</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+              <tr><td>You are planning the next roster step</td><td>Compare against {next_item["banner_name"]}</td><td>{why_copy}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
               <tr><td>You are protecting pity</td><td>Save</td><td>Pity and weapon pressure matter more than forcing a live spend.</td><td><a href="/wuthering-waves-pity-system/">Pity system</a></td></tr>
             </tbody>
           </table>
@@ -634,14 +780,15 @@ def build_current_sources(snapshot: dict[str, object]) -> str:
     return f"""      <div class="sources">
         <strong>Sources used for this {fmt_human_date(updated + " 00:00")} snapshot</strong><br>
         Current phase source: {current["source_url"]}<br>
-        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+        Official video archive: https://www.youtube.com/@WutheringWaves
       </div>"""
 
 
 def build_history_intro(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
+    next_item = snapshot["next"]
     return f"""    <p class="lead">This banner history page now works as a real list page. Users can scan recent version phases first, then open the matching phase detail page for lineup, timing, and rerun context. The history structure is generated from the site CSV so future updates stay consistent.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The best Wuthering Waves banner history page shows version, phase, featured characters, featured weapons, dates, and a clear route into a dedicated detail page for each tracked phase.</div>
+    <div class="answer-box"><strong>Direct answer:</strong> The best Wuthering Waves banner history page shows version, phase, featured characters, featured weapons, dates, and a clear route into a dedicated detail page for each tracked phase. The next tracked banner-related checkpoint after this recent list is {next_item["banner_name"]}.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -720,7 +867,7 @@ def build_history_sources(snapshot: dict[str, object]) -> str:
     return f"""      <div class="sources">
         <strong>Sources used for this {fmt_human_date(updated + " 00:00")} history snapshot</strong><br>
 {lines}<br>
-        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+        Official video archive: https://www.youtube.com/@WutheringWaves
       </div>"""
 
 
@@ -911,7 +1058,7 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
       <div class="sources">
         <strong>Source used for this {html.escape(banner_name)} detail page</strong><br>
         Timeline source: {html.escape(str(page["source_url"]))}<br>
-        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+        Official video archive: https://www.youtube.com/@WutheringWaves
       </div>
     </section>
   </div></main>
@@ -982,8 +1129,13 @@ def build_countdown_intro(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
     updated = snapshot["updated"]
+    answer_copy = (
+        f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
+        if is_preview_phase(next_item)
+        else f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and {next_item['banner_name']} begins on {fmt_human_date(next_item['start_date'])}."
+    )
     return f"""    <p class="lead">Countdown intent is mostly practical. Users want the current phase end date and the next phase start date without needing to decode a long article first.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> {current["banner_name"]} ends on {fmt_human_date(current["end_date"])}, and {next_item["banner_name"]} begins on {fmt_human_date(next_item["start_date"])}.</div>
+    <div class="answer-box"><strong>Direct answer:</strong> {answer_copy}</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -1001,9 +1153,15 @@ def build_countdown_media(snapshot: dict[str, object]) -> str:
 def build_countdown_cards(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    next_title = "Next phase start" if not is_preview_phase(next_item) else "Next official preview"
+    next_copy = (
+        f"{next_item['banner_name']} is scheduled to start on {fmt_human_date(next_item['start_date'])}."
+        if not is_preview_phase(next_item)
+        else next_event_copy(next_item)
+    )
     return f"""    <div class="card-grid">
       <article class="card"><h2>Current phase end</h2><p>{current["banner_name"]} is scheduled to end on {fmt_human_date(current["end_date"])}.</p></article>
-      <article class="card"><h2>Next phase start</h2><p>{next_item["banner_name"]} is scheduled to start on {fmt_human_date(next_item["start_date"])}.</p></article>
+      <article class="card"><h2>{next_title}</h2><p>{next_copy}</p></article>
       <article class="card"><h2>Why clarity matters</h2><p>Users often search countdown pages from mobile. Put the dates in plain text first, then support them with tables and related links.</p></article>
     </div>"""
 
@@ -1011,13 +1169,14 @@ def build_countdown_cards(snapshot: dict[str, object]) -> str:
 def build_countdown_table(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    next_event = "Next phase starts" if not is_preview_phase(next_item) else "Next official preview"
     return f"""      <h2>Banner timing snapshot</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Phase</th><th>Event</th><th>Date</th></tr></thead>
           <tbody>
             <tr><td>{current["banner_name"]}</td><td>Current phase ends</td><td>{fmt_human_date(current["end_date"])}</td></tr>
-            <tr><td>{next_item["banner_name"]}</td><td>Next phase starts</td><td>{fmt_human_date(next_item["start_date"])}</td></tr>
+            <tr><td>{next_item["banner_name"]}</td><td>{next_event}</td><td>{phase_event_label(next_item)}</td></tr>
           </tbody>
         </table>
       </div>"""
@@ -1029,7 +1188,7 @@ def build_countdown_sources(snapshot: dict[str, object]) -> str:
     return f"""      <div class="sources">
         <strong>Sources used for this {fmt_human_date(updated + " 00:00")} countdown snapshot</strong><br>
         Current phase source: {current["source_url"]}<br>
-        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+        Official video archive: https://www.youtube.com/@WutheringWaves
       </div>"""
 
 
@@ -1038,6 +1197,8 @@ def get_pull_pages(snapshot: dict[str, object]) -> list[dict[str, str]]:
     seen: set[str] = set()
     for mode, key, card_name in (("current", "current", "current-banner-card.svg"), ("next", "next", "next-banner-card.svg")):
         phase = snapshot[key]
+        if not phase["featured_characters"]:
+            continue
         compare_phase = snapshot["next"] if key == "current" else snapshot["current"]
         for character in phase["featured_characters"]:
             slug = slugify_character(character)
@@ -1113,18 +1274,33 @@ def build_pull_intro(snapshot: dict[str, object], pull_pages: list[dict[str, str
     current = snapshot["current"]
     next_item = snapshot["next"]
     updated = snapshot["updated"]
-    return f"""    <p class="lead">This hub is where banner facts turn into player decisions. Right now the tracked pull set covers {len(pull_pages)} featured characters across the live {current["banner_name"]} phase and the upcoming {next_item["banner_name"]} phase.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> Start with a current-phase page if you are deciding whether to spend now. Start with a next-phase page if you are deciding whether to save.</div>
+    next_copy = (
+        f"and the upcoming {next_item['banner_name']} phase"
+        if next_item["featured_characters"]
+        else f"while {next_item['banner_name']} remains the next official checkpoint before the next full lineup is confirmed"
+    )
+    answer_copy = (
+        "Start with a current-phase page if you are deciding whether to spend now. Start with the next-banner page if you are deciding whether to save."
+        if not next_item["featured_characters"]
+        else "Start with a current-phase page if you are deciding whether to spend now. Start with a next-phase page if you are deciding whether to save."
+    )
+    return f"""    <p class="lead">This hub is where banner facts turn into player decisions. Right now the tracked pull set covers {len(pull_pages)} featured characters across the live {current["banner_name"]} phase {next_copy}.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> {answer_copy}</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
 def build_pull_grid(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    next_pool = (
+        f"The next phase pages cover {', '.join(next_item['featured_characters'])} and should answer whether saving beats the current live banner."
+        if next_item["featured_characters"]
+        else f"The next full lineup is still pending. Until {next_item['banner_name']} lands, the best next-step page is the banner comparison view rather than a character-specific save page."
+    )
     return f"""    <div class="card-grid">
       <article class="card"><h2>Account-need framing</h2><p>Good pull advice starts with user context: missing DPS, missing sustain, saving for a rerun, or targeting a specific team role.</p></article>
       <article class="card"><h2>Current phase pool</h2><p>The live phase pages cover {", ".join(current["featured_characters"])} and should answer whether spending now is worth the pity and Astrite cost.</p></article>
-      <article class="card"><h2>Next phase pool</h2><p>The next phase pages cover {", ".join(next_item["featured_characters"])} and should answer whether saving beats the current live banner.</p></article>
+      <article class="card"><h2>Next phase pool</h2><p>{next_pool}</p></article>
       <article class="card"><h2>Weapon and pity pressure</h2><p>Do not compare characters in isolation. If the real account question is weapon dependence, pity carry-over, or whether one banner demands too many tides at once, route the user to weapon and pity pages before locking a pull plan.</p></article>
     </div>"""
 
@@ -1137,6 +1313,10 @@ def build_pull_links(pull_pages: list[dict[str, str]]) -> str:
         phase_label = "current live phase" if page["mode"] == "current" else "next tracked phase"
         bucket.append(
             f'        <article class="card"><h2>Should you pull {page["character"]}?</h2><p>Decision page for {page["character"]} in the {phase_label}.</p><p><a href="/wuthering-waves-should-you-pull-{page["slug"]}/">Open page</a></p></article>'
+        )
+    if not next_cards:
+        next_cards.append(
+            """        <article class="card"><h2>Next phase pages pending</h2><p>The next full featured lineup is still waiting on the next official preview, so there are no new next-phase character pull pages yet.</p><p><a href="/wuthering-waves-next-banner/">Open next banner</a></p></article>"""
         )
     return f"""      <h2>Current phase pull pages</h2>
       <div class="card-grid">
@@ -1151,13 +1331,19 @@ def build_pull_links(pull_pages: list[dict[str, str]]) -> str:
 def build_pull_decision_routes(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    next_route = join_or_fallback(list(next_item["featured_characters"]), next_item["banner_name"])
+    next_route_reason = (
+        "The next phase should be compared against current pity, not against hype alone."
+        if next_item["featured_characters"]
+        else "Use the next official preview checkpoint before assuming the next phase is worth saving for."
+    )
     return f"""      <h2>Fast decision routes by account state</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>If this sounds like you</th><th>Start here</th><th>Why</th><th>Then open</th></tr></thead>
           <tbody>
             <tr><td>You want to spend now and need the safest live answer</td><td>{", ".join(current["featured_characters"])}</td><td>The current phase can be judged against a real live timer and weapon set.</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
-            <tr><td>You already expect to save for the next rotation</td><td>{", ".join(next_item["featured_characters"])}</td><td>The next phase should be compared against current pity, not against hype alone.</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+            <tr><td>You already expect to save for the next rotation</td><td>{next_route}</td><td>{next_route_reason}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
             <tr><td>You only have one real pity window left</td><td>Open the phase comparison first</td><td>Single-pity accounts should compare current value, next value, and rerun spacing before committing to any one featured unit.</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
             <tr><td>Your real pressure is the weapon side, not the character side</td><td>Open weapon and pity pages before character pages</td><td>Weapon pressure changes the true cost of a pull plan and can flip a yes into a save call.</td><td><a href="/wuthering-waves-weapon-banner/">Weapon banner</a></td></tr>
             <tr><td>You are unsure whether to spend at all</td><td>Open the comparison path first</td><td>A comparison pass is better than jumping straight into one character page.</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td></tr>
@@ -1169,6 +1355,11 @@ def build_pull_decision_routes(snapshot: dict[str, object]) -> str:
 def build_pull_compare_cards(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    next_compare = (
+        f"Use the next phase when {', '.join(next_item['featured_characters'])} better matches your long-plan roster direction, and when protecting pity matters more than immediate live-banner pressure."
+        if next_item["featured_characters"]
+        else f"Use the preview checkpoint when you are mainly trying to avoid locking a save target before {next_item['banner_name']} clarifies the next full lineup."
+    )
     return f"""      <div class="card">
         <h2>When the current phase wins</h2>
         <p>Use the current phase when {", ".join(current["featured_characters"])} fixes a live roster problem now, not later. This is the path for accounts that need immediate value from active banners.</p>
@@ -1180,7 +1371,7 @@ def build_pull_compare_cards(snapshot: dict[str, object]) -> str:
       </div>
       <div class="card">
         <h2>When the next phase or rerun path wins</h2>
-        <p>Use the next phase when {", ".join(next_item["featured_characters"])} better matches your long-plan roster direction, and when protecting pity matters more than immediate live-banner pressure.</p>
+        <p>{next_compare}</p>
         <ul class="list">
           <li><strong>Best fit:</strong> accounts already aiming at the next roster step or a later rerun lane.</li>
           <li><strong>Resource logic:</strong> saving wins when pity protection matters more than solving a short-term live problem.</li>
@@ -1214,7 +1405,7 @@ def build_character_media(page: dict[str, str]) -> str:
       </div>
       <div class="video-card">
         <h2>Phase reference video</h2>
-        {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
+        {render_reference_video_embed()}
       </div>
     </div>"""
 
@@ -1222,7 +1413,7 @@ def build_character_media(page: dict[str, str]) -> str:
 def build_character_blocks(page: dict[str, str], snapshot: dict[str, object]) -> str:
     character = page["character"]
     if page["mode"] == "current":
-        next_names = ", ".join(snapshot["next"]["featured_characters"])
+        next_names = next_character_copy(snapshot["next"])
         current_weapons = ", ".join(snapshot["current"]["featured_weapons"])
         return f"""    <div class="card-grid">
       <article class="card"><h2>Best for who</h2><p>Best for accounts that want to invest in the current live phase instead of waiting for the next banner rotation.</p></article>
@@ -1245,6 +1436,7 @@ def build_character_decision_matrix(page: dict[str, str], snapshot: dict[str, ob
     current = snapshot["current"]
     next_item = snapshot["next"]
     if page["mode"] == "current":
+        next_watch = join_or_fallback(list(next_item["featured_characters"]), next_item["banner_name"])
         return f"""    <section class="section">
       <h2>{character} decision matrix</h2>
       <div class="table-wrap">
@@ -1252,7 +1444,7 @@ def build_character_decision_matrix(page: dict[str, str], snapshot: dict[str, ob
           <thead><tr><th>If this is true</th><th>Decision</th><th>Why</th></tr></thead>
           <tbody>
             <tr><td>{character} fixes your biggest immediate roster issue</td><td>Pull now</td><td>The live phase is real, active, and easier to judge than waiting on a later solve.</td></tr>
-            <tr><td>You already prefer {", ".join(next_item["featured_characters"])}</td><td>Save</td><td>The next phase is a better direction fit than forcing a live spend.</td></tr>
+            <tr><td>You already prefer {next_watch}</td><td>Save</td><td>The next phase is a better direction fit than forcing a live spend.</td></tr>
             <tr><td>You only have one real pity window left</td><td>Compare current versus next before spending</td><td>Single-pity accounts should treat {character} as one option inside a bigger phase choice, not as an automatic yes.</td></tr>
             <tr><td>Your real concern is the weapon side</td><td>Check weapon banner first</td><td>If the live weapon set is the expensive part, a strong character answer can still become a bad full-banner plan.</td></tr>
             <tr><td>You mainly care about pity efficiency</td><td>Delay</td><td>Checking pity and rerun timing first is safer than impulse spending.</td></tr>
@@ -1373,7 +1565,7 @@ def build_character_sources(page: dict[str, str], updated: str) -> str:
     return f"""      <div class="sources">
         <strong>Sources used for this {fmt_human_date(updated + " 00:00")} pull snapshot</strong><br>
         Character phase source: {page["source_url"]}<br>
-        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+        Official video archive: https://www.youtube.com/@WutheringWaves
       </div>"""
 
 
@@ -1415,7 +1607,7 @@ def build_support_media(page: dict[str, str]) -> str:
       </div>
       <div class="video-card">
         <h2>Official reference video</h2>
-        {render_video_embed("Wuthering Waves Version 3.3 Preview Special Broadcast")}
+        {render_reference_video_embed()}
       </div>
     </div>"""
 
@@ -2226,7 +2418,7 @@ def build_support_sources(page: dict[str, str], updated: str) -> str:
     return f"""      <div class="sources">
         <strong>Sources used for this {fmt_human_date(updated + " 00:00")} {page["kind_label"].lower()} snapshot</strong><br>
         Character phase source: {page["source_url"]}<br>
-        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+        Official video archive: https://www.youtube.com/@WutheringWaves
       </div>"""
 
 
@@ -2740,7 +2932,7 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
       <div class="sources">
         <strong>Source used for this {character} overview page</strong><br>
         Character phase source: {html.escape(page["source_url"])}<br>
-        Official Version 3.3 preview broadcast: https://youtube.com/live/viOkAhoa0k8
+        Official video archive: https://www.youtube.com/@WutheringWaves
       </div>
     </section>
   </div></main>
@@ -2773,11 +2965,931 @@ def discover_reference_urls() -> list[str]:
     return urls
 
 
+def render_card_grid(cards: list[tuple[str, str]]) -> str:
+    items = "\n".join(f'      <article class="card"><h2>{title}</h2><p>{copy}</p></article>' for title, copy in cards)
+    return f"""    <div class="card-grid" style="margin-top:1.25rem;">
+{items}
+    </div>"""
+
+
+def render_faq_block(items: list[tuple[str, str]]) -> str:
+    return "\n".join(f'        <article class="faq-item"><h3>{question}</h3><p>{answer}</p></article>' for question, answer in items)
+
+
+def render_faq_json(title: str, path: str, items: list[tuple[str, str]]) -> str:
+    payload = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Article",
+                "headline": title,
+                "mainEntityOfPage": f"https://wuwabanners.net{path}",
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": question,
+                        "acceptedAnswer": {"@type": "Answer", "text": answer},
+                    }
+                    for question, answer in items
+                ],
+            },
+        ],
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2)
+
+
+def render_standard_page(
+    *,
+    title: str,
+    description: str,
+    path: str,
+    breadcrumbs: str,
+    heading: str,
+    lead: str,
+    answer: str,
+    body: str,
+    faq_items: list[tuple[str, str]],
+) -> str:
+    faq_json = render_faq_json(title, path, faq_items)
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{html.escape(title)}</title>
+  <meta name="description" content="{html.escape(description)}">
+  <link rel="canonical" href="https://wuwabanners.net{path}">
+  <meta property="og:title" content="{html.escape(title)}">
+  <meta property="og:description" content="{html.escape(description)}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wuwabanners.net{path}">
+  <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{FONT_PRELOAD_BLOCK}
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script type="application/ld+json">
+{faq_json}
+  </script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <main class="section"><div class="container">
+    <div class="breadcrumbs">{breadcrumbs}</div>
+    <h1>{html.escape(heading)}</h1>
+    <p class="lead">{lead}</p>
+    <div class="answer-box"><strong>Direct answer:</strong> {answer}</div>
+{body}
+    <section class="section">
+      <h2>FAQ</h2>
+      <div class="faq-list">
+{render_faq_block(faq_items)}
+      </div>
+    </section>
+  </div></main>
+<script defer src="/assets/js/site.js"></script>
+{GTAG_SNIPPET}
+</body>
+</html>
+"""
+
+
+def render_next_banner_date_page(snapshot: dict[str, object]) -> str:
+    next_item = snapshot["next"]
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    if is_preview_phase(next_item):
+        answer = f"As of {updated}, the next official banner-related date is {phase_event_label(next_item)} for {next_item['banner_name']}. The full next phase start date is still unconfirmed."
+        next_title = "Next official preview"
+        next_copy = next_event_copy(next_item)
+        table_value = "Full lineup pending official confirmation"
+    else:
+        answer = f"As of {updated}, the next tracked banner date is {fmt_human_date(next_item['start_date'])}, when {next_item['banner_name']} is scheduled to begin."
+        next_title = "Next phase start"
+        next_copy = f"{next_item['banner_name']} is scheduled to start on {fmt_human_date(next_item['start_date'])}."
+        table_value = ", ".join(next_item["featured_characters"])
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    (next_title, next_copy),
+                    ("Why users search this", "This is usually a planning query right before a pull or save decision."),
+                    ("Best next pages", "The best follow-up pages are next banner, countdown, and banner schedule."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>Next date snapshot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phase</th><th>Date</th><th>Tracked focus</th><th>Best next page</th></tr></thead>
+          <tbody>
+            <tr><td>{next_item["banner_name"]}</td><td>{phase_event_label(next_item)}</td><td>{table_value}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            """    <section class="section two-col">
+      <div class="card">
+        <h2>Best related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-next-banner/">Next banner</a></li>
+          <li><a href="/wuthering-waves-banner-countdown/">Banner countdown</a></li>
+          <li><a href="/wuthering-waves-banner-schedule/">Banner schedule</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why keep this separate</h2>
+        <p>A date page can stay much tighter than a full next-banner article, which makes it useful for narrow search intent.</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title="Wuthering Waves Next Banner Date | WuWa Banners",
+        description="Check the Wuthering Waves next banner date, including the next official banner-related timing and the best follow-up pages.",
+        path="/wuthering-waves-next-banner-date/",
+        breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next banner date',
+        heading="Wuthering Waves Next Banner Date",
+        lead="Date-intent pages should be brutally clear. Users searching for the next banner date want one line first, then the smallest amount of supporting timing context needed to feel confident.",
+        answer=answer,
+        body=body,
+        faq_items=[
+            ("When is the next Wuthering Waves banner date?", answer),
+            ("Which page should users open after checking the next banner date?", "Usually the next banner page, banner countdown page, or banner schedule page."),
+        ],
+    )
+
+
+def render_current_banner_end_date_page(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    answer = f"As of {updated}, the current tracked banner end date is {fmt_human_date(current['end_date'])}, when {current['banner_name']} is scheduled to end."
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    ("Live phase deadline", f"{current['banner_name']} remains live through {fmt_human_date(current['end_date'])}."),
+                    ("Why users search this", "This query usually appears right before someone decides whether to pull now or save."),
+                    ("Best next pages", "The strongest next steps are current banner, next banner, and pity system."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>Current end-date snapshot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phase</th><th>End date</th><th>Featured characters</th><th>Best next page</th></tr></thead>
+          <tbody>
+            <tr><td>{current["banner_name"]}</td><td>{fmt_human_date(current["end_date"])}</td><td>{", ".join(current["featured_characters"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            """    <section class="section two-col">
+      <div class="card">
+        <h2>Best related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-current-banner/">Current banner</a></li>
+          <li><a href="/wuthering-waves-next-banner/">Next banner</a></li>
+          <li><a href="/wuthering-waves-pity-system/">Pity system</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why this page is useful</h2>
+        <p>Deadline-intent pages can rank separately from broader overview pages because they answer a narrower, more urgent question.</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title="Wuthering Waves Current Banner End Date | WuWa Banners",
+        description="Check the Wuthering Waves current banner end date, including the live phase deadline and the best pages to open before banners rotate.",
+        path="/wuthering-waves-current-banner-end-date/",
+        breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Current banner end date',
+        heading="Wuthering Waves Current Banner End Date",
+        lead="End-date pages are deadline pages. Users land here when they are close to making a decision and need a clear date more than a broad explanation.",
+        answer=answer,
+        body=body,
+        faq_items=[
+            ("When does the current Wuthering Waves banner end?", answer),
+            ("What should users check before the current banner ends?", "Usually the current banner page, the next banner page, and the pity system before deciding how to spend resources."),
+        ],
+    )
+
+
+def render_current_banner_characters_page(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    answer = f"As of {updated}, the current tracked featured characters are {', '.join(current['featured_characters'])} in {current['banner_name']}, which runs through {fmt_human_date(current['end_date'])}."
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    ("Live lineup", f"The current tracked featured characters are {', '.join(current['featured_characters'])}."),
+                    ("Current phase timing", f"{current['banner_name']} remains live through {fmt_human_date(current['end_date'])}."),
+                    ("Best next pages", "After checking the current lineup, users usually want the current banner page, a pull page, or the pity system."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>Current featured character snapshot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phase</th><th>Featured characters</th><th>End date</th><th>Best next page</th></tr></thead>
+          <tbody>
+            <tr><td>{current["banner_name"]}</td><td>{", ".join(current["featured_characters"])}</td><td>{fmt_human_date(current["end_date"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            """    <section class="section two-col">
+      <div class="card">
+        <h2>Best related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-current-banner/">Current banner</a></li>
+          <li><a href="/pull-advice/">Pull advice</a></li>
+          <li><a href="/wuthering-waves-pity-system/">Pity system</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why this page is separate</h2>
+        <p>It answers a narrower search than the broader current-banner page, which gives it a cleaner first screen and clearer CTR intent.</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title="Wuthering Waves Current Banner Characters | WuWa Banners",
+        description="Check the Wuthering Waves current banner characters, including the live featured lineup, phase timing, and the best follow-up pages.",
+        path="/wuthering-waves-current-banner-characters/",
+        breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Current banner characters',
+        heading="Wuthering Waves Current Banner Characters",
+        lead="This page exists for narrow intent. Some users do not want the full current-banner article first. They only want the current featured characters, then a quick path into the right decision page.",
+        answer=answer,
+        body=body,
+        faq_items=[
+            ("Who are the current Wuthering Waves banner characters?", answer),
+            ("What should users check after the current banner characters?", "Most users should move to the current banner page, pull-advice hub, or pity system depending on whether they are about to spend resources."),
+        ],
+    )
+
+
+def render_next_character_page(snapshot: dict[str, object]) -> str:
+    next_item = snapshot["next"]
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    if next_item["featured_characters"]:
+        answer = f"As of {updated}, the next tracked featured characters are {', '.join(next_item['featured_characters'])} in {next_item['banner_name']}, beginning on {fmt_human_date(next_item['start_date'])}."
+        lead_card = ("Next phase lead", f"{next_focus_name(next_item)} is the lead next-phase name users are likely to compare first against the current phase.")
+        support_card = ("Next phase support names", f"{', '.join(next_item['featured_characters'][1:]) or next_focus_name(next_item)} matter because users often search companion units separately after seeing the main next-banner page.")
+        table_focus = ", ".join(next_item["featured_characters"])
+        related_link = f'<li><a href="/wuthering-waves-should-you-pull-{slugify_character(next_focus_name(next_item))}/">Should you pull {next_focus_name(next_item)}?</a></li>'
+    else:
+        answer = f"As of {updated}, the next full featured-character lineup is still unconfirmed. The next official banner-related checkpoint is {next_item['banner_name']} on {phase_event_label(next_item)}."
+        lead_card = ("No official next featured character yet", "The next full lineup has not been posted yet, so the safest answer is to wait for the next official preview or notice.")
+        support_card = ("What to watch next", next_event_copy(next_item))
+        table_focus = "Full lineup pending official confirmation"
+        related_link = '<li><a href="/pull-advice/">Pull advice</a></li>'
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    lead_card,
+                    support_card,
+                    ("What users usually need next", "After this page, most users need the next-banner page, the schedule page, or pull-advice context."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>Next featured character snapshot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phase</th><th>Tracked focus</th><th>Date</th><th>Best next page</th></tr></thead>
+          <tbody>
+            <tr><td>{next_item["banner_name"]}</td><td>{table_focus}</td><td>{phase_event_label(next_item)}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            f"""    <section class="section two-col">
+      <div class="card">
+        <h2>Best related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-next-banner/">Next banner</a></li>
+          <li><a href="/wuthering-waves-banner-schedule/">Banner schedule</a></li>
+          {related_link}
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why this page is separate</h2>
+        <p>Some searchers do not ask for the full next banner. They ask for the next character directly, so the answer should be more focused and immediately scannable.</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title="Wuthering Waves Next Character | WuWa Banners",
+        description="Track the next Wuthering Waves featured characters, including the next official banner-related update and the best pages to check before deciding whether to save or pull now.",
+        path="/wuthering-waves-next-character/",
+        breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next character',
+        heading="Wuthering Waves Next Character",
+        lead="Users searching for the next character usually want a faster answer than a full banner article. They want to know the next confirmed featured units if they exist, or whether the next official preview is still the only reliable checkpoint.",
+        answer=answer,
+        body=body,
+        faq_items=[
+            ("Who are the next Wuthering Waves featured characters?", answer),
+            ("What should users check after a next-character page?", "They usually need the next-banner page, the schedule page, and character-specific pull advice before committing resources."),
+        ],
+    )
+
+
+def render_banner_schedule_page(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    history = snapshot["history"]
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    table_rows = []
+    for item in history:
+        table_rows.append(
+            f'            <tr><td>{item["version"]}</td><td>{item["phase"]}</td><td>{", ".join(item["featured_characters"])}</td><td>{fmt_human_date(item["start_date"])} to {fmt_human_date(item["end_date"])}</td></tr>'
+        )
+    table_rows.append(
+        f'            <tr><td>{next_item["version"]}</td><td>{next_item["phase"]}</td><td>{next_character_copy(next_item)}</td><td>{phase_window_label(next_item)}</td></tr>'
+    )
+    answer = (
+        f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
+        if is_preview_phase(next_item)
+        else f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next phase begins on {fmt_human_date(next_item['start_date'])}."
+    )
+    body = "\n".join(
+        [
+            """    <div class="media-grid" style="margin-top:1.25rem;">
+      <div class="banner-art">
+        <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner schedule snapshot." width="1200" height="675" decoding="async">
+      </div>
+      <div class="banner-art">
+        <img src="/assets/img/next-banner-card.svg" alt="Next Wuthering Waves banner schedule snapshot." width="1200" height="675" decoding="async">
+      </div>
+    </div>""",
+            render_card_grid(
+                [
+                    ("Current phase timing", f"{current['banner_name']} is live now, featuring {', '.join(current['featured_characters'])} through {fmt_human_date(current['end_date'])}."),
+                    ("Next tracked timing", next_event_copy(next_item)),
+                    ("What users usually need next", "After checking the schedule, users usually want the next-banner page, the current weapon banner, or a pull-advice page."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>Current and recent schedule snapshot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Version</th><th>Phase</th><th>Featured 5-stars</th><th>Dates</th></tr></thead>
+          <tbody>
+{chr(10).join(table_rows)}
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            f"""    <section class="section two-col">
+      <div class="card">
+        <h2>Best related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-next-banner/">Next banner</a></li>
+          <li><a href="/wuthering-waves-current-banner/">Current banner</a></li>
+          <li><a href="/wuthering-waves-banner-countdown/">Banner countdown</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Sources</h2>
+        <p>Current phase source: {current["source_url"]}</p>
+        <p>Next tracked source: {next_item["source_url"]}</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title="Wuthering Waves Banner Schedule | WuWa Banners",
+        description="Check the Wuthering Waves banner schedule, including the current phase end date, the next official banner-related update, and recent phase timing.",
+        path="/wuthering-waves-banner-schedule/",
+        breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Banner schedule',
+        heading="Wuthering Waves Banner Schedule",
+        lead="Schedule pages should make phase timing easy to scan on both mobile and desktop, not bury it under general game news.",
+        answer=answer,
+        body=body,
+        faq_items=[
+            ("What should a banner schedule page show first?", "It should show the current phase end date, the next tracked official banner-related update, and a short recent timeline."),
+            ("Why does schedule information matter on a banner site?", "Schedule pages help users decide whether to pull now, save for the next phase, or wait for later banners with less guesswork."),
+        ],
+    )
+
+
+def render_banner_order_page(snapshot: dict[str, object]) -> str:
+    history = snapshot["history"]
+    next_item = snapshot["next"]
+    order_rows = list(history) + ([next_item] if is_preview_phase(next_item) else [])
+    table_rows = []
+    for index, item in enumerate(order_rows, start=1):
+        focus = ", ".join(item["featured_characters"]) if item.get("featured_characters") else next_character_copy(item)
+        href = "/wuthering-waves-banner-history/" if index == 1 else ("/wuthering-waves-next-banner/" if item["banner_name"] == next_item["banner_name"] else "/wuthering-waves-current-banner/")
+        table_rows.append(f'            <tr><td>{index}</td><td>{item["banner_name"]}</td><td>{focus}</td><td><a href="{href}">Open page</a></td></tr>')
+    recent_sequence = " then ".join(item["banner_name"] for item in order_rows)
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    ("Recent order", f"The tracked recent sequence is {recent_sequence}."),
+                    ("Why users search this", "Many users do not start with a specific date question. They start by asking what comes after what."),
+                    ("Best next pages", "After this page, the most useful next steps are banner history, banner schedule, and next banner."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>Recent tracked banner order</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Order</th><th>Phase</th><th>Tracked focus</th><th>Best next page</th></tr></thead>
+          <tbody>
+{chr(10).join(table_rows)}
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            """    <section class="section two-col">
+      <div class="card">
+        <h2>Best related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-banner-history/">Banner history</a></li>
+          <li><a href="/wuthering-waves-banner-schedule/">Banner schedule</a></li>
+          <li><a href="/wuthering-waves-next-banner/">Next banner</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why keep this separate</h2>
+        <p>Banner order is simpler than a full history page. It works as a lighter entry page for users who want sequence, not a full archive.</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title="Wuthering Waves Banner Order | WuWa Banners",
+        description="Check the Wuthering Waves banner order, including recent phase flow, the current phase, and the next official banner-related update.",
+        path="/wuthering-waves-banner-order/",
+        breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Banner order',
+        heading="Wuthering Waves Banner Order",
+        lead="Banner order is broad-intent search. Users usually want a clean sequence answer first, then a way into the deeper history or schedule pages if they need more detail.",
+        answer=f"The recent tracked banner order is {recent_sequence}.",
+        body=body,
+        faq_items=[
+            ("What should a banner order page include?", "It should show recent phase order, the current live phase, the next tracked official update, and clear routes into history and schedule pages."),
+            ("Why is banner order different from banner history?", "Banner order is a simpler sequence answer for broad intent, while history is the deeper reference page for timing and rerun context."),
+        ],
+    )
+
+
+def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
+    next_item = snapshot["next"]
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    answer = (
+        f"As of {updated}, the next tracked banner countdown points to {phase_event_label(next_item)} for {next_item['banner_name']}. The full next phase lineup is still unconfirmed."
+        if is_preview_phase(next_item)
+        else f"As of {updated}, the next tracked banner countdown points to {fmt_human_date(next_item['start_date'])}, when {next_item['banner_name']} is scheduled to begin."
+    )
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    ("Target date", phase_event_label(next_item)),
+                    ("Why users search this", "This is a narrow timing query from users who are already close to a save-or-pull decision."),
+                    ("Best next pages", "The strongest follow-ups are next banner, schedule, and timeline."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>Next countdown snapshot</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phase</th><th>Date</th><th>Tracked focus</th><th>Best next page</th></tr></thead>
+          <tbody>
+            <tr><td>{next_item["banner_name"]}</td><td>{phase_event_label(next_item)}</td><td>{next_character_copy(next_item)}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            """    <section class="section two-col">
+      <div class="card">
+        <h2>Best related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-next-banner/">Next banner</a></li>
+          <li><a href="/wuthering-waves-banner-schedule/">Banner schedule</a></li>
+          <li><a href="/wuthering-waves-timeline/">Timeline</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why keep this page</h2>
+        <p>A countdown-intent page is simpler and more focused than the full next-banner article, so it helps capture a tighter search variant.</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title="Wuthering Waves Next Banner Countdown | WuWa Banners",
+        description="Check the Wuthering Waves next banner countdown, including the next official banner-related date and the best follow-up timing pages.",
+        path="/wuthering-waves-next-banner-countdown/",
+        breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next banner countdown',
+        heading="Wuthering Waves Next Banner Countdown",
+        lead="Countdown pages work best when they answer the date intent immediately, then move users into the full next-banner or schedule page if they need more context.",
+        answer=answer,
+        body=body,
+        faq_items=[
+            ("When is the next Wuthering Waves banner countdown pointing to?", answer),
+            ("Which page should users check after the next banner countdown?", "Most users should move to the next-banner page, banner schedule page, or timeline page."),
+        ],
+    )
+
+
+def render_characters_hub_page(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    current_rows = "\n".join(
+        f'            <tr><td>Current</td><td>{name}</td><td><a href="/wuthering-waves-characters/{slugify_character(name)}/">Open {name} hub</a></td></tr>'
+        for name in current["featured_characters"]
+    )
+    support_rows = "\n".join(
+        f'            <tr><td>{name}</td><td>Current phase</td><td><a href="/wuthering-waves-characters/{slugify_character(name)}/">Open hub</a></td><td><a href="/wuthering-waves-{slugify_character(name)}-materials/">Materials</a> · <a href="/wuthering-waves-{slugify_character(name)}-build/">Build</a> · <a href="/wuthering-waves-{slugify_character(name)}-team-comps/">Team comps</a></td></tr>'
+        for name in current["featured_characters"]
+    )
+    preview_notice = (
+        f"The next full featured characters are still unconfirmed. Watch {next_item['banner_name']} on {phase_event_label(next_item)} for the next official reveal."
+        if not next_item["featured_characters"]
+        else f"The next tracked featured characters are {', '.join(next_item['featured_characters'])} in {next_item['banner_name']}."
+    )
+    faq_json = render_faq_json(
+        "Wuthering Waves Characters",
+        "/wuthering-waves-characters/",
+        [
+            ("What should a Wuthering Waves characters page show first?", "It should show current featured characters, the next tracked official character context, and the fastest routes into pull-advice pages."),
+            ("Why is a characters page useful on this site?", "Because it connects banner intent, pull planning, and future character-specific support pages into one structure."),
+        ],
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wuthering Waves Characters | WuWa Banners</title>
+  <meta name="description" content="Browse Wuthering Waves characters, including current banner characters, next official character context, pull planning, and the best related pages for decision support.">
+  <link rel="canonical" href="https://wuwabanners.net/wuthering-waves-characters/">
+  <meta property="og:title" content="Wuthering Waves Characters">
+  <meta property="og:description" content="A clean Wuthering Waves characters page tied to current banner, next banner, and pull-planning pages.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wuwabanners.net/wuthering-waves-characters/">
+  <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{FONT_PRELOAD_BLOCK}
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script type="application/ld+json">
+{faq_json}
+  </script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <main class="section"><div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Characters</div>
+    <h1>Wuthering Waves Characters</h1>
+    <p class="lead">Use the characters hub when the user wants a list first, then one character detail hub, then a deeper support page only if needed. This branch should feel like list, detail, support.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> As of {updated}, the current tracked featured characters are {", ".join(current["featured_characters"])} in {current["banner_name"]}. {preview_notice}</div>
+    {render_card_grid([("Current featured characters", f"{', '.join(current['featured_characters'])} are the live tracked characters in {current['banner_name']}."), ("Next official character context", preview_notice), ("Why users search this", "This query often sits between broad banner discovery and character-specific pull or materials intent.")])}
+    <section class="section">
+      <h2>How to use the characters branch</h2>
+      <div class="card-grid">
+        <article class="card"><h3>1. Start from the character list</h3><p>Use this page when you know the user needs a character but not yet which deeper page.</p></article>
+        <article class="card"><h3>2. Open one character hub</h3><p>Open the character detail hub first. That is the clean middle layer.</p></article>
+        <article class="card"><h3>3. Open one support page</h3><p>Then move into pull advice, materials, build, or team comps only if needed.</p></article>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Character branch map</h2>
+      <p class="section-intro">Use this branch in three steps: start from the character hub, open a character detail page, then move into support pages only if you need deeper build or planning help.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Layer</th><th>Best page type</th><th>What it is for</th></tr></thead>
+          <tbody>
+            <tr><td>Hub</td><td><a href="/wuthering-waves-characters/">Characters</a></td><td>The top-level list for current, next, and reference character browsing.</td></tr>
+            <tr><td>Detail</td><td>Character detail page</td><td>The clean destination for one character image, one name, and the next useful routes.</td></tr>
+            <tr><td>Support</td><td><a href="/pull-advice/">Pull advice</a> or character support pages</td><td>The narrower layer for materials, build, team comps, or pull planning.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Current and next character list</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Status</th><th>Characters</th><th>List action</th></tr></thead>
+          <tbody>
+{current_rows}
+            <tr><td>Next preview</td><td>{next_character_copy(next_item)}</td><td><a href="/wuthering-waves-next-character/">Open next character page</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Character reference gallery</h2>
+      <p class="section-intro">This section uses the local reference-image payload. After you run the downloader and publish the generated files, this gallery fills itself automatically.</p>
+      <div class="reference-grid" data-reference-gallery="characters">
+        <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this gallery.</article>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Character detail directory</h2>
+      <p class="section-intro">Use this text directory if you want to jump straight from the character list into a detail hub without scanning the full portrait grid first.</p>
+      <div class="reference-directory" data-reference-directory="characters">
+        <article class="notice reference-empty">Run <code>python3 scripts/download_wuwatracker_reference_images.py</code> to populate this directory.</article>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Character detail hubs</h2>
+      <p class="section-intro">Each live tracked featured character gets a real detail layer. The detail hub sits between the characters list and the narrower support pages, which makes the site structure easier to scan.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Character</th><th>Status</th><th>Detail hub</th><th>Support pages</th></tr></thead>
+          <tbody>
+{support_rows}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="section two-col">
+      <div class="card">
+        <h2>Best related pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-current-banner-characters/">Current banner characters</a></li>
+          <li><a href="/wuthering-waves-next-character/">Next character</a></li>
+          <li><a href="/pull-advice/">Pull advice</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why this page matters</h2>
+        <p>This page gives you a clean top-level character node. That makes it easier to grow into materials, teams, and build-lite pages later.</p>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Character branch links</h2>
+      <p class="section-intro">These are the main pages users usually need before or after they open a character detail page.</p>
+      <div class="reference-directory">
+        <a class="directory-link" href="/pull-advice/">Pull advice hub</a>
+        <a class="directory-link" href="/wuthering-waves-current-banner-characters/">Current banner characters</a>
+        <a class="directory-link" href="/wuthering-waves-next-character/">Next character</a>
+        <a class="directory-link" href="/wuthering-waves-current-banner/">Current banner</a>
+        <a class="directory-link" href="/wuthering-waves-next-banner/">Next banner</a>
+      </div>
+    </section>
+    <section class="section">
+      <h2>FAQ</h2>
+      <div class="faq-list">
+{render_faq_block([("What should a Wuthering Waves characters page show first?", "It should show current featured characters, the next tracked official character context, and the fastest routes into pull-advice pages."), ("Why is a characters page useful on this site?", "Because it connects banner intent, pull planning, and future character-specific support pages into one structure.")])}
+      </div>
+    </section>
+  </div></main>
+<script defer src="/assets/js/site.js"></script>
+{GTAG_SNIPPET}
+</body>
+</html>
+"""
+
+
+def get_reference_character_name_by_slug(slug: str) -> str:
+    for entry in REFERENCE_PAYLOAD.get("characters", []):
+        if entry.get("slug") == slug:
+            return str(entry["name"])
+    return slug.replace("-", " ").title()
+
+
+def discover_legacy_guide_slugs(snapshot: dict[str, object]) -> list[str]:
+    focus_slugs = {
+        slugify_character(name)
+        for name in list(snapshot["current"]["featured_characters"]) + list(snapshot["next"]["featured_characters"])
+    }
+    legacy_slugs: set[str] = set()
+
+    for path in (ROOT / "wuthering-waves-characters").glob("*/index.html"):
+        slug = path.parent.name
+        if slug == "index" or slug in focus_slugs:
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if "Guide Hub" in text:
+            legacy_slugs.add(slug)
+
+    for pattern in (
+        "wuthering-waves-should-you-pull-*",
+        "wuthering-waves-*-materials",
+        "wuthering-waves-*-build",
+        "wuthering-waves-*-team-comps",
+    ):
+        for path in ROOT.glob(pattern):
+            slug = path.name
+            if slug.startswith("wuthering-waves-should-you-pull-"):
+                slug = slug.removeprefix("wuthering-waves-should-you-pull-")
+            else:
+                for suffix in ("-materials", "-build", "-team-comps"):
+                    if slug.endswith(suffix):
+                        slug = slug[: -len(suffix)]
+                        break
+                slug = slug.removeprefix("wuthering-waves-")
+            if slug and slug not in focus_slugs:
+                legacy_slugs.add(slug)
+
+    return sorted(legacy_slugs)
+
+
+def render_legacy_character_page(slug: str, character: str, snapshot: dict[str, object]) -> str:
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    ("Current phase reference", f"{current['banner_name']} is the live banner, featuring {', '.join(current['featured_characters'])} through {fmt_human_date(current['end_date'])}."),
+                    ("Next tracked update", next_event_copy(next_item)),
+                    ("How to use this page now", f"Treat {character} as a reference or rerun-watch character until a future banner or official preview puts them back into focus."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>{character} decision reset</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>If this is your question</th><th>Best next page</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Should I spend right now?</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td><td>Use the live phase first, not an outdated character-specific recommendation.</td></tr>
+            <tr><td>Should I keep saving?</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td><td>Compare the current live phase against the next official update before you lock a rerun plan.</td></tr>
+            <tr><td>Am I mostly waiting for a rerun?</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td><td>This is the better route for a non-focus character that is not currently live or officially next.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            f"""    <section class="section two-col">
+      <div class="card">
+        <h2>{character} support branch</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-should-you-pull-{slug}/">Should you pull {character}?</a></li>
+          <li><a href="{support_page_path(slug, "materials")}">{character} materials</a></li>
+          <li><a href="{support_page_path(slug, "build")}">{character} build</a></li>
+          <li><a href="{support_page_path(slug, "team-comps")}">{character} team comps</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why this hub still exists</h2>
+        <p>This page still works as a clean character branch for users who search the name directly, even when {character} is no longer in the live or next tracked focus set.</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title=f"Wuthering Waves {character} Guide Hub | WuWa Banners",
+        description=f"Browse the Wuthering Waves {character} guide hub with rerun-watch context, support pages, and current-versus-next banner routing.",
+        path=character_overview_path(slug),
+        breadcrumbs=f'<a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/wuthering-waves-characters/">Characters</a> / {html.escape(character)}',
+        heading=f"Wuthering Waves {character} Guide Hub",
+        lead=f"{character} is not in the current live focus set or the next officially confirmed featured set. Use this page as a reference branch into current-banner, rerun-watch, and support-page decisions.",
+        answer=f"As of {updated}, {character} is best treated as a reference or rerun-watch character rather than a live or officially next banner recommendation.",
+        body=body,
+        faq_items=[
+            (f"What should the {character} overview page do now?", f"It should route users into current-banner, next-banner, rerun-watch, and support pages instead of pretending {character} is still a live focus character."),
+            (f"Why keep a {character} hub if the character is not currently featured?", "Because users still search character names directly, and a clean hub is better than leaving an outdated phase-specific recommendation online."),
+        ],
+    )
+
+
+def render_legacy_pull_page(slug: str, character: str, snapshot: dict[str, object]) -> str:
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    ("Current spend context", f"The live spend decision now sits in {current['banner_name']}, not in an old {character}-specific banner window."),
+                    ("Next tracked update", next_event_copy(next_item)),
+                    ("Best use of this page", f"Use this page as a rerun-watch or hold-for-later note for {character}, then compare against the current live banner and pity state."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>{character} pull reset</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Situation</th><th>Safer move</th><th>Best next page</th></tr></thead>
+          <tbody>
+            <tr><td>You only care about spending right now</td><td>Judge the live phase first</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
+            <tr><td>You are mainly saving for future value</td><td>Compare next update and rerun timing</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+            <tr><td>You are specifically waiting for {character}</td><td>Treat {character} as a rerun-watch target</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title=f"Should You Pull {character} in Wuthering Waves? | WuWa Banners",
+        description=f"Use this {character} page as a rerun-watch and future-pull reference while comparing current banners, next updates, and pity risk.",
+        path=f"/wuthering-waves-should-you-pull-{slug}/",
+        breadcrumbs=f'<a href="/">Home</a> / <a href="/pull-advice/">Pull advice</a> / {html.escape(character)}',
+        heading=f"Should You Pull {character} in Wuthering Waves?",
+        lead=f"{character} is not currently part of the live tracked focus set or the next officially confirmed featured lineup. This page should therefore act as a rerun-watch reference, not an outdated live-banner recommendation.",
+        answer=f"As of {updated}, do not treat {character} as a current-banner recommendation. Compare the live banner, the next official update, pity state, and rerun timing first.",
+        body=body,
+        faq_items=[
+            (f"Should you pull {character} right now?", f"Only if a future rerun plan still makes sense after you compare the live banner, next official update, and your pity state. {character} is not a current live-focus answer."),
+            (f"What should you check before saving for {character}?", "Check the current banner, next banner, pity carry-over, and rerun-watch context before assuming an old character target is still your best plan."),
+        ],
+    )
+
+
+def render_legacy_support_page(slug: str, character: str, kind: str, snapshot: dict[str, object]) -> str:
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    kind_label = {"materials": "Materials", "build": "Build", "team-comps": "Team Comps"}[kind]
+    if kind == "materials":
+        lead = f"Use this {character} materials page as a low-risk reference while the character is off the current live-banner path."
+        answer = f"As of {updated}, the safe use for this page is to separate broadly reusable farming from route-locked farming until {character} re-enters a current or officially next focus window."
+        focus_rows = [
+            ("Reusable prep", "Shared credits, common drops, and overlap materials", "Safest while the character is off-cycle."),
+            ("Route-locked prep", "Rare boss or weekly items", "Better saved until a future banner or clearer rerun target."),
+            ("Best next comparison", f"{current['banner_name']} vs rerun-watch", "Compare live needs against long-term prep."),
+        ]
+    elif kind == "build":
+        lead = f"Use this {character} build page as a reference branch instead of a live-banner lock-in."
+        answer = f"As of {updated}, the safest build advice is to keep {character} on a flexible reference path until a future banner or rerun makes the investment active again."
+        focus_rows = [
+            ("Reference build lane", "Keep a flexible role and fallback weapon route", "Best when the character is not live or officially next."),
+            ("Do not hard-lock yet", "Premium-only assumptions and narrow tuning", "Wait until future banner context returns."),
+            ("Best next comparison", f"{current['banner_name']} vs rerun-watch", "Live value can still beat an old target."),
+        ]
+    else:
+        lead = f"Use this {character} team comps page as a reference shell page while the character sits outside the live and next tracked focus set."
+        answer = f"As of {updated}, the safest team-comp advice is to keep one practical shell for {character} without treating it as a live spend signal."
+        focus_rows = [
+            ("Reference shell", "One practical baseline team", "Keeps the page useful without pretending the character is current."),
+            ("Do not over-specialize", "Narrow premium-only pairings", "Wait until future banner or rerun timing matters again."),
+            ("Best next comparison", f"{current['banner_name']} vs rerun-watch", "Live roster pressure may still outweigh an old favorite."),
+        ]
+    rows_html = "\n".join(f"            <tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in focus_rows)
+    body = "\n".join(
+        [
+            render_card_grid(
+                [
+                    ("Current live context", f"{current['banner_name']} is the active banner path right now."),
+                    ("Next tracked update", next_event_copy(next_item)),
+                    ("Reference-only use", f"Keep {character} on a reference branch until a future banner or rerun makes the page active again."),
+                ]
+            ),
+            f"""    <section class="section">
+      <h2>{character} {kind_label.lower()} reference table</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Focus area</th><th>Best move</th><th>Why now</th></tr></thead>
+          <tbody>
+{rows_html}
+          </tbody>
+        </table>
+      </div>
+    </section>""",
+            f"""    <section class="section two-col">
+      <div class="card">
+        <h2>Best next pages</h2>
+        <ul class="list">
+          <li><a href="/wuthering-waves-should-you-pull-{slug}/">Should you pull {character}?</a></li>
+          <li><a href="/wuthering-waves-next-rerun/">Next rerun</a></li>
+          <li><a href="/wuthering-waves-current-banner/">Current banner</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Why keep this page live</h2>
+        <p>Users still search direct character support queries even when the character is off-cycle. A neutral reference page is safer than leaving an outdated live-phase version online.</p>
+      </div>
+    </section>""",
+        ]
+    )
+    return render_standard_page(
+        title=f"Wuthering Waves {character} {kind_label} | WuWa Banners",
+        description=f"Use this {character} {kind_label.lower()} page as a neutral reference branch tied to rerun-watch, current-banner, and future update planning.",
+        path=support_page_path(slug, kind),
+        breadcrumbs=f'<a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="{character_overview_path(slug)}">{html.escape(character)}</a> / {kind_label}',
+        heading=f"Wuthering Waves {character} {kind_label}",
+        lead=lead,
+        answer=answer,
+        body=body,
+        faq_items=[
+            (f"What should a {character} {kind_label.lower()} page do when the character is off-cycle?", "It should work as a neutral reference branch, not as a live or next-phase commitment page."),
+            (f"Why keep {character} {kind_label.lower()} inside the banner site structure?", "Because users still move from character-specific searches into current-banner, rerun-watch, and pity decisions even when the character is not currently featured."),
+        ],
+    )
+
+
 def update_pages(snapshot: dict[str, object]) -> None:
     pull_pages = get_pull_pages(snapshot)
     overview_pages = get_character_overview_pages(pull_pages)
     support_pages = get_support_pages(pull_pages)
     history_pages = get_history_detail_pages(snapshot)
+    legacy_slugs = discover_legacy_guide_slugs(snapshot)
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
     index_text = replace_block_exact(index_text, "HOME_TIMELINE", build_home_timeline(snapshot))
@@ -2870,6 +3982,14 @@ def update_pages(snapshot: dict[str, object]) -> None:
     countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_TABLE", build_countdown_table(snapshot))
     countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_SOURCES", build_countdown_sources(snapshot))
     COUNTDOWN_HTML.write_text(countdown_text, encoding="utf-8")
+    NEXT_COUNTDOWN_HTML.write_text(render_next_banner_countdown_page(snapshot), encoding="utf-8")
+    NEXT_DATE_HTML.write_text(render_next_banner_date_page(snapshot), encoding="utf-8")
+    CURRENT_END_HTML.write_text(render_current_banner_end_date_page(snapshot), encoding="utf-8")
+    CURRENT_CHARACTERS_HTML.write_text(render_current_banner_characters_page(snapshot), encoding="utf-8")
+    NEXT_CHARACTER_HTML.write_text(render_next_character_page(snapshot), encoding="utf-8")
+    SCHEDULE_HTML.write_text(render_banner_schedule_page(snapshot), encoding="utf-8")
+    ORDER_HTML.write_text(render_banner_order_page(snapshot), encoding="utf-8")
+    CHARACTERS_HUB_HTML.write_text(render_characters_hub_page(snapshot), encoding="utf-8")
 
     pull_text = PULL_HUB_HTML.read_text(encoding="utf-8")
     pull_text = replace_block_exact(pull_text, "PULL_INTRO", build_pull_intro(snapshot, pull_pages))
@@ -2925,6 +4045,26 @@ PLACEHOLDER_PULL_COMPARE
         page_path.write_text(render_support_page(page, snapshot), encoding="utf-8")
         support_urls.append(f"https://wuwabanners.net{page['path']}")
 
+    legacy_urls = []
+    for slug in legacy_slugs:
+        name = get_reference_character_name_by_slug(slug)
+
+        overview_dir = ROOT / character_overview_path(slug).strip("/")
+        overview_dir.mkdir(parents=True, exist_ok=True)
+        (overview_dir / "index.html").write_text(render_legacy_character_page(slug, name, snapshot), encoding="utf-8")
+        legacy_urls.append(f"https://wuwabanners.net{character_overview_path(slug)}")
+
+        pull_dir = ROOT / f"wuthering-waves-should-you-pull-{slug}"
+        pull_dir.mkdir(parents=True, exist_ok=True)
+        (pull_dir / "index.html").write_text(render_legacy_pull_page(slug, name, snapshot), encoding="utf-8")
+        legacy_urls.append(f"https://wuwabanners.net/wuthering-waves-should-you-pull-{slug}/")
+
+        for kind in ("materials", "build", "team-comps"):
+            support_dir = ROOT / support_page_path(slug, kind).strip("/")
+            support_dir.mkdir(parents=True, exist_ok=True)
+            (support_dir / "index.html").write_text(render_legacy_support_page(slug, name, kind, snapshot), encoding="utf-8")
+            legacy_urls.append(f"https://wuwabanners.net{support_page_path(slug, kind)}")
+
     history_urls = []
     for page in history_pages:
         page_dir = ROOT / page["path"].strip("/")
@@ -2934,7 +4074,7 @@ PLACEHOLDER_PULL_COMPARE
         history_urls.append(f"https://wuwabanners.net{page['path']}")
 
     reference_urls = discover_reference_urls()
-    SITEMAP_XML.write_text(render_sitemap(character_urls + overview_urls + support_urls + history_urls + reference_urls), encoding="utf-8")
+    SITEMAP_XML.write_text(render_sitemap(character_urls + overview_urls + support_urls + legacy_urls + history_urls + reference_urls), encoding="utf-8")
 
     banners_hub = BANNERS_HUB_HTML.read_text(encoding="utf-8")
     if "/wuthering-waves-banner-countdown/" not in banners_hub:

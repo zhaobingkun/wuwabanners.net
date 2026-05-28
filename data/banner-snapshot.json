@@ -1,26 +1,9 @@
 {
-  "updated": "2026-05-19",
+  "updated": "2026-05-28",
   "current": {
     "version": "3.3",
-    "phase": "Phase 1",
-    "banner_name": "Version 3.3 Phase 1",
-    "featured_characters": [
-      "Hiyuki",
-      "Mornye",
-      "Iuno"
-    ],
-    "featured_weapons": [
-      "Frostburn",
-      "Starfield Calibrator",
-      "Moongazer's Sigil"
-    ],
-    "start_date": "2026-04-30 00:00",
-    "end_date": "2026-05-21 23:59",
-    "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/"
-  },
-  "next": {
-    "version": "3.3",
     "phase": "Phase 2",
+    "banner_type": "character",
     "banner_name": "Version 3.3 Phase 2",
     "featured_characters": [
       "Denia",
@@ -32,9 +15,24 @@
       "Kumokiri",
       "Lethean Elegy"
     ],
-    "start_date": "2026-05-21 00:00",
-    "end_date": "2026-06-11 23:59",
-    "source_url": "https://www.youtube.com/watch?v=viOkAhoa0k8"
+    "start_date": "2026-05-21 10:00",
+    "end_date": "2026-06-07 11:59",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/2966",
+    "announcement_date": "2026-05-20",
+    "status": "official"
+  },
+  "next": {
+    "version": "3.4",
+    "phase": "Phase 1",
+    "banner_type": "preview",
+    "banner_name": "Version 3.4 Preview",
+    "featured_characters": [],
+    "featured_weapons": [],
+    "start_date": "",
+    "end_date": "",
+    "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
+    "announcement_date": "2026-05-29",
+    "status": "expected"
   },
   "history": [
     {
@@ -82,9 +80,9 @@
         "Kumokiri",
         "Lethean Elegy"
       ],
-      "start_date": "2026-05-21 00:00",
-      "end_date": "2026-06-11 23:59",
-      "source_url": "https://www.youtube.com/watch?v=viOkAhoa0k8"
+      "start_date": "2026-05-21 10:00",
+      "end_date": "2026-06-07 11:59",
+      "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/2966"
     }
   ]
 }

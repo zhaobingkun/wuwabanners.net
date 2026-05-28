@@ -120,12 +120,21 @@ def main() -> int:
     )
     require_text(
         pull_page,
-        [
-            "Current phase pull pages",
-            "Next phase pull pages",
-            current["featured_characters"][0],
-            nxt["featured_characters"][0],
-        ],
+        (
+            [
+                "Current phase pull pages",
+                "Next phase pull pages",
+                current["featured_characters"][0],
+                nxt["featured_characters"][0],
+            ]
+            if nxt["featured_characters"]
+            else [
+                "Current phase pull pages",
+                "Next phase pull pages",
+                current["featured_characters"][0],
+                nxt["banner_name"],
+            ]
+        ),
         failures,
     )
     require_text(
