@@ -1,6 +1,6 @@
 WuWa Banners Candidate CSV Diff
-Generated at: 2026-05-23T22:21:12
-Candidate date: 2026-05-23
+Generated at: 2026-05-29T23:20:57
+Candidate date: 2026-05-29
 
 What this file means
 - This is not the live CSV.
@@ -8,35 +8,28 @@ What this file means
 - Anything involving lineup, dates, source_url, source_type, or new versions still needs manual review.
 
 Automatic candidate updates applied
-- none
+- ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-29
+- ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-29
+- ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-29
 
 Rows that still need manual review
-- ww-3.2-phase-2-character (Version 3.2 Phase 2)
-  - Current source: https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723
-  - source fetch failed: fetch-failed
-  - URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723']' returned non-zero exit status 6.
-- ww-3.3-phase-1-character (Version 3.3 Phase 1)
-  - Current source: https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/
-  - source fetch failed: fetch-failed
-  - URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/']' returned non-zero exit status 6.
 - ww-3.3-phase-1-weapon (Version 3.3 Phase 1 Weapons)
   - Current source: https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/
+  - last_checked is 10 days old
   - source_type is secondary_media
-  - source fetch failed: fetch-failed
-  - URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 6.
+  - source page did not clearly match expected banner names
+  - Fetched page did not contain the expected banner or unit names.
+  - Fetched page did not clearly expose the current version string.
 - ww-3.3-phase-2-character (Version 3.3 Phase 2)
-  - Current source: https://www.youtube.com/watch?v=viOkAhoa0k8
-  - source fetch failed: fetch-failed
-  - URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/watch?v=viOkAhoa0k8']' returned non-zero exit status 6.
+  - Current source: https://wutheringwaves.kurogames.com/en/main/news/detail/2966
+  - source page did not clearly match expected banner names
+  - Fetched page did not contain the expected banner or unit names.
+  - Fetched page did not clearly expose the current version string.
 - ww-3.3-phase-2-weapon (Version 3.3 Phase 2 Weapons)
-  - Current source: https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/
-  - source_type is secondary_media
-  - source fetch failed: fetch-failed
-  - URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 6.
-- ww-3.4-phase-1-preview (Version 3.4 Preview)
-  - Current source: https://www.youtube.com/@WutheringWaves
-  - source fetch failed: fetch-failed
-  - URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/@WutheringWaves']' returned non-zero exit status 6.
+  - Current source: https://wutheringwaves.kurogames.com/en/main/news/detail/2966
+  - source page did not clearly match expected banner names
+  - Fetched page did not contain the expected banner or unit names.
+  - Fetched page did not clearly expose the current version string.
 
 Possible new version signals from feed checks
 - none

@@ -1,0 +1,63 @@
+WuWa Banner Check Record
+Generated at: 2026-05-29T23:20:57
+Compared report generated at: 2026-05-29T23:20:25
+Comparison result: CHANGED
+
+What you should look at first
+- Read this file from top to bottom.
+- If Comparison result is NO_SIGNIFICANT_CHANGE, you usually do not need to do anything new today.
+- If Comparison result is CHANGED, review the changed items below before touching data/banner-data.csv.
+
+Current summary
+- rows_checked: 6
+- rows_needing_review: 5
+- failed_source_fetches: 0
+- possible_new_versions: none
+- manual_review_rows: ww-3.3-phase-1-weapon, ww-3.3-phase-2-character, ww-3.3-phase-2-weapon
+- automatic_candidate_updates: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-29, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-29, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-29
+
+Changes since last run
+- Summary changed: rows_needing_review: 6 -> 5
+- Summary changed: failed_source_fetches: 6 -> 0
+- ww-3.2-phase-2-character: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-1-character: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-1-weapon: reasons changed. Added: source page did not clearly match expected banner names. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-2-character: reasons changed. Added: source page did not clearly match expected banner names. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-2-weapon: reasons changed. Added: source page did not clearly match expected banner names. Removed: source fetch failed: fetch-failed
+- ww-3.4-phase-1-preview: needs_review changed: True -> False
+- ww-3.4-phase-1-preview: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.2-phase-2-character: source probe fetch_ok changed: False -> True
+- ww-3.2-phase-2-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.2-phase-2-character: source probe term_hits changed: [] -> ['3.2']
+- ww-3.2-phase-2-character: source probe version_hits changed: [] -> ['3.2']
+- ww-3.3-phase-1-character: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-1-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-1-character: source probe term_hits changed: [] -> ['3.3', 'Hiyuki']
+- ww-3.3-phase-1-character: source probe version_hits changed: [] -> ['3.3']
+- ww-3.3-phase-1-weapon: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-1-weapon: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-2-character: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-2-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-2-weapon: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-2-weapon: source probe status changed: fetch-failed -> curl-ok
+- ww-3.4-phase-1-preview: source probe fetch_ok changed: False -> True
+- ww-3.4-phase-1-preview: source probe status changed: fetch-failed -> curl-ok
+- ww-3.4-phase-1-preview: source probe term_hits changed: [] -> ['3.4', 'Version 3.4 Preview']
+- ww-3.4-phase-1-preview: source probe version_hits changed: [] -> ['3.4']
+- Feed dearplayers_updates: fetch_ok changed: False -> True
+- Feed dearplayers_updates: status changed: fetch-failed -> curl-ok
+- Feed official_site: fetch_ok changed: False -> True
+- Feed official_site: status changed: fetch-failed -> curl-ok
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-29, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-29, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-29. Removed: none
+- Manual review rows changed. Added: none. Removed: ww-3.2-phase-2-character, ww-3.3-phase-1-character, ww-3.4-phase-1-preview
+
+Action today
+- Something changed compared with the previous run.
+- Check whether the change is a real official-source update or just a source-health change.
+- Only if the banner facts changed should you edit data/banner-data.csv and rebuild.
+
+Reference files
+- data/banner-update-report.json
+- data/banner-data.diff.txt
+- data/banner-data.candidate.csv
+- data/banner-data.csv
