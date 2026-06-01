@@ -168,6 +168,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
     singular = "Character" if kind == "characters" else label[:-1]
     title = f"Wuthering Waves {name} {singular} | WuWa Banners"
     description = f"Browse the Wuthering Waves {name} {singular.lower()} detail page with a clear image, related planning links, and a clean browser-first layout."
+    robots_meta = "" if kind == "characters" else '\n  <meta name="robots" content="noindex,follow">'
     previous_entry, next_entry = get_neighbor_entries(entries, slug)
     neighbor_cards = render_neighbor_cards(kind, previous_entry, next_entry)
     context_title, context_copy, context_links = get_detail_context(kind, name)
@@ -193,6 +194,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content="{description}">
+  {robots_meta.strip()}
   <link rel="canonical" href="https://wuwabanners.net{path}">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">
@@ -209,8 +211,8 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/">Home</a> / <a href="/wuthering-waves-{kind}/">{label}</a> / {name}</div>
     <h1>Wuthering Waves {name}</h1>
-    <p class="lead">This is a simple {singular.lower()} detail page that gives the image, the exact name, and the cleanest next links deeper into the site structure.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> Use this page as the detail layer for {name}, then move into the related planning pages that match what you are actually trying to decide.</div>
+    <p class="lead">This {singular.lower()} reference page gives a fast visual check for {name} and routes users back into higher-value banner, pull, and planning pages.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> Use this page to confirm {name}, then move into the related banner or planning page that matches your actual decision.</div>
     <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art" style="aspect-ratio:1 / 1;">
         <img src="{src}" alt="{name}" width="1200" height="1200" decoding="async">

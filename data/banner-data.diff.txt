@@ -1,6 +1,6 @@
 WuWa Banners Candidate CSV Diff
-Generated at: 2026-05-29T23:20:57
-Candidate date: 2026-05-29
+Generated at: 2026-06-01T11:38:40
+Candidate date: 2026-06-01
 
 What this file means
 - This is not the live CSV.
@@ -8,23 +8,26 @@ What this file means
 - Anything involving lineup, dates, source_url, source_type, or new versions still needs manual review.
 
 Automatic candidate updates applied
-- ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-29
-- ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-29
-- ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-29
+- ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-06-01
+- ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-06-01
 
 Rows that still need manual review
+- ww-3.3-phase-1-character (Version 3.3 Phase 1)
+  - Current source: https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/
+  - last_checked is 13 days old
+  - source fetch failed: fetch-failed
+  - URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/']' returned non-zero exit status 28.
 - ww-3.3-phase-1-weapon (Version 3.3 Phase 1 Weapons)
   - Current source: https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/
-  - last_checked is 10 days old
+  - last_checked is 13 days old
   - source_type is secondary_media
   - source page did not clearly match expected banner names
   - Fetched page did not contain the expected banner or unit names.
   - Fetched page did not clearly expose the current version string.
 - ww-3.3-phase-2-character (Version 3.3 Phase 2)
   - Current source: https://wutheringwaves.kurogames.com/en/main/news/detail/2966
-  - source page did not clearly match expected banner names
-  - Fetched page did not contain the expected banner or unit names.
-  - Fetched page did not clearly expose the current version string.
+  - source fetch failed: fetch-failed
+  - URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://wutheringwaves.kurogames.com/en/main/news/detail/2966']' returned non-zero exit status 28.
 - ww-3.3-phase-2-weapon (Version 3.3 Phase 2 Weapons)
   - Current source: https://wutheringwaves.kurogames.com/en/main/news/detail/2966
   - source page did not clearly match expected banner names

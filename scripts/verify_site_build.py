@@ -81,7 +81,7 @@ def main() -> int:
     require_text(
         home,
         [
-            "Current timeline snapshot",
+            "Current Wuthering Waves banner snapshot",
             current["banner_name"],
             nxt["banner_name"],
             "Best starting points",
@@ -139,7 +139,7 @@ def main() -> int:
     )
     require_text(
         banners_hub,
-        ["How to use the banners branch", "Banner directory", "Timing cluster"],
+        ["Priority banner pages", "Banner directory", "Timing cluster"],
         failures,
     )
     require_text(

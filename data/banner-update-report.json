@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-29T23:20:25",
+  "generated_at": "2026-06-01T11:38:08",
   "csv_path": "data/banner-data.csv",
   "row_checks": [
     {
@@ -12,10 +12,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
       "last_checked": "2026-05-19",
-      "age_days": 10,
+      "age_days": 13,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 13 days old"
       ]
     },
     {
@@ -28,10 +28,11 @@
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
       "last_checked": "2026-05-19",
-      "age_days": 10,
+      "age_days": 13,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 13 days old",
+        "source fetch failed: fetch-failed"
       ]
     },
     {
@@ -44,10 +45,10 @@
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "source_type": "secondary_media",
       "last_checked": "2026-05-19",
-      "age_days": 10,
+      "age_days": 13,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old",
+        "last_checked is 13 days old",
         "source_type is secondary_media",
         "source page did not clearly match expected banner names"
       ]
@@ -62,10 +63,10 @@
       "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/2966",
       "source_type": "official_site",
       "last_checked": "2026-05-28",
-      "age_days": 1,
+      "age_days": 4,
       "needs_review": true,
       "reasons": [
-        "source page did not clearly match expected banner names"
+        "source fetch failed: fetch-failed"
       ]
     },
     {
@@ -78,7 +79,7 @@
       "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/2966",
       "source_type": "official_site",
       "last_checked": "2026-05-28",
-      "age_days": 1,
+      "age_days": 4,
       "needs_review": true,
       "reasons": [
         "source page did not clearly match expected banner names"
@@ -94,7 +95,7 @@
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
       "last_checked": "2026-05-28",
-      "age_days": 1,
+      "age_days": 4,
       "needs_review": false,
       "reasons": []
     }
@@ -114,16 +115,13 @@
     },
     {
       "url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
-      "fetch_ok": true,
-      "status": "curl-ok",
-      "term_hits": [
-        "Hiyuki",
-        "3.3"
-      ],
-      "version_hits": [
-        "3.3"
-      ],
-      "notes": []
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/']' returned non-zero exit status 28."
+      ]
     },
     {
       "url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
@@ -138,13 +136,12 @@
     },
     {
       "url": "https://wutheringwaves.kurogames.com/en/main/news/detail/2966",
-      "fetch_ok": true,
-      "status": "curl-ok",
+      "fetch_ok": false,
+      "status": "fetch-failed",
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "Fetched page did not contain the expected banner or unit names.",
-        "Fetched page did not clearly expose the current version string."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://wutheringwaves.kurogames.com/en/main/news/detail/2966']' returned non-zero exit status 28."
       ]
     },
     {
@@ -178,13 +175,13 @@
       "url": "https://wutheringwaves.kurogames.com/",
       "fetch_ok": true,
       "status": "curl-ok",
-      "matched_terms": [],
+      "matched_terms": [
+        "wuthering waves"
+      ],
       "matched_names": [],
       "version_hits": [],
       "suggested_new_versions": [],
-      "notes": [
-        "Fetched page did not show the expected general Wuthering Waves update terms."
-      ]
+      "notes": []
     },
     {
       "label": "official_youtube",
@@ -216,7 +213,7 @@
   "summary": {
     "rows_checked": 6,
     "rows_needing_review": 5,
-    "failed_source_fetches": 0,
+    "failed_source_fetches": 2,
     "possible_new_versions": []
   }
 }

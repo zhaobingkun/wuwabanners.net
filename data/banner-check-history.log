@@ -68,3 +68,36 @@ summary=rows_checked:6,rows_needing_review:5,failed_source_fetches:0,possible_ne
 - Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-29, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-29, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-29. Removed: none
 - Manual review rows changed. Added: none. Removed: ww-3.2-phase-2-character, ww-3.3-phase-1-character, ww-3.4-phase-1-preview
 
+[2026-05-30T11:00:57] CHANGED
+report_generated_at=2026-05-30T11:00:28
+summary=rows_checked:6,rows_needing_review:5,failed_source_fetches:0,possible_new_versions:none
+- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-30, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-30, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-30. Removed: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-29, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-29, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-29
+
+[2026-05-31T11:00:49] CHANGED
+report_generated_at=2026-05-31T11:00:25
+summary=rows_checked:6,rows_needing_review:5,failed_source_fetches:0,possible_new_versions:none
+- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 12 days old. Removed: last_checked is 11 days old
+- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 12 days old. Removed: last_checked is 11 days old
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 12 days old. Removed: last_checked is 11 days old
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-31, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-31, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-31. Removed: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-30, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-30, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-30
+
+[2026-06-01T11:38:40] CHANGED
+report_generated_at=2026-06-01T11:38:08
+summary=rows_checked:6,rows_needing_review:5,failed_source_fetches:2,possible_new_versions:none
+- Summary changed: failed_source_fetches: 0 -> 2
+- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 13 days old. Removed: last_checked is 12 days old
+- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 13 days old, source fetch failed: fetch-failed. Removed: last_checked is 12 days old
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 13 days old. Removed: last_checked is 12 days old
+- ww-3.3-phase-2-character: reasons changed. Added: source fetch failed: fetch-failed. Removed: source page did not clearly match expected banner names
+- ww-3.3-phase-1-character: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-1-character: source probe status changed: curl-ok -> fetch-failed
+- ww-3.3-phase-1-character: source probe term_hits changed: ['3.3', 'Hiyuki'] -> []
+- ww-3.3-phase-1-character: source probe version_hits changed: ['3.3'] -> []
+- ww-3.3-phase-2-character: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-2-character: source probe status changed: curl-ok -> fetch-failed
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-06-01, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-06-01. Removed: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-31, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-31, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-31
+- Manual review rows changed. Added: ww-3.3-phase-1-character. Removed: none
+
