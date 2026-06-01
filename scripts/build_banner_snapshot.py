@@ -555,13 +555,13 @@ def build_next_intro(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
     if is_preview_phase(next_item):
         answer = (
-            f"""      <p class="lead">As of {fmt_human_date(updated + " 00:00")}, the active Wuthering Waves banners are {current["banner_name"]}. The next reliable checkpoint is {next_item["banner_name"]}; use it as a save-planning checkpoint until Kuro publishes the next full lineup.</p>
-      <div class="answer-box"><strong>Direct answer:</strong> The current banner features {", ".join(current["featured_characters"])} and ends on {fmt_human_date(current["end_date"])}. {next_event_copy(next_item)} The next featured-character lineup is not official yet, so do not spend only on speculation.</div>"""
+            f"""      <p class="lead">The current Wuthering Waves banner is {current["banner_name"]}, featuring {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next reliable checkpoint is {next_item["banner_name"]}; use it as a save-planning checkpoint until Kuro publishes the next full lineup.</p>
+      <div class="answer-box"><strong>Direct answer:</strong> The current banner ends on {fmt_human_date(current["end_date"])}. {next_event_copy(next_item)} The next featured-character lineup is not official yet, so compare countdown, schedule, rerun timing, and pity before spending.</div>"""
         )
     else:
         answer = (
-            f"""      <p class="lead">As of {fmt_human_date(updated + " 00:00")}, the active Wuthering Waves banners are {current["banner_name"]}. The next rotation is {next_item["banner_name"]}, scheduled to begin on {fmt_human_date(next_item["start_date"])}.</p>
-      <div class="answer-box"><strong>Direct answer:</strong> The current banner features {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next banner features {", ".join(next_item["featured_characters"])} and starts on {fmt_human_date(next_item["start_date"])}.</div>"""
+            f"""      <p class="lead">The current Wuthering Waves banner is {current["banner_name"]}, featuring {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next rotation is {next_item["banner_name"]}, scheduled to begin on {fmt_human_date(next_item["start_date"])}.</p>
+      <div class="answer-box"><strong>Direct answer:</strong> The current banner ends on {fmt_human_date(current["end_date"])}. The next banner features {", ".join(next_item["featured_characters"])} and starts on {fmt_human_date(next_item["start_date"])}.</div>"""
         )
     return f"""{answer}
       <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
@@ -679,8 +679,8 @@ def build_next_sources(snapshot: dict[str, object]) -> str:
 def build_current_intro(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     updated = snapshot["updated"]
-    return f"""    <p class="lead">As of {fmt_human_date(updated + " 00:00")}, the current Wuthering Waves banner phase is {current["banner_name"]}. The featured characters are {", ".join(current["featured_characters"])}, and the phase ends on {fmt_human_date(current["end_date"])}.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The current banner features {", ".join(current["featured_characters"])} with weapon focus {", ".join(current["featured_weapons"])}. It runs from {fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}.</div>
+    return f"""    <p class="lead">The WuWa current banner now is {current["banner_name"]}. The featured characters are {", ".join(current["featured_characters"])}, and the banner ends on {fmt_human_date(current["end_date"])}.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> The current WuWa banner features {", ".join(current["featured_characters"])} with weapon focus {", ".join(current["featured_weapons"])}. It runs from {fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -791,8 +791,8 @@ def build_current_sources(snapshot: dict[str, object]) -> str:
 def build_history_intro(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
     next_item = snapshot["next"]
-    return f"""    <p class="lead">Use this Wuthering Waves banner history list to compare recent version phases, featured characters, featured weapons, and banner windows before judging rerun timing.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The recent tracked history includes the phases below, with {next_item["banner_name"]} as the next banner-related checkpoint. Open a phase detail page when you need exact lineup and source context.</div>
+    return f"""    <p class="lead">Use this WuWa banner history timeline to compare recent Wuthering Waves version phases, featured characters, featured weapons, and banner windows before judging rerun timing.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> The recent tracked WuWa banner history includes the phases below, with {next_item["banner_name"]} as the next banner-related checkpoint. Open a phase detail page when you need exact lineup and source context.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -1138,7 +1138,7 @@ def build_countdown_intro(snapshot: dict[str, object]) -> str:
         if is_preview_phase(next_item)
         else f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and {next_item['banner_name']} begins on {fmt_human_date(next_item['start_date'])}."
     )
-    return f"""    <p class="lead">This page answers the banner timing question first: when the live Wuthering Waves phase ends, and what the next official banner-related checkpoint is.</p>
+    return f"""    <p class="lead">This page answers the WuWa banner countdown question first: when the live Denia, Chisa, and Phrolova phase ends, and what the next official 3.4 checkpoint is.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {answer_copy}</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
@@ -3491,12 +3491,12 @@ def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
         ]
     )
     return render_standard_page(
-        title="Wuthering Waves Next Banner Countdown | WuWa Banners",
-        description="Check the Wuthering Waves next banner countdown, including the next official banner-related date and the best follow-up timing pages.",
+        title="WuWa Next Banner Countdown: 3.4 Date and Timer",
+        description="Check the WuWa next banner countdown, including the Version 3.4 checkpoint, next banner date context, and follow-up timing pages.",
         path="/wuthering-waves-next-banner-countdown/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next banner countdown',
-        heading="Wuthering Waves Next Banner Countdown",
-        lead="Countdown pages work best when they answer the date intent immediately, then move users into the full next-banner or schedule page if they need more context.",
+        heading="WuWa Next Banner Countdown: 3.4 Date and Timer",
+        lead="This page answers next-banner countdown intent immediately, then moves users into the full next-banner or schedule page if they need more context.",
         answer=answer,
         body=body,
         faq_items=[
