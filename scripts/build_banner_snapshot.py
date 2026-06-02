@@ -618,7 +618,7 @@ def build_next_pull(snapshot: dict[str, object]) -> str:
         wait_copy = f"wait for {next_item['banner_name']} before locking the next save target"
         weapon_copy = "The next weapon group is still unconfirmed until the next official preview reveals more detail."
     else:
-        wait_copy = f"consider waiting if {', '.join(next_item['featured_characters'])} better matches your roster direction"
+        wait_copy = f"{', '.join(next_item['featured_characters'])} better matches your roster direction"
         weapon_copy = f"The next weapon group is {', '.join(next_item['featured_weapons'])} in the next phase."
     return f"""        <div class="card">
           <h2>Should you pull now or wait?</h2>

@@ -1,6 +1,6 @@
 WuWa Banner Check Record
-Generated at: 2026-06-01T11:38:40
-Compared report generated at: 2026-06-01T11:38:08
+Generated at: 2026-06-02T19:10:39
+Compared report generated at: 2026-06-02T19:10:03
 Comparison result: CHANGED
 
 What you should look at first
@@ -9,27 +9,26 @@ What you should look at first
 - If Comparison result is CHANGED, review the changed items below before touching data/banner-data.csv.
 
 Current summary
-- rows_checked: 6
-- rows_needing_review: 5
-- failed_source_fetches: 2
+- rows_checked: 8
+- rows_needing_review: 3
+- failed_source_fetches: 0
 - possible_new_versions: none
-- manual_review_rows: ww-3.3-phase-1-character, ww-3.3-phase-1-weapon, ww-3.3-phase-2-character, ww-3.3-phase-2-weapon
-- automatic_candidate_updates: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-06-01, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-06-01
+- manual_review_rows: ww-3.3-phase-1-weapon, ww-3.3-phase-2-character, ww-3.3-phase-2-weapon
+- automatic_candidate_updates: none
 
 Changes since last run
-- Summary changed: failed_source_fetches: 0 -> 2
-- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 13 days old. Removed: last_checked is 12 days old
-- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 13 days old, source fetch failed: fetch-failed. Removed: last_checked is 12 days old
-- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 13 days old. Removed: last_checked is 12 days old
-- ww-3.3-phase-2-character: reasons changed. Added: source fetch failed: fetch-failed. Removed: source page did not clearly match expected banner names
-- ww-3.3-phase-1-character: source probe fetch_ok changed: True -> False
-- ww-3.3-phase-1-character: source probe status changed: curl-ok -> fetch-failed
-- ww-3.3-phase-1-character: source probe term_hits changed: ['3.3', 'Hiyuki'] -> []
-- ww-3.3-phase-1-character: source probe version_hits changed: ['3.3'] -> []
-- ww-3.3-phase-2-character: source probe fetch_ok changed: True -> False
-- ww-3.3-phase-2-character: source probe status changed: curl-ok -> fetch-failed
-- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-06-01, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-06-01. Removed: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-05-31, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-05-31, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-05-31
-- Manual review rows changed. Added: ww-3.3-phase-1-character. Removed: none
+- Summary changed: rows_checked: 6 -> 8
+- Summary changed: rows_needing_review: 5 -> 3
+- New record appeared: ww-3.4-phase-1-character (Version 3.4 The Dream Not Dreamed, 3.4 Phase 1)
+- New record appeared: ww-3.4-phase-1-weapon (Version 3.4 The Dream Not Dreamed Weapons, 3.4 Phase 1)
+- ww-3.2-phase-2-character: needs_review changed: True -> False
+- ww-3.2-phase-2-character: reasons changed. Added: none. Removed: last_checked is 14 days old
+- ww-3.3-phase-1-character: needs_review changed: True -> False
+- ww-3.3-phase-1-character: reasons changed. Added: none. Removed: last_checked is 14 days old
+- ww-3.4-phase-1-preview: status changed: expected -> official
+- Feed dearplayers_updates: fetch_ok changed: False -> True
+- Feed dearplayers_updates: status changed: fetch-failed -> curl-ok
+- Automatic candidate updates changed. Added: none. Removed: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-06-02, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-06-02, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-06-02
 
 Action today
 - Something changed compared with the previous run.
