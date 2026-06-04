@@ -3311,13 +3311,17 @@ def render_banner_schedule_page(snapshot: dict[str, object]) -> str:
     history = snapshot["history"]
     updated = fmt_human_date(snapshot["updated"] + " 00:00")
     table_rows = []
+    seen_phase_rows = set()
     for item in history:
+        seen_phase_rows.add((item["version"], item["phase"], item["start_date"], item["end_date"]))
         table_rows.append(
             f'            <tr><td>{item["version"]}</td><td>{item["phase"]}</td><td>{", ".join(item["featured_characters"])}</td><td>{fmt_human_date(item["start_date"])} to {fmt_human_date(item["end_date"])}</td></tr>'
         )
-    table_rows.append(
-        f'            <tr><td>{next_item["version"]}</td><td>{next_item["phase"]}</td><td>{next_character_copy(next_item)}</td><td>{phase_window_label(next_item)}</td></tr>'
-    )
+    next_phase_key = (next_item["version"], next_item["phase"], next_item.get("start_date", ""), next_item.get("end_date", ""))
+    if next_phase_key not in seen_phase_rows:
+        table_rows.append(
+            f'            <tr><td>{next_item["version"]}</td><td>{next_item["phase"]}</td><td>{next_character_copy(next_item)}</td><td>{phase_window_label(next_item)}</td></tr>'
+        )
     answer = (
         f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
         if is_preview_phase(next_item)

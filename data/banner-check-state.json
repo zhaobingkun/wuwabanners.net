@@ -1,5 +1,5 @@
 {
-  "report_generated_at": "2026-06-02T19:10:03",
+  "report_generated_at": "2026-06-04T11:19:11",
   "summary": {
     "rows_checked": 8,
     "rows_needing_review": 3,
@@ -36,7 +36,7 @@
       "source_type": "secondary_media",
       "needs_review": true,
       "reasons": [
-        "last_checked is 14 days old",
+        "last_checked is 16 days old",
         "source page did not clearly match expected banner names",
         "source_type is secondary_media"
       ]
@@ -199,7 +199,7 @@
       "version_hits": [],
       "suggested_new_versions": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/@WutheringWaves/videos']' returned non-zero exit status 28."
+        "URLError: <urlopen error _ssl.c:1003: The handshake operation timed out>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/@WutheringWaves/videos']' returned non-zero exit status 28."
       ]
     },
     "dearplayers_updates": {
@@ -210,7 +210,13 @@
       "notes": []
     }
   },
-  "auto_updates": [],
+  "auto_updates": [
+    "ww-3.2-phase-2-character: last_checked 2026-06-02 -> 2026-06-04",
+    "ww-3.3-phase-1-character: last_checked 2026-06-02 -> 2026-06-04",
+    "ww-3.4-phase-1-character: last_checked 2026-06-02 -> 2026-06-04",
+    "ww-3.4-phase-1-weapon: last_checked 2026-06-02 -> 2026-06-04",
+    "ww-3.4-phase-1-preview: last_checked 2026-06-02 -> 2026-06-04"
+  ],
   "manual_review_ids": [
     "ww-3.3-phase-1-weapon",
     "ww-3.3-phase-2-character",

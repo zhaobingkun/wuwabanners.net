@@ -1,7 +1,7 @@
 WuWa Banner Check Record
-Generated at: 2026-06-02T19:10:39
-Compared report generated at: 2026-06-02T19:10:03
-Comparison result: CHANGED
+Generated at: 2026-06-04T11:19:56
+Compared report generated at: 2026-06-04T11:19:11
+Comparison result: NO_SIGNIFICANT_CHANGE
 
 What you should look at first
 - Read this file from top to bottom.
@@ -14,26 +14,14 @@ Current summary
 - failed_source_fetches: 0
 - possible_new_versions: none
 - manual_review_rows: ww-3.3-phase-1-weapon, ww-3.3-phase-2-character, ww-3.3-phase-2-weapon
-- automatic_candidate_updates: none
+- automatic_candidate_updates: ww-3.2-phase-2-character: last_checked 2026-06-02 -> 2026-06-04, ww-3.3-phase-1-character: last_checked 2026-06-02 -> 2026-06-04, ww-3.4-phase-1-character: last_checked 2026-06-02 -> 2026-06-04, ww-3.4-phase-1-weapon: last_checked 2026-06-02 -> 2026-06-04, ww-3.4-phase-1-preview: last_checked 2026-06-02 -> 2026-06-04
 
 Changes since last run
-- Summary changed: rows_checked: 6 -> 8
-- Summary changed: rows_needing_review: 5 -> 3
-- New record appeared: ww-3.4-phase-1-character (Version 3.4 The Dream Not Dreamed, 3.4 Phase 1)
-- New record appeared: ww-3.4-phase-1-weapon (Version 3.4 The Dream Not Dreamed Weapons, 3.4 Phase 1)
-- ww-3.2-phase-2-character: needs_review changed: True -> False
-- ww-3.2-phase-2-character: reasons changed. Added: none. Removed: last_checked is 14 days old
-- ww-3.3-phase-1-character: needs_review changed: True -> False
-- ww-3.3-phase-1-character: reasons changed. Added: none. Removed: last_checked is 14 days old
-- ww-3.4-phase-1-preview: status changed: expected -> official
-- Feed dearplayers_updates: fetch_ok changed: False -> True
-- Feed dearplayers_updates: status changed: fetch-failed -> curl-ok
-- Automatic candidate updates changed. Added: none. Removed: ww-3.2-phase-2-character: last_checked 2026-05-19 -> 2026-06-02, ww-3.3-phase-1-character: last_checked 2026-05-19 -> 2026-06-02, ww-3.4-phase-1-preview: last_checked 2026-05-28 -> 2026-06-02
+- No significant change compared with the previous run.
 
 Action today
-- Something changed compared with the previous run.
-- Check whether the change is a real official-source update or just a source-health change.
-- Only if the banner facts changed should you edit data/banner-data.csv and rebuild.
+- No new difference was detected against the previous run.
+- If the current summary also looks unchanged, you can usually stop here.
 
 Reference files
 - data/banner-update-report.json
