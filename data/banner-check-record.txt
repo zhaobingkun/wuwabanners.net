@@ -1,7 +1,7 @@
 WuWa Banner Check Record
-Generated at: 2026-06-04T11:19:56
-Compared report generated at: 2026-06-04T11:19:11
-Comparison result: NO_SIGNIFICANT_CHANGE
+Generated at: 2026-06-06T10:49:40
+Compared report generated at: 2026-06-06T10:48:57
+Comparison result: CHANGED
 
 What you should look at first
 - Read this file from top to bottom.
@@ -11,17 +11,21 @@ What you should look at first
 Current summary
 - rows_checked: 8
 - rows_needing_review: 3
-- failed_source_fetches: 0
+- failed_source_fetches: 1
 - possible_new_versions: none
 - manual_review_rows: ww-3.3-phase-1-weapon, ww-3.3-phase-2-character, ww-3.3-phase-2-weapon
-- automatic_candidate_updates: ww-3.2-phase-2-character: last_checked 2026-06-02 -> 2026-06-04, ww-3.3-phase-1-character: last_checked 2026-06-02 -> 2026-06-04, ww-3.4-phase-1-character: last_checked 2026-06-02 -> 2026-06-04, ww-3.4-phase-1-weapon: last_checked 2026-06-02 -> 2026-06-04, ww-3.4-phase-1-preview: last_checked 2026-06-02 -> 2026-06-04
+- automatic_candidate_updates: none
 
 Changes since last run
-- No significant change compared with the previous run.
+- Feed dearplayers_updates: fetch_ok changed: True -> False
+- Feed dearplayers_updates: status changed: curl-ok -> fetch-failed
+- Feed dearplayers_updates: version_hits changed: ['3.4'] -> []
+- Automatic candidate updates changed. Added: none. Removed: ww-3.2-phase-2-character: last_checked 2026-06-02 -> 2026-06-06, ww-3.3-phase-1-character: last_checked 2026-06-02 -> 2026-06-06, ww-3.4-phase-1-character: last_checked 2026-06-02 -> 2026-06-06, ww-3.4-phase-1-preview: last_checked 2026-06-02 -> 2026-06-06, ww-3.4-phase-1-weapon: last_checked 2026-06-02 -> 2026-06-06
 
 Action today
-- No new difference was detected against the previous run.
-- If the current summary also looks unchanged, you can usually stop here.
+- Something changed compared with the previous run.
+- Check whether the change is a real official-source update or just a source-health change.
+- Only if the banner facts changed should you edit data/banner-data.csv and rebuild.
 
 Reference files
 - data/banner-update-report.json
