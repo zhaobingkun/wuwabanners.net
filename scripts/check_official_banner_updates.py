@@ -220,7 +220,11 @@ def build_row_check(row: dict[str, str], today: date) -> dict[str, Any]:
     return row_check
 
 
-def probe_row_source(row: dict[str, str], timeout: int) -> dict[str, Any]:
+def probe_row_source(
+    row: dict[str, str],
+    timeout: int,
+    fetch_cache: dict[str, FetchResult] | None = None,
+) -> dict[str, Any]:
     url = row.get("source_url", "").strip()
     if not url:
         return {
@@ -232,7 +236,12 @@ def probe_row_source(row: dict[str, str], timeout: int) -> dict[str, Any]:
             "notes": ["No source_url set on this row."],
         }
 
-    result = fetch_url(url, timeout)
+    if fetch_cache is not None and url in fetch_cache:
+        result = fetch_cache[url]
+    else:
+        result = fetch_url(url, timeout)
+        if fetch_cache is not None:
+            fetch_cache[url] = result
     names = [
         row.get("banner_name", ""),
         *split_pipe(row.get("featured_characters", "")),
@@ -306,7 +315,8 @@ def build_feed_checks(timeout: int, csv_rows: list[dict[str, str]]) -> list[dict
 def build_report(rows: list[dict[str, str]], timeout: int) -> dict[str, Any]:
     today = date.today()
     row_checks = [build_row_check(row, today) for row in rows]
-    source_checks = [probe_row_source(row, timeout) for row in rows]
+    fetch_cache: dict[str, FetchResult] = {}
+    source_checks = [probe_row_source(row, timeout, fetch_cache) for row in rows]
     for row_check, source_check in zip(row_checks, source_checks):
         if not source_check["fetch_ok"]:
             row_check["needs_review"] = True
