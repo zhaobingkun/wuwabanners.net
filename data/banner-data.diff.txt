@@ -1,5 +1,5 @@
 WuWa Banners Candidate CSV Diff
-Generated at: 2026-06-07T11:00:51
+Generated at: 2026-06-07T16:07:06
 Candidate date: 2026-06-07
 
 What this file means
@@ -8,19 +8,19 @@ What this file means
 - Anything involving lineup, dates, source_url, source_type, or new versions still needs manual review.
 
 Automatic candidate updates applied
-- ww-3.2-phase-2-character: last_checked 2026-06-06 -> 2026-06-07
-- ww-3.3-phase-1-character: last_checked 2026-06-06 -> 2026-06-07
-- ww-3.3-phase-2-character: last_checked 2026-06-06 -> 2026-06-07
-- ww-3.3-phase-2-weapon: last_checked 2026-06-06 -> 2026-06-07
-- ww-3.4-phase-1-character: last_checked 2026-06-06 -> 2026-06-07
-- ww-3.4-phase-1-weapon: last_checked 2026-06-06 -> 2026-06-07
-- ww-3.4-phase-1-preview: last_checked 2026-06-06 -> 2026-06-07
+- none
 
 Rows that still need manual review
 - ww-3.3-phase-1-weapon (Version 3.3 Phase 1 Weapons)
   - Current source: https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/
   - last_checked is 19 days old
   - source_type is secondary_media
+  - source fetch failed: fetch-failed
+  - URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 28.
+- ww-3.3-phase-2-weapon (Version 3.3 Phase 2 Weapons)
+  - Current source: https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238
+  - source fetch failed: fetch-failed
+  - URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238']' returned non-zero exit status 28.
 
 Possible new version signals from feed checks
 - none
