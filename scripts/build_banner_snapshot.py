@@ -62,7 +62,7 @@ def render_video_embed(title: str, video_id: str = "viOkAhoa0k8") -> str:
               <span class="video-lite-title">{safe_title}</span>
               <span class="video-lite-note">Click to load the YouTube player.</span>
             </button>
-            <noscript><p class="muted" style="padding:1rem;">JavaScript is off. <a href="{watch_url}">Watch this video on YouTube</a>.</p></noscript>
+            <noscript><p class="muted" style="padding:1rem;">JavaScript is off. <a href="{watch_url}" target="_blank" rel="nofollow noopener noreferrer">Watch this video on YouTube</a>.</p></noscript>
           </div>"""
 
 
@@ -934,7 +934,7 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
       </a>'''
         )
     history_nav_html = "\n".join(history_nav_cards) if history_nav_cards else '      <p class="muted">This is the only tracked phase in the current history window.</p>'
-    title = f"Wuthering Waves {banner_name} Banner History | WuWa Banners"
+    title = f"{page['version']} Banner History | WuWa Banners"
     description = f"View the {banner_name} banner history detail page with featured characters, featured weapons, dates, and rerun context."
     faq_json = json.dumps(
         {
@@ -988,6 +988,9 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
   <meta property="og:url" content="https://wuwabanners.net{path}">
   <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{html.escape(title)}">
+  <meta name="twitter:description" content="{html.escape(description)}">
+  <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
   <link rel="stylesheet" href="/assets/css/site.css">
@@ -2486,6 +2489,9 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
   <meta property="og:url" content="https://wuwabanners.net{path}">
   <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{html.escape(title)}">
+  <meta name="twitter:description" content="{html.escape(og_description)}">
+  <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
   <link rel="stylesheet" href="/assets/css/site.css">
@@ -2599,6 +2605,9 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
   <meta property="og:url" content="{page_url}">
   <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{html.escape(title)}">
+  <meta name="twitter:description" content="{html.escape(og_description)}">
+  <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
   <link rel="stylesheet" href="/assets/css/site.css">
@@ -2854,6 +2863,9 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
   <meta property="og:url" content="https://wuwabanners.net{path}">
   <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{html.escape(title)}">
+  <meta name="twitter:description" content="{html.escape(description)}">
+  <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
   <link rel="stylesheet" href="/assets/css/site.css">
@@ -3032,6 +3044,9 @@ def render_standard_page(
   <meta property="og:url" content="https://wuwabanners.net{path}">
   <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{html.escape(title)}">
+  <meta name="twitter:description" content="{html.escape(description)}">
+  <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
   <link rel="stylesheet" href="/assets/css/site.css">
@@ -3291,7 +3306,7 @@ def render_next_character_page(snapshot: dict[str, object]) -> str:
     )
     return render_standard_page(
         title="Wuthering Waves Next Character | WuWa Banners",
-        description="Track the next Wuthering Waves featured characters, including the next official banner-related update and the best pages to check before deciding whether to save or pull now.",
+        description="Track the next Wuthering Waves featured characters, official banner updates, and key save-or-pull pages before spending Astrite.",
         path="/wuthering-waves-next-character/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next character',
         heading="Wuthering Waves Next Character",
@@ -3549,6 +3564,9 @@ def render_characters_hub_page(snapshot: dict[str, object]) -> str:
   <meta property="og:url" content="https://wuwabanners.net/wuthering-waves-characters/">
   <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wuthering Waves Characters | WuWa Banners">
+  <meta name="twitter:description" content="Browse Wuthering Waves characters, including current banner characters, next official character context, pull planning, and related pages.">
+  <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
   <link rel="stylesheet" href="/assets/css/site.css">

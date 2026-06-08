@@ -1,9 +1,9 @@
 {
-  "report_generated_at": "2026-06-07T16:06:21",
+  "report_generated_at": "2026-06-08T11:01:09",
   "summary": {
     "rows_checked": 8,
-    "rows_needing_review": 2,
-    "failed_source_fetches": 2,
+    "rows_needing_review": 1,
+    "failed_source_fetches": 0,
     "possible_new_versions": []
   },
   "rows": {
@@ -36,8 +36,7 @@
       "source_type": "secondary_media",
       "needs_review": true,
       "reasons": [
-        "last_checked is 19 days old",
-        "source fetch failed: fetch-failed",
+        "last_checked is 20 days old",
         "source_type is secondary_media"
       ]
     },
@@ -58,10 +57,8 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
-      "needs_review": true,
-      "reasons": [
-        "source fetch failed: fetch-failed"
-      ]
+      "needs_review": false,
+      "reasons": []
     },
     "ww-3.4-phase-1-character": {
       "banner_name": "Version 3.4 The Dream Not Dreamed",
@@ -119,13 +116,16 @@
       "notes": []
     },
     "ww-3.3-phase-1-weapon": {
-      "fetch_ok": false,
-      "status": "fetch-failed",
-      "term_hits": [],
-      "version_hits": [],
-      "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 28."
-      ]
+      "fetch_ok": true,
+      "status": "curl-ok",
+      "term_hits": [
+        "3.3"
+      ],
+      "version_hits": [
+        "3.3",
+        "3.4"
+      ],
+      "notes": []
     },
     "ww-3.3-phase-2-character": {
       "fetch_ok": true,
@@ -141,13 +141,18 @@
       ]
     },
     "ww-3.3-phase-2-weapon": {
-      "fetch_ok": false,
-      "status": "fetch-failed",
-      "term_hits": [],
-      "version_hits": [],
-      "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238']' returned non-zero exit status 28."
-      ]
+      "fetch_ok": true,
+      "status": "curl-ok",
+      "term_hits": [
+        "3.3",
+        "Forged Dwarf Star",
+        "Kumokiri",
+        "Lethean Elegy"
+      ],
+      "version_hits": [
+        "3.3"
+      ],
+      "notes": []
     },
     "ww-3.4-phase-1-character": {
       "fetch_ok": true,
@@ -186,13 +191,11 @@
   },
   "feeds": {
     "official_site": {
-      "fetch_ok": false,
-      "status": "fetch-failed",
+      "fetch_ok": true,
+      "status": "curl-ok",
       "version_hits": [],
       "suggested_new_versions": [],
-      "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://wutheringwaves.kurogames.com/']' returned non-zero exit status 28."
-      ]
+      "notes": []
     },
     "official_youtube": {
       "fetch_ok": false,
@@ -213,9 +216,16 @@
       "notes": []
     }
   },
-  "auto_updates": [],
+  "auto_updates": [
+    "ww-3.2-phase-2-character: last_checked 2026-06-07 -> 2026-06-08",
+    "ww-3.3-phase-1-character: last_checked 2026-06-07 -> 2026-06-08",
+    "ww-3.3-phase-2-character: last_checked 2026-06-07 -> 2026-06-08",
+    "ww-3.3-phase-2-weapon: last_checked 2026-06-07 -> 2026-06-08",
+    "ww-3.4-phase-1-character: last_checked 2026-06-07 -> 2026-06-08",
+    "ww-3.4-phase-1-weapon: last_checked 2026-06-07 -> 2026-06-08",
+    "ww-3.4-phase-1-preview: last_checked 2026-06-07 -> 2026-06-08"
+  ],
   "manual_review_ids": [
-    "ww-3.3-phase-1-weapon",
-    "ww-3.3-phase-2-weapon"
+    "ww-3.3-phase-1-weapon"
   ]
 }

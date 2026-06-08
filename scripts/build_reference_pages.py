@@ -202,6 +202,9 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
   <meta property="og:url" content="https://wuwabanners.net{path}">
   <meta property="og:image" content="https://wuwabanners.net{src}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{description}">
+  <meta name="twitter:image" content="https://wuwabanners.net{src}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
   <link rel="stylesheet" href="/assets/css/site.css">
