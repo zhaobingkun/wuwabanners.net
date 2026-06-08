@@ -427,6 +427,18 @@ def is_preview_phase(phase: dict[str, object]) -> bool:
     return str(phase.get("banner_type") or "") == "preview"
 
 
+def is_same_banner_phase(left: dict[str, object], right: dict[str, object]) -> bool:
+    return (
+        str(left.get("version") or "") == str(right.get("version") or "")
+        and str(left.get("phase") or "") == str(right.get("phase") or "")
+        and str(left.get("banner_type") or "") == str(right.get("banner_type") or "")
+    )
+
+
+def has_distinct_next(snapshot: dict[str, object]) -> bool:
+    return not is_same_banner_phase(snapshot["current"], snapshot["next"])
+
+
 def phase_event_date(phase: dict[str, object]) -> str:
     start_date = str(phase.get("start_date") or "")
     if start_date:
@@ -519,27 +531,41 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     history = snapshot["history"]
     recent = history[0]
-    next_card_title = "Next banner starts" if not is_preview_phase(next_item) else "Next official preview"
-    next_card_body = (
-        f"{next_character_copy(next_item)} are the next tracked featured characters."
-        if next_item["featured_characters"]
-        else "The next full lineup is still pending the next official preview reveal."
-    )
-    next_row_type = "Next banner phase" if not is_preview_phase(next_item) else "Next official preview"
+    distinct_next = has_distinct_next(snapshot)
+    if distinct_next:
+        next_card_title = "Next banner starts" if not is_preview_phase(next_item) else "Next official preview"
+        next_card_date = phase_event_label(next_item)
+        next_card_body = (
+            f"{next_character_copy(next_item)} are the next tracked featured characters."
+            if next_item["featured_characters"]
+            else "The next full lineup is still pending the next official preview reveal."
+        )
+        next_row_type = "Next banner phase" if not is_preview_phase(next_item) else "Next official preview"
+        next_row_name = str(next_item["banner_name"])
+        next_row_window = phase_window_label(next_item)
+        comparison_title = f"{current['banner_name']} vs {next_item['banner_name']}"
+    else:
+        next_card_title = "Next official update pending"
+        next_card_date = "TBA"
+        next_card_body = "No post-current banner lineup is official yet; keep the next page as a watch page until Kuro publishes the next checkpoint."
+        next_row_type = "Next official update"
+        next_row_name = "Pending official reveal"
+        next_row_window = "Not announced yet"
+        comparison_title = f"{current['banner_name']} vs next official reveal"
     return f"""      <div class="container">
         <h2>Current Wuthering Waves banner snapshot</h2>
         <p class="section-intro">Check the live phase first, then the next official checkpoint and the best page for the decision you are making now. These links are the highest-priority crawl path for banner, countdown, history, rerun, and pity searches.</p>
         <div class="card-grid" style="margin-bottom:1.25rem;">
           <article class="card"><h3>Current banner ends</h3><p><strong>{fmt_human_date(current["end_date"])}</strong></p><p>{", ".join(current["featured_characters"])} stay live through the current tracked phase.</p><p><a href="/wuthering-waves-current-banner-end-date/">Open current banner end date</a></p></article>
-          <article class="card"><h3>{next_card_title}</h3><p><strong>{phase_event_label(next_item)}</strong></p><p>{next_card_body}</p><p><a href="/wuthering-waves-next-banner-date/">Open next banner date</a></p></article>
-          <article class="card"><h3>Pull or save check</h3><p><strong>{current["banner_name"]} vs {next_item["banner_name"]}</strong></p><p>Compare the live lineup, next checkpoint, rerun history, and pity before spending a limited Astrite budget.</p><p><a href="/pull-advice/">Open pull advice</a></p></article>
+          <article class="card"><h3>{next_card_title}</h3><p><strong>{next_card_date}</strong></p><p>{next_card_body}</p><p><a href="/wuthering-waves-next-banner-date/">Open next banner date</a></p></article>
+          <article class="card"><h3>Pull or save check</h3><p><strong>{comparison_title}</strong></p><p>Compare the live lineup, next checkpoint, rerun history, and pity before spending a limited Astrite budget.</p><p><a href="/pull-advice/">Open pull advice</a></p></article>
         </div>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Type</th><th>Name</th><th>Window</th><th>Best next page</th></tr></thead>
             <tbody>
               <tr><td>Live banner phase</td><td>{current["banner_name"]}</td><td>{fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
-              <tr><td>{next_row_type}</td><td>{next_item["banner_name"]}</td><td>{phase_window_label(next_item)}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+              <tr><td>{next_row_type}</td><td>{next_row_name}</td><td>{next_row_window}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
               <tr><td>Countdown and schedule</td><td>{current["banner_name"]}</td><td>Ends {fmt_human_date(current["end_date"])}</td><td><a href="/wuthering-waves-banner-countdown/">Banner countdown</a></td></tr>
               <tr><td>Recent reference</td><td>{recent["banner_name"]}</td><td>{fmt_human_date(recent["start_date"])} to {fmt_human_date(recent["end_date"])}</td><td><a href="/wuthering-waves-banner-history/">Banner history</a></td></tr>
               <tr><td>Save planning</td><td>Rerun and pity context</td><td>Use after checking live and next banners</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a> / <a href="/wuthering-waves-pity-system/">Pity system</a></td></tr>
@@ -553,7 +579,12 @@ def build_next_intro(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
     updated = snapshot["updated"]
-    if is_preview_phase(next_item):
+    if not has_distinct_next(snapshot):
+        answer = (
+            f"""      <p class="lead">The current Wuthering Waves banner is {current["banner_name"]}, featuring {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next post-current banner lineup has not been officially published yet.</p>
+      <div class="answer-box"><strong>Direct answer:</strong> The current banner ends on {fmt_human_date(current["end_date"])}. No distinct next banner is official yet, so treat this page as a watch page for the next Kuro announcement, rerun hints, and pity planning.</div>"""
+        )
+    elif is_preview_phase(next_item):
         answer = (
             f"""      <p class="lead">The current Wuthering Waves banner is {current["banner_name"]}, featuring {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next reliable checkpoint is {next_item["banner_name"]}; use it as a save-planning checkpoint until Kuro publishes the next full lineup.</p>
       <div class="answer-box"><strong>Direct answer:</strong> The current banner ends on {fmt_human_date(current["end_date"])}. {next_event_copy(next_item)} The next featured-character lineup is not official yet, so compare countdown, schedule, rerun timing, and pity before spending.</div>"""
@@ -584,11 +615,12 @@ def build_next_media(snapshot: dict[str, object]) -> str:
 def build_next_cards(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    next_snapshot = (
-        f"The next phase is {next_item['banner_name']}. The featured five-stars are {', '.join(next_item['featured_characters'])}, and the weapon focus is {', '.join(next_item['featured_weapons'])}."
-        if not is_preview_phase(next_item)
-        else f"{next_event_copy(next_item)} The full character and weapon lineup is still pending official confirmation."
-    )
+    if not has_distinct_next(snapshot):
+        next_snapshot = "No distinct next banner has been announced after the current phase. Watch official notices before locking a save target."
+    elif is_preview_phase(next_item):
+        next_snapshot = f"{next_event_copy(next_item)} The full character and weapon lineup is still pending official confirmation."
+    else:
+        next_snapshot = f"The next phase is {next_item['banner_name']}. The featured five-stars are {', '.join(next_item['featured_characters'])}, and the weapon focus is {', '.join(next_item['featured_weapons'])}."
     return f"""      <div class="card-grid">
         <article class="card"><h2>Current live phase</h2><p>{current["banner_name"]} is live now. Featured characters: {", ".join(current["featured_characters"])}. Weapon focus: {", ".join(current["featured_weapons"])}.</p></article>
         <article class="card"><h2>Next phase status</h2><p>{next_snapshot}</p></article>
@@ -599,13 +631,23 @@ def build_next_cards(snapshot: dict[str, object]) -> str:
 def build_next_table(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
+    if has_distinct_next(snapshot):
+        next_name = str(next_item["banner_name"])
+        next_characters = next_character_copy(next_item)
+        next_weapons = next_weapon_copy(next_item)
+        next_dates = phase_window_label(next_item)
+    else:
+        next_name = "Pending official reveal"
+        next_characters = "Post-current featured characters are not official yet"
+        next_weapons = "Post-current weapon focus is not official yet"
+        next_dates = "Not announced yet"
     return f"""        <h2>Current and next banner snapshot</h2>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Status</th><th>Banner group</th><th>5-star focus</th><th>Weapon focus</th><th>Dates</th></tr></thead>
             <tbody>
               <tr><td>Current</td><td>{current["banner_name"]}</td><td>{", ".join(current["featured_characters"])}</td><td>{", ".join(current["featured_weapons"])}</td><td>{fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}</td></tr>
-              <tr><td>Next</td><td>{next_item["banner_name"]}</td><td>{next_character_copy(next_item)}</td><td>{next_weapon_copy(next_item)}</td><td>{phase_window_label(next_item)}</td></tr>
+              <tr><td>Next</td><td>{next_name}</td><td>{next_characters}</td><td>{next_weapons}</td><td>{next_dates}</td></tr>
             </tbody>
           </table>
         </div>"""
@@ -614,7 +656,10 @@ def build_next_table(snapshot: dict[str, object]) -> str:
 def build_next_pull(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    if is_preview_phase(next_item):
+    if not has_distinct_next(snapshot):
+        wait_copy = "you are waiting for the next official reveal or a rerun target instead of spending into the live phase"
+        weapon_copy = "The next weapon group is not official yet, so do not assume a future weapon path until Kuro publishes it."
+    elif is_preview_phase(next_item):
         wait_copy = f"wait for {next_item['banner_name']} before locking the next save target"
         weapon_copy = "The next weapon group is still unconfirmed until the next official preview reveals more detail."
     else:
@@ -644,19 +689,27 @@ def build_next_pull(snapshot: dict[str, object]) -> str:
 def build_next_compare_matrix(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    save_watch = next_character_copy(next_item) if next_item["featured_characters"] else next_item["banner_name"]
-    weapon_watch = (
-        f"{', '.join(current['featured_weapons'])} vs {', '.join(next_item['featured_weapons'])}"
-        if next_item["featured_weapons"]
-        else f"{', '.join(current['featured_weapons'])} vs next-phase weapon reveal"
-    )
+    if has_distinct_next(snapshot):
+        save_label = f"Save for {next_item['banner_name']}"
+        save_win = "The next tracked update matches your planned roster better than the current rotation."
+        save_watch = next_character_copy(next_item) if next_item["featured_characters"] else next_item["banner_name"]
+        weapon_watch = (
+            f"{', '.join(current['featured_weapons'])} vs {', '.join(next_item['featured_weapons'])}"
+            if next_item["featured_weapons"]
+            else f"{', '.join(current['featured_weapons'])} vs next-phase weapon reveal"
+        )
+    else:
+        save_label = "Wait for next official reveal"
+        save_win = "You do not need the live phase and would rather preserve pity until the next banner is official."
+        save_watch = "Post-current lineup pending"
+        weapon_watch = f"{', '.join(current['featured_weapons'])} vs future weapon reveal"
     return f"""        <h2>Current versus next banner decision matrix</h2>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Decision path</th><th>When it wins</th><th>Watch first</th><th>Best next page</th></tr></thead>
             <tbody>
               <tr><td>Spend in {current["banner_name"]}</td><td>The live phase solves an immediate account hole faster than waiting.</td><td>{", ".join(current["featured_characters"])}</td><td><a href="/wuthering-waves-current-banner/">Current banner</a></td></tr>
-              <tr><td>Save for {next_item["banner_name"]}</td><td>The next tracked update matches your planned roster better than the current rotation.</td><td>{save_watch}</td><td><a href="/pull-advice/">Pull advice</a></td></tr>
+              <tr><td>{save_label}</td><td>{save_win}</td><td>{save_watch}</td><td><a href="/pull-advice/">Pull advice</a></td></tr>
               <tr><td>Spend only after checking weapon risk</td><td>Your character choice looks clear, but the weapon side could still make the full plan too expensive.</td><td>{weapon_watch}</td><td><a href="/wuthering-waves-weapon-banner/">Weapon banner</a></td></tr>
               <tr><td>Delay both phases</td><td>Your real target is a rerun or your pity state is too valuable to force a spend now.</td><td>History spacing and pity carry-over</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a></td></tr>
             </tbody>
@@ -724,18 +777,22 @@ def build_current_table(snapshot: dict[str, object]) -> str:
 def build_current_decision_matrix(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    why_copy = (
-        "The next official preview may change your longer plan, so compare before locking a live spend."
-        if is_preview_phase(next_item)
-        else "The next phase may match your longer plan better than the live one."
-    )
+    if not has_distinct_next(snapshot):
+        compare_choice = "Wait for the next official reveal"
+        why_copy = "No distinct next banner is official yet, so only save if preserving pity or waiting for rerun information matters more."
+    elif is_preview_phase(next_item):
+        compare_choice = f"Compare against {next_item['banner_name']}"
+        why_copy = "The next official preview may change your longer plan, so compare before locking a live spend."
+    else:
+        compare_choice = f"Compare against {next_item['banner_name']}"
+        why_copy = "The next phase may match your longer plan better than the live one."
     return f"""        <h2>Spend-now versus save-now matrix</h2>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Account state</th><th>Safer choice</th><th>Why</th><th>Best next page</th></tr></thead>
             <tbody>
               <tr><td>You need immediate value</td><td>Spend in {current["banner_name"]}</td><td>The live phase is already confirmed and usable right now.</td><td><a href="/wuthering-waves-current-banner-characters/">Current banner characters</a></td></tr>
-              <tr><td>You are planning the next roster step</td><td>Compare against {next_item["banner_name"]}</td><td>{why_copy}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+              <tr><td>You are planning the next roster step</td><td>{compare_choice}</td><td>{why_copy}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
               <tr><td>You are protecting pity</td><td>Save</td><td>Pity and weapon pressure matter more than forcing a live spend.</td><td><a href="/wuthering-waves-pity-system/">Pity system</a></td></tr>
             </tbody>
           </table>
@@ -1136,12 +1193,16 @@ def build_countdown_intro(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
     updated = snapshot["updated"]
-    answer_copy = (
-        f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
-        if is_preview_phase(next_item)
-        else f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and {next_item['banner_name']} begins on {fmt_human_date(next_item['start_date'])}."
-    )
-    return f"""    <p class="lead">This page answers the WuWa banner countdown question first: when the live Denia, Chisa, and Phrolova phase ends, and what the next official 3.4 checkpoint is.</p>
+    if not has_distinct_next(snapshot):
+        answer_copy = f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}. The next post-current banner date is not official yet."
+        next_context = "the next official post-current checkpoint is still pending"
+    elif is_preview_phase(next_item):
+        answer_copy = f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
+        next_context = f"the next official checkpoint is {next_item['banner_name']}"
+    else:
+        answer_copy = f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and {next_item['banner_name']} begins on {fmt_human_date(next_item['start_date'])}."
+        next_context = f"the next tracked phase is {next_item['banner_name']}"
+    return f"""    <p class="lead">This page answers the WuWa banner countdown question first: when the live {", ".join(current["featured_characters"])} phase ends, and what {next_context}.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {answer_copy}</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
@@ -1281,16 +1342,15 @@ def build_pull_intro(snapshot: dict[str, object], pull_pages: list[dict[str, str
     current = snapshot["current"]
     next_item = snapshot["next"]
     updated = snapshot["updated"]
-    next_copy = (
-        f"and the upcoming {next_item['banner_name']} phase"
-        if next_item["featured_characters"]
-        else f"while {next_item['banner_name']} remains the next official checkpoint before the next full lineup is confirmed"
-    )
-    answer_copy = (
-        "Start with a current-phase page if you are deciding whether to spend now. Start with the next-banner page if you are deciding whether to save."
-        if not next_item["featured_characters"]
-        else "Start with a current-phase page if you are deciding whether to spend now. Start with a next-phase page if you are deciding whether to save."
-    )
+    if not has_distinct_next(snapshot):
+        next_copy = "while the post-current banner lineup remains unannounced"
+        answer_copy = "Start with a current-phase page if you are deciding whether to spend now. Start with the next-banner watch page if you are deciding whether to preserve pity for a future reveal."
+    elif next_item["featured_characters"]:
+        next_copy = f"and the upcoming {next_item['banner_name']} phase"
+        answer_copy = "Start with a current-phase page if you are deciding whether to spend now. Start with a next-phase page if you are deciding whether to save."
+    else:
+        next_copy = f"while {next_item['banner_name']} remains the next official checkpoint before the next full lineup is confirmed"
+        answer_copy = "Start with a current-phase page if you are deciding whether to spend now. Start with the next-banner page if you are deciding whether to save."
     return f"""    <p class="lead">This hub is where banner facts turn into player decisions. Right now the tracked pull set covers {len(pull_pages)} featured characters across the live {current["banner_name"]} phase {next_copy}.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {answer_copy} Before pulling, compare the current deadline, next checkpoint, rerun watch, weapon pressure, and pity state.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
@@ -1299,11 +1359,12 @@ def build_pull_intro(snapshot: dict[str, object], pull_pages: list[dict[str, str
 def build_pull_grid(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    next_pool = (
-        f"The next phase pages cover {', '.join(next_item['featured_characters'])} and should answer whether saving beats the current live banner."
-        if next_item["featured_characters"]
-        else f"The next full lineup is still pending. Until {next_item['banner_name']} lands, the best next-step page is the banner comparison view rather than a character-specific save page."
-    )
+    if not has_distinct_next(snapshot):
+        next_pool = "The next post-current lineup is not official yet. Save only if preserving pity or waiting for rerun information matters more than the live phase."
+    elif next_item["featured_characters"]:
+        next_pool = f"The next phase pages cover {', '.join(next_item['featured_characters'])} and should answer whether saving beats the current live banner."
+    else:
+        next_pool = f"The next full lineup is still pending. Until {next_item['banner_name']} lands, the best next-step page is the banner comparison view rather than a character-specific save page."
     return f"""    <div class="card-grid">
       <article class="card"><h2>Spend now</h2><p>Use the live phase pages when {", ".join(current["featured_characters"])} solves a roster problem before {fmt_human_date(current["end_date"])}.</p></article>
       <article class="card"><h2>Save for later</h2><p>{next_pool}</p></article>
@@ -1338,12 +1399,16 @@ def build_pull_links(pull_pages: list[dict[str, str]]) -> str:
 def build_pull_decision_routes(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    next_route = join_or_fallback(list(next_item["featured_characters"]), next_item["banner_name"])
-    next_route_reason = (
-        "The next phase should be compared against current pity, not against hype alone."
-        if next_item["featured_characters"]
-        else "Use the next official preview checkpoint before assuming the next phase is worth saving for."
-    )
+    if not has_distinct_next(snapshot):
+        next_route = "Post-current lineup pending"
+        next_route_reason = "Use the next-banner watch page before assuming a future phase is worth saving for."
+    else:
+        next_route = join_or_fallback(list(next_item["featured_characters"]), next_item["banner_name"])
+        next_route_reason = (
+            "The next phase should be compared against current pity, not against hype alone."
+            if next_item["featured_characters"]
+            else "Use the next official preview checkpoint before assuming the next phase is worth saving for."
+        )
     return f"""      <h2>Fast decision routes by account state</h2>
       <div class="table-wrap">
         <table>
@@ -1362,11 +1427,12 @@ def build_pull_decision_routes(snapshot: dict[str, object]) -> str:
 def build_pull_compare_cards(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    next_compare = (
-        f"Use the next phase when {', '.join(next_item['featured_characters'])} better matches your long-plan roster direction, and when protecting pity matters more than immediate live-banner pressure."
-        if next_item["featured_characters"]
-        else f"Use the preview checkpoint when you are mainly trying to avoid locking a save target before {next_item['banner_name']} clarifies the next full lineup."
-    )
+    if not has_distinct_next(snapshot):
+        next_compare = "Use the next-banner watch path when you are mainly trying to preserve pity until Kuro confirms the post-current lineup or rerun direction."
+    elif next_item["featured_characters"]:
+        next_compare = f"Use the next phase when {', '.join(next_item['featured_characters'])} better matches your long-plan roster direction, and when protecting pity matters more than immediate live-banner pressure."
+    else:
+        next_compare = f"Use the preview checkpoint when you are mainly trying to avoid locking a save target before {next_item['banner_name']} clarifies the next full lineup."
     return f"""      <div class="card">
         <h2>When the current phase wins</h2>
         <p>Use the current phase when {", ".join(current["featured_characters"])} fixes a live roster problem now, not later. This is the path for accounts that need immediate value from active banners.</p>

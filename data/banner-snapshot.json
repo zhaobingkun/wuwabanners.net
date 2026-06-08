@@ -1,24 +1,26 @@
 {
-  "updated": "2026-06-07",
+  "updated": "2026-06-08",
   "current": {
-    "version": "3.3",
-    "phase": "Phase 2",
+    "version": "3.4",
+    "phase": "Phase 1",
     "banner_type": "character",
-    "banner_name": "Version 3.3 Phase 2",
+    "banner_name": "Version 3.4 The Dream Not Dreamed",
     "featured_characters": [
-      "Denia",
-      "Chisa",
-      "Phrolova"
+      "Lucy",
+      "Rebecca",
+      "Lucilla",
+      "Cartethyia"
     ],
     "featured_weapons": [
-      "Forged Dwarf Star",
-      "Kumokiri",
-      "Lethean Elegy"
+      "Spectral Trigger",
+      "Skull Thrasher",
+      "Freeze Frame",
+      "Defier's Thorn"
     ],
-    "start_date": "2026-05-21 10:00",
-    "end_date": "2026-06-07 11:59",
-    "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
-    "announcement_date": "2026-05-20",
+    "start_date": "2026-06-08 10:00",
+    "end_date": "2026-07-09 11:59",
+    "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
+    "announcement_date": "2026-05-29",
     "status": "official"
   },
   "next": {
