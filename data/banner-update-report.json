@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T13:41:17",
+  "generated_at": "2026-06-10T11:11:40",
   "csv_path": "data/banner-data.csv",
   "row_checks": [
     {
@@ -12,7 +12,7 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
       "last_checked": "2026-06-08",
-      "age_days": 0,
+      "age_days": 2,
       "needs_review": false,
       "reasons": []
     },
@@ -26,7 +26,7 @@
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
       "last_checked": "2026-06-08",
-      "age_days": 0,
+      "age_days": 2,
       "needs_review": false,
       "reasons": []
     },
@@ -40,10 +40,10 @@
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "source_type": "secondary_media",
       "last_checked": "2026-05-19",
-      "age_days": 20,
+      "age_days": 22,
       "needs_review": true,
       "reasons": [
-        "last_checked is 20 days old",
+        "last_checked is 22 days old",
         "source_type is secondary_media"
       ]
     },
@@ -57,7 +57,7 @@
       "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
       "source_type": "official_social",
       "last_checked": "2026-06-08",
-      "age_days": 0,
+      "age_days": 2,
       "needs_review": false,
       "reasons": []
     },
@@ -71,7 +71,7 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
       "last_checked": "2026-06-08",
-      "age_days": 0,
+      "age_days": 2,
       "needs_review": false,
       "reasons": []
     },
@@ -85,7 +85,7 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-08",
-      "age_days": 0,
+      "age_days": 2,
       "needs_review": false,
       "reasons": []
     },
@@ -99,7 +99,7 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-08",
-      "age_days": 0,
+      "age_days": 2,
       "needs_review": false,
       "reasons": []
     },
@@ -113,7 +113,7 @@
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
       "last_checked": "2026-06-08",
-      "age_days": 0,
+      "age_days": 2,
       "needs_review": false,
       "reasons": []
     }
@@ -268,6 +268,7 @@
         "Spectral Trigger"
       ],
       "version_hits": [
+        "3.3",
         "3.4"
       ],
       "suggested_new_versions": [],

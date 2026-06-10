@@ -1,5 +1,5 @@
 {
-  "report_generated_at": "2026-06-08T13:41:17",
+  "report_generated_at": "2026-06-10T11:11:40",
   "summary": {
     "rows_checked": 8,
     "rows_needing_review": 1,
@@ -36,7 +36,7 @@
       "source_type": "secondary_media",
       "needs_review": true,
       "reasons": [
-        "last_checked is 20 days old",
+        "last_checked is 22 days old",
         "source_type is secondary_media"
       ]
     },
@@ -210,13 +210,22 @@
       "fetch_ok": true,
       "status": "curl-ok",
       "version_hits": [
+        "3.3",
         "3.4"
       ],
       "suggested_new_versions": [],
       "notes": []
     }
   },
-  "auto_updates": [],
+  "auto_updates": [
+    "ww-3.2-phase-2-character: last_checked 2026-06-08 -> 2026-06-10",
+    "ww-3.3-phase-1-character: last_checked 2026-06-08 -> 2026-06-10",
+    "ww-3.3-phase-2-character: last_checked 2026-06-08 -> 2026-06-10",
+    "ww-3.3-phase-2-weapon: last_checked 2026-06-08 -> 2026-06-10",
+    "ww-3.4-phase-1-character: last_checked 2026-06-08 -> 2026-06-10",
+    "ww-3.4-phase-1-weapon: last_checked 2026-06-08 -> 2026-06-10",
+    "ww-3.4-phase-1-preview: last_checked 2026-06-08 -> 2026-06-10"
+  ],
   "manual_review_ids": [
     "ww-3.3-phase-1-weapon"
   ]

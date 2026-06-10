@@ -1221,12 +1221,15 @@ def build_countdown_media(snapshot: dict[str, object]) -> str:
 def build_countdown_cards(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    next_title = "Next phase start" if not is_preview_phase(next_item) else "Next official preview"
-    next_copy = (
-        f"{next_item['banner_name']} is scheduled to start on {fmt_human_date(next_item['start_date'])}."
-        if not is_preview_phase(next_item)
-        else next_event_copy(next_item)
-    )
+    if not has_distinct_next(snapshot):
+        next_title = "Next official update pending"
+        next_copy = "No post-current banner start date is official yet; watch the next official notice before locking a save target."
+    elif is_preview_phase(next_item):
+        next_title = "Next official preview"
+        next_copy = next_event_copy(next_item)
+    else:
+        next_title = "Next phase start"
+        next_copy = f"{next_item['banner_name']} is scheduled to start on {fmt_human_date(next_item['start_date'])}."
     return f"""    <div class="card-grid">
       <article class="card"><h2>Current phase end</h2><p>{current["banner_name"]} is scheduled to end on {fmt_human_date(current["end_date"])}.</p></article>
       <article class="card"><h2>{next_title}</h2><p>{next_copy}</p></article>
@@ -1237,14 +1240,21 @@ def build_countdown_cards(snapshot: dict[str, object]) -> str:
 def build_countdown_table(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
-    next_event = "Next phase starts" if not is_preview_phase(next_item) else "Next official preview"
+    if not has_distinct_next(snapshot):
+        next_name = "Pending official reveal"
+        next_event = "Post-current banner"
+        next_date = "Not announced yet"
+    else:
+        next_name = str(next_item["banner_name"])
+        next_event = "Next phase starts" if not is_preview_phase(next_item) else "Next official preview"
+        next_date = phase_event_label(next_item)
     return f"""      <h2>Banner timing snapshot</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Phase</th><th>Event</th><th>Date</th></tr></thead>
           <tbody>
             <tr><td>{current["banner_name"]}</td><td>Current phase ends</td><td>{fmt_human_date(current["end_date"])}</td></tr>
-            <tr><td>{next_item["banner_name"]}</td><td>{next_event}</td><td>{phase_event_label(next_item)}</td></tr>
+            <tr><td>{next_name}</td><td>{next_event}</td><td>{next_date}</td></tr>
           </tbody>
         </table>
       </div>"""
@@ -3145,15 +3155,26 @@ def render_standard_page(
 def render_next_banner_date_page(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     updated = fmt_human_date(snapshot["updated"] + " 00:00")
-    if is_preview_phase(next_item):
+    if not has_distinct_next(snapshot):
+        answer = f"As of {updated}, the next post-current Wuthering Waves banner date has not been officially announced. The current tracked phase ends on {fmt_human_date(snapshot['current']['end_date'])}."
+        next_title = "Next date pending"
+        next_copy = "No distinct next banner date is official yet; use this page as a watch page until Kuro publishes the next checkpoint."
+        table_phase = "Pending official reveal"
+        table_date = "Not announced yet"
+        table_value = "Post-current lineup pending official confirmation"
+    elif is_preview_phase(next_item):
         answer = f"As of {updated}, the next official banner-related date is {phase_event_label(next_item)} for {next_item['banner_name']}. The full next phase start date is still unconfirmed."
         next_title = "Next official preview"
         next_copy = next_event_copy(next_item)
+        table_phase = str(next_item["banner_name"])
+        table_date = phase_event_label(next_item)
         table_value = "Full lineup pending official confirmation"
     else:
         answer = f"As of {updated}, the next tracked banner date is {fmt_human_date(next_item['start_date'])}, when {next_item['banner_name']} is scheduled to begin."
         next_title = "Next phase start"
         next_copy = f"{next_item['banner_name']} is scheduled to start on {fmt_human_date(next_item['start_date'])}."
+        table_phase = str(next_item["banner_name"])
+        table_date = phase_event_label(next_item)
         table_value = ", ".join(next_item["featured_characters"])
     body = "\n".join(
         [
@@ -3170,7 +3191,7 @@ def render_next_banner_date_page(snapshot: dict[str, object]) -> str:
         <table>
           <thead><tr><th>Phase</th><th>Date</th><th>Tracked focus</th><th>Best next page</th></tr></thead>
           <tbody>
-            <tr><td>{next_item["banner_name"]}</td><td>{phase_event_label(next_item)}</td><td>{table_value}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+            <tr><td>{table_phase}</td><td>{table_date}</td><td>{table_value}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -3322,17 +3343,29 @@ def render_current_banner_characters_page(snapshot: dict[str, object]) -> str:
 def render_next_character_page(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     updated = fmt_human_date(snapshot["updated"] + " 00:00")
-    if next_item["featured_characters"]:
+    if has_distinct_next(snapshot) and next_item["featured_characters"]:
         answer = f"As of {updated}, the next tracked featured characters are {', '.join(next_item['featured_characters'])} in {next_item['banner_name']}, beginning on {fmt_human_date(next_item['start_date'])}."
         lead_card = ("Next phase lead", f"{next_focus_name(next_item)} is the lead next-phase name users are likely to compare first against the current phase.")
         support_card = ("Next phase support names", f"{', '.join(next_item['featured_characters'][1:]) or next_focus_name(next_item)} matter because users often search companion units separately after seeing the main next-banner page.")
         table_focus = ", ".join(next_item["featured_characters"])
+        table_phase = str(next_item["banner_name"])
+        table_date = phase_event_label(next_item)
         related_link = f'<li><a href="/wuthering-waves-should-you-pull-{slugify_character(next_focus_name(next_item))}/">Should you pull {next_focus_name(next_item)}?</a></li>'
+    elif not has_distinct_next(snapshot):
+        answer = f"As of {updated}, the next post-current featured-character lineup is still unconfirmed. The current tracked phase ends on {fmt_human_date(snapshot['current']['end_date'])}."
+        lead_card = ("No official next featured character yet", "The next post-current lineup has not been posted yet, so the safest answer is to wait for the next official notice.")
+        support_card = ("What to watch next", "Watch official notices, banner schedule updates, and rerun signals before naming a next featured character.")
+        table_focus = "Post-current lineup pending official confirmation"
+        table_phase = "Pending official reveal"
+        table_date = "Not announced yet"
+        related_link = '<li><a href="/pull-advice/">Pull advice</a></li>'
     else:
         answer = f"As of {updated}, the next full featured-character lineup is still unconfirmed. The next official banner-related checkpoint is {next_item['banner_name']} on {phase_event_label(next_item)}."
         lead_card = ("No official next featured character yet", "The next full lineup has not been posted yet, so the safest answer is to wait for the next official preview or notice.")
         support_card = ("What to watch next", next_event_copy(next_item))
         table_focus = "Full lineup pending official confirmation"
+        table_phase = str(next_item["banner_name"])
+        table_date = phase_event_label(next_item)
         related_link = '<li><a href="/pull-advice/">Pull advice</a></li>'
     body = "\n".join(
         [
@@ -3349,7 +3382,7 @@ def render_next_character_page(snapshot: dict[str, object]) -> str:
         <table>
           <thead><tr><th>Phase</th><th>Tracked focus</th><th>Date</th><th>Best next page</th></tr></thead>
           <tbody>
-            <tr><td>{next_item["banner_name"]}</td><td>{table_focus}</td><td>{phase_event_label(next_item)}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+            <tr><td>{table_phase}</td><td>{table_focus}</td><td>{table_date}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -3403,11 +3436,15 @@ def render_banner_schedule_page(snapshot: dict[str, object]) -> str:
         table_rows.append(
             f'            <tr><td>{next_item["version"]}</td><td>{next_item["phase"]}</td><td>{next_character_copy(next_item)}</td><td>{phase_window_label(next_item)}</td></tr>'
         )
-    answer = (
-        f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
-        if is_preview_phase(next_item)
-        else f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next phase begins on {fmt_human_date(next_item['start_date'])}."
-    )
+    if not has_distinct_next(snapshot):
+        answer = f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next post-current banner schedule has not been officially announced yet."
+        next_timing_copy = "No post-current banner schedule is official yet; keep checking official notices before planning the next rotation."
+    elif is_preview_phase(next_item):
+        answer = f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
+        next_timing_copy = next_event_copy(next_item)
+    else:
+        answer = f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next phase begins on {fmt_human_date(next_item['start_date'])}."
+        next_timing_copy = next_event_copy(next_item)
     body = "\n".join(
         [
             """    <div class="media-grid" style="margin-top:1.25rem;">
@@ -3421,7 +3458,7 @@ def render_banner_schedule_page(snapshot: dict[str, object]) -> str:
             render_card_grid(
                 [
                     ("Current phase timing", f"{current['banner_name']} is live now, featuring {', '.join(current['featured_characters'])} through {fmt_human_date(current['end_date'])}."),
-                    ("Next tracked timing", next_event_copy(next_item)),
+                    ("Next tracked timing", next_timing_copy),
                     ("What users usually need next", "After checking the schedule, users usually want the next-banner page, the current weapon banner, or a pull-advice page."),
                 ]
             ),
@@ -3534,16 +3571,26 @@ def render_banner_order_page(snapshot: dict[str, object]) -> str:
 def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     updated = fmt_human_date(snapshot["updated"] + " 00:00")
-    answer = (
-        f"As of {updated}, the next tracked banner countdown points to {phase_event_label(next_item)} for {next_item['banner_name']}. The full next phase lineup is still unconfirmed."
-        if is_preview_phase(next_item)
-        else f"As of {updated}, the next tracked banner countdown points to {fmt_human_date(next_item['start_date'])}, when {next_item['banner_name']} is scheduled to begin."
-    )
+    if not has_distinct_next(snapshot):
+        answer = f"As of {updated}, there is no official next-banner countdown after the current phase yet. The current tracked phase ends on {fmt_human_date(snapshot['current']['end_date'])}."
+        target_date = "Not announced yet"
+        table_phase = "Pending official reveal"
+        table_focus = "Post-current lineup pending official confirmation"
+    elif is_preview_phase(next_item):
+        answer = f"As of {updated}, the next tracked banner countdown points to {phase_event_label(next_item)} for {next_item['banner_name']}. The full next phase lineup is still unconfirmed."
+        target_date = phase_event_label(next_item)
+        table_phase = str(next_item["banner_name"])
+        table_focus = next_character_copy(next_item)
+    else:
+        answer = f"As of {updated}, the next tracked banner countdown points to {fmt_human_date(next_item['start_date'])}, when {next_item['banner_name']} is scheduled to begin."
+        target_date = phase_event_label(next_item)
+        table_phase = str(next_item["banner_name"])
+        table_focus = next_character_copy(next_item)
     body = "\n".join(
         [
             render_card_grid(
                 [
-                    ("Target date", phase_event_label(next_item)),
+                    ("Target date", target_date),
                     ("Why users search this", "This is a narrow timing query from users who are already close to a save-or-pull decision."),
                     ("Best next pages", "The strongest follow-ups are next banner, schedule, and timeline."),
                 ]
@@ -3554,7 +3601,7 @@ def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
         <table>
           <thead><tr><th>Phase</th><th>Date</th><th>Tracked focus</th><th>Best next page</th></tr></thead>
           <tbody>
-            <tr><td>{next_item["banner_name"]}</td><td>{phase_event_label(next_item)}</td><td>{next_character_copy(next_item)}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
+            <tr><td>{table_phase}</td><td>{target_date}</td><td>{table_focus}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
           </tbody>
         </table>
       </div>
