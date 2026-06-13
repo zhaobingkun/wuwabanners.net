@@ -268,40 +268,80 @@ def find_weapon_row(rows: list[dict[str, str]], version: str, phase: str) -> dic
     return None
 
 
+def banner_payload(char_row: dict[str, str], weapon_row: dict[str, str] | None) -> dict[str, object]:
+    return {
+        "version": char_row["version"],
+        "phase": char_row["phase"],
+        "banner_type": char_row["banner_type"],
+        "banner_name": char_row["banner_name"],
+        "featured_characters": split_field(char_row["featured_characters"]),
+        "featured_weapons": split_field(weapon_row["featured_weapons"]) if weapon_row else [],
+        "start_date": char_row["start_date"],
+        "end_date": char_row["end_date"],
+        "source_url": char_row["source_url"],
+        "announcement_date": char_row["announcement_date"],
+        "status": char_row["status"],
+    }
+
+
+def filter_known_order(values: list[str], allowed: list[str]) -> list[str]:
+    allowed_set = set(allowed)
+    return [value for value in values if value in allowed_set]
+
+
+def apply_known_subphase_overlay(current: dict[str, object], next_item: dict[str, object], updated: date) -> tuple[dict[str, object], dict[str, object]]:
+    if current.get("version") != "3.4" or current.get("phase") != "Phase 1":
+        return current, next_item
+
+    phase_characters = list(current["featured_characters"])
+    phase_weapons = list(current["featured_weapons"])
+    current["phase_featured_characters"] = phase_characters
+    current["phase_featured_weapons"] = phase_weapons
+
+    active_characters = ["Lucy", "Rebecca"]
+    active_weapons = ["Spectral Trigger", "Skull Thrasher"]
+    if updated >= date(2026, 6, 13):
+        active_characters.append("Lucilla")
+        active_weapons.append("Freeze Frame")
+    if updated >= date(2026, 6, 18):
+        active_characters.append("Cartethyia")
+        active_weapons.append("Defier's Thorn")
+
+    current["featured_characters"] = filter_known_order(phase_characters, active_characters)
+    current["featured_weapons"] = filter_known_order(phase_weapons, active_weapons)
+
+    if updated < date(2026, 6, 18) and "Cartethyia" in phase_characters:
+        return current, {
+            "version": "3.4",
+            "phase": "Phase 1 June 18 checkpoint",
+            "banner_type": "subphase",
+            "banner_name": "Version 3.4 Cartethyia Checkpoint",
+            "featured_characters": filter_known_order(phase_characters, ["Cartethyia"]),
+            "featured_weapons": filter_known_order(phase_weapons, ["Defier's Thorn"]),
+            "start_date": "2026-06-18 10:00",
+            "end_date": current["end_date"],
+            "source_url": current["source_url"],
+            "announcement_date": current["announcement_date"],
+            "status": current["status"],
+            "is_subphase": True,
+        }
+    return current, next_item
+
+
 def build_snapshot(rows: list[dict[str, str]]) -> dict[str, object]:
     updated = latest_checked(rows)
     current_char, next_char, history_rows = pick_current_and_next(rows, updated)
     current_weapon = find_weapon_row(rows, current_char["version"], current_char["phase"])
     next_weapon = find_weapon_row(rows, next_char["version"], next_char["phase"])
 
+    current_payload = banner_payload(current_char, current_weapon)
+    next_payload = banner_payload(next_char, next_weapon)
+    current_payload, next_payload = apply_known_subphase_overlay(current_payload, next_payload, updated)
+
     return {
         "updated": updated.isoformat(),
-        "current": {
-            "version": current_char["version"],
-            "phase": current_char["phase"],
-            "banner_type": current_char["banner_type"],
-            "banner_name": current_char["banner_name"],
-            "featured_characters": split_field(current_char["featured_characters"]),
-            "featured_weapons": split_field(current_weapon["featured_weapons"]) if current_weapon else [],
-            "start_date": current_char["start_date"],
-            "end_date": current_char["end_date"],
-            "source_url": current_char["source_url"],
-            "announcement_date": current_char["announcement_date"],
-            "status": current_char["status"],
-        },
-        "next": {
-            "version": next_char["version"],
-            "phase": next_char["phase"],
-            "banner_type": next_char["banner_type"],
-            "banner_name": next_char["banner_name"],
-            "featured_characters": split_field(next_char["featured_characters"]),
-            "featured_weapons": split_field(next_weapon["featured_weapons"]) if next_weapon else [],
-            "start_date": next_char["start_date"],
-            "end_date": next_char["end_date"],
-            "source_url": next_char["source_url"],
-            "announcement_date": next_char["announcement_date"],
-            "status": next_char["status"],
-        },
+        "current": current_payload,
+        "next": next_payload,
         "history": [
             {
                 "version": row["version"],
@@ -427,7 +467,13 @@ def is_preview_phase(phase: dict[str, object]) -> bool:
     return str(phase.get("banner_type") or "") == "preview"
 
 
+def is_subphase(phase: dict[str, object]) -> bool:
+    return bool(phase.get("is_subphase"))
+
+
 def is_same_banner_phase(left: dict[str, object], right: dict[str, object]) -> bool:
+    if is_subphase(left) or is_subphase(right):
+        return False
     return (
         str(left.get("version") or "") == str(right.get("version") or "")
         and str(left.get("phase") or "") == str(right.get("phase") or "")
@@ -485,6 +531,8 @@ def next_event_copy(next_item: dict[str, object]) -> str:
         if event_label == "TBA":
             return f"The next tracked official update is {next_item['banner_name']}, but its broadcast timing has not been posted yet."
         return f"The next tracked official update is {next_item['banner_name']} on {event_label}."
+    if is_subphase(next_item):
+        return f"{next_item['banner_name']} starts on {fmt_human_date(str(next_item['start_date']))} inside the current Version {next_item['version']} phase."
     return f"{next_item['banner_name']} is scheduled to begin on {fmt_human_date(str(next_item['start_date']))}."
 
 
@@ -533,17 +581,23 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
     recent = history[0]
     distinct_next = has_distinct_next(snapshot)
     if distinct_next:
-        next_card_title = "Next banner starts" if not is_preview_phase(next_item) else "Next official preview"
+        if is_subphase(next_item):
+            next_card_title = "Next same-version checkpoint"
+            next_card_body = f"{next_character_copy(next_item)} is the next tracked Version {next_item['version']} focus, starting inside the current phase."
+            next_row_type = "Same-version checkpoint"
+            comparison_title = f"{', '.join(current['featured_characters'])} vs {next_character_copy(next_item)}"
+        else:
+            next_card_title = "Next banner starts" if not is_preview_phase(next_item) else "Next official preview"
+            next_card_body = (
+                f"{next_character_copy(next_item)} are the next tracked featured characters."
+                if next_item["featured_characters"]
+                else "The next full lineup is still pending the next official preview reveal."
+            )
+            next_row_type = "Next banner phase" if not is_preview_phase(next_item) else "Next official preview"
+            comparison_title = f"{current['banner_name']} vs {next_item['banner_name']}"
         next_card_date = phase_event_label(next_item)
-        next_card_body = (
-            f"{next_character_copy(next_item)} are the next tracked featured characters."
-            if next_item["featured_characters"]
-            else "The next full lineup is still pending the next official preview reveal."
-        )
-        next_row_type = "Next banner phase" if not is_preview_phase(next_item) else "Next official preview"
         next_row_name = str(next_item["banner_name"])
         next_row_window = phase_window_label(next_item)
-        comparison_title = f"{current['banner_name']} vs {next_item['banner_name']}"
     else:
         next_card_title = "Next official update pending"
         next_card_date = "TBA"
@@ -589,6 +643,11 @@ def build_next_intro(snapshot: dict[str, object]) -> str:
             f"""      <p class="lead">The current Wuthering Waves banner is {current["banner_name"]}, featuring {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next reliable checkpoint is {next_item["banner_name"]}; use it as a save-planning checkpoint until Kuro publishes the next full lineup.</p>
       <div class="answer-box"><strong>Direct answer:</strong> The current banner ends on {fmt_human_date(current["end_date"])}. {next_event_copy(next_item)} The next featured-character lineup is not official yet, so compare countdown, schedule, rerun timing, and pity before spending.</div>"""
         )
+    elif is_subphase(next_item):
+        answer = (
+            f"""      <p class="lead">The current Wuthering Waves banner is {current["banner_name"]}, with {", ".join(current["featured_characters"])} live now through {fmt_human_date(current["end_date"])}. The next same-version checkpoint is {next_item["banner_name"]}, scheduled for {fmt_human_date(next_item["start_date"])}.</p>
+      <div class="answer-box"><strong>Direct answer:</strong> The current live focus is {", ".join(current["featured_characters"])}. {next_event_copy(next_item)} It adds {", ".join(next_item["featured_characters"])} and weapon focus {", ".join(next_item["featured_weapons"])}.</div>"""
+        )
     else:
         answer = (
             f"""      <p class="lead">The current Wuthering Waves banner is {current["banner_name"]}, featuring {", ".join(current["featured_characters"])} through {fmt_human_date(current["end_date"])}. The next rotation is {next_item["banner_name"]}, scheduled to begin on {fmt_human_date(next_item["start_date"])}.</p>
@@ -619,11 +678,14 @@ def build_next_cards(snapshot: dict[str, object]) -> str:
         next_snapshot = "No distinct next banner has been announced after the current phase. Watch official notices before locking a save target."
     elif is_preview_phase(next_item):
         next_snapshot = f"{next_event_copy(next_item)} The full character and weapon lineup is still pending official confirmation."
+    elif is_subphase(next_item):
+        next_snapshot = f"{next_event_copy(next_item)} Featured focus: {', '.join(next_item['featured_characters'])}. Weapon focus: {', '.join(next_item['featured_weapons'])}."
     else:
         next_snapshot = f"The next phase is {next_item['banner_name']}. The featured five-stars are {', '.join(next_item['featured_characters'])}, and the weapon focus is {', '.join(next_item['featured_weapons'])}."
+    next_status_heading = "Next same-version checkpoint" if is_subphase(next_item) else "Next phase status"
     return f"""      <div class="card-grid">
         <article class="card"><h2>Current live phase</h2><p>{current["banner_name"]} is live now. Featured characters: {", ".join(current["featured_characters"])}. Weapon focus: {", ".join(current["featured_weapons"])}.</p></article>
-        <article class="card"><h2>Next phase status</h2><p>{next_snapshot}</p></article>
+        <article class="card"><h2>{next_status_heading}</h2><p>{next_snapshot}</p></article>
         <article class="card"><h2>Before you spend</h2><p>Open countdown for the deadline, schedule for phase order, rerun for long-term targets, and pity before committing a limited pull budget.</p></article>
       </div>"""
 
@@ -647,7 +709,7 @@ def build_next_table(snapshot: dict[str, object]) -> str:
             <thead><tr><th>Status</th><th>Banner group</th><th>5-star focus</th><th>Weapon focus</th><th>Dates</th></tr></thead>
             <tbody>
               <tr><td>Current</td><td>{current["banner_name"]}</td><td>{", ".join(current["featured_characters"])}</td><td>{", ".join(current["featured_weapons"])}</td><td>{fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}</td></tr>
-              <tr><td>Next</td><td>{next_name}</td><td>{next_characters}</td><td>{next_weapons}</td><td>{next_dates}</td></tr>
+              <tr><td>{"Next same-version checkpoint" if is_subphase(next_item) else "Next"}</td><td>{next_name}</td><td>{next_characters}</td><td>{next_weapons}</td><td>{next_dates}</td></tr>
             </tbody>
           </table>
         </div>"""
@@ -662,6 +724,9 @@ def build_next_pull(snapshot: dict[str, object]) -> str:
     elif is_preview_phase(next_item):
         wait_copy = f"wait for {next_item['banner_name']} before locking the next save target"
         weapon_copy = "The next weapon group is still unconfirmed until the next official preview reveals more detail."
+    elif is_subphase(next_item):
+        wait_copy = f"{', '.join(next_item['featured_characters'])} on {fmt_human_date(next_item['start_date'])} better matches your roster direction"
+        weapon_copy = f"The next same-version weapon focus is {', '.join(next_item['featured_weapons'])}, starting {fmt_human_date(next_item['start_date'])}."
     else:
         wait_copy = f"{', '.join(next_item['featured_characters'])} better matches your roster direction"
         weapon_copy = f"The next weapon group is {', '.join(next_item['featured_weapons'])} in the next phase."
@@ -731,9 +796,13 @@ def build_next_sources(snapshot: dict[str, object]) -> str:
 
 def build_current_intro(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
+    next_item = snapshot["next"]
     updated = snapshot["updated"]
-    return f"""    <p class="lead">The WuWa current banner now is {current["banner_name"]}. The featured characters are {", ".join(current["featured_characters"])}, and the banner ends on {fmt_human_date(current["end_date"])}.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The current WuWa banner features {", ".join(current["featured_characters"])} with weapon focus {", ".join(current["featured_weapons"])}. It runs from {fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}.</div>
+    subphase_copy = ""
+    if is_subphase(next_item):
+        subphase_copy = f" The next same-version checkpoint is {', '.join(next_item['featured_characters'])} with {', '.join(next_item['featured_weapons'])} on {fmt_human_date(next_item['start_date'])}."
+    return f"""    <p class="lead">The WuWa current banner now is {current["banner_name"]}. The featured characters live today are {", ".join(current["featured_characters"])}, and the banner ends on {fmt_human_date(current["end_date"])}.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> The current WuWa banner features {", ".join(current["featured_characters"])} with weapon focus {", ".join(current["featured_weapons"])}. It runs from {fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}.{subphase_copy}</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -753,22 +822,30 @@ def build_current_media(snapshot: dict[str, object]) -> str:
 
 def build_current_cards(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
+    next_item = snapshot["next"]
+    next_copy = "After the current banner, compare next banner, schedule, rerun watch, and pity system before spending."
+    if is_subphase(next_item):
+        next_copy = f"{', '.join(next_item['featured_characters'])} and {', '.join(next_item['featured_weapons'])} are the next same-version checkpoint on {fmt_human_date(next_item['start_date'])}."
     return f"""    <div class="card-grid">
       <article class="card"><h2>Live lineup</h2><p>{", ".join(current["featured_characters"])} are the current featured characters in {current["banner_name"]}.</p></article>
       <article class="card"><h2>Weapon focus</h2><p>The companion weapon focus is {", ".join(current["featured_weapons"])} through {fmt_human_date(current["end_date"])}.</p></article>
       <article class="card"><h2>Deadline</h2><p>The current phase ends on {fmt_human_date(current["end_date"])}. Check countdown and pity before last-minute pulls.</p></article>
-      <article class="card"><h2>Next checks</h2><p>After the current banner, compare next banner, schedule, rerun watch, and pity system before spending.</p></article>
+      <article class="card"><h2>Next checks</h2><p>{next_copy}</p></article>
     </div>"""
 
 
 def build_current_table(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
+    next_item = snapshot["next"]
+    subphase_row = ""
+    if is_subphase(next_item):
+        subphase_row = f"\n            <tr><td>{next_item['banner_name']}</td><td>{', '.join(next_item['featured_characters'])}</td><td>{', '.join(next_item['featured_weapons'])}</td><td>Starts {fmt_human_date(next_item['start_date'])}; same phase ends {fmt_human_date(next_item['end_date'])}</td></tr>"
     return f"""      <h2>Current banner snapshot</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Banner type</th><th>Featured 5-stars</th><th>Featured 5-star weapons</th><th>Dates</th></tr></thead>
           <tbody>
-            <tr><td>{current["banner_name"]}</td><td>{", ".join(current["featured_characters"])}</td><td>{", ".join(current["featured_weapons"])}</td><td>{fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}</td></tr>
+            <tr><td>{current["banner_name"]}</td><td>{", ".join(current["featured_characters"])}</td><td>{", ".join(current["featured_weapons"])}</td><td>{fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}</td></tr>{subphase_row}
           </tbody>
         </table>
       </div>"""
@@ -783,6 +860,9 @@ def build_current_decision_matrix(snapshot: dict[str, object]) -> str:
     elif is_preview_phase(next_item):
         compare_choice = f"Compare against {next_item['banner_name']}"
         why_copy = "The next official preview may change your longer plan, so compare before locking a live spend."
+    elif is_subphase(next_item):
+        compare_choice = f"Compare against {next_character_copy(next_item)} on {fmt_human_date(next_item['start_date'])}"
+        why_copy = "The next same-version checkpoint may match your longer plan better than the live lineup available today."
     else:
         compare_choice = f"Compare against {next_item['banner_name']}"
         why_copy = "The next phase may match your longer plan better than the live one."
@@ -3344,9 +3424,14 @@ def render_next_character_page(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     updated = fmt_human_date(snapshot["updated"] + " 00:00")
     if has_distinct_next(snapshot) and next_item["featured_characters"]:
-        answer = f"As of {updated}, the next tracked featured characters are {', '.join(next_item['featured_characters'])} in {next_item['banner_name']}, beginning on {fmt_human_date(next_item['start_date'])}."
-        lead_card = ("Next phase lead", f"{next_focus_name(next_item)} is the lead next-phase name users are likely to compare first against the current phase.")
-        support_card = ("Next phase support names", f"{', '.join(next_item['featured_characters'][1:]) or next_focus_name(next_item)} matter because users often search companion units separately after seeing the main next-banner page.")
+        if is_subphase(next_item):
+            answer = f"As of {updated}, the next tracked featured character is {', '.join(next_item['featured_characters'])} in the same Version {next_item['version']} phase, beginning on {fmt_human_date(next_item['start_date'])}."
+            lead_card = ("Next same-version lead", f"{next_focus_name(next_item)} is the next same-version name users are likely to compare first against the live lineup.")
+            support_card = ("Same-version timing", f"{next_event_copy(next_item)}")
+        else:
+            answer = f"As of {updated}, the next tracked featured characters are {', '.join(next_item['featured_characters'])} in {next_item['banner_name']}, beginning on {fmt_human_date(next_item['start_date'])}."
+            lead_card = ("Next phase lead", f"{next_focus_name(next_item)} is the lead next-phase name users are likely to compare first against the current phase.")
+            support_card = ("Next phase support names", f"{', '.join(next_item['featured_characters'][1:]) or next_focus_name(next_item)} matter because users often search companion units separately after seeing the main next-banner page.")
         table_focus = ", ".join(next_item["featured_characters"])
         table_phase = str(next_item["banner_name"])
         table_date = phase_event_label(next_item)
@@ -3441,6 +3526,9 @@ def render_banner_schedule_page(snapshot: dict[str, object]) -> str:
         next_timing_copy = "No post-current banner schedule is official yet; keep checking official notices before planning the next rotation."
     elif is_preview_phase(next_item):
         answer = f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
+        next_timing_copy = next_event_copy(next_item)
+    elif is_subphase(next_item):
+        answer = f"As of {updated}, the current active lineup runs through the Version {current['version']} phase, and the next same-version checkpoint begins on {fmt_human_date(next_item['start_date'])}."
         next_timing_copy = next_event_copy(next_item)
     else:
         answer = f"As of {updated}, the current phase runs through {fmt_human_date(current['end_date'])}, and the next phase begins on {fmt_human_date(next_item['start_date'])}."

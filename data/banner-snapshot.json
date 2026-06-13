@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-10",
+  "updated": "2026-06-13",
   "current": {
     "version": "3.4",
     "phase": "Phase 1",
@@ -8,43 +8,48 @@
     "featured_characters": [
       "Lucy",
       "Rebecca",
-      "Lucilla",
-      "Cartethyia"
+      "Lucilla"
     ],
     "featured_weapons": [
       "Spectral Trigger",
       "Skull Thrasher",
-      "Freeze Frame",
-      "Defier's Thorn"
+      "Freeze Frame"
     ],
     "start_date": "2026-06-08 10:00",
     "end_date": "2026-07-09 11:59",
     "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
     "announcement_date": "2026-05-29",
-    "status": "official"
-  },
-  "next": {
-    "version": "3.4",
-    "phase": "Phase 1",
-    "banner_type": "character",
-    "banner_name": "Version 3.4 The Dream Not Dreamed",
-    "featured_characters": [
+    "status": "official",
+    "phase_featured_characters": [
       "Lucy",
       "Rebecca",
       "Lucilla",
       "Cartethyia"
     ],
-    "featured_weapons": [
+    "phase_featured_weapons": [
       "Spectral Trigger",
       "Skull Thrasher",
       "Freeze Frame",
       "Defier's Thorn"
+    ]
+  },
+  "next": {
+    "version": "3.4",
+    "phase": "Phase 1 June 18 checkpoint",
+    "banner_type": "subphase",
+    "banner_name": "Version 3.4 Cartethyia Checkpoint",
+    "featured_characters": [
+      "Cartethyia"
     ],
-    "start_date": "2026-06-08 10:00",
+    "featured_weapons": [
+      "Defier's Thorn"
+    ],
+    "start_date": "2026-06-18 10:00",
     "end_date": "2026-07-09 11:59",
     "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
     "announcement_date": "2026-05-29",
-    "status": "official"
+    "status": "official",
+    "is_subphase": true
   },
   "history": [
     {
