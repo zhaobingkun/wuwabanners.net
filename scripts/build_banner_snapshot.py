@@ -32,6 +32,9 @@ SITEMAP_XML = ROOT / "sitemap.xml"
 BANNERS_HUB_HTML = ROOT / "banners" / "index.html"
 GUIDES_HUB_HTML = ROOT / "guides" / "index.html"
 CHARACTERS_HUB_HTML = ROOT / "wuthering-waves-characters" / "index.html"
+ASSET_VERSION = "20260617-pd"
+CSS_HREF = f"/assets/css/site.css?v={ASSET_VERSION}"
+JS_SRC = f"/assets/js/site.js?v={ASSET_VERSION}"
 
 GTAG_SNIPPET = """<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C73K15FD00"></script>
@@ -571,7 +574,47 @@ def build_home_media(updated: str) -> str:
 
 
 def build_home_update(updated: str) -> str:
-    return f'        <p class="update-stamp">Snapshot updated for {fmt_human_date(updated + " 00:00")}. Current and next banner values should be rechecked against official notices and in-game Convene at every phase change.</p>'
+    return f'        <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}. Recheck official notices and in-game Convene at every phase change.</p>'
+
+
+def render_status_strip(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    current_focus = ", ".join(current["featured_characters"])
+    next_focus = next_character_copy(next_item) if has_distinct_next(snapshot) else "Pending official reveal"
+    next_date = phase_event_label(next_item) if has_distinct_next(snapshot) else "TBA"
+    updated = fmt_human_date(snapshot["updated"] + " 00:00")
+    return f"""    <div class="status-strip" aria-label="Current and next banner status">
+      <a class="status-tile" href="/wuthering-waves-current-banner/"><span>Current</span><strong>{html.escape(current_focus)}</strong></a>
+      <a class="status-tile" href="/wuthering-waves-current-banner-end-date/"><span>Ends</span><strong>{fmt_human_date(current["end_date"])}</strong></a>
+      <a class="status-tile" href="/wuthering-waves-next-banner/"><span>Next</span><strong>{html.escape(next_focus)}</strong></a>
+      <a class="status-tile" href="/wuthering-waves-banner-schedule/"><span>Snapshot</span><strong>{updated}</strong></a>
+    </div>"""
+
+
+def render_quick_actions(kind: str = "banner") -> str:
+    if kind == "pull":
+        links = [
+            ("Spend now", "/wuthering-waves-current-banner/"),
+            ("Save target", "/wuthering-waves-next-banner/"),
+            ("Pity check", "/wuthering-waves-pity-system/"),
+            ("Rerun watch", "/wuthering-waves-next-rerun/"),
+        ]
+    else:
+        links = [
+            ("Current", "/wuthering-waves-current-banner/"),
+            ("Next", "/wuthering-waves-next-banner/"),
+            ("Countdown", "/wuthering-waves-banner-countdown/"),
+            ("Pull advice", "/pull-advice/"),
+        ]
+    items = "\n".join(f'      <a href="{href}">{label}</a>' for label, href in links)
+    return f"""    <nav class="quick-actions" aria-label="Fast banner actions">
+{items}
+    </nav>"""
+
+
+def build_home_status(snapshot: dict[str, object]) -> str:
+    return render_status_strip(snapshot)
 
 
 def build_home_timeline(snapshot: dict[str, object]) -> str:
@@ -654,7 +697,9 @@ def build_next_intro(snapshot: dict[str, object]) -> str:
       <div class="answer-box"><strong>Direct answer:</strong> The current banner ends on {fmt_human_date(current["end_date"])}. The next banner features {", ".join(next_item["featured_characters"])} and starts on {fmt_human_date(next_item["start_date"])}.</div>"""
         )
     return f"""{answer}
-      <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
+{render_status_strip(snapshot)}
+{render_quick_actions()}
+      <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
 def build_next_media(snapshot: dict[str, object]) -> str:
@@ -803,7 +848,9 @@ def build_current_intro(snapshot: dict[str, object]) -> str:
         subphase_copy = f" The next same-version checkpoint is {', '.join(next_item['featured_characters'])} with {', '.join(next_item['featured_weapons'])} on {fmt_human_date(next_item['start_date'])}."
     return f"""    <p class="lead">The WuWa current banner now is {current["banner_name"]}. The featured characters live today are {", ".join(current["featured_characters"])}, and the banner ends on {fmt_human_date(current["end_date"])}.</p>
     <div class="answer-box"><strong>Direct answer:</strong> The current WuWa banner features {", ".join(current["featured_characters"])} with weapon focus {", ".join(current["featured_weapons"])}. It runs from {fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}.{subphase_copy}</div>
-    <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
+{render_status_strip(snapshot)}
+{render_quick_actions()}
+    <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
 def build_current_media(snapshot: dict[str, object]) -> str:
@@ -1130,7 +1177,7 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
   <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="{CSS_HREF}">
   <script type="application/ld+json">
 {faq_json}
   </script>
@@ -1206,7 +1253,7 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
       </div>
     </section>
   </div></main>
-  <script defer src="/assets/js/site.js"></script>
+  <script defer src="{JS_SRC}"></script>
 {GTAG_SNIPPET}
 </body>
 </html>
@@ -1284,7 +1331,9 @@ def build_countdown_intro(snapshot: dict[str, object]) -> str:
         next_context = f"the next tracked phase is {next_item['banner_name']}"
     return f"""    <p class="lead">This page answers the WuWa banner countdown question first: when the live {", ".join(current["featured_characters"])} phase ends, and what {next_context}.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {answer_copy}</div>
-    <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
+{render_status_strip(snapshot)}
+{render_quick_actions()}
+    <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
 def build_countdown_media(snapshot: dict[str, object]) -> str:
@@ -1443,7 +1492,9 @@ def build_pull_intro(snapshot: dict[str, object], pull_pages: list[dict[str, str
         answer_copy = "Start with a current-phase page if you are deciding whether to spend now. Start with the next-banner page if you are deciding whether to save."
     return f"""    <p class="lead">This hub is where banner facts turn into player decisions. Right now the tracked pull set covers {len(pull_pages)} featured characters across the live {current["banner_name"]} phase {next_copy}.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {answer_copy} Before pulling, compare the current deadline, next checkpoint, rerun watch, weapon pressure, and pity state.</div>
-    <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
+{render_status_strip(snapshot)}
+{render_quick_actions("pull")}
+    <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
 def build_pull_grid(snapshot: dict[str, object]) -> str:
@@ -2650,7 +2701,7 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
   <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="{CSS_HREF}">
   <script type="application/ld+json">
 {faq_json}
   </script>
@@ -2687,7 +2738,7 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
 {build_support_sources(page, snapshot["updated"])}
     </section>
   </div></main>
-  <script defer src="/assets/js/site.js"></script>
+  <script defer src="{JS_SRC}"></script>
 {GTAG_SNIPPET}
 </body>
 </html>
@@ -2766,7 +2817,7 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
   <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="{CSS_HREF}">
   <script type="application/ld+json">
 {faq_json}
   </script>
@@ -2787,7 +2838,7 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
 {build_character_sources(page, snapshot["updated"])}
     </section>
   </div></main>
-  <script defer src="/assets/js/site.js"></script>
+  <script defer src="{JS_SRC}"></script>
 {GTAG_SNIPPET}
 </body>
 </html>
@@ -3024,7 +3075,7 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
   <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="{CSS_HREF}">
   <script type="application/ld+json">
 {faq_json}
   </script>
@@ -3108,7 +3159,7 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
       </div>
     </section>
   </div></main>
-  <script defer src="/assets/js/site.js"></script>
+  <script defer src="{JS_SRC}"></script>
 {GTAG_SNIPPET}
 </body>
 </html>
@@ -3205,7 +3256,7 @@ def render_standard_page(
   <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="{CSS_HREF}">
   <script type="application/ld+json">
 {faq_json}
   </script>
@@ -3225,7 +3276,7 @@ def render_standard_page(
       </div>
     </section>
   </div></main>
-<script defer src="/assets/js/site.js"></script>
+<script defer src="{JS_SRC}"></script>
 {GTAG_SNIPPET}
 </body>
 </html>
@@ -3535,6 +3586,8 @@ def render_banner_schedule_page(snapshot: dict[str, object]) -> str:
         next_timing_copy = next_event_copy(next_item)
     body = "\n".join(
         [
+            render_status_strip(snapshot),
+            render_quick_actions(),
             """    <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art">
         <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner schedule snapshot." width="1200" height="675" decoding="async">
@@ -3770,7 +3823,7 @@ def render_characters_hub_page(snapshot: dict[str, object]) -> str:
   <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="{CSS_HREF}">
   <script type="application/ld+json">
 {faq_json}
   </script>
@@ -3875,7 +3928,7 @@ def render_characters_hub_page(snapshot: dict[str, object]) -> str:
       </div>
     </section>
   </div></main>
-<script defer src="/assets/js/site.js"></script>
+<script defer src="{JS_SRC}"></script>
 {GTAG_SNIPPET}
 </body>
 </html>
@@ -4119,6 +4172,7 @@ def update_pages(snapshot: dict[str, object]) -> None:
     legacy_slugs = discover_legacy_guide_slugs(snapshot)
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
+    index_text = replace_block_exact(index_text, "HOME_STATUS", build_home_status(snapshot))
     index_text = replace_block_exact(index_text, "HOME_TIMELINE", build_home_timeline(snapshot))
     index_text = replace_block_exact(index_text, "HOME_MEDIA", build_home_media(snapshot["updated"]))
     index_text = replace_block_exact(index_text, "HOME_UPDATE", build_home_update(snapshot["updated"]))

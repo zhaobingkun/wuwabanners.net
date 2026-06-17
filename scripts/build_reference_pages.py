@@ -8,6 +8,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA_JSON = ROOT / "data" / "reference-images.json"
 SITEMAP_XML = ROOT / "sitemap.xml"
+ASSET_VERSION = "20260617-pd"
+CSS_HREF = f"/assets/css/site.css?v={ASSET_VERSION}"
+JS_SRC = f"/assets/js/site.js?v={ASSET_VERSION}"
 
 GTAG_SNIPPET = """<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C73K15FD00"></script>
@@ -207,7 +210,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
   <meta name="twitter:image" content="https://wuwabanners.net{src}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {FONT_PRELOAD_BLOCK}
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="{CSS_HREF}">
 </head>
 <body>
   {NAV}
@@ -296,7 +299,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
       </div>
     </section>
   </div></main>
-  <script defer src="/assets/js/site.js"></script>
+  <script defer src="{JS_SRC}"></script>
 {GTAG_SNIPPET}
 </body>
 </html>

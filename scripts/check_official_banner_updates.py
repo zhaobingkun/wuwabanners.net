@@ -123,6 +123,21 @@ def strip_html(value: str) -> str:
     return re.sub(r"\s+", " ", unescape(value)).strip()
 
 
+def normalize_version_markers(value: str) -> str:
+    return value.translate(
+        str.maketrans(
+            {
+                "．": ".",
+                "。": ".",
+                "｡": ".",
+                "·": ".",
+                "•": ".",
+                "ꓸ": ".",
+            }
+        )
+    )
+
+
 def fetch_url(url: str, timeout: int) -> FetchResult:
     request = Request(
         url,
@@ -183,7 +198,16 @@ def fetch_url_with_curl(url: str, timeout: int, previous_error: str) -> FetchRes
 
 
 def detect_versions(text: str) -> list[str]:
-    matches = re.findall(r"version\s+(\d+\.\d+)", text, flags=re.I)
+    text = normalize_version_markers(text)
+    patterns = [
+        r"version\s+(\d+\.\d+)",
+        r"#?\s*wuthering\s*waves\s*(\d+\.\d+)",
+        r"#?\s*wutheringwaves\s*(\d+\.\d+)",
+        r"#?\s*wuwa\s*(\d+\.\d+)",
+    ]
+    matches: list[str] = []
+    for pattern in patterns:
+        matches.extend(re.findall(pattern, text, flags=re.I))
     seen: list[str] = []
     for match in matches:
         if match not in seen:

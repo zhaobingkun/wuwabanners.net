@@ -276,6 +276,83 @@ h1 {
   font-size: 0.95rem;
 }
 
+.status-strip,
+.quick-actions {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.status-strip {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 1.05rem 0;
+}
+
+.status-tile,
+.quick-actions a {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  border-radius: var(--radius);
+  border: 1px solid rgba(155, 179, 213, 0.2);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 50%),
+    rgba(13, 18, 29, 0.84);
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+}
+
+.status-tile {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.8rem 0.85rem;
+  color: var(--ink);
+}
+
+.status-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--gold));
+}
+
+.status-tile:hover,
+.quick-actions a:hover {
+  text-decoration: none;
+  border-color: rgba(95, 240, 223, 0.36);
+  background:
+    linear-gradient(180deg, rgba(95, 240, 223, 0.08), transparent 58%),
+    rgba(16, 23, 35, 0.94);
+}
+
+.status-tile span {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-tile strong {
+  color: var(--text);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.quick-actions {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0.85rem 0 1rem;
+}
+
+.quick-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.7rem 0.85rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
 .panel,
 .card,
 .faq-item,
@@ -1214,10 +1291,44 @@ tbody tr:hover {
   .nav {
     align-items: flex-start;
     flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.62rem 0;
+  }
+
+  .brand {
+    gap: 0.7rem;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    flex-basis: 36px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .nav-links {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    gap: 0.35rem;
+  }
+
+  .nav-links a {
+    min-height: 38px;
+    padding: 0.44rem 0.35rem;
+    text-align: center;
+  }
+
+  .nav-links a:nth-child(n+4):not(:last-child) {
+    display: none;
   }
 
   .hero {
-    padding-top: 3.4rem;
+    padding-top: 2.1rem;
   }
 
   h1 {
@@ -1246,6 +1357,19 @@ tbody tr:hover {
     display: grid;
   }
 
+  .status-strip,
+  .quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .status-strip {
+    margin: 0.95rem 0 0.85rem;
+  }
+
+  .status-tile {
+    padding: 0.78rem 0.8rem;
+  }
+
   .btn,
   .pill,
   .directory-link {
@@ -1255,6 +1379,58 @@ tbody tr:hover {
   .scoreboard,
   .mini-stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  table.has-mobile-labels {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    border-collapse: separate;
+  }
+
+  table.has-mobile-labels thead {
+    display: none;
+  }
+
+  table.has-mobile-labels tbody {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  table.has-mobile-labels tr {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(18, 25, 37, 0.9);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+  }
+
+  table.has-mobile-labels td {
+    display: grid;
+    grid-template-columns: minmax(6.8rem, 0.45fr) minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 0.72rem 0.85rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  table.has-mobile-labels td:last-child {
+    border-bottom: 0;
+  }
+
+  table.has-mobile-labels td::before {
+    content: attr(data-label);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .table-wrap:has(table.has-mobile-labels) {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
   }
 }
 

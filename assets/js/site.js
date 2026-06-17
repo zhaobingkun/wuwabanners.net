@@ -92,6 +92,28 @@ function highlightCurrentNav() {
   }
 }
 
+function labelResponsiveTables() {
+  const tables = Array.from(document.querySelectorAll(".table-wrap table"));
+  tables.forEach((table) => {
+    const headers = Array.from(table.querySelectorAll("thead th")).map((header) =>
+      header.textContent.trim().replace(/\s+/g, " ")
+    );
+    if (!headers.length) {
+      return;
+    }
+
+    table.querySelectorAll("tbody tr").forEach((row) => {
+      Array.from(row.children).forEach((cell, index) => {
+        const label = headers[index];
+        if (label) {
+          cell.setAttribute("data-label", label);
+        }
+      });
+    });
+    table.classList.add("has-mobile-labels");
+  });
+}
+
 document.addEventListener("click", (event) => {
   const trigger = event.target.closest(".video-lite");
   if (!trigger) {
@@ -227,6 +249,7 @@ async function loadReferenceDirectories() {
 
 window.addEventListener("DOMContentLoaded", () => {
   highlightCurrentNav();
+  labelResponsiveTables();
   loadReferenceImages();
   loadReferenceDirectories();
 });

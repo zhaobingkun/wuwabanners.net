@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T11:06:00",
+  "generated_at": "2026-06-17T21:58:03",
   "csv_path": "data/banner-data.csv",
   "row_checks": [
     {
@@ -12,7 +12,7 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
       "last_checked": "2026-06-13",
-      "age_days": 2,
+      "age_days": 4,
       "needs_review": false,
       "reasons": []
     },
@@ -26,7 +26,7 @@
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
       "last_checked": "2026-06-13",
-      "age_days": 2,
+      "age_days": 4,
       "needs_review": false,
       "reasons": []
     },
@@ -40,11 +40,12 @@
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "source_type": "secondary_media",
       "last_checked": "2026-05-19",
-      "age_days": 27,
+      "age_days": 29,
       "needs_review": true,
       "reasons": [
-        "last_checked is 27 days old",
-        "source_type is secondary_media"
+        "last_checked is 29 days old",
+        "source_type is secondary_media",
+        "source fetch failed: fetch-failed"
       ]
     },
     {
@@ -57,7 +58,7 @@
       "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
       "source_type": "official_social",
       "last_checked": "2026-06-13",
-      "age_days": 2,
+      "age_days": 4,
       "needs_review": false,
       "reasons": []
     },
@@ -71,7 +72,7 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
       "last_checked": "2026-06-13",
-      "age_days": 2,
+      "age_days": 4,
       "needs_review": false,
       "reasons": []
     },
@@ -85,7 +86,7 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-13",
-      "age_days": 2,
+      "age_days": 4,
       "needs_review": false,
       "reasons": []
     },
@@ -99,7 +100,7 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-13",
-      "age_days": 2,
+      "age_days": 4,
       "needs_review": false,
       "reasons": []
     },
@@ -113,7 +114,7 @@
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
       "last_checked": "2026-06-13",
-      "age_days": 2,
+      "age_days": 4,
       "needs_review": false,
       "reasons": []
     }
@@ -146,16 +147,12 @@
     },
     {
       "url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
-      "fetch_ok": true,
-      "status": "curl-ok",
-      "term_hits": [
-        "3.3"
-      ],
-      "version_hits": [
-        "3.4"
-      ],
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
       "notes": [
-        "Fetched page did not clearly expose the current version string."
+        "URLError: <urlopen error _ssl.c:1003: The handshake operation timed out>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 28."
       ]
     },
     {
@@ -262,22 +259,29 @@
         "version"
       ],
       "matched_names": [
-        "Freeze Frame",
+        "Defier's Thorn",
         "Lucilla",
         "Lucy",
         "Rebecca"
       ],
       "version_hits": [
-        "3.4"
+        "3.4",
+        "3.5"
       ],
-      "suggested_new_versions": [],
-      "notes": []
+      "suggested_new_versions": [
+        "3.5"
+      ],
+      "notes": [
+        "Found possible newer version references: 3.5"
+      ]
     }
   ],
   "summary": {
     "rows_checked": 8,
     "rows_needing_review": 1,
-    "failed_source_fetches": 0,
-    "possible_new_versions": []
+    "failed_source_fetches": 1,
+    "possible_new_versions": [
+      "3.5"
+    ]
   }
 }
