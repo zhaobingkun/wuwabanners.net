@@ -11,8 +11,8 @@
   <rect x="50" y="50" width="1100" height="575" rx="34" fill="url(#bg)"/>
   <text x="95" y="150" fill="#dff5f1" font-family="Space Grotesk, Arial, sans-serif" font-size="34" font-weight="700">CURRENT BANNER</text>
   <text x="95" y="245" fill="#ffffff" font-family="Space Grotesk, Arial, sans-serif" font-size="64" font-weight="700">Version 3.4 The Dream Not Dreamed</text>
-  <text x="95" y="325" fill="#ffffff" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34">Lucy, Rebecca, Lucilla</text>
-  <text x="95" y="380" fill="#ffffff" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34">Weapons: Spectral Trigger, Skull Thrasher, Freeze Frame</text>
+  <text x="95" y="325" fill="#ffffff" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34">Lucy, Rebecca, Lucilla, Cartethyia</text>
+  <text x="95" y="380" fill="#ffffff" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34">Weapons: Spectral Trigger, Skull Thrasher, Freeze Frame, Defier&#x27;s Thorn</text>
   <text x="95" y="435" fill="#ffffff" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34">July 9, 2026 end date</text>
   <text x="95" y="585" fill="#dff5f1" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24">Refresh from banner-data.csv before publishing banner updates.</text>
 </svg>

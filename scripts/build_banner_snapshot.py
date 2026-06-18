@@ -553,6 +553,25 @@ def replace_block_exact(text: str, name: str, inner: str) -> str:
     return new_text
 
 
+def replace_meta_description(text: str, description: str) -> str:
+    safe_description = html.escape(description, quote=True)
+    replacements = [
+        (
+            r'(<meta name="description" content=")[^"]*(">)',
+            rf"\g<1>{safe_description}\2",
+        ),
+        (
+            r'(<meta name="twitter:description" content=")[^"]*(">)',
+            rf"\g<1>{safe_description}\2",
+        ),
+    ]
+    for pattern, replacement in replacements:
+        text, count = re.subn(pattern, replacement, text, count=1)
+        if count != 1:
+            raise RuntimeError("Failed to replace meta description")
+    return text
+
+
 def slugify_character(name: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
     if not slug:
@@ -575,6 +594,24 @@ def build_home_media(updated: str) -> str:
 
 def build_home_update(updated: str) -> str:
     return f'        <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}. Recheck official notices and in-game Convene at every phase change.</p>'
+
+
+def build_home_lead(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    if has_distinct_next(snapshot):
+        next_item = snapshot["next"]
+        next_copy = (
+            f"{next_character_copy(next_item)} is the next tracked checkpoint"
+            if is_subphase(next_item)
+            else f"{next_item['banner_name']} is the next tracked banner update"
+        )
+    else:
+        next_copy = "the post-current banner lineup is still pending official reveal"
+    return (
+        f'The current Wuthering Waves banner features {", ".join(current["featured_characters"])} '
+        f'through {fmt_human_date(current["end_date"])}; {next_copy}. '
+        "Use the next banner watch page, countdown, rerun, and pity pages before spending Astrite."
+    )
 
 
 def render_status_strip(snapshot: dict[str, object]) -> str:
@@ -851,6 +888,20 @@ def build_current_intro(snapshot: dict[str, object]) -> str:
 {render_status_strip(snapshot)}
 {render_quick_actions()}
     <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}.</p>"""
+
+
+def build_current_description(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_copy = (
+        "next official reveal"
+        if not has_distinct_next(snapshot)
+        else f"{next_character_copy(snapshot['next'])} comparison"
+    )
+    return (
+        f"Check the WuWa current banner now, including {', '.join(current['featured_characters'])}, "
+        f"weapon focus, {fmt_human_date(current['end_date'])} end date, {next_copy}, countdown, "
+        "and pull-or-save advice."
+    )
 
 
 def build_current_media(snapshot: dict[str, object]) -> str:
@@ -4172,6 +4223,15 @@ def update_pages(snapshot: dict[str, object]) -> None:
     legacy_slugs = discover_legacy_guide_slugs(snapshot)
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
+    index_text, lead_count = re.subn(
+        r'(<h1>WuWa current banner, next banner, countdown, and pull advice\.</h1>\s*)<p class="lead">.*?</p>',
+        rf'\1<p class="lead">{html.escape(build_home_lead(snapshot))}</p>',
+        index_text,
+        count=1,
+        flags=re.S,
+    )
+    if lead_count != 1:
+        raise RuntimeError("Failed to replace homepage hero lead")
     index_text = replace_block_exact(index_text, "HOME_STATUS", build_home_status(snapshot))
     index_text = replace_block_exact(index_text, "HOME_TIMELINE", build_home_timeline(snapshot))
     index_text = replace_block_exact(index_text, "HOME_MEDIA", build_home_media(snapshot["updated"]))
@@ -4205,6 +4265,7 @@ def update_pages(snapshot: dict[str, object]) -> None:
     NEXT_HTML.write_text(next_text, encoding="utf-8")
 
     current_text = CURRENT_HTML.read_text(encoding="utf-8")
+    current_text = replace_meta_description(current_text, build_current_description(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_INTRO", build_current_intro(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_MEDIA", build_current_media(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_CARDS", build_current_cards(snapshot))
