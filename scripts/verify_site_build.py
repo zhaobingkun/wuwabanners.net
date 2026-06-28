@@ -38,6 +38,16 @@ def require_text(path: Path, needles: list[str], failures: list[str]) -> None:
             failures.append(f"{path.relative_to(ROOT)} is missing expected text: {needle}")
 
 
+def require_absent_text(path: Path, needles: list[str], failures: list[str]) -> None:
+    if not path.exists():
+        failures.append(f"Missing page for absence check: {path.relative_to(ROOT)}")
+        return
+    text = path.read_text(encoding="utf-8")
+    for needle in needles:
+        if needle in text:
+            failures.append(f"{path.relative_to(ROOT)} should not contain: {needle}")
+
+
 def require_sitemap_urls(urls: list[str], failures: list[str]) -> None:
     if not SITEMAP_XML.exists():
         failures.append("Missing sitemap.xml")
@@ -184,6 +194,7 @@ def main() -> int:
             first_entry = entries[0]
             entry_page = ROOT / f"wuthering-waves-{branch}" / first_entry["slug"] / "index.html"
             require_file(entry_page, failures)
+            require_absent_text(entry_page, ['<meta name="robots" content="noindex,follow">'], failures)
 
     key_urls = [
         "https://wuwabanners.net/",
@@ -198,6 +209,15 @@ def main() -> int:
         "https://wuwabanners.net/wuthering-waves-items/",
     ]
     require_sitemap_urls(key_urls, failures)
+
+    reference_sample_urls = []
+    for branch in ("characters", "weapons", "items"):
+        entries = references.get(branch, [])
+        if entries:
+            reference_sample_urls.append(
+                f"https://wuwabanners.net/wuthering-waves-{branch}/{entries[0]['slug']}/"
+            )
+    require_sitemap_urls(reference_sample_urls, failures)
 
     # Warnings only: note secondary sources that should be replaced later.
     trusted_domains = (

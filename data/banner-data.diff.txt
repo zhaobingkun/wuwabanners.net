@@ -1,6 +1,6 @@
 WuWa Banners Candidate CSV Diff
-Generated at: 2026-06-18T11:54:28
-Candidate date: 2026-06-18
+Generated at: 2026-06-28T22:50:05
+Candidate date: 2026-06-28
 
 What this file means
 - This is not the live CSV.
@@ -8,23 +8,25 @@ What this file means
 - Anything involving lineup, dates, source_url, source_type, or new versions still needs manual review.
 
 Automatic candidate updates applied
-- ww-3.2-phase-2-character: last_checked 2026-06-13 -> 2026-06-18
-- ww-3.3-phase-1-character: last_checked 2026-06-13 -> 2026-06-18
-- ww-3.3-phase-2-character: last_checked 2026-06-13 -> 2026-06-18
-- ww-3.3-phase-2-weapon: last_checked 2026-06-13 -> 2026-06-18
-- ww-3.4-phase-1-character: last_checked 2026-06-13 -> 2026-06-18
-- ww-3.4-phase-1-weapon: last_checked 2026-06-13 -> 2026-06-18
-- ww-3.4-phase-1-preview: last_checked 2026-06-13 -> 2026-06-18
+- ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-28
+- ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-28
+- ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-28
+- ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-28
+- ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-28
+- ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-28
+- ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-28
 
 Rows that still need manual review
 - ww-3.3-phase-1-weapon (Version 3.3 Phase 1 Weapons)
   - Current source: https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/
-  - last_checked is 30 days old
+  - last_checked is 40 days old
   - source_type is secondary_media
+  - source page did not clearly match expected banner names
+  - Fetched page did not contain the expected banner or unit names.
   - Fetched page did not clearly expose the current version string.
 
 Possible new version signals from feed checks
-- dearplayers_updates: 3.5
+- dearplayers_updates: 3.0, 3.5
 
 Recommended next steps
 1. Open data/banner-data.diff.txt and read only the rows listed under manual review.

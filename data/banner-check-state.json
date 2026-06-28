@@ -1,10 +1,11 @@
 {
-  "report_generated_at": "2026-06-18T11:54:01",
+  "report_generated_at": "2026-06-28T22:49:36",
   "summary": {
     "rows_checked": 8,
-    "rows_needing_review": 1,
+    "rows_needing_review": 8,
     "failed_source_fetches": 0,
     "possible_new_versions": [
+      "3.0",
       "3.5"
     ]
   },
@@ -16,8 +17,10 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
-      "needs_review": false,
-      "reasons": []
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     "ww-3.3-phase-1-character": {
       "banner_name": "Version 3.3 Phase 1",
@@ -26,8 +29,10 @@
       "status": "official",
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
-      "needs_review": false,
-      "reasons": []
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     "ww-3.3-phase-1-weapon": {
       "banner_name": "Version 3.3 Phase 1 Weapons",
@@ -38,7 +43,8 @@
       "source_type": "secondary_media",
       "needs_review": true,
       "reasons": [
-        "last_checked is 30 days old",
+        "last_checked is 40 days old",
+        "source page did not clearly match expected banner names",
         "source_type is secondary_media"
       ]
     },
@@ -49,8 +55,10 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
       "source_type": "official_social",
-      "needs_review": false,
-      "reasons": []
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     "ww-3.3-phase-2-weapon": {
       "banner_name": "Version 3.3 Phase 2 Weapons",
@@ -59,8 +67,10 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
-      "needs_review": false,
-      "reasons": []
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     "ww-3.4-phase-1-character": {
       "banner_name": "Version 3.4 The Dream Not Dreamed",
@@ -69,8 +79,10 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
-      "needs_review": false,
-      "reasons": []
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     "ww-3.4-phase-1-weapon": {
       "banner_name": "Version 3.4 The Dream Not Dreamed Weapons",
@@ -79,8 +91,10 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
-      "needs_review": false,
-      "reasons": []
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     "ww-3.4-phase-1-preview": {
       "banner_name": "Version 3.4 Preview",
@@ -89,8 +103,10 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
-      "needs_review": false,
-      "reasons": []
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     }
   },
   "sources": {
@@ -120,14 +136,11 @@
     "ww-3.3-phase-1-weapon": {
       "fetch_ok": true,
       "status": "curl-ok",
-      "term_hits": [
-        "3.3"
-      ],
-      "version_hits": [
-        "3.4"
-      ],
+      "term_hits": [],
+      "version_hits": [],
       "notes": [
-        "Fetched page did not clearly expose the current version string."
+        "Fetched page did not clearly expose the current version string.",
+        "Fetched page did not contain the expected banner or unit names."
       ]
     },
     "ww-3.3-phase-2-character": {
@@ -213,25 +226,26 @@
       "fetch_ok": true,
       "status": "curl-ok",
       "version_hits": [
-        "3.4",
+        "3.0",
         "3.5"
       ],
       "suggested_new_versions": [
+        "3.0",
         "3.5"
       ],
       "notes": [
-        "Found possible newer version references: 3.5"
+        "Found possible newer version references: 3.0, 3.5"
       ]
     }
   },
   "auto_updates": [
-    "ww-3.2-phase-2-character: last_checked 2026-06-13 -> 2026-06-18",
-    "ww-3.3-phase-1-character: last_checked 2026-06-13 -> 2026-06-18",
-    "ww-3.3-phase-2-character: last_checked 2026-06-13 -> 2026-06-18",
-    "ww-3.3-phase-2-weapon: last_checked 2026-06-13 -> 2026-06-18",
-    "ww-3.4-phase-1-character: last_checked 2026-06-13 -> 2026-06-18",
-    "ww-3.4-phase-1-weapon: last_checked 2026-06-13 -> 2026-06-18",
-    "ww-3.4-phase-1-preview: last_checked 2026-06-13 -> 2026-06-18"
+    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-28",
+    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-28",
+    "ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-28",
+    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-28",
+    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-28",
+    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-28",
+    "ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-28"
   ],
   "manual_review_ids": [
     "ww-3.3-phase-1-weapon"

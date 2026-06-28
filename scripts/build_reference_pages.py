@@ -171,7 +171,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
     singular = "Character" if kind == "characters" else label[:-1]
     title = f"Wuthering Waves {name} {singular} | WuWa Banners"
     description = f"Browse the Wuthering Waves {name} {singular.lower()} detail page with a clear image, related planning links, and a clean browser-first layout."
-    robots_meta = "" if kind == "characters" else '\n  <meta name="robots" content="noindex,follow">'
+    robots_meta = ""
     previous_entry, next_entry = get_neighbor_entries(entries, slug)
     neighbor_cards = render_neighbor_cards(kind, previous_entry, next_entry)
     context_title, context_copy, context_links = get_detail_context(kind, name)

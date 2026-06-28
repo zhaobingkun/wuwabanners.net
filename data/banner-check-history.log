@@ -590,3 +590,309 @@ report_generated_at=2026-06-18T11:54:01
 summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:0,possible_new_versions:3.5
 - No significant change compared with the previous run.
 
+[2026-06-19T12:00:20] CHANGED
+report_generated_at=2026-06-19T11:59:54
+summary=rows_checked:8,rows_needing_review:4,failed_source_fetches:3,possible_new_versions:3.5
+- Summary changed: rows_needing_review: 1 -> 4
+- Summary changed: failed_source_fetches: 0 -> 3
+- ww-3.2-phase-2-character: needs_review changed: False -> True
+- ww-3.2-phase-2-character: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.3-phase-1-character: needs_review changed: False -> True
+- ww-3.3-phase-1-character: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 31 days old. Removed: last_checked is 30 days old
+- ww-3.3-phase-2-character: needs_review changed: False -> True
+- ww-3.3-phase-2-character: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.2-phase-2-character: source probe fetch_ok changed: True -> False
+- ww-3.2-phase-2-character: source probe status changed: curl-ok -> fetch-failed
+- ww-3.2-phase-2-character: source probe term_hits changed: ['3.2'] -> []
+- ww-3.2-phase-2-character: source probe version_hits changed: ['3.2'] -> []
+- ww-3.3-phase-1-character: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-1-character: source probe status changed: curl-ok -> fetch-failed
+- ww-3.3-phase-1-character: source probe term_hits changed: ['3.3', 'Hiyuki'] -> []
+- ww-3.3-phase-1-character: source probe version_hits changed: ['3.3'] -> []
+- ww-3.3-phase-2-character: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-2-character: source probe status changed: curl-ok -> fetch-failed
+- ww-3.3-phase-2-character: source probe term_hits changed: ['Chisa', 'Denia', 'Phrolova'] -> []
+- Automatic candidate updates changed. Added: ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-19, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-19, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-19, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-19. Removed: ww-3.2-phase-2-character: last_checked 2026-06-13 -> 2026-06-18, ww-3.3-phase-1-character: last_checked 2026-06-13 -> 2026-06-18, ww-3.3-phase-2-character: last_checked 2026-06-13 -> 2026-06-18, ww-3.3-phase-2-weapon: last_checked 2026-06-13 -> 2026-06-18, ww-3.4-phase-1-character: last_checked 2026-06-13 -> 2026-06-18, ww-3.4-phase-1-preview: last_checked 2026-06-13 -> 2026-06-18, ww-3.4-phase-1-weapon: last_checked 2026-06-13 -> 2026-06-18
+- Manual review rows changed. Added: ww-3.2-phase-2-character, ww-3.3-phase-1-character, ww-3.3-phase-2-character. Removed: none
+
+[2026-06-19T21:20:20] CHANGED
+report_generated_at=2026-06-19T21:19:37
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:1,possible_new_versions:3.5
+- Summary changed: rows_needing_review: 4 -> 1
+- Summary changed: failed_source_fetches: 3 -> 1
+- ww-3.2-phase-2-character: needs_review changed: True -> False
+- ww-3.2-phase-2-character: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-1-character: needs_review changed: True -> False
+- ww-3.3-phase-1-character: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-1-weapon: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.3-phase-2-character: needs_review changed: True -> False
+- ww-3.3-phase-2-character: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.2-phase-2-character: source probe fetch_ok changed: False -> True
+- ww-3.2-phase-2-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.2-phase-2-character: source probe term_hits changed: [] -> ['3.2']
+- ww-3.2-phase-2-character: source probe version_hits changed: [] -> ['3.2']
+- ww-3.3-phase-1-character: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-1-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-1-character: source probe term_hits changed: [] -> ['3.3', 'Hiyuki']
+- ww-3.3-phase-1-character: source probe version_hits changed: [] -> ['3.3']
+- ww-3.3-phase-1-weapon: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-1-weapon: source probe status changed: curl-ok -> fetch-failed
+- ww-3.3-phase-1-weapon: source probe term_hits changed: ['3.3'] -> []
+- ww-3.3-phase-1-weapon: source probe version_hits changed: ['3.4'] -> []
+- ww-3.3-phase-2-character: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-2-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-2-character: source probe term_hits changed: [] -> ['Chisa', 'Denia', 'Phrolova']
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-19, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-19, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-19. Removed: none
+- Manual review rows changed. Added: none. Removed: ww-3.2-phase-2-character, ww-3.3-phase-1-character, ww-3.3-phase-2-character
+
+[2026-06-20T11:18:40] CHANGED
+report_generated_at=2026-06-20T11:18:13
+summary=rows_checked:8,rows_needing_review:2,failed_source_fetches:1,possible_new_versions:3.5
+- Summary changed: rows_needing_review: 1 -> 2
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 32 days old. Removed: last_checked is 31 days old, source fetch failed: fetch-failed
+- ww-3.4-phase-1-preview: needs_review changed: False -> True
+- ww-3.4-phase-1-preview: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.3-phase-1-weapon: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-1-weapon: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-1-weapon: source probe term_hits changed: [] -> ['3.3']
+- ww-3.3-phase-1-weapon: source probe version_hits changed: [] -> ['3.4']
+- ww-3.4-phase-1-preview: source probe fetch_ok changed: True -> False
+- ww-3.4-phase-1-preview: source probe status changed: curl-ok -> fetch-failed
+- ww-3.4-phase-1-preview: source probe term_hits changed: ['3.4', 'Version 3.4 Preview'] -> []
+- ww-3.4-phase-1-preview: source probe version_hits changed: ['3.4'] -> []
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-20, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-20, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-20, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-20, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-20, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-20. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-19, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-19, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-19, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-19, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-19, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-19, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-19
+- Manual review rows changed. Added: ww-3.4-phase-1-preview. Removed: none
+
+[2026-06-20T19:24:48] CHANGED
+report_generated_at=2026-06-20T19:24:22
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:1,possible_new_versions:3.5
+- Summary changed: rows_needing_review: 2 -> 1
+- ww-3.3-phase-1-weapon: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.4-phase-1-preview: needs_review changed: True -> False
+- ww-3.4-phase-1-preview: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-1-weapon: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-1-weapon: source probe status changed: curl-ok -> fetch-failed
+- ww-3.3-phase-1-weapon: source probe term_hits changed: ['3.3'] -> []
+- ww-3.3-phase-1-weapon: source probe version_hits changed: ['3.4'] -> []
+- ww-3.4-phase-1-preview: source probe fetch_ok changed: False -> True
+- ww-3.4-phase-1-preview: source probe status changed: fetch-failed -> curl-ok
+- ww-3.4-phase-1-preview: source probe term_hits changed: [] -> ['3.4', 'Version 3.4 Preview']
+- ww-3.4-phase-1-preview: source probe version_hits changed: [] -> ['3.4']
+- Automatic candidate updates changed. Added: ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-20. Removed: none
+- Manual review rows changed. Added: none. Removed: ww-3.4-phase-1-preview
+
+[2026-06-21T13:16:57] CHANGED
+report_generated_at=2026-06-21T12:16:10
+summary=rows_checked:8,rows_needing_review:4,failed_source_fetches:4,possible_new_versions:none
+- Summary changed: rows_needing_review: 1 -> 4
+- Summary changed: failed_source_fetches: 1 -> 4
+- Summary changed: possible_new_versions: ['3.5'] -> []
+- ww-3.3-phase-1-character: needs_review changed: False -> True
+- ww-3.3-phase-1-character: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 33 days old. Removed: last_checked is 32 days old
+- ww-3.3-phase-2-character: needs_review changed: False -> True
+- ww-3.3-phase-2-character: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.3-phase-2-weapon: needs_review changed: False -> True
+- ww-3.3-phase-2-weapon: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.3-phase-1-character: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-1-character: source probe status changed: curl-ok -> fetch-failed
+- ww-3.3-phase-1-character: source probe term_hits changed: ['3.3', 'Hiyuki'] -> []
+- ww-3.3-phase-1-character: source probe version_hits changed: ['3.3'] -> []
+- ww-3.3-phase-2-character: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-2-character: source probe status changed: curl-ok -> fetch-failed
+- ww-3.3-phase-2-character: source probe term_hits changed: ['Chisa', 'Denia', 'Phrolova'] -> []
+- ww-3.3-phase-2-weapon: source probe fetch_ok changed: True -> False
+- ww-3.3-phase-2-weapon: source probe status changed: curl-ok -> fetch-failed
+- ww-3.3-phase-2-weapon: source probe term_hits changed: ['3.3', 'Forged Dwarf Star', 'Kumokiri', 'Lethean Elegy'] -> []
+- ww-3.3-phase-2-weapon: source probe version_hits changed: ['3.3'] -> []
+- Feed dearplayers_updates: fetch_ok changed: True -> False
+- Feed dearplayers_updates: status changed: curl-ok -> fetch-failed
+- Feed dearplayers_updates: version_hits changed: ['3.4', '3.5'] -> []
+- Feed dearplayers_updates: suggested_new_versions changed: ['3.5'] -> []
+- Feed official_site: fetch_ok changed: True -> False
+- Feed official_site: status changed: curl-ok -> fetch-failed
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-21, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-21, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-21, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-21. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-20, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-20, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-20, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-20, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-20, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-20, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-20
+- Manual review rows changed. Added: ww-3.3-phase-1-character, ww-3.3-phase-2-character, ww-3.3-phase-2-weapon. Removed: none
+
+[2026-06-21T22:33:57] CHANGED
+report_generated_at=2026-06-21T22:33:29
+summary=rows_checked:8,rows_needing_review:3,failed_source_fetches:3,possible_new_versions:3.5
+- Summary changed: rows_needing_review: 4 -> 3
+- Summary changed: failed_source_fetches: 4 -> 3
+- Summary changed: possible_new_versions: [] -> ['3.5']
+- ww-3.3-phase-1-character: needs_review changed: True -> False
+- ww-3.3-phase-1-character: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-2-character: needs_review changed: True -> False
+- ww-3.3-phase-2-character: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-2-weapon: needs_review changed: True -> False
+- ww-3.3-phase-2-weapon: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.4-phase-1-character: needs_review changed: False -> True
+- ww-3.4-phase-1-character: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.4-phase-1-weapon: needs_review changed: False -> True
+- ww-3.4-phase-1-weapon: reasons changed. Added: source fetch failed: fetch-failed. Removed: none
+- ww-3.3-phase-1-character: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-1-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-1-character: source probe term_hits changed: [] -> ['3.3', 'Hiyuki']
+- ww-3.3-phase-1-character: source probe version_hits changed: [] -> ['3.3']
+- ww-3.3-phase-2-character: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-2-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-2-character: source probe term_hits changed: [] -> ['Chisa', 'Denia', 'Phrolova']
+- ww-3.3-phase-2-weapon: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-2-weapon: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-2-weapon: source probe term_hits changed: [] -> ['3.3', 'Forged Dwarf Star', 'Kumokiri', 'Lethean Elegy']
+- ww-3.3-phase-2-weapon: source probe version_hits changed: [] -> ['3.3']
+- ww-3.4-phase-1-character: source probe fetch_ok changed: True -> False
+- ww-3.4-phase-1-character: source probe status changed: curl-ok -> fetch-failed
+- ww-3.4-phase-1-character: source probe term_hits changed: ['3.4'] -> []
+- ww-3.4-phase-1-character: source probe version_hits changed: ['3.4'] -> []
+- ww-3.4-phase-1-weapon: source probe fetch_ok changed: True -> False
+- ww-3.4-phase-1-weapon: source probe status changed: curl-ok -> fetch-failed
+- ww-3.4-phase-1-weapon: source probe term_hits changed: ['3.4'] -> []
+- ww-3.4-phase-1-weapon: source probe version_hits changed: ['3.4'] -> []
+- Feed dearplayers_updates: fetch_ok changed: False -> True
+- Feed dearplayers_updates: status changed: fetch-failed -> curl-ok
+- Feed dearplayers_updates: version_hits changed: [] -> ['3.4', '3.5']
+- Feed dearplayers_updates: suggested_new_versions changed: [] -> ['3.5']
+- Feed official_site: fetch_ok changed: False -> True
+- Feed official_site: status changed: fetch-failed -> curl-ok
+- Automatic candidate updates changed. Added: ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-21, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-21, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-21. Removed: ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-21, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-21
+- Manual review rows changed. Added: ww-3.4-phase-1-character, ww-3.4-phase-1-weapon. Removed: ww-3.3-phase-1-character, ww-3.3-phase-2-character, ww-3.3-phase-2-weapon
+
+[2026-06-22T11:20:26] CHANGED
+report_generated_at=2026-06-22T11:05:04
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:0,possible_new_versions:3.5
+- Summary changed: rows_needing_review: 3 -> 1
+- Summary changed: failed_source_fetches: 3 -> 0
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 34 days old. Removed: last_checked is 33 days old, source fetch failed: fetch-failed
+- ww-3.4-phase-1-character: needs_review changed: True -> False
+- ww-3.4-phase-1-character: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.4-phase-1-weapon: needs_review changed: True -> False
+- ww-3.4-phase-1-weapon: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-1-weapon: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-1-weapon: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-1-weapon: source probe term_hits changed: [] -> ['3.3']
+- ww-3.3-phase-1-weapon: source probe version_hits changed: [] -> ['3.4']
+- ww-3.4-phase-1-character: source probe fetch_ok changed: False -> True
+- ww-3.4-phase-1-character: source probe status changed: fetch-failed -> curl-ok
+- ww-3.4-phase-1-character: source probe term_hits changed: [] -> ['3.4']
+- ww-3.4-phase-1-character: source probe version_hits changed: [] -> ['3.4']
+- ww-3.4-phase-1-weapon: source probe fetch_ok changed: False -> True
+- ww-3.4-phase-1-weapon: source probe status changed: fetch-failed -> curl-ok
+- ww-3.4-phase-1-weapon: source probe term_hits changed: [] -> ['3.4']
+- ww-3.4-phase-1-weapon: source probe version_hits changed: [] -> ['3.4']
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-22, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-22, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-22, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-22, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-22, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-22, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-22. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-21, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-21, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-21, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-21, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-21
+- Manual review rows changed. Added: none. Removed: ww-3.4-phase-1-character, ww-3.4-phase-1-weapon
+
+[2026-06-22T13:08:39] NO_SIGNIFICANT_CHANGE
+report_generated_at=2026-06-22T13:08:13
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:0,possible_new_versions:3.5
+- No significant change compared with the previous run.
+
+[2026-06-23T11:01:01] CHANGED
+report_generated_at=2026-06-23T11:00:29
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:0,possible_new_versions:3.5
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 35 days old. Removed: last_checked is 34 days old
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-23, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-23, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-23, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-23, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-23, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-23, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-23. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-22, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-22, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-22, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-22, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-22, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-22, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-22
+
+[2026-06-23T11:01:04] NO_SIGNIFICANT_CHANGE
+report_generated_at=2026-06-23T11:00:33
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:0,possible_new_versions:3.5
+- No significant change compared with the previous run.
+
+[2026-06-24T10:01:24] CHANGED
+report_generated_at=2026-06-24T10:00:58
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:0,possible_new_versions:3.5
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 36 days old. Removed: last_checked is 35 days old
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-24, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-24, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-24, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-24, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-24, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-24, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-24. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-23, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-23, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-23, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-23, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-23, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-23, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-23
+
+[2026-06-24T11:01:49] NO_SIGNIFICANT_CHANGE
+report_generated_at=2026-06-24T11:01:02
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:0,possible_new_versions:3.5
+- No significant change compared with the previous run.
+
+[2026-06-24T15:48:10] NO_SIGNIFICANT_CHANGE
+report_generated_at=2026-06-24T15:47:43
+summary=rows_checked:8,rows_needing_review:1,failed_source_fetches:0,possible_new_versions:3.5
+- No significant change compared with the previous run.
+
+[2026-06-25T11:00:58] CHANGED
+report_generated_at=2026-06-25T11:00:31
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.5
+- Summary changed: rows_needing_review: 1 -> 8
+- ww-3.2-phase-2-character: needs_review changed: False -> True
+- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 7 days old. Removed: none
+- ww-3.3-phase-1-character: needs_review changed: False -> True
+- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 7 days old. Removed: none
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 37 days old. Removed: last_checked is 36 days old
+- ww-3.3-phase-2-character: needs_review changed: False -> True
+- ww-3.3-phase-2-character: reasons changed. Added: last_checked is 7 days old. Removed: none
+- ww-3.3-phase-2-weapon: needs_review changed: False -> True
+- ww-3.3-phase-2-weapon: reasons changed. Added: last_checked is 7 days old. Removed: none
+- ww-3.4-phase-1-character: needs_review changed: False -> True
+- ww-3.4-phase-1-character: reasons changed. Added: last_checked is 7 days old. Removed: none
+- ww-3.4-phase-1-preview: needs_review changed: False -> True
+- ww-3.4-phase-1-preview: reasons changed. Added: last_checked is 7 days old. Removed: none
+- ww-3.4-phase-1-weapon: needs_review changed: False -> True
+- ww-3.4-phase-1-weapon: reasons changed. Added: last_checked is 7 days old. Removed: none
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-25, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-25, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-25, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-25, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-25, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-25, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-25. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-24, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-24, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-24, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-24, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-24, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-24, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-24
+
+[2026-06-25T17:10:32] NO_SIGNIFICANT_CHANGE
+report_generated_at=2026-06-25T17:10:01
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.5
+- No significant change compared with the previous run.
+
+[2026-06-26T11:01:12] CHANGED
+report_generated_at=2026-06-26T11:00:46
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.0, 3.5
+- Summary changed: possible_new_versions: ['3.5'] -> ['3.0', '3.5']
+- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 8 days old. Removed: last_checked is 7 days old
+- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 8 days old. Removed: last_checked is 7 days old
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 38 days old. Removed: last_checked is 37 days old
+- ww-3.3-phase-2-character: reasons changed. Added: last_checked is 8 days old. Removed: last_checked is 7 days old
+- ww-3.3-phase-2-weapon: reasons changed. Added: last_checked is 8 days old. Removed: last_checked is 7 days old
+- ww-3.4-phase-1-character: reasons changed. Added: last_checked is 8 days old. Removed: last_checked is 7 days old
+- ww-3.4-phase-1-preview: reasons changed. Added: last_checked is 8 days old. Removed: last_checked is 7 days old
+- ww-3.4-phase-1-weapon: reasons changed. Added: last_checked is 8 days old. Removed: last_checked is 7 days old
+- Feed dearplayers_updates: version_hits changed: ['3.4', '3.5'] -> ['3.0', '3.5']
+- Feed dearplayers_updates: suggested_new_versions changed: ['3.5'] -> ['3.0', '3.5']
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-26, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-26, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-26, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-26, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-26, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-26, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-26. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-25, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-25, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-25, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-25, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-25, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-25, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-25
+
+[2026-06-27T11:00:48] CHANGED
+report_generated_at=2026-06-27T11:00:23
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.0, 3.5
+- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 9 days old. Removed: last_checked is 8 days old
+- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 9 days old. Removed: last_checked is 8 days old
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 39 days old, source page did not clearly match expected banner names. Removed: last_checked is 38 days old
+- ww-3.3-phase-2-character: reasons changed. Added: last_checked is 9 days old. Removed: last_checked is 8 days old
+- ww-3.3-phase-2-weapon: reasons changed. Added: last_checked is 9 days old. Removed: last_checked is 8 days old
+- ww-3.4-phase-1-character: reasons changed. Added: last_checked is 9 days old. Removed: last_checked is 8 days old
+- ww-3.4-phase-1-preview: reasons changed. Added: last_checked is 9 days old. Removed: last_checked is 8 days old
+- ww-3.4-phase-1-weapon: reasons changed. Added: last_checked is 9 days old. Removed: last_checked is 8 days old
+- ww-3.3-phase-1-weapon: source probe term_hits changed: ['3.3'] -> []
+- ww-3.3-phase-1-weapon: source probe version_hits changed: ['3.4'] -> []
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-27, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-27, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-27, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-27, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-27, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-27, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-27. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-26, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-26, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-26, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-26, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-26, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-26, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-26
+
+[2026-06-27T21:44:14] NO_SIGNIFICANT_CHANGE
+report_generated_at=2026-06-27T21:43:45
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.0, 3.5
+- No significant change compared with the previous run.
+
+[2026-06-28T11:00:47] CHANGED
+report_generated_at=2026-06-28T11:00:21
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.0, 3.5
+- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 10 days old. Removed: last_checked is 9 days old
+- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 10 days old. Removed: last_checked is 9 days old
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 40 days old. Removed: last_checked is 39 days old
+- ww-3.3-phase-2-character: reasons changed. Added: last_checked is 10 days old. Removed: last_checked is 9 days old
+- ww-3.3-phase-2-weapon: reasons changed. Added: last_checked is 10 days old. Removed: last_checked is 9 days old
+- ww-3.4-phase-1-character: reasons changed. Added: last_checked is 10 days old. Removed: last_checked is 9 days old
+- ww-3.4-phase-1-preview: reasons changed. Added: last_checked is 10 days old. Removed: last_checked is 9 days old
+- ww-3.4-phase-1-weapon: reasons changed. Added: last_checked is 10 days old. Removed: last_checked is 9 days old
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-28. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-27, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-27, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-27, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-27, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-27, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-27, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-27
+
+[2026-06-28T22:50:05] NO_SIGNIFICANT_CHANGE
+report_generated_at=2026-06-28T22:49:36
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.0, 3.5
+- No significant change compared with the previous run.
+

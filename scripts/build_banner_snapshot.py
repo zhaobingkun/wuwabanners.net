@@ -3219,7 +3219,11 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
 
 def render_sitemap(extra_urls: list[str]) -> str:
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    seen: set[str] = set()
     for url in BASE_URLS + extra_urls:
+        if url in seen:
+            continue
+        seen.add(url)
         lines.append(f"  <url><loc>{url}</loc></url>")
     lines.append("</urlset>")
     return "\n".join(lines) + "\n"
@@ -3236,6 +3240,27 @@ def discover_reference_urls() -> list[str]:
             if slug == "index":
                 continue
             urls.append(f"https://wuwabanners.net/{section}/{slug}/")
+    return urls
+
+
+def discover_canonical_sitemap_urls() -> list[str]:
+    urls: list[str] = []
+    for path in sorted(ROOT.rglob("index.html")):
+        relative = path.relative_to(ROOT)
+        if any(part.startswith(".") for part in relative.parts):
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        head = text.split("</head>", 1)[0]
+        if re.search(r'<meta\s+[^>]*name=["\']robots["\'][^>]*content=["\'][^"\']*noindex', head, flags=re.I):
+            continue
+        canonical_match = re.search(r'<link\s+[^>]*rel=["\']canonical["\'][^>]*href=["\']([^"\']+)["\']', head, flags=re.I)
+        if canonical_match:
+            url = canonical_match.group(1)
+        else:
+            parent = relative.parent.as_posix()
+            url = "https://wuwabanners.net/" if parent == "." else f"https://wuwabanners.net/{parent}/"
+        if url.startswith("https://wuwabanners.net/"):
+            urls.append(url)
     return urls
 
 
@@ -4416,7 +4441,11 @@ PLACEHOLDER_PULL_COMPARE
         history_urls.append(f"https://wuwabanners.net{page['path']}")
 
     reference_urls = discover_reference_urls()
-    SITEMAP_XML.write_text(render_sitemap(character_urls + overview_urls + support_urls + legacy_urls + history_urls + reference_urls), encoding="utf-8")
+    discovered_urls = discover_canonical_sitemap_urls()
+    SITEMAP_XML.write_text(
+        render_sitemap(character_urls + overview_urls + support_urls + legacy_urls + history_urls + reference_urls + discovered_urls),
+        encoding="utf-8",
+    )
 
     banners_hub = BANNERS_HUB_HTML.read_text(encoding="utf-8")
     if "/wuthering-waves-banner-countdown/" not in banners_hub:

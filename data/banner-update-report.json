@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-18T11:54:01",
+  "generated_at": "2026-06-28T22:49:36",
   "csv_path": "data/banner-data.csv",
   "row_checks": [
     {
@@ -11,10 +11,12 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
-      "last_checked": "2026-06-13",
-      "age_days": 5,
-      "needs_review": false,
-      "reasons": []
+      "last_checked": "2026-06-18",
+      "age_days": 10,
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     {
       "record_id": "ww-3.3-phase-1-character",
@@ -25,10 +27,12 @@
       "status": "official",
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
-      "last_checked": "2026-06-13",
-      "age_days": 5,
-      "needs_review": false,
-      "reasons": []
+      "last_checked": "2026-06-18",
+      "age_days": 10,
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     {
       "record_id": "ww-3.3-phase-1-weapon",
@@ -40,11 +44,12 @@
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "source_type": "secondary_media",
       "last_checked": "2026-05-19",
-      "age_days": 30,
+      "age_days": 40,
       "needs_review": true,
       "reasons": [
-        "last_checked is 30 days old",
-        "source_type is secondary_media"
+        "last_checked is 40 days old",
+        "source_type is secondary_media",
+        "source page did not clearly match expected banner names"
       ]
     },
     {
@@ -56,10 +61,12 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
       "source_type": "official_social",
-      "last_checked": "2026-06-13",
-      "age_days": 5,
-      "needs_review": false,
-      "reasons": []
+      "last_checked": "2026-06-18",
+      "age_days": 10,
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     {
       "record_id": "ww-3.3-phase-2-weapon",
@@ -70,10 +77,12 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
-      "last_checked": "2026-06-13",
-      "age_days": 5,
-      "needs_review": false,
-      "reasons": []
+      "last_checked": "2026-06-18",
+      "age_days": 10,
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     {
       "record_id": "ww-3.4-phase-1-character",
@@ -84,10 +93,12 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
-      "last_checked": "2026-06-13",
-      "age_days": 5,
-      "needs_review": false,
-      "reasons": []
+      "last_checked": "2026-06-18",
+      "age_days": 10,
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     {
       "record_id": "ww-3.4-phase-1-weapon",
@@ -98,10 +109,12 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
-      "last_checked": "2026-06-13",
-      "age_days": 5,
-      "needs_review": false,
-      "reasons": []
+      "last_checked": "2026-06-18",
+      "age_days": 10,
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     },
     {
       "record_id": "ww-3.4-phase-1-preview",
@@ -112,10 +125,12 @@
       "status": "official",
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
-      "last_checked": "2026-06-13",
-      "age_days": 5,
-      "needs_review": false,
-      "reasons": []
+      "last_checked": "2026-06-18",
+      "age_days": 10,
+      "needs_review": true,
+      "reasons": [
+        "last_checked is 10 days old"
+      ]
     }
   ],
   "source_checks": [
@@ -148,13 +163,10 @@
       "url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "fetch_ok": true,
       "status": "curl-ok",
-      "term_hits": [
-        "3.3"
-      ],
-      "version_hits": [
-        "3.4"
-      ],
+      "term_hits": [],
+      "version_hits": [],
       "notes": [
+        "Fetched page did not contain the expected banner or unit names.",
         "Fetched page did not clearly expose the current version string."
       ]
     },
@@ -258,32 +270,31 @@
       "fetch_ok": true,
       "status": "curl-ok",
       "matched_terms": [
-        "wuthering waves",
-        "version"
+        "wuthering waves"
       ],
       "matched_names": [
-        "Defier's Thorn",
         "Lucilla",
-        "Lucy",
-        "Rebecca"
+        "Lucy"
       ],
       "version_hits": [
-        "3.4",
+        "3.0",
         "3.5"
       ],
       "suggested_new_versions": [
+        "3.0",
         "3.5"
       ],
       "notes": [
-        "Found possible newer version references: 3.5"
+        "Found possible newer version references: 3.0, 3.5"
       ]
     }
   ],
   "summary": {
     "rows_checked": 8,
-    "rows_needing_review": 1,
+    "rows_needing_review": 8,
     "failed_source_fetches": 0,
     "possible_new_versions": [
+      "3.0",
       "3.5"
     ]
   }
