@@ -73,3 +73,18 @@
 - Updated reference detail generation so weapon and item detail pages are indexable instead of `noindex,follow`.
 - Rebuilt reference pages and sitemap. Final check: 229 `index.html` pages and 229 sitemap URLs.
 - Verification passed with `python3 scripts/run_banner_update_cycle.py` and `python3 scripts/verify_site_build.py`.
+
+## 2026-06-29 Notes
+
+- Daily banner check re-run at 2026-06-29T16:23:37. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, live CSV, or public page content change detected.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-06-29.
+- Report still lists 8 rows needing review because safe rows are 11 days old; `ww-3.3-phase-1-weapon` is 41 days old, uses a secondary-media source, and the PCGamer source page still does not clearly match expected banner names.
+- Feed status: official site and DearPlayers were reachable; DearPlayers now emits only `3.5` as an unconfirmed version signal. The prior `3.0` feed noise is gone today.
+- Official YouTube still failed with SSL/curl timeout.
+
+## 2026-06-29 Copy Naturalization
+
+- Reworked generated reference/detail page copy to reduce AI-template phrasing and internal SEO-planning language.
+- Updated `scripts/build_banner_snapshot.py` and `scripts/build_reference_pages.py` so regenerated character, weapon, item, and support pages keep the more natural wording.
+- Cleaned the weapons/items hub wording where it used phrases like "user wants", "branch", and "users usually need".
+- Verification passed with `python3 scripts/run_banner_update_cycle.py` and `python3 scripts/verify_site_build.py`; no banner facts changed.

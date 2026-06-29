@@ -86,30 +86,30 @@ def render_neighbor_cards(kind: str, previous_entry: dict[str, str] | None, next
             f'''<a class="history-phase-nav-card" href="/wuthering-waves-{kind}/{entry["slug"]}/">
   <span class="history-phase-nav-label">{label} {get_directory_label(kind)[:-1]}</span>
   <strong>{entry["name"]}</strong>
-  <span class="muted">Open the adjacent detail page inside the {get_directory_label(kind).lower()} branch.</span>
+  <span class="muted">Check the neighboring {get_directory_label(kind).lower()[:-1]} entry.</span>
 </a>'''
         )
     if not cards:
-        cards.append(f'<p class="muted">This detail page currently sits at the edge of the {get_directory_label(kind).lower()} directory.</p>')
+        cards.append(f'<p class="muted">There is no neighboring entry on this side of the {get_directory_label(kind).lower()} list.</p>')
     return "".join(cards)
 
 
 def get_detail_context(kind: str, name: str) -> tuple[str, str, str]:
     if kind == "characters":
         return (
-            "Character detail snapshot",
-            f"{name} is part of the browser-first character branch. Users usually land here after opening the character list and then continue into pull, build, or team pages.",
+            "Where to go next",
+            f"If you are checking {name} for a banner decision, start with pull advice or the current banner list. If you only need the portrait and spelling, this page is enough.",
             '<a class="directory-link" href="/pull-advice/">Open pull advice</a><a class="directory-link" href="/wuthering-waves-current-banner-characters/">Current banner characters</a><a class="directory-link" href="/wuthering-waves-next-character/">Next character</a>',
         )
     if kind == "weapons":
         return (
-            "Weapon detail snapshot",
-            f"{name} sits inside the weapon branch, where users usually compare current banner context, nearby weapons, and which characters matter before they keep scrolling.",
+            "Where this weapon fits",
+            f"Use {name} as a quick weapon reference, then compare it with the live weapon banner or the character list if you are deciding whether it matters for your account.",
             '<a class="directory-link" href="/wuthering-waves-weapon-banner/">Weapon banner</a><a class="directory-link" href="/wuthering-waves-current-banner/">Current banner</a><a class="directory-link" href="/wuthering-waves-characters/">Character list</a>',
         )
     return (
-        "Item detail snapshot",
-        f"{name} sits inside the item branch, where users usually need the resource image first and then want the fastest route into characters, weapons, or timing pages.",
+        "Where this item fits",
+        f"Use {name} as a quick resource reference. From here, jump back to characters, weapons, or timing pages if you are planning upgrades around a banner.",
         '<a class="directory-link" href="/wuthering-waves-pity-system/">Pity system</a><a class="directory-link" href="/wuthering-waves-characters/">Character list</a><a class="directory-link" href="/wuthering-waves-timeline/">Timeline</a>',
     )
 
@@ -117,20 +117,20 @@ def get_detail_context(kind: str, name: str) -> tuple[str, str, str]:
 def get_branch_map_rows(kind: str) -> str:
     if kind == "characters":
         return (
-            '<tr><td>Hub</td><td><a href="/wuthering-waves-characters/">Characters</a></td><td>The top-level list for current, next, and reference character browsing.</td></tr>'
-            '<tr><td>Detail</td><td>Character detail page</td><td>The clean destination for one character image, one name, and the next useful routes.</td></tr>'
-            '<tr><td>Support</td><td><a href="/pull-advice/">Pull advice</a> or character support pages</td><td>The narrower layer for materials, build, team comps, or pull planning.</td></tr>'
+            '<tr><td>List</td><td><a href="/wuthering-waves-characters/">Characters</a></td><td>Scan the full character set.</td></tr>'
+            '<tr><td>Profile</td><td>Character detail page</td><td>Confirm the character and choose the next relevant page.</td></tr>'
+            '<tr><td>Decision</td><td><a href="/pull-advice/">Pull advice</a> or character support pages</td><td>Move into pull, materials, build, or team planning.</td></tr>'
         )
     if kind == "weapons":
         return (
-            '<tr><td>Hub</td><td><a href="/wuthering-waves-weapons/">Weapons</a></td><td>The top-level list for image browsing, text directory browsing, and weapon-related routing.</td></tr>'
-            '<tr><td>Detail</td><td>Weapon detail page</td><td>The clean destination for one weapon image, one weapon name, and the next useful links.</td></tr>'
-            '<tr><td>Support</td><td><a href="/wuthering-waves-weapon-banner/">Weapon banner</a> or related planning pages</td><td>The narrower layer for live banner context, character fit, or materials follow-up.</td></tr>'
+            '<tr><td>List</td><td><a href="/wuthering-waves-weapons/">Weapons</a></td><td>Scan weapons by image or name.</td></tr>'
+            '<tr><td>Profile</td><td>Weapon detail page</td><td>Confirm the weapon and compare nearby entries.</td></tr>'
+            '<tr><td>Decision</td><td><a href="/wuthering-waves-weapon-banner/">Weapon banner</a> or related planning pages</td><td>Check banner context, character fit, or upgrade planning.</td></tr>'
         )
     return (
-        '<tr><td>Hub</td><td><a href="/wuthering-waves-items/">Items</a></td><td>The top-level list for resource browsing, image browsing, and text directory browsing.</td></tr>'
-        '<tr><td>Detail</td><td>Item detail page</td><td>The clean destination for one item image, one name, and the next useful planning links.</td></tr>'
-        '<tr><td>Support</td><td><a href="/wuthering-waves-pity-system/">Pity system</a> or related planning pages</td><td>The narrower layer for banner spending, character growth, or weapon upgrade context.</td></tr>'
+        '<tr><td>List</td><td><a href="/wuthering-waves-items/">Items</a></td><td>Scan materials and resource names.</td></tr>'
+        '<tr><td>Profile</td><td>Item detail page</td><td>Confirm the item image and spelling.</td></tr>'
+        '<tr><td>Planning</td><td><a href="/wuthering-waves-pity-system/">Pity system</a> or related planning pages</td><td>Connect the resource check back to banner spending or upgrades.</td></tr>'
     )
 
 
@@ -170,23 +170,23 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
     path = f"/wuthering-waves-{kind}/{slug}/"
     singular = "Character" if kind == "characters" else label[:-1]
     title = f"Wuthering Waves {name} {singular} | WuWa Banners"
-    description = f"Browse the Wuthering Waves {name} {singular.lower()} detail page with a clear image, related planning links, and a clean browser-first layout."
+    description = f"Check the Wuthering Waves {name} {singular.lower()} page for the image, exact name, and related banner planning links."
     robots_meta = ""
     previous_entry, next_entry = get_neighbor_entries(entries, slug)
     neighbor_cards = render_neighbor_cards(kind, previous_entry, next_entry)
     context_title, context_copy, context_links = get_detail_context(kind, name)
     if kind == "characters":
         related = '<li><a href="/pull-advice/">Pull advice</a></li><li><a href="/wuthering-waves-current-banner-characters/">Current banner characters</a></li><li><a href="/wuthering-waves-next-character/">Next character</a></li>'
-        why = f"{name} belongs inside the character planning branch, so this page should help users move between banner intent, pull decisions, and the broader character reference structure."
-        faq = f'<article class="faq-item"><h3>What should a {name} character page do first?</h3><p>Show the portrait, the exact character name, and the fastest next pages for pull planning or banner context.</p></article>'
+        why = f"{name} gets a dedicated page so players can confirm the portrait and name without digging through the full character list."
+        faq = f'<article class="faq-item"><h3>What is the best next page after {name}?</h3><p>Open pull advice if you are deciding whether to spend, or the current banner page if you need live phase context.</p></article>'
     elif kind == "weapons":
         related = '<li><a href="/wuthering-waves-weapon-banner/">Weapon banner</a></li><li><a href="/wuthering-waves-characters/">Characters</a></li><li><a href="/wuthering-waves-items/">Items</a></li>'
-        why = f"{name} belongs inside the weapon planning branch, so this page should help users move between weapon banner context, character intent, and upgrade planning."
-        faq = f'<article class="faq-item"><h3>What should a {name} weapon page do first?</h3><p>Show the image, the exact weapon name, and the fastest next pages for banner or build planning.</p></article>'
+        why = f"{name} gets a dedicated page so players can confirm the weapon image and name before checking banner or character context."
+        faq = f'<article class="faq-item"><h3>What is the best next page after {name}?</h3><p>Open the weapon banner page for live banner context, or the character list if you are checking possible character matches.</p></article>'
     else:
         related = '<li><a href="/wuthering-waves-items/">Items</a></li><li><a href="/wuthering-waves-characters/">Characters</a></li><li><a href="/wuthering-waves-weapons/">Weapons</a></li>'
-        why = f"{name} belongs inside the item planning branch, so this page should help users move between resource intent, character growth, and weapon planning."
-        faq = f'<article class="faq-item"><h3>What should a {name} item page do first?</h3><p>Show the item image, the exact item name, and the fastest next pages for materials, characters, or weapons.</p></article>'
+        why = f"{name} gets a dedicated page so players can confirm the resource image and name before returning to character, weapon, or banner planning."
+        faq = f'<article class="faq-item"><h3>What is the best next page after {name}?</h3><p>Open the item list to compare resources, or move to characters and weapons if you are planning upgrades.</p></article>'
     neighbor_links = render_neighbor_links(kind, previous_entry, next_entry)
     branch_map_rows = get_branch_map_rows(kind)
     branch_links = get_branch_links(kind)
@@ -217,14 +217,14 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/">Home</a> / <a href="/wuthering-waves-{kind}/">{label}</a> / {name}</div>
     <h1>Wuthering Waves {name}</h1>
-    <p class="lead">This {singular.lower()} reference page gives a fast visual check for {name} and routes users back into higher-value banner, pull, and planning pages.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> Use this page to confirm {name}, then move into the related banner or planning page that matches your actual decision.</div>
+    <p class="lead">A quick reference for {name}: image, exact name, nearby entries, and the most useful banner links from here.</p>
+    <div class="answer-box"><strong>Quick answer:</strong> Confirm {name} here, then use the links below if you need banner timing, pull advice, or related references.</div>
     <div class="media-grid" style="margin-top:1.25rem;">
       <div class="banner-art" style="aspect-ratio:1 / 1;">
         <img src="{src}" alt="{name}" width="1200" height="1200" decoding="async">
       </div>
       <div class="card">
-        <h2>Why this detail page exists</h2>
+        <h2>Why this page is here</h2>
         <p>{why}</p>
         <p><a href="/wuthering-waves-{kind}/">Back to {label} list</a></p>
       </div>
@@ -239,7 +239,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
       </div>
       <div class="card">
         <h2>Visual reference</h2>
-        <p>This image is the fast visual confirmation layer for {name}. The goal is to make the detail page useful before the user decides whether to keep browsing nearby entries or move into planning pages.</p>
+        <p>The image is here for quick recognition. If you already know {name}, skip to the related links below.</p>
       </div>
     </section>
     <section class="section two-col">
@@ -251,7 +251,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
       </div>
       <div class="card">
         <h2>Reference source</h2>
-        <p>This image was downloaded into the local reference gallery and published as part of the site's browser-friendly reference layer.</p>
+        <p>The image is stored locally with the site's reference gallery so the page stays fast and easy to scan.</p>
       </div>
     </section>
     <section class="section two-col">
@@ -262,8 +262,8 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
         </ul>
       </div>
       <div class="card">
-        <h2>How to use this detail layer</h2>
-        <p>Use this page as the middle layer in the structure: top navigation to the list page, then open a specific {singular.lower()} detail page, then continue into banners, characters, or materials planning.</p>
+        <h2>How to use this page</h2>
+        <p>Start from the list when you are browsing. Open this page when you need one entry, then follow the related links if the question turns into banner or upgrade planning.</p>
       </div>
     </section>
     <section class="section">
@@ -273,8 +273,8 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
       </div>
     </section>
     <section class="section">
-      <h2>{singular} branch map</h2>
-      <p class="section-intro">This detail page sits in the middle of a simple structure: hub first, detail second, narrower support pages third.</p>
+      <h2>{singular} page path</h2>
+      <p class="section-intro">The page structure is simple: list, profile, then a decision or planning page if needed.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Layer</th><th>Best page type</th><th>What it is for</th></tr></thead>
@@ -285,8 +285,8 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
       </div>
     </section>
     <section class="section">
-      <h2>{singular} branch links</h2>
-      <p class="section-intro">These are the main pages users usually need before or after they open this detail page.</p>
+      <h2>Related pages</h2>
+      <p class="section-intro">These are the pages most likely to answer the next question after this entry.</p>
       <div class="reference-directory">
         {branch_links}
       </div>
@@ -295,7 +295,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
       <h2>FAQ</h2>
       <div class="faq-list">
         {faq}
-        <article class="faq-item"><h3>Why keep this page lightweight?</h3><p>Because this detail layer is mainly here to support the list-to-detail structure and give gallery clicks a clean destination.</p></article>
+        <article class="faq-item"><h3>Why is this page short?</h3><p>Most players need the image, the name, and the next useful link. Longer advice belongs on the banner, build, or planning pages.</p></article>
       </div>
     </section>
   </div></main>

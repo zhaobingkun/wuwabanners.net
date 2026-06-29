@@ -896,3 +896,24 @@ report_generated_at=2026-06-28T22:49:36
 summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.0, 3.5
 - No significant change compared with the previous run.
 
+[2026-06-29T11:01:13] CHANGED
+report_generated_at=2026-06-29T11:00:42
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.5
+- Summary changed: possible_new_versions: ['3.0', '3.5'] -> ['3.5']
+- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 41 days old. Removed: last_checked is 40 days old
+- ww-3.3-phase-2-character: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- ww-3.3-phase-2-weapon: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- ww-3.4-phase-1-character: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- ww-3.4-phase-1-preview: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- ww-3.4-phase-1-weapon: reasons changed. Added: last_checked is 11 days old. Removed: last_checked is 10 days old
+- Feed dearplayers_updates: version_hits changed: ['3.0', '3.5'] -> ['3.5']
+- Feed dearplayers_updates: suggested_new_versions changed: ['3.0', '3.5'] -> ['3.5']
+- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-29, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-29, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-29, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-29, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-29, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-29, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-29. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-28
+
+[2026-06-29T16:24:03] NO_SIGNIFICANT_CHANGE
+report_generated_at=2026-06-29T16:23:37
+summary=rows_checked:8,rows_needing_review:8,failed_source_fetches:0,possible_new_versions:3.5
+- No significant change compared with the previous run.
+

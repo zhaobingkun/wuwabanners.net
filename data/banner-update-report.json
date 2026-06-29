@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-28T22:49:36",
+  "generated_at": "2026-06-29T16:23:37",
   "csv_path": "data/banner-data.csv",
   "row_checks": [
     {
@@ -12,10 +12,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 10,
+      "age_days": 11,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 11 days old"
       ]
     },
     {
@@ -28,10 +28,10 @@
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
       "last_checked": "2026-06-18",
-      "age_days": 10,
+      "age_days": 11,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 11 days old"
       ]
     },
     {
@@ -44,10 +44,10 @@
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "source_type": "secondary_media",
       "last_checked": "2026-05-19",
-      "age_days": 40,
+      "age_days": 41,
       "needs_review": true,
       "reasons": [
-        "last_checked is 40 days old",
+        "last_checked is 41 days old",
         "source_type is secondary_media",
         "source page did not clearly match expected banner names"
       ]
@@ -62,10 +62,10 @@
       "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 10,
+      "age_days": 11,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 11 days old"
       ]
     },
     {
@@ -78,10 +78,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 10,
+      "age_days": 11,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 11 days old"
       ]
     },
     {
@@ -94,10 +94,10 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 10,
+      "age_days": 11,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 11 days old"
       ]
     },
     {
@@ -110,10 +110,10 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 10,
+      "age_days": 11,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 11 days old"
       ]
     },
     {
@@ -126,10 +126,10 @@
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 10,
+      "age_days": 11,
       "needs_review": true,
       "reasons": [
-        "last_checked is 10 days old"
+        "last_checked is 11 days old"
       ]
     }
   ],
@@ -270,22 +270,22 @@
       "fetch_ok": true,
       "status": "curl-ok",
       "matched_terms": [
-        "wuthering waves"
+        "wuthering waves",
+        "version",
+        "preview"
       ],
       "matched_names": [
         "Lucilla",
         "Lucy"
       ],
       "version_hits": [
-        "3.0",
         "3.5"
       ],
       "suggested_new_versions": [
-        "3.0",
         "3.5"
       ],
       "notes": [
-        "Found possible newer version references: 3.0, 3.5"
+        "Found possible newer version references: 3.5"
       ]
     }
   ],
@@ -294,7 +294,6 @@
     "rows_needing_review": 8,
     "failed_source_fetches": 0,
     "possible_new_versions": [
-      "3.0",
       "3.5"
     ]
   }

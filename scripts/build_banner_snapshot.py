@@ -814,7 +814,7 @@ def build_next_pull(snapshot: dict[str, object]) -> str:
         weapon_copy = f"The next weapon group is {', '.join(next_item['featured_weapons'])} in the next phase."
     return f"""        <div class="card">
           <h2>Should you pull now or wait?</h2>
-          <p>For a new or lightly built account, the key question is whether {", ".join(current["featured_characters"])} fills an urgent team hole before {current["banner_name"]} ends. For users already saving for {next_focus_name(next_item)} or a later rerun, the page should say that clearly instead of forcing them to infer it from the table.</p>
+          <p>For a new or lightly built account, the key question is whether {", ".join(current["featured_characters"])} fills an urgent team hole before {current["banner_name"]} ends. If you are already saving for {next_focus_name(next_item)} or a later rerun, treat that as a real competing plan before spending here.</p>
           <ul class="list">
             <li><strong>Pull now:</strong> if the current phase solves an immediate roster need.</li>
             <li><strong>Consider waiting:</strong> if {wait_copy}.</li>
@@ -1238,7 +1238,7 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/">Home</a> / <a href="/banners/">Banners</a> / <a href="/wuthering-waves-banner-history/">Banner history</a> / {html.escape(banner_name)}</div>
     <h1>Wuthering Waves {html.escape(banner_name)} Banner History</h1>
-    <p class="lead">This detail page isolates one tracked banner phase so users can see the lineup, timing, and rerun context without scanning a larger history table first.</p>
+    <p class="lead">This detail page pulls one tracked banner phase out of the full history table, with the lineup, timing, and rerun context in one place.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {html.escape(banner_name)} ran from {fmt_human_date(str(page["start_date"]))} to {fmt_human_date(str(page["end_date"]))}, featuring {html.escape(characters_text)}. The tracked weapons for this phase are {html.escape(weapons_text)}</div>
     <p class="update-stamp">Last updated: {fmt_human_date(snapshot["updated"] + " 00:00")}.</p>
 {build_history_detail_media(page)}
@@ -1315,7 +1315,7 @@ def build_rerun_intro(snapshot: dict[str, object]) -> str:
     history = snapshot["history"]
     updated = snapshot["updated"]
     oldest = history[0]
-    return f"""    <p class="lead">Rerun intent is different from next banner intent. Based on the tracked recent cycle, the oldest featured five-stars in the current snapshot are {", ".join(oldest["featured_characters"])}, which makes them the first names users will compare when asking whether to spend now or hold longer.</p>
+    return f"""    <p class="lead">Rerun planning is different from next-banner planning. Based on the tracked recent cycle, the oldest featured five-stars in the current snapshot are {", ".join(oldest["featured_characters"])}, which makes them the first names to compare when deciding whether to spend now or hold longer.</p>
     <div class="answer-box"><strong>Direct answer:</strong> No rerun page can promise a date without official confirmation, but a good rerun guide can show which older featured units are furthest from their last phase and therefore most likely to be searched next.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
@@ -1413,7 +1413,7 @@ def build_countdown_cards(snapshot: dict[str, object]) -> str:
     return f"""    <div class="card-grid">
       <article class="card"><h2>Current phase end</h2><p>{current["banner_name"]} is scheduled to end on {fmt_human_date(current["end_date"])}.</p></article>
       <article class="card"><h2>{next_title}</h2><p>{next_copy}</p></article>
-      <article class="card"><h2>Why clarity matters</h2><p>Users often search countdown pages from mobile. Put the dates in plain text first, then support them with tables and related links.</p></article>
+      <article class="card"><h2>Why clarity matters</h2><p>Countdown checks are often quick mobile visits, so the date needs to appear in plain text before the supporting table and links.</p></article>
     </div>"""
 
 
@@ -1742,7 +1742,7 @@ def build_character_support_links(page: dict[str, str]) -> str:
       <div class="card-grid">
         <article class="card"><h3>{character} materials</h3><p>Track ascension, forte, boss, and pre-farm planning without leaving the banner cluster.</p><p><a href="{support_page_path(slug, "materials")}">Open materials page</a></p></article>
         <article class="card"><h3>{character} build</h3><p>Use a build planning page to keep weapon path, upgrade order, and stat decisions in one place.</p><p><a href="{support_page_path(slug, "build")}">Open build page</a></p></article>
-        <article class="card"><h3>{character} team comps</h3><p>Keep team-role questions tied to the same pull decision instead of sending users into disconnected posts.</p><p><a href="{support_page_path(slug, "team-comps")}">Open team comps page</a></p></article>
+        <article class="card"><h3>{character} team comps</h3><p>Keep team-role questions tied to the same pull decision instead of splitting the answer across unrelated posts.</p><p><a href="{support_page_path(slug, "team-comps")}">Open team comps page</a></p></article>
       </div>
     </section>"""
 
@@ -1806,7 +1806,7 @@ def build_character_overview_media(page: dict[str, str], snapshot: dict[str, obj
       </div>
       <div class="hub-hero-copy">
         <span class="eyebrow">Character hub</span>
-        <strong>{html.escape(page["character"])} should route users into one clean next step, not force them to guess.</strong>
+        <strong>{html.escape(page["character"])} works best when the next step is clear.</strong>
         <p>Use the hub when the character name is already clear and the real question is whether the next click should be pull advice, materials, build, or team comps.</p>
       </div>
     </div>"""
@@ -1921,12 +1921,12 @@ def build_support_strategy(page: dict[str, str], snapshot: dict[str, object]) ->
         right_body = f"Leave rare boss routing, weekly lock-ins, and one-character-only farming until {character} is fully confirmed in-game. That matters even more if you may switch resources toward {compare_characters} in {compare['banner_name']}."
     elif page["kind"] == "build":
         left_title = "Build decisions to lock early"
-        left_body = f"Lock the role, a fallback weapon route, and a practical first upgrade order. If the tracked weapon set is {primary_weapons}, this page should help you decide whether that path is realistic for your account before you commit."
+        left_body = f"Lock the role, a fallback weapon route, and a practical first upgrade order. If the tracked weapon set is {primary_weapons}, decide whether that path is realistic for your account before you commit."
         right_title = "Build decisions to leave flexible"
-        right_body = f"Final stat tuning, niche set choices, and premium-only assumptions should stay flexible until live play confirms how {character} actually feels. This is where many users decide to save for {compare['banner_name']} instead."
+        right_body = f"Final stat tuning, niche set choices, and premium-only assumptions should stay flexible until live play confirms how {character} actually feels. This is also where saving for {compare['banner_name']} may become the better call."
     else:
         left_title = "Best first team question"
-        left_body = f"Ask what problem {character} solves first: field time, burst window, sustain pressure, or slot efficiency. Good team comps pages help users choose a shell that works now, not just an idealized future roster."
+        left_body = f"Ask what problem {character} solves first: field time, burst window, sustain pressure, or slot efficiency. Start with a shell that works now, not just an idealized future roster."
         right_title = "Fallback shell matters"
         right_body = f"Every {character} team page should also give one realistic fallback shell in case the best-looking pairing is tied to weapons, units, or resources better spent on {compare['banner_name']}."
     return f"""    <section class="section two-col">
@@ -1946,15 +1946,15 @@ def build_support_branch_context(page: dict[str, str], snapshot: dict[str, objec
     slug = page["slug"]
     primary, compare = support_phase_context(page, snapshot)
     if page["kind"] == "materials":
-        compare_copy = f"Before heavy stamina spending, compare {character} against the still competing needs of {', '.join(compare['featured_characters'])}. Materials pages are strongest when they tell users what is safe now and what should wait."
+        compare_copy = f"Before heavy stamina spending, compare {character} against the still competing needs of {', '.join(compare['featured_characters'])}. Keep the page clear about what is safe now and what should wait."
     elif page["kind"] == "build":
-        compare_copy = f"Before locking premium gear assumptions, compare {character} against the other tracked phase. Build pages should protect users from over-committing before {primary['banner_name']} or {compare['banner_name']} settles fully."
+        compare_copy = f"Before locking premium gear assumptions, compare {character} against the other tracked phase. Leave room to adjust before {primary['banner_name']} or {compare['banner_name']} settles fully."
     else:
         compare_copy = f"Before chasing idealized pairings, compare {character} against your current roster pressure and the other tracked phase. Team comps pages should keep one realistic shell ready even if premium partners are delayed."
     return f"""    <section class="section two-col">
       <div class="card">
         <h2>Where this page sits</h2>
-        <p>Use this support page as the narrow layer after the {character} guide hub. The clean route is character list, then {character} hub, then this page, then the sibling support page you need next.</p>
+        <p>Use this page after the {character} guide hub when the question has narrowed to materials, builds, or team comps. From there, jump to the sibling page only if you need the next detail.</p>
         <div class="reference-directory">
           <a class="directory-link" href="{character_hub_path(slug)}">{character} guide hub</a>
           <a class="directory-link" href="/wuthering-waves-should-you-pull-{slug}/">Should you pull {character}?</a>
@@ -2099,7 +2099,7 @@ def build_focus_support_cases(page: dict[str, str], snapshot: dict[str, object])
         rows = [
             ("You are pre-planning before release", "Start with role-first shells", f"{character} team planning is strongest when it starts with job-to-fill, not hype around unreleased pairings."),
             ("You may skip if the live phase wins", "Keep one comparison shell", f"Make it easy to compare {character} against the immediate value of {compare['banner_name']}."),
-            ("You want a publishable browser answer", "Show one practical and one ambitious shell", "That serves both conservative and premium-planning users."),
+            ("You want one answer you can act on", "Show one practical and one ambitious shell", "That keeps the page useful for both conservative and premium planning."),
         ]
     else:
         if page["kind"] == "materials":
@@ -2170,14 +2170,14 @@ def build_focus_support_playbook(page: dict[str, str], snapshot: dict[str, objec
     else:
         if page["mode"] == "current":
             rows = [
-                ("Safe shell", "On-field core + sustain + broad support/flex", "Best for users who want one live team that works without perfect partners."),
-                ("Test shell", f"{character} core + one flex partner left movable", f"Best for users who want to try {character} without freezing the whole roster around them."),
+                ("Safe shell", "On-field core + sustain + broad support/flex", "Best when you want one live team that works without perfect partners."),
+                ("Test shell", f"{character} core + one flex partner left movable", f"Best when you want to try {character} without freezing the whole roster around them."),
                 ("Premium shell", "High-commit version after comfort is proven", f"Only push here if {character} still clearly beats redirecting toward {compare['banner_name']}."),
             ]
         else:
             rows = [
                 ("Preview shell", "Role-first shell before final release testing", f"Best for planning {character} as a concept instead of locking one fragile lineup too early."),
-                ("Comparison shell", f"One {character} shell versus one live-phase shell", f"Best for users deciding whether {character} really beats the immediate value in {compare['banner_name']}."),
+                ("Comparison shell", f"One {character} shell versus one live-phase shell", f"Best when you are deciding whether {character} really beats the immediate value in {compare['banner_name']}."),
                 ("Premium shell", "Higher-commit version once live play confirms the role", f"Use this only after {character} has a clear live identity and the shell still feels worth the spend."),
             ]
         section_title = f"{character} team shell playbook"
@@ -2641,7 +2641,7 @@ def build_support_related(page: dict[str, str]) -> str:
     context_copy = (
         f"{character} is part of the live tracked phase, so the best path is to keep this page connected to current-banner timing, current weapons, and immediate pull decisions."
         if page["mode"] == "current"
-        else f"{character} is part of the next tracked phase, so this page should help users compare pre-farm and save decisions against the still-live current banner."
+        else f"{character} is part of the next tracked phase, so keep pre-farm plans measured and compare them against the still-live current banner before spending."
     )
     return f"""    <section class="section two-col">
       <div class="card">
@@ -2671,11 +2671,11 @@ def build_support_faq(page: dict[str, str]) -> str:
     if page["kind"] == "build":
         return f"""      <div class="faq-list">
         <article class="faq-item"><h3>What should you lock first on a {character} build page?</h3><p>Lock the role, fallback weapon route, and broad upgrade order first. Save fine-tuned optimization for after official and live confirmation settles.</p></article>
-        <article class="faq-item"><h3>Why should a {character} build page stay connected to banner pages?</h3><p>Because users usually move from pull intent into build planning, not into a disconnected guide tree.</p></article>
+        <article class="faq-item"><h3>Why should a {character} build page stay connected to banner pages?</h3><p>Build choices usually follow a pull decision, so keeping the banner context nearby makes the advice easier to act on.</p></article>
       </div>"""
     return f"""      <div class="faq-list">
         <article class="faq-item"><h3>What should you decide first on a {character} team comps page?</h3><p>Decide the role slot {character} must fill for your account before chasing idealized partner lists.</p></article>
-        <article class="faq-item"><h3>Why should {character} team comps stay in the banner cluster?</h3><p>Because team planning is one of the main reasons users move from “should I pull” into deeper character pages.</p></article>
+        <article class="faq-item"><h3>Why should {character} team comps stay near the banner pages?</h3><p>Team planning usually starts right after the pull question, so it should stay close to the banner and pity context.</p></article>
       </div>"""
 
 
@@ -2723,7 +2723,7 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
                             "name": f"Why keep {page['character']} {kind_label.lower()} inside the banner site structure?",
                             "acceptedAnswer": {
                                 "@type": "Answer",
-                                "text": "Because users usually reach these pages from a current-banner or next-banner decision, not from a standalone character database query."
+                                "text": "These pages are most useful after a current-banner or next-banner decision, not as isolated database entries."
                             },
                         },
                     ],
@@ -2998,7 +2998,7 @@ def build_character_overview_decision_split(page: dict[str, str], snapshot: dict
       </div>
       <div class="card">
         <h2>Why this branch exists</h2>
-        <p>The {character} hub should shorten the path from “I know the character name” to “I know which page solves my next question.” That is the main job of this layer between the character list and the deeper support pages.</p>
+        <p>The {character} hub shortens the path from “I know the character name” to “I know which page solves my next question.” Start here, then choose pull advice, materials, build, or team comps.</p>
       </div>
     </section>"""
 
@@ -3086,18 +3086,18 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
                     "mainEntity": [
                         {
                             "@type": "Question",
-                            "name": f"What should a {page['character']} overview page do first?",
+                            "name": f"What is the best next page after {page['character']}?",
                             "acceptedAnswer": {
                                 "@type": "Answer",
-                                "text": f"It should route users into the fastest next page: pull advice, materials, build, or team comps, depending on where they are in the decision process for {page['character']}."
+                                "text": f"Start with pull advice if you are deciding whether to spend. Open materials, build, or team comps only after you know you want to plan around {page['character']}."
                             },
                         },
                         {
                             "@type": "Question",
-                            "name": "Why make a character overview page instead of only support pages?",
+                            "name": "Why does this overview page exist?",
                             "acceptedAnswer": {
                                 "@type": "Answer",
-                                "text": "Because a clean overview page makes the site structure easier to scan and keeps character intent from scattering across unrelated URLs."
+                                "text": "It keeps the main choices in one place before you commit to a narrower pull, farming, build, or team page."
                             },
                         },
                     ],
@@ -3136,8 +3136,8 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/wuthering-waves-characters/">Characters</a> / {character}</div>
     <h1>Wuthering Waves {character} Guide Hub</h1>
-    <p class="lead">{character} is part of the {phase_copy}. This page works as the clean detail layer between the characters list and the deeper support pages, so users can choose the exact next page without guessing.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> Use the {character} overview page when you want one place that links pull advice, materials, build, and team comps. That is more useful than dropping users directly into one narrow page if they have not decided what they need yet.</div>
+    <p class="lead">{character} is part of the {phase_copy}. Start here if you know the character name but still need to choose between pull advice, farming, build, or team planning.</p>
+    <div class="answer-box"><strong>Quick answer:</strong> For {character}, check pull advice first if you are deciding whether to spend. Use materials, build, and team comps after the decision is clearer.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(snapshot["updated"] + " 00:00")}.</p>
 {build_character_overview_media(page, snapshot)}
     <div class="card-grid">
@@ -3149,26 +3149,26 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
 {build_character_overview_decision_split(page, snapshot)}
 {build_character_overview_account_fit(page, snapshot)}
     <section class="section">
-      <h2>How to use the {character} hub</h2>
+      <h2>Start with the right question</h2>
       <div class="card-grid">
-        <article class="card"><h3>1. Start here if you know the character</h3><p>Use this hub after the characters list when you already know the unit you care about but still need to choose which narrow page to open next.</p></article>
-        <article class="card"><h3>2. Open the decision page first</h3><p>If the main question is still whether to spend, open the pull page before you drop into materials, build, or team comps.</p></article>
-        <article class="card"><h3>3. Go into one support page</h3><p>Only after the main decision is clear should you move into one support page and keep the next click inside the same {character} branch.</p></article>
+        <article class="card"><h3>I might pull</h3><p>Open the pull page first if you are still deciding whether {character} is worth your Astrite.</p></article>
+        <article class="card"><h3>I already plan to build</h3><p>Go to materials or build if the spending decision is settled and you are preparing resources.</p></article>
+        <article class="card"><h3>I need a team shell</h3><p>Use team comps when the real question is slot fit, rotation comfort, or account coverage.</p></article>
       </div>
     </section>
     <section class="section">
       <h2>{character} page list</h2>
       <div class="card-grid">
         <article class="card"><h2>Should you pull {character}?</h2><p>Start here if your main question is whether {character} is worth spending on right now.</p><p><a href="/wuthering-waves-should-you-pull-{slug}/">Open pull advice</a></p></article>
-        <article class="card"><h2>{character} materials</h2><p>Use this page for pre-farm planning, ascension notes, and safe-versus-risky material decisions.</p><p><a href="{support_page_path(slug, "materials")}">Open materials</a></p></article>
-        <article class="card"><h2>{character} build</h2><p>Use this page for role framing, early upgrade order, and practical build decisions.</p><p><a href="{support_page_path(slug, "build")}">Open build</a></p></article>
-        <article class="card"><h2>{character} team comps</h2><p>Use this page for role slot decisions, fallback shell planning, and realistic team structure.</p><p><a href="{support_page_path(slug, "team-comps")}">Open team comps</a></p></article>
+        <article class="card"><h2>{character} materials</h2><p>Check what is safe to farm now and what should wait for stronger confirmation.</p><p><a href="{support_page_path(slug, "materials")}">Open materials</a></p></article>
+        <article class="card"><h2>{character} build</h2><p>Review early role assumptions and low-risk upgrade priorities before spending heavily.</p><p><a href="{support_page_path(slug, "build")}">Open build</a></p></article>
+        <article class="card"><h2>{character} team comps</h2><p>Compare practical team shells, fallback slots, and account-fit questions.</p><p><a href="{support_page_path(slug, "team-comps")}">Open team comps</a></p></article>
       </div>
     </section>
     <section class="section two-col">
       <div class="card">
-        <h2>{character} branch context</h2>
-        <p>{character} sits between the broad character list and the narrow support pages. This hub should stop users from bouncing between unrelated guides just because they have not chosen whether they need pull advice, materials, build, or teams yet.</p>
+        <h2>{character} planning context</h2>
+        <p>{character} can lead to several different questions. Keep the spending decision separate from farming, build, and team prep so you do not over-plan before the banner choice is settled.</p>
         <div class="reference-directory">
           <a class="directory-link" href="/wuthering-waves-characters/">Back to characters list</a>
           <a class="directory-link" href="/wuthering-waves-should-you-pull-{slug}/">Open pull page</a>
@@ -3179,7 +3179,7 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
       </div>
       <div class="card">
         <h2>What to compare before committing</h2>
-        <p>Do not read {character} in isolation. Compare the spend case, the farm case, and the roster-pressure case against {html.escape(compare["banner_name"])} so this hub helps users make a real account choice instead of only opening more tabs.</p>
+        <p>Compare {character} against {html.escape(compare["banner_name"])} before committing resources. The better choice depends on your pity state, roster gaps, and how soon you need the unit.</p>
       </div>
     </section>
     <section class="section two-col">
@@ -3193,15 +3193,15 @@ def render_character_overview_page(page: dict[str, str], snapshot: dict[str, obj
         </ul>
       </div>
       <div class="card">
-        <h2>How this page should be used</h2>
-        <p>Use the characters list for scanning. Use this character hub when you know the unit you care about but still need to choose whether your next click should be pull advice, materials, build, or team comps.</p>
+        <h2>When this page helps</h2>
+        <p>Use the character list for browsing. Use this page when {character} is already the target and you need the next practical step.</p>
       </div>
     </section>
     <section class="section">
       <h2>FAQ</h2>
       <div class="faq-list">
-        <article class="faq-item"><h3>What should a {character} overview page do first?</h3><p>It should route you into the fastest next page: pull advice, materials, build, or team comps.</p></article>
-        <article class="faq-item"><h3>Why make a character overview page instead of only support pages?</h3><p>Because a clean overview page makes the structure easier to scan and stops character intent from scattering across unrelated URLs.</p></article>
+        <article class="faq-item"><h3>What is the best next page after {character}?</h3><p>Open pull advice if you are deciding whether to spend. Open materials, build, or team comps if you are already planning around {character}.</p></article>
+        <article class="faq-item"><h3>Why does this overview page exist?</h3><p>It keeps the main {character} links together so you can choose the right follow-up without jumping through unrelated pages.</p></article>
       </div>
       <div class="sources">
         <strong>Source used for this {character} overview page</strong><br>
@@ -3388,7 +3388,7 @@ def render_next_banner_date_page(snapshot: dict[str, object]) -> str:
             render_card_grid(
                 [
                     (next_title, next_copy),
-                    ("Why users search this", "This is usually a planning query right before a pull or save decision."),
+                    ("Search intent", "This is usually a planning query right before a pull or save decision."),
                     ("Best next pages", "The best follow-up pages are next banner, countdown, and banner schedule."),
                 ]
             ),
@@ -3414,7 +3414,7 @@ def render_next_banner_date_page(snapshot: dict[str, object]) -> str:
       </div>
       <div class="card">
         <h2>Why keep this separate</h2>
-        <p>A date page can stay much tighter than a full next-banner article, which makes it useful for narrow search intent.</p>
+        <p>A date page can stay much tighter than a full next-banner article, which makes it easier to scan when you only need the timing.</p>
       </div>
     </section>""",
         ]
@@ -3425,12 +3425,12 @@ def render_next_banner_date_page(snapshot: dict[str, object]) -> str:
         path="/wuthering-waves-next-banner-date/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next banner date',
         heading="Wuthering Waves Next Banner Date",
-        lead="Date-intent pages should be brutally clear. Users searching for the next banner date want one line first, then the smallest amount of supporting timing context needed to feel confident.",
+        lead="The next banner date should be clear immediately: one direct answer first, then just enough timing context to verify it.",
         answer=answer,
         body=body,
         faq_items=[
             ("When is the next Wuthering Waves banner date?", answer),
-            ("Which page should users open after checking the next banner date?", "Usually the next banner page, banner countdown page, or banner schedule page."),
+            ("Which page should you open after checking the next banner date?", "Usually the next banner page, banner countdown page, or banner schedule page."),
         ],
     )
 
@@ -3444,7 +3444,7 @@ def render_current_banner_end_date_page(snapshot: dict[str, object]) -> str:
             render_card_grid(
                 [
                     ("Live phase deadline", f"{current['banner_name']} remains live through {fmt_human_date(current['end_date'])}."),
-                    ("Why users search this", "This query usually appears right before someone decides whether to pull now or save."),
+                    ("Search intent", "This query usually appears right before someone decides whether to pull now or save."),
                     ("Best next pages", "The strongest next steps are current banner, next banner, and pity system."),
                 ]
             ),
@@ -3481,12 +3481,12 @@ def render_current_banner_end_date_page(snapshot: dict[str, object]) -> str:
         path="/wuthering-waves-current-banner-end-date/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Current banner end date',
         heading="Wuthering Waves Current Banner End Date",
-        lead="End-date pages are deadline pages. Users land here when they are close to making a decision and need a clear date more than a broad explanation.",
+        lead="End-date pages are deadline pages. Start with the date, then check only the context needed before a pull-or-save decision.",
         answer=answer,
         body=body,
         faq_items=[
             ("When does the current Wuthering Waves banner end?", answer),
-            ("What should users check before the current banner ends?", "Usually the current banner page, the next banner page, and the pity system before deciding how to spend resources."),
+            ("What should you check before the current banner ends?", "Usually the current banner page, the next banner page, and the pity system before deciding how to spend resources."),
         ],
     )
 
@@ -3501,7 +3501,7 @@ def render_current_banner_characters_page(snapshot: dict[str, object]) -> str:
                 [
                     ("Live lineup", f"The current tracked featured characters are {', '.join(current['featured_characters'])}."),
                     ("Current phase timing", f"{current['banner_name']} remains live through {fmt_human_date(current['end_date'])}."),
-                    ("Best next pages", "After checking the current lineup, users usually want the current banner page, a pull page, or the pity system."),
+                    ("Best next pages", "After checking the current lineup, go to the current banner page, a pull page, or the pity system."),
                 ]
             ),
             f"""    <section class="section">
@@ -3526,7 +3526,7 @@ def render_current_banner_characters_page(snapshot: dict[str, object]) -> str:
       </div>
       <div class="card">
         <h2>Why this page is separate</h2>
-        <p>It answers a narrower search than the broader current-banner page, which gives it a cleaner first screen and clearer CTR intent.</p>
+        <p>It gives the current featured lineup a cleaner first screen than the broader current-banner page.</p>
       </div>
     </section>""",
         ]
@@ -3537,12 +3537,12 @@ def render_current_banner_characters_page(snapshot: dict[str, object]) -> str:
         path="/wuthering-waves-current-banner-characters/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Current banner characters',
         heading="Wuthering Waves Current Banner Characters",
-        lead="This page exists for narrow intent. Some users do not want the full current-banner article first. They only want the current featured characters, then a quick path into the right decision page.",
+        lead="Use this page when you only need the current featured characters first, then a quick path into the right decision page.",
         answer=answer,
         body=body,
         faq_items=[
             ("Who are the current Wuthering Waves banner characters?", answer),
-            ("What should users check after the current banner characters?", "Most users should move to the current banner page, pull-advice hub, or pity system depending on whether they are about to spend resources."),
+            ("What should you check after the current banner characters?", "Open the current banner page, pull-advice hub, or pity system depending on whether you are about to spend resources."),
         ],
     )
 
@@ -3553,12 +3553,12 @@ def render_next_character_page(snapshot: dict[str, object]) -> str:
     if has_distinct_next(snapshot) and next_item["featured_characters"]:
         if is_subphase(next_item):
             answer = f"As of {updated}, the next tracked featured character is {', '.join(next_item['featured_characters'])} in the same Version {next_item['version']} phase, beginning on {fmt_human_date(next_item['start_date'])}."
-            lead_card = ("Next same-version lead", f"{next_focus_name(next_item)} is the next same-version name users are likely to compare first against the live lineup.")
+            lead_card = ("Next same-version lead", f"{next_focus_name(next_item)} is the next same-version name to compare against the live lineup.")
             support_card = ("Same-version timing", f"{next_event_copy(next_item)}")
         else:
             answer = f"As of {updated}, the next tracked featured characters are {', '.join(next_item['featured_characters'])} in {next_item['banner_name']}, beginning on {fmt_human_date(next_item['start_date'])}."
-            lead_card = ("Next phase lead", f"{next_focus_name(next_item)} is the lead next-phase name users are likely to compare first against the current phase.")
-            support_card = ("Next phase support names", f"{', '.join(next_item['featured_characters'][1:]) or next_focus_name(next_item)} matter because users often search companion units separately after seeing the main next-banner page.")
+            lead_card = ("Next phase lead", f"{next_focus_name(next_item)} is the lead next-phase name to compare against the current phase.")
+            support_card = ("Next phase support names", f"{', '.join(next_item['featured_characters'][1:]) or next_focus_name(next_item)} can matter separately after you check the main next-banner page.")
         table_focus = ", ".join(next_item["featured_characters"])
         table_phase = str(next_item["banner_name"])
         table_date = phase_event_label(next_item)
@@ -3585,7 +3585,7 @@ def render_next_character_page(snapshot: dict[str, object]) -> str:
                 [
                     lead_card,
                     support_card,
-                    ("What users usually need next", "After this page, most users need the next-banner page, the schedule page, or pull-advice context."),
+                    ("Best next pages", "After this page, the next useful stops are the next-banner page, the schedule page, and pull-advice context."),
                 ]
             ),
             f"""    <section class="section">
@@ -3610,7 +3610,7 @@ def render_next_character_page(snapshot: dict[str, object]) -> str:
       </div>
       <div class="card">
         <h2>Why this page is separate</h2>
-        <p>Some searchers do not ask for the full next banner. They ask for the next character directly, so the answer should be more focused and immediately scannable.</p>
+        <p>When the question is the next character rather than the full banner, the answer should stay focused and immediately scannable.</p>
       </div>
     </section>""",
         ]
@@ -3621,12 +3621,12 @@ def render_next_character_page(snapshot: dict[str, object]) -> str:
         path="/wuthering-waves-next-character/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next character',
         heading="Wuthering Waves Next Character",
-        lead="Users searching for the next character usually want a faster answer than a full banner article. They want to know the next confirmed featured units if they exist, or whether the next official preview is still the only reliable checkpoint.",
+        lead="The next-character question needs a faster answer than a full banner article: confirmed featured units if they exist, or the next official checkpoint if they do not.",
         answer=answer,
         body=body,
         faq_items=[
             ("Who are the next Wuthering Waves featured characters?", answer),
-            ("What should users check after a next-character page?", "They usually need the next-banner page, the schedule page, and character-specific pull advice before committing resources."),
+            ("What should you check after a next-character page?", "Check the next-banner page, the schedule page, and character-specific pull advice before committing resources."),
         ],
     )
 
@@ -3676,7 +3676,7 @@ def render_banner_schedule_page(snapshot: dict[str, object]) -> str:
                 [
                     ("Current phase timing", f"{current['banner_name']} is live now, featuring {', '.join(current['featured_characters'])} through {fmt_human_date(current['end_date'])}."),
                     ("Next tracked timing", next_timing_copy),
-                    ("What users usually need next", "After checking the schedule, users usually want the next-banner page, the current weapon banner, or a pull-advice page."),
+                    ("Best next pages", "After checking the schedule, the next useful stops are the next-banner page, the current weapon banner, and pull advice."),
                 ]
             ),
             f"""    <section class="section">
@@ -3738,7 +3738,7 @@ def render_banner_order_page(snapshot: dict[str, object]) -> str:
             render_card_grid(
                 [
                     ("Recent order", f"The tracked recent sequence is {recent_sequence}."),
-                    ("Why users search this", "Many users do not start with a specific date question. They start by asking what comes after what."),
+                    ("Search intent", "Many players start by asking what comes after what instead of searching for one exact date."),
                     ("Best next pages", "After this page, the most useful next steps are banner history, banner schedule, and next banner."),
                 ]
             ),
@@ -3775,7 +3775,7 @@ def render_banner_order_page(snapshot: dict[str, object]) -> str:
         path="/wuthering-waves-banner-order/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Banner order',
         heading="Wuthering Waves Banner Order",
-        lead="Banner order is broad-intent search. Users usually want a clean sequence answer first, then a way into the deeper history or schedule pages if they need more detail.",
+        lead="Banner order should start with the sequence, then point into deeper history or schedule pages only when more detail is needed.",
         answer=f"The recent tracked banner order is {recent_sequence}.",
         body=body,
         faq_items=[
@@ -3808,7 +3808,7 @@ def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
             render_card_grid(
                 [
                     ("Target date", target_date),
-                    ("Why users search this", "This is a narrow timing query from users who are already close to a save-or-pull decision."),
+                    ("Search intent", "This is a narrow timing query for a save-or-pull decision."),
                     ("Best next pages", "The strongest follow-ups are next banner, schedule, and timeline."),
                 ]
             ),
@@ -3850,7 +3850,7 @@ def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
         body=body,
         faq_items=[
             ("When is the next Wuthering Waves banner countdown pointing to?", answer),
-            ("Which page should users check after the next banner countdown?", "Most users should move to the next-banner page, banner schedule page, or timeline page."),
+            ("Which page should you check after the next banner countdown?", "Move to the next-banner page, banner schedule page, or timeline page if you need more timing context."),
         ],
     )
 
@@ -3909,27 +3909,27 @@ def render_characters_hub_page(snapshot: dict[str, object]) -> str:
   <main class="section"><div class="container">
     <div class="breadcrumbs"><a href="/">Home</a> / Characters</div>
     <h1>Wuthering Waves Characters</h1>
-    <p class="lead">Use the characters hub when the user wants a list first, then one character detail hub, then a deeper support page only if needed. This branch should feel like list, detail, support.</p>
+    <p class="lead">Start here when you want a character list first, then jump into one profile or planning page only when the question gets narrower.</p>
     <div class="answer-box"><strong>Direct answer:</strong> As of {updated}, the current tracked featured characters are {", ".join(current["featured_characters"])} in {current["banner_name"]}. {preview_notice}</div>
-    {render_card_grid([("Current featured characters", f"{', '.join(current['featured_characters'])} are the live tracked characters in {current['banner_name']}."), ("Next official character context", preview_notice), ("Why users search this", "This query often sits between broad banner discovery and character-specific pull or materials intent.")])}
+    {render_card_grid([("Current featured characters", f"{', '.join(current['featured_characters'])} are the live tracked characters in {current['banner_name']}."), ("Next official character context", preview_notice), ("Search intent", "Use this page to move from broad banner discovery into one character profile, pull page, or materials route.")])}
     <section class="section">
-      <h2>How to use the characters branch</h2>
+      <h2>How to use this character list</h2>
       <div class="card-grid">
-        <article class="card"><h3>1. Start from the character list</h3><p>Use this page when you know the user needs a character but not yet which deeper page.</p></article>
-        <article class="card"><h3>2. Open one character hub</h3><p>Open the character detail hub first. That is the clean middle layer.</p></article>
-        <article class="card"><h3>3. Open one support page</h3><p>Then move into pull advice, materials, build, or team comps only if needed.</p></article>
+        <article class="card"><h3>Find the character</h3><p>Start here when you want a quick route to a character rather than a full banner article.</p></article>
+        <article class="card"><h3>Open the profile</h3><p>Use the profile page to confirm the portrait, name, and related banner links.</p></article>
+        <article class="card"><h3>Go deeper only when needed</h3><p>Move into pull advice, materials, build, or team comps when the question is specific.</p></article>
       </div>
     </section>
     <section class="section">
-      <h2>Character branch map</h2>
-      <p class="section-intro">Use this branch in three steps: start from the character hub, open a character detail page, then move into support pages only if you need deeper build or planning help.</p>
+      <h2>Character page path</h2>
+      <p class="section-intro">The usual path is list, profile, then one specific planning page if you need it.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Layer</th><th>Best page type</th><th>What it is for</th></tr></thead>
           <tbody>
-            <tr><td>Hub</td><td><a href="/wuthering-waves-characters/">Characters</a></td><td>The top-level list for current, next, and reference character browsing.</td></tr>
-            <tr><td>Detail</td><td>Character detail page</td><td>The clean destination for one character image, one name, and the next useful routes.</td></tr>
-            <tr><td>Support</td><td><a href="/pull-advice/">Pull advice</a> or character support pages</td><td>The narrower layer for materials, build, team comps, or pull planning.</td></tr>
+            <tr><td>List</td><td><a href="/wuthering-waves-characters/">Characters</a></td><td>Scan current, upcoming, and reference characters.</td></tr>
+            <tr><td>Profile</td><td>Character detail page</td><td>Confirm the character and choose the next useful page.</td></tr>
+            <tr><td>Planning</td><td><a href="/pull-advice/">Pull advice</a> or support pages</td><td>Check pull value, materials, builds, or teams.</td></tr>
           </tbody>
         </table>
       </div>
@@ -3961,8 +3961,8 @@ def render_characters_hub_page(snapshot: dict[str, object]) -> str:
       </div>
     </section>
     <section class="section">
-      <h2>Character detail hubs</h2>
-      <p class="section-intro">Each live tracked featured character gets a real detail layer. The detail hub sits between the characters list and the narrower support pages, which makes the site structure easier to scan.</p>
+      <h2>Character planning pages</h2>
+      <p class="section-intro">Featured characters get one overview plus direct links to pull advice, materials, build, and team comps.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Character</th><th>Status</th><th>Detail hub</th><th>Support pages</th></tr></thead>
@@ -3983,12 +3983,12 @@ def render_characters_hub_page(snapshot: dict[str, object]) -> str:
       </div>
       <div class="card">
         <h2>Why this page matters</h2>
-        <p>This page gives you a clean top-level character node. That makes it easier to grow into materials, teams, and build-lite pages later.</p>
+        <p>This page keeps character browsing close to the banner decisions players usually make next.</p>
       </div>
     </section>
     <section class="section">
-      <h2>Character branch links</h2>
-      <p class="section-intro">These are the main pages users usually need before or after they open a character detail page.</p>
+      <h2>Related character pages</h2>
+      <p class="section-intro">These are the most common next stops after the character list.</p>
       <div class="reference-directory">
         <a class="directory-link" href="/pull-advice/">Pull advice hub</a>
         <a class="directory-link" href="/wuthering-waves-current-banner-characters/">Current banner characters</a>
@@ -4083,7 +4083,7 @@ def render_legacy_character_page(slug: str, character: str, snapshot: dict[str, 
     </section>""",
             f"""    <section class="section two-col">
       <div class="card">
-        <h2>{character} support branch</h2>
+        <h2>{character} support pages</h2>
         <ul class="list">
           <li><a href="/wuthering-waves-should-you-pull-{slug}/">Should you pull {character}?</a></li>
           <li><a href="{support_page_path(slug, "materials")}">{character} materials</a></li>
@@ -4093,7 +4093,7 @@ def render_legacy_character_page(slug: str, character: str, snapshot: dict[str, 
       </div>
       <div class="card">
         <h2>Why this hub still exists</h2>
-        <p>This page still works as a clean character branch for users who search the name directly, even when {character} is no longer in the live or next tracked focus set.</p>
+        <p>This page still works as a direct character hub when you search the name, even when {character} is no longer in the live or next tracked focus set.</p>
       </div>
     </section>""",
         ]
@@ -4104,12 +4104,12 @@ def render_legacy_character_page(slug: str, character: str, snapshot: dict[str, 
         path=character_overview_path(slug),
         breadcrumbs=f'<a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="/wuthering-waves-characters/">Characters</a> / {html.escape(character)}',
         heading=f"Wuthering Waves {character} Guide Hub",
-        lead=f"{character} is not in the current live focus set or the next officially confirmed featured set. Use this page as a reference branch into current-banner, rerun-watch, and support-page decisions.",
+        lead=f"{character} is not in the current live focus set or the next officially confirmed featured set. Use this page as a reference hub for current-banner checks, rerun watch, and character planning.",
         answer=f"As of {updated}, {character} is best treated as a reference or rerun-watch character rather than a live or officially next banner recommendation.",
         body=body,
         faq_items=[
-            (f"What should the {character} overview page do now?", f"It should route users into current-banner, next-banner, rerun-watch, and support pages instead of pretending {character} is still a live focus character."),
-            (f"Why keep a {character} hub if the character is not currently featured?", "Because users still search character names directly, and a clean hub is better than leaving an outdated phase-specific recommendation online."),
+            (f"What should the {character} overview page do now?", f"It should point to current banner, next banner, rerun watch, and planning pages instead of pretending {character} is still a live focus character."),
+            (f"Why keep a {character} hub if the character is not currently featured?", "Because direct character searches still happen, and a neutral hub is better than an outdated phase-specific recommendation."),
         ],
     )
 
@@ -4172,7 +4172,7 @@ def render_legacy_support_page(slug: str, character: str, kind: str, snapshot: d
             ("Best next comparison", f"{current['banner_name']} vs rerun-watch", "Compare live needs against long-term prep."),
         ]
     elif kind == "build":
-        lead = f"Use this {character} build page as a reference branch instead of a live-banner lock-in."
+        lead = f"Use this {character} build page as a reference page instead of a live-banner lock-in."
         answer = f"As of {updated}, the safest build advice is to keep {character} on a flexible reference path until a future banner or rerun makes the investment active again."
         focus_rows = [
             ("Reference build lane", "Keep a flexible role and fallback weapon route", "Best when the character is not live or officially next."),
@@ -4194,7 +4194,7 @@ def render_legacy_support_page(slug: str, character: str, kind: str, snapshot: d
                 [
                     ("Current live context", f"{current['banner_name']} is the active banner path right now."),
                     ("Next tracked update", next_event_copy(next_item)),
-                    ("Reference-only use", f"Keep {character} on a reference branch until a future banner or rerun makes the page active again."),
+                    ("Reference-only use", f"Keep {character} as a reference target until a future banner or rerun makes the page active again."),
                 ]
             ),
             f"""    <section class="section">
@@ -4219,14 +4219,14 @@ def render_legacy_support_page(slug: str, character: str, kind: str, snapshot: d
       </div>
       <div class="card">
         <h2>Why keep this page live</h2>
-        <p>Users still search direct character support queries even when the character is off-cycle. A neutral reference page is safer than leaving an outdated live-phase version online.</p>
+        <p>Direct character planning searches still happen when a character is off-cycle. A neutral reference page is safer than leaving an outdated live-phase version online.</p>
       </div>
     </section>""",
         ]
     )
     return render_standard_page(
         title=f"Wuthering Waves {character} {kind_label} | WuWa Banners",
-        description=f"Use this {character} {kind_label.lower()} page as a neutral reference branch tied to rerun-watch, current-banner, and future update planning.",
+        description=f"Use this {character} {kind_label.lower()} page as a neutral reference tied to rerun-watch, current-banner, and future update planning.",
         path=support_page_path(slug, kind),
         breadcrumbs=f'<a href="/">Home</a> / <a href="/guides/">Guides</a> / <a href="{character_overview_path(slug)}">{html.escape(character)}</a> / {kind_label}',
         heading=f"Wuthering Waves {character} {kind_label}",
@@ -4234,8 +4234,8 @@ def render_legacy_support_page(slug: str, character: str, kind: str, snapshot: d
         answer=answer,
         body=body,
         faq_items=[
-            (f"What should a {character} {kind_label.lower()} page do when the character is off-cycle?", "It should work as a neutral reference branch, not as a live or next-phase commitment page."),
-            (f"Why keep {character} {kind_label.lower()} inside the banner site structure?", "Because users still move from character-specific searches into current-banner, rerun-watch, and pity decisions even when the character is not currently featured."),
+            (f"What should a {character} {kind_label.lower()} page do when the character is off-cycle?", "It should work as a neutral reference, not as a live or next-phase commitment page."),
+            (f"Why keep {character} {kind_label.lower()} inside the banner site structure?", "Because character-specific planning still connects to current-banner, rerun-watch, and pity decisions even when the character is not currently featured."),
         ],
     )
 

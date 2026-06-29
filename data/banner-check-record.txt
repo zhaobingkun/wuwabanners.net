@@ -1,6 +1,6 @@
 WuWa Banner Check Record
-Generated at: 2026-06-28T22:50:05
-Compared report generated at: 2026-06-28T22:49:36
+Generated at: 2026-06-29T16:24:03
+Compared report generated at: 2026-06-29T16:23:37
 Comparison result: NO_SIGNIFICANT_CHANGE
 
 What you should look at first
@@ -12,9 +12,9 @@ Current summary
 - rows_checked: 8
 - rows_needing_review: 8
 - failed_source_fetches: 0
-- possible_new_versions: 3.0, 3.5
+- possible_new_versions: 3.5
 - manual_review_rows: ww-3.3-phase-1-weapon
-- automatic_candidate_updates: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-28, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-28
+- automatic_candidate_updates: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-29, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-29, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-29, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-29, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-29, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-29, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-29
 
 Changes since last run
 - No significant change compared with the previous run.

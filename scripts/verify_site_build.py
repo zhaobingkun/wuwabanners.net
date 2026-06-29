@@ -159,17 +159,17 @@ def main() -> int:
     )
     require_text(
         characters_hub,
-        ["How to use the characters branch", "branch map", "branch links"],
+        ["How to use this character list", "Character page path", "Related character pages"],
         failures,
     )
     require_text(
         weapons_hub,
-        ["How to use the weapons branch", "branch map", "branch links"],
+        ["How to use this weapon list", "Weapon page path", "Related weapon pages"],
         failures,
     )
     require_text(
         items_hub,
-        ["How to use the items branch", "branch map", "branch links"],
+        ["How to use this item list", "Item page path", "Related item pages"],
         failures,
     )
 
