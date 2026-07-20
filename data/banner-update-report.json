@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T16:23:37",
+  "generated_at": "2026-07-20T11:01:09",
   "csv_path": "data/banner-data.csv",
   "row_checks": [
     {
@@ -12,10 +12,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 11,
+      "age_days": 32,
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     {
@@ -28,10 +28,10 @@
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
       "last_checked": "2026-06-18",
-      "age_days": 11,
+      "age_days": 32,
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     {
@@ -44,12 +44,12 @@
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "source_type": "secondary_media",
       "last_checked": "2026-05-19",
-      "age_days": 41,
+      "age_days": 62,
       "needs_review": true,
       "reasons": [
-        "last_checked is 41 days old",
+        "last_checked is 62 days old",
         "source_type is secondary_media",
-        "source page did not clearly match expected banner names"
+        "source fetch failed: fetch-failed"
       ]
     },
     {
@@ -62,10 +62,11 @@
       "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 11,
+      "age_days": 32,
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old",
+        "source fetch failed: fetch-failed"
       ]
     },
     {
@@ -78,10 +79,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 11,
+      "age_days": 32,
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     {
@@ -94,10 +95,10 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 11,
+      "age_days": 32,
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     {
@@ -110,10 +111,10 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 11,
+      "age_days": 32,
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     {
@@ -126,10 +127,11 @@
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 11,
+      "age_days": 32,
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old",
+        "source fetch failed: fetch-failed"
       ]
     }
   ],
@@ -161,27 +163,22 @@
     },
     {
       "url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
-      "fetch_ok": true,
-      "status": "curl-ok",
+      "fetch_ok": false,
+      "status": "fetch-failed",
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "Fetched page did not contain the expected banner or unit names.",
-        "Fetched page did not clearly expose the current version string."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 28."
       ]
     },
     {
       "url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
-      "fetch_ok": true,
-      "status": "curl-ok",
-      "term_hits": [
-        "Denia",
-        "Chisa",
-        "Phrolova"
-      ],
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
       "version_hits": [],
       "notes": [
-        "Fetched page did not clearly expose the current version string."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-US/events/wuthering-waves']' returned non-zero exit status 35."
       ]
     },
     {
@@ -225,16 +222,13 @@
     },
     {
       "url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
-      "fetch_ok": true,
-      "status": "curl-ok",
-      "term_hits": [
-        "Version 3.4 Preview",
-        "3.4"
-      ],
-      "version_hits": [
-        "3.4"
-      ],
-      "notes": []
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878']' returned non-zero exit status 28."
+      ]
     }
   ],
   "feed_checks": [
@@ -274,27 +268,33 @@
         "version",
         "preview"
       ],
-      "matched_names": [
-        "Lucilla",
-        "Lucy"
-      ],
+      "matched_names": [],
       "version_hits": [
-        "3.5"
+        "3.5",
+        "5.5",
+        "6.3",
+        "3.0"
       ],
       "suggested_new_versions": [
-        "3.5"
+        "3.5",
+        "5.5",
+        "6.3",
+        "3.0"
       ],
       "notes": [
-        "Found possible newer version references: 3.5"
+        "Found possible newer version references: 3.5, 5.5, 6.3, 3.0"
       ]
     }
   ],
   "summary": {
     "rows_checked": 8,
     "rows_needing_review": 8,
-    "failed_source_fetches": 0,
+    "failed_source_fetches": 3,
     "possible_new_versions": [
-      "3.5"
+      "3.5",
+      "5.5",
+      "6.3",
+      "3.0"
     ]
   }
 }

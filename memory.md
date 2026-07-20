@@ -88,3 +88,185 @@
 - Updated `scripts/build_banner_snapshot.py` and `scripts/build_reference_pages.py` so regenerated character, weapon, item, and support pages keep the more natural wording.
 - Cleaned the weapons/items hub wording where it used phrases like "user wants", "branch", and "users usually need".
 - Verification passed with `python3 scripts/run_banner_update_cycle.py` and `python3 scripts/verify_site_build.py`; no banner facts changed.
+
+## 2026-06-30 Notes
+
+- Daily banner check re-run at 2026-06-30T12:16:57. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, live CSV, or public page content change detected.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-06-30.
+- Report still lists 8 rows needing review because safe rows are 12 days old; `ww-3.3-phase-1-weapon` is 42 days old, uses a secondary-media source, and the PCGamer source page still does not clearly match expected banner names.
+- Feed status: official site and DearPlayers were reachable; DearPlayers emits possible version references `3.5` and `2.7`. Treat `3.5` as unconfirmed and `2.7` as old-version feed noise unless a real banner row changes.
+- Official YouTube feed check still failed with SSL/curl timeout; row-level source fetches otherwise completed.
+
+## 2026-07-01 Notes
+
+- Daily banner check re-run at 2026-07-01T17:03:20. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came only from DearPlayers feed version-signal churn: previous possible versions `3.5`, `4.9`, `3.0` changed to `3.5`, `5.4`, `3.0`.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-01; do not publish from this alone.
+- Treat `3.5` as unconfirmed, and treat `5.4` / `3.0` as feed noise unless an official banner row, date, lineup, or source page changes.
+- Manual review remains `ww-3.3-phase-1-weapon`; PCGamer source still does not clearly match expected banner names.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-02 Notes
+
+- Daily banner check re-run at 2026-07-02T21:39:09. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came from DearPlayers feed version-signal churn (`3.5`, `5.3`, `6.3`, `3.0`) and official_site fetch status recovering from failed to `curl-ok`.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-02; do not publish from this alone.
+- Treat `3.5` as unconfirmed, and treat `5.3`, `6.3`, and `3.0` as feed noise unless an official banner row, date, lineup, or source page changes.
+- Manual review remains `ww-3.3-phase-1-weapon`; PCGamer source still does not clearly match expected banner names.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-03 Notes
+
+- Daily banner check re-run at 2026-07-03T17:12:43. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, live CSV, or public page content changed.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-03; do not publish from this alone.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Manual review remains `ww-3.3-phase-1-weapon`; PCGamer source still does not clearly match expected banner names.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-04 Notes
+
+- Daily banner check re-run at 2026-07-04T22:32:34. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came from source-health churn: `ww-3.3-phase-1-weapon` PCGamer secondary source fetch changed from `curl-ok` to `fetch-failed` due to SSL/curl timeout.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-04; do not publish from this alone.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Manual review remains `ww-3.3-phase-1-weapon`; today it failed to fetch rather than producing a content mismatch.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-05 Notes
+
+- Daily banner check re-run at 2026-07-05T22:43:01. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result again came from source-health churn: `ww-3.3-phase-1-weapon` PCGamer secondary source fetch failed with SSL/curl timeout.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-05; do not publish from this alone.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Manual review remains `ww-3.3-phase-1-weapon`; today it failed to fetch rather than producing a content mismatch.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-06 Notes
+
+- Daily banner check re-run at 2026-07-06T21:01:34. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result again came from source-health churn: `ww-3.3-phase-1-weapon` PCGamer secondary source fetch failed with SSL/curl timeout.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-06; do not publish from this alone.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Manual review remains `ww-3.3-phase-1-weapon`; today it failed to fetch rather than producing a content mismatch.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-07 Notes
+
+- Daily banner check re-run at 2026-07-07T20:17:30. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result again came from source-health churn: `ww-3.3-phase-1-weapon` PCGamer secondary source fetch changed from reachable in the previous state to `fetch-failed` today.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-07; do not publish from this alone.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Manual review remains `ww-3.3-phase-1-weapon`; today it failed to fetch rather than producing a content mismatch.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-08 Notes
+
+- Daily banner check re-run at 2026-07-08T22:34:47. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result again came from source-health churn: `ww-3.3-phase-1-weapon` PCGamer secondary source fetch changed from reachable in the previous state to `fetch-failed` today.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-08; do not publish from this alone.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Manual review remains `ww-3.3-phase-1-weapon`; today it failed to fetch rather than producing a content mismatch.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-10 Notes
+
+- Daily banner check re-run at 2026-07-10T09:43:34. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came from source-health churn and aging rows: `ww-3.3-phase-1-character` PlayStation Blog source failed today, while `ww-3.3-phase-2-character` recovered from `fetch-failed` to `curl-ok`.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-10; do not publish from this alone.
+- Manual review rows today are `ww-3.3-phase-1-character` and `ww-3.3-phase-1-weapon`, both due to source fetch failures rather than content mismatches.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-11 Notes
+
+- Daily banner check re-run at 2026-07-11T18:15:04. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, live CSV, or public page content changed.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-11; do not publish from this alone.
+- Manual review returned to only `ww-3.3-phase-1-weapon`, due to the recurring secondary-media PCGamer source fetch failure.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-13 Notes
+
+- Daily banner check re-run at 2026-07-13T20:46:52. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came from source-health churn: `ww-3.3-phase-1-weapon` PCGamer secondary source changed from reachable in the previous state to `fetch-failed` today.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-13; do not publish from this alone.
+- Manual review remains only `ww-3.3-phase-1-weapon`, due to the recurring secondary-media PCGamer source fetch failure.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-14 Notes
+
+- Daily banner check re-run at 2026-07-14T21:23:54. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came from source-health churn: `ww-3.3-phase-1-weapon` PCGamer secondary source changed from reachable in the previous state to `fetch-failed` today.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-14; do not publish from this alone.
+- Manual review remains only `ww-3.3-phase-1-weapon`, due to the recurring secondary-media PCGamer source fetch failure.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-15 Notes
+
+- Daily banner check re-run at 2026-07-15T17:31:23. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, live CSV, or public page content changed.
+- Candidate CSV still only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-15; do not publish from this alone.
+- Manual review remains only `ww-3.3-phase-1-weapon`; today the PCGamer secondary source fetched, but the page still did not clearly match expected banner names or version text.
+- Failed row-level source fetches dropped to 0, but official YouTube feed check still failed with SSL/curl timeout.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+
+## 2026-07-15 Search Console Optimization
+
+- Analyzed the 2026-07-15 Search Console 24-hour export from `/Users/zhaobingkun/Desktop/wuwabanners.net-Performance-on-Search-2026-07-15/`.
+- Main query opportunities were `wuwa banner history` (60 impressions, 1 click, position 9.6), `wuwa banner countdown` (28 impressions, 0 clicks, position 6.75), `wuwa banners history` (11 impressions, 0 clicks, position 9), and `wuwa rerun tracker` (3 impressions, 0 clicks, position 7).
+- Main page opportunity was `/wuthering-waves-banner-history/` with 124 impressions, 2 clicks, CTR 1.61%, position 11.13; homepage had more impressions but weaker average position, so the first optimization focused on tighter page-intent matches.
+- Updated `scripts/build_banner_snapshot.py` so regenerated history, countdown, and rerun pages keep GSC-aligned metadata and H1s.
+- Updated `/wuthering-waves-banner-history/` toward `WuWa Banner History List & Chart`, `/wuthering-waves-banner-countdown/` toward `WuWa Banner Countdown Timer`, and `/wuthering-waves-next-rerun/` toward `WuWa Rerun Tracker`.
+- Exported fresh opportunity files to `data/search-console-query-opportunities.csv` and `data/search-console-page-opportunities.csv`.
+- Verification passed with `python3 scripts/run_banner_update_cycle.py`.
+
+## 2026-07-16 Notes
+
+- Daily banner check re-run at 2026-07-16T21:52:01. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came from source-health churn: `ww-3.3-phase-1-character` PlayStation Blog source and `ww-3.3-phase-1-weapon` PCGamer secondary source both failed to fetch today.
+- Candidate CSV only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-16 for 6 rows; do not publish from this alone.
+- Manual review rows today are `ww-3.3-phase-1-character` and `ww-3.3-phase-1-weapon`, both due to source fetch failures rather than content mismatches.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-17 Notes
+
+- Daily banner check re-run at 2026-07-17T19:59:53. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came from source-health churn: `ww-3.3-phase-1-weapon` PCGamer secondary source changed from `curl-ok` to `fetch-failed`.
+- Candidate CSV only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-17 for 7 rows; do not publish from this alone.
+- Manual review row today is only `ww-3.3-phase-1-weapon`, due to the recurring secondary-media PCGamer source fetch failure.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+- Official YouTube feed check still failed with SSL/curl timeout.
+
+## 2026-07-19 Notes
+
+- Daily banner check re-run at 2026-07-19T16:39:00. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, live CSV, or public page content changed.
+- Candidate CSV only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-19 for 7 rows; do not publish from this alone.
+- Manual review row today is only `ww-3.3-phase-1-weapon`, because the recurring secondary-media PCGamer page did not clearly expose the current version string.
+- Row-level source fetch failures are 0 today, but official YouTube feed check still failed with SSL/curl timeout.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+
+## 2026-07-20 Notes
+
+- Daily banner check re-run at 2026-07-20T10:11:41. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The `CHANGED` result came from aging rows and candidate `last_checked` churn: reviewed rows moved from 31 days old to 32 days old, and `ww-3.3-phase-1-weapon` moved from 61 days old to 62 days old.
+- Candidate CSV only refreshes safe-row `last_checked` values from 2026-06-18 to 2026-07-20 for 7 rows; do not publish from this alone.
+- Manual review row today is only `ww-3.3-phase-1-weapon`, because the recurring secondary-media PCGamer page did not clearly expose the current version string.
+- Row-level source fetch failures are 0 today, but official YouTube feed check still failed with SSL/curl timeout.
+- DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
+
+## 2026-07-20 Page Expansion Planning
+
+- The site already has 229 `index.html` pages, so low traffic should not be solved by bulk page generation.
+- Search Console opportunity files still point to `wuwa banner history`, `wuwa banner countdown`, and `wuwa rerun tracker` as the strongest near-term queries; these existing pages rank around positions 6-12 but need higher CTR and stronger first-answer matching.
+- If adding pages, keep the first batch small and high-intent: `wuwa soft pity`, `wuthering waves pity carry over`, `wuwa single pull vs 10 pull`, `wuwa past banners`, and a concise `wuwa maintenance countdown` or `next update countdown` page only if it can stay accurate.
+- Do not add speculative future-version banner pages from DearPlayers version-number noise (`3.5`, `5.5`, `6.3`, `3.0`) unless official banner facts change.
+
+## 2026-07-20 Homepage On Page SEO
+
+- Applied homepage SEO improvements for the target keyword `Wuthering Waves Banner`.
+- Updated homepage Title, meta description, OG/Twitter metadata, H1, hero lead, current snapshot intro, official video copy, and best-starting-points intro to use the full target phrase naturally.
+- Added homepage sections for `How to use this Wuthering Waves banner tracker` and `What counts as a confirmed Wuthering Waves banner update?` to raise visible content from about 723 words to 1213 words while keeping source-verification rules clear.
+- Added width and height to the YouTube thumbnail generated by `render_video_embed` to address the missing image dimension warning.
+- Persisted generated homepage copy in `scripts/build_banner_snapshot.py`; verification passed with `python3 scripts/run_banner_update_cycle.py` and `python3 scripts/verify_site_build.py`.

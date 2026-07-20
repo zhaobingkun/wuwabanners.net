@@ -59,7 +59,7 @@ def render_video_embed(title: str, video_id: str = "viOkAhoa0k8") -> str:
     poster_url = f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
     return f"""<div class="video-embed">
             <button class="video-lite" type="button" data-video-id="{video_id}" data-video-title="{safe_title}" aria-label="Load video: {safe_title}">
-              <img src="{poster_url}" alt="{safe_title}" loading="lazy" decoding="async">
+              <img src="{poster_url}" alt="{safe_title}" width="480" height="360" loading="lazy" decoding="async">
               <span class="video-lite-badge">YouTube</span>
               <span class="video-lite-play" aria-hidden="true"></span>
               <span class="video-lite-title">{safe_title}</span>
@@ -572,6 +572,35 @@ def replace_meta_description(text: str, description: str) -> str:
     return text
 
 
+def replace_page_metadata(
+    text: str,
+    *,
+    title: str,
+    description: str,
+    headline: str,
+    h1: str,
+) -> str:
+    safe_title = html.escape(title, quote=True)
+    safe_description = html.escape(description, quote=True)
+    safe_headline = json.dumps(headline)[1:-1]
+    safe_h1 = html.escape(h1)
+    replacements = [
+        (r"(<title>).*?(</title>)", rf"\g<1>{safe_title}\2"),
+        (r'(<meta name="description" content=")[^"]*(">)', rf"\g<1>{safe_description}\2"),
+        (r'(<meta property="og:title" content=")[^"]*(">)', rf"\g<1>{safe_title}\2"),
+        (r'(<meta property="og:description" content=")[^"]*(">)', rf"\g<1>{safe_description}\2"),
+        (r'(<meta name="twitter:title" content=")[^"]*(">)', rf"\g<1>{safe_title}\2"),
+        (r'(<meta name="twitter:description" content=")[^"]*(">)', rf"\g<1>{safe_description}\2"),
+        (r'("headline": ")[^"]*(")', rf"\g<1>{safe_headline}\2"),
+        (r"(<h1>).*?(</h1>)", rf"\g<1>{safe_h1}\2"),
+    ]
+    for pattern, replacement in replacements:
+        text, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
+        if count != 1:
+            raise RuntimeError(f"Failed to replace page metadata pattern: {pattern}")
+    return text
+
+
 def slugify_character(name: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
     if not slug:
@@ -585,8 +614,8 @@ def build_home_media(updated: str) -> str:
           <img src="/assets/img/current-banner-card.svg" alt="Current Wuthering Waves banner snapshot generated from the latest CSV build." width="1200" height="675" decoding="async" fetchpriority="high">
         </div>
         <div class="video-card">
-          <h2>Official update video slot</h2>
-          <p class="section-intro">Use one official broadcast or trailer on the homepage. This keeps the front page visually stronger without turning the site into a video-first layout.</p>
+          <h2>Official Wuthering Waves banner video reference</h2>
+          <p class="section-intro">Official Wuthering Waves banner videos are useful for checking reveal timing, character previews, and version update context. Use this slot as a visual reference, then confirm exact banner dates and lineups through the current banner, next banner, and schedule pages.</p>
           {render_reference_video_embed()}
         </div>
       </div>"""
@@ -607,10 +636,13 @@ def build_home_lead(snapshot: dict[str, object]) -> str:
         )
     else:
         next_copy = "the post-current banner lineup is still pending official reveal"
+    next_sentence = next_copy[:1].upper() + next_copy[1:]
     return (
-        f'The current Wuthering Waves banner features {", ".join(current["featured_characters"])} '
-        f'through {fmt_human_date(current["end_date"])}; {next_copy}. '
-        "Use the next banner watch page, countdown, rerun, and pity pages before spending Astrite."
+        "Use this Wuthering Waves banner tracker to check the current banner lineup, "
+        "end date, next banner status, countdown, rerun history, and pity planning in one place. "
+        f'The current tracked phase features {", ".join(current["featured_characters"])} '
+        f'through {fmt_human_date(current["end_date"])}. {next_sentence}, '
+        "so treat unconfirmed banner names as watchlist context, not confirmed pull advice."
     )
 
 
@@ -688,7 +720,7 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
         comparison_title = f"{current['banner_name']} vs next official reveal"
     return f"""      <div class="container">
         <h2>Current Wuthering Waves banner snapshot</h2>
-        <p class="section-intro">Check the live phase first, then the next official checkpoint and the best page for the decision you are making now. These links are the highest-priority crawl path for banner, countdown, history, rerun, and pity searches.</p>
+        <p class="section-intro">This Wuthering Waves banner snapshot gives the fastest route to the live banner, next banner watch page, countdown, schedule, banner history, rerun tracker, and pity guide. Start with the current phase if you need today's lineup, then move to history or pity pages if you are deciding whether to spend or save Astrite.</p>
         <div class="card-grid" style="margin-bottom:1.25rem;">
           <article class="card"><h3>Current banner ends</h3><p><strong>{fmt_human_date(current["end_date"])}</strong></p><p>{", ".join(current["featured_characters"])} stay live through the current tracked phase.</p><p><a href="/wuthering-waves-current-banner-end-date/">Open current banner end date</a></p></article>
           <article class="card"><h3>{next_card_title}</h3><p><strong>{next_card_date}</strong></p><p>{next_card_body}</p><p><a href="/wuthering-waves-next-banner-date/">Open next banner date</a></p></article>
@@ -1026,8 +1058,8 @@ def build_current_sources(snapshot: dict[str, object]) -> str:
 def build_history_intro(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
     next_item = snapshot["next"]
-    return f"""    <p class="lead">Use this WuWa banner history timeline to compare recent Wuthering Waves version phases, featured characters, featured weapons, and banner windows before judging rerun timing.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The recent tracked WuWa banner history includes the phases below, with {next_item["banner_name"]} as the next banner-related checkpoint. Open a phase detail page when you need exact lineup and source context.</div>
+    return f"""    <p class="lead">Use this WuWa banner history list and chart to compare recent Wuthering Waves version phases, featured characters, featured weapons, and banner windows before judging rerun timing.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> The recent tracked WuWa banner history is listed below as a quick chart, with {next_item["banner_name"]} as the next banner-related checkpoint. Open a phase detail page when you need exact lineup and source context.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -1315,8 +1347,8 @@ def build_rerun_intro(snapshot: dict[str, object]) -> str:
     history = snapshot["history"]
     updated = snapshot["updated"]
     oldest = history[0]
-    return f"""    <p class="lead">Rerun planning is different from next-banner planning. Based on the tracked recent cycle, the oldest featured five-stars in the current snapshot are {", ".join(oldest["featured_characters"])}, which makes them the first names to compare when deciding whether to spend now or hold longer.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> No rerun page can promise a date without official confirmation, but a good rerun guide can show which older featured units are furthest from their last phase and therefore most likely to be searched next.</div>
+    return f"""    <p class="lead">Use this WuWa rerun tracker to compare recent Wuthering Waves banner history before treating any next rerun as confirmed. Based on the tracked recent cycle, the oldest featured five-stars in the current snapshot are {", ".join(oldest["featured_characters"])}.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> No rerun tracker can promise a date without official confirmation, but this page shows which older featured units are furthest from their last phase so you can decide whether saving is worth it.</div>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -1380,7 +1412,7 @@ def build_countdown_intro(snapshot: dict[str, object]) -> str:
     else:
         answer_copy = f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and {next_item['banner_name']} begins on {fmt_human_date(next_item['start_date'])}."
         next_context = f"the next tracked phase is {next_item['banner_name']}"
-    return f"""    <p class="lead">This page answers the WuWa banner countdown question first: when the live {", ".join(current["featured_characters"])} phase ends, and what {next_context}.</p>
+    return f"""    <p class="lead">This page answers the WuWa banner countdown timer question first: when the live {", ".join(current["featured_characters"])} phase ends, what {next_context}, and which page to open next for schedule or pull advice.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {answer_copy}</div>
 {render_status_strip(snapshot)}
 {render_quick_actions()}
@@ -4249,7 +4281,7 @@ def update_pages(snapshot: dict[str, object]) -> None:
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
     index_text, lead_count = re.subn(
-        r'(<h1>WuWa current banner, next banner, countdown, and pull advice\.</h1>\s*)<p class="lead">.*?</p>',
+        r'(<h1>Wuthering Waves Banner Tracker for Current and Next Banners</h1>\s*)<p class="lead">.*?</p>',
         rf'\1<p class="lead">{html.escape(build_home_lead(snapshot))}</p>',
         index_text,
         count=1,
@@ -4328,6 +4360,13 @@ def update_pages(snapshot: dict[str, object]) -> None:
     CURRENT_HTML.write_text(current_text, encoding="utf-8")
 
     history_text = HISTORY_HTML.read_text(encoding="utf-8")
+    history_text = replace_page_metadata(
+        history_text,
+        title="WuWa Banner History List & Chart | Wuthering Waves",
+        description="Browse the WuWa banner history list and chart with Wuthering Waves phases, featured characters, weapons, dates, and rerun context.",
+        headline="WuWa Banner History List & Chart",
+        h1="WuWa Banner History List and Chart",
+    )
     history_text = replace_block_exact(history_text, "HISTORY_INTRO", build_history_intro(snapshot))
     history_text = replace_block_exact(history_text, "HISTORY_MEDIA", build_history_media(snapshot))
     history_text = replace_block_exact(history_text, "HISTORY_TABLE", build_history_table(snapshot))
@@ -4335,6 +4374,13 @@ def update_pages(snapshot: dict[str, object]) -> None:
     HISTORY_HTML.write_text(history_text, encoding="utf-8")
 
     rerun_text = RERUN_HTML.read_text(encoding="utf-8")
+    rerun_text = replace_page_metadata(
+        rerun_text,
+        title="WuWa Rerun Tracker: Next Rerun Watch | Wuthering Waves",
+        description="Track WuWa rerun candidates with Wuthering Waves banner history, recent phase spacing, current banner context, and save-or-pull planning.",
+        headline="WuWa Rerun Tracker: Next Rerun Watch",
+        h1="WuWa Rerun Tracker and Next Rerun Watch",
+    )
     rerun_text = replace_block_exact(rerun_text, "RERUN_INTRO", build_rerun_intro(snapshot))
     rerun_text = replace_block_exact(rerun_text, "RERUN_MEDIA", build_rerun_media())
     rerun_text = replace_block_exact(rerun_text, "RERUN_CARDS", build_rerun_cards(snapshot))
@@ -4343,6 +4389,13 @@ def update_pages(snapshot: dict[str, object]) -> None:
     RERUN_HTML.write_text(rerun_text, encoding="utf-8")
 
     countdown_text = COUNTDOWN_HTML.read_text(encoding="utf-8")
+    countdown_text = replace_page_metadata(
+        countdown_text,
+        title="WuWa Banner Countdown Timer: Current & Next Dates",
+        description="Check the WuWa banner countdown timer, current banner end date, next banner date status, schedule links, and pull-or-save context.",
+        headline="WuWa Banner Countdown Timer: Current & Next Dates",
+        h1="WuWa Banner Countdown Timer and Current-Next Dates",
+    )
     countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_INTRO", build_countdown_intro(snapshot))
     countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_MEDIA", build_countdown_media(snapshot))
     countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_CARDS", build_countdown_cards(snapshot))

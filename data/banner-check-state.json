@@ -1,11 +1,14 @@
 {
-  "report_generated_at": "2026-06-29T16:23:37",
+  "report_generated_at": "2026-07-20T11:01:09",
   "summary": {
     "rows_checked": 8,
     "rows_needing_review": 8,
-    "failed_source_fetches": 0,
+    "failed_source_fetches": 3,
     "possible_new_versions": [
-      "3.5"
+      "3.5",
+      "5.5",
+      "6.3",
+      "3.0"
     ]
   },
   "rows": {
@@ -18,7 +21,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     "ww-3.3-phase-1-character": {
@@ -30,7 +33,7 @@
       "source_type": "official_site",
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     "ww-3.3-phase-1-weapon": {
@@ -42,8 +45,8 @@
       "source_type": "secondary_media",
       "needs_review": true,
       "reasons": [
-        "last_checked is 41 days old",
-        "source page did not clearly match expected banner names",
+        "last_checked is 62 days old",
+        "source fetch failed: fetch-failed",
         "source_type is secondary_media"
       ]
     },
@@ -56,7 +59,8 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old",
+        "source fetch failed: fetch-failed"
       ]
     },
     "ww-3.3-phase-2-weapon": {
@@ -68,7 +72,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     "ww-3.4-phase-1-character": {
@@ -80,7 +84,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     "ww-3.4-phase-1-weapon": {
@@ -92,7 +96,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old"
       ]
     },
     "ww-3.4-phase-1-preview": {
@@ -104,7 +108,8 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 11 days old"
+        "last_checked is 32 days old",
+        "source fetch failed: fetch-failed"
       ]
     }
   },
@@ -133,26 +138,21 @@
       "notes": []
     },
     "ww-3.3-phase-1-weapon": {
-      "fetch_ok": true,
-      "status": "curl-ok",
+      "fetch_ok": false,
+      "status": "fetch-failed",
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "Fetched page did not clearly expose the current version string.",
-        "Fetched page did not contain the expected banner or unit names."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 28."
       ]
     },
     "ww-3.3-phase-2-character": {
-      "fetch_ok": true,
-      "status": "curl-ok",
-      "term_hits": [
-        "Chisa",
-        "Denia",
-        "Phrolova"
-      ],
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
       "version_hits": [],
       "notes": [
-        "Fetched page did not clearly expose the current version string."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-US/events/wuthering-waves']' returned non-zero exit status 35."
       ]
     },
     "ww-3.3-phase-2-weapon": {
@@ -192,16 +192,13 @@
       "notes": []
     },
     "ww-3.4-phase-1-preview": {
-      "fetch_ok": true,
-      "status": "curl-ok",
-      "term_hits": [
-        "3.4",
-        "Version 3.4 Preview"
-      ],
-      "version_hits": [
-        "3.4"
-      ],
-      "notes": []
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878']' returned non-zero exit status 28."
+      ]
     }
   },
   "feeds": {
@@ -225,26 +222,32 @@
       "fetch_ok": true,
       "status": "curl-ok",
       "version_hits": [
-        "3.5"
+        "3.0",
+        "3.5",
+        "5.5",
+        "6.3"
       ],
       "suggested_new_versions": [
-        "3.5"
+        "3.0",
+        "3.5",
+        "5.5",
+        "6.3"
       ],
       "notes": [
-        "Found possible newer version references: 3.5"
+        "Found possible newer version references: 3.5, 5.5, 6.3, 3.0"
       ]
     }
   },
   "auto_updates": [
-    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-06-29",
-    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-06-29",
-    "ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-06-29",
-    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-06-29",
-    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-06-29",
-    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-06-29",
-    "ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-06-29"
+    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-07-20",
+    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-07-20",
+    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-07-20",
+    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-07-20",
+    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-07-20"
   ],
   "manual_review_ids": [
-    "ww-3.3-phase-1-weapon"
+    "ww-3.3-phase-1-weapon",
+    "ww-3.3-phase-2-character",
+    "ww-3.4-phase-1-preview"
   ]
 }
