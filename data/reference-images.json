@@ -328,6 +328,20 @@
       "src": "/assets/img/reference/characters/danjin.webp",
       "note": "Portrait",
       "source": "https://wuwatracker.com/api/character-portraits/file/danjin.webp"
+    },
+    {
+      "name": "Yangyang: Xuanling",
+      "slug": "yangyang-xuanling",
+      "src": "/assets/img/reference/characters/yangyang-xuanling.webp",
+      "note": "Character art",
+      "source": "https://cdn.prydwen.gg/images/wuthering-waves/characters/yangyang-xuanling_card.webp"
+    },
+    {
+      "name": "Suisui",
+      "slug": "suisui",
+      "src": "/assets/img/reference/characters/suisui.png",
+      "note": "Character art",
+      "source": "https://wuthering.gg/_ipx/q_70%26s_400x552/images/iconrolepile/T_IconRole_Pile_Suisui_UI.png"
     }
   ],
   "weapons": [

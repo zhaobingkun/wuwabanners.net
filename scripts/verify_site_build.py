@@ -225,6 +225,7 @@ def main() -> int:
         "youtube.com",
         "blog.playstation.com",
         "dearplayers.com",
+        "x.com/Wuthering_Waves",
     )
     for row in history:
         source_url = row.get("source_url", "")

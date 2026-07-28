@@ -542,7 +542,7 @@ def next_event_copy(next_item: dict[str, object]) -> str:
 def next_focus_name(next_item: dict[str, object]) -> str:
     if next_item["featured_characters"]:
         return str(next_item["featured_characters"][0])
-    return "the first officially revealed 3.4 featured unit"
+    return "the first officially revealed featured unit"
 
 
 def replace_block_exact(text: str, name: str, inner: str) -> str:
@@ -634,15 +634,16 @@ def build_home_lead(snapshot: dict[str, object]) -> str:
             if is_subphase(next_item)
             else f"{next_item['banner_name']} is the next tracked banner update"
         )
+        planning_copy = "Use the confirmed next-phase lineup and dates for planning, then recheck in-game Convene at the phase change."
     else:
         next_copy = "the post-current banner lineup is still pending official reveal"
+        planning_copy = "Treat unconfirmed banner names as watchlist context, not confirmed pull advice."
     next_sentence = next_copy[:1].upper() + next_copy[1:]
     return (
         "Use this Wuthering Waves banner tracker to check the current banner lineup, "
         "end date, next banner status, countdown, rerun history, and pity planning in one place. "
         f'The current tracked phase features {", ".join(current["featured_characters"])} '
-        f'through {fmt_human_date(current["end_date"])}. {next_sentence}, '
-        "so treat unconfirmed banner names as watchlist context, not confirmed pull advice."
+        f'through {fmt_human_date(current["end_date"])}. {next_sentence}. {planning_copy}'
     )
 
 
@@ -3872,11 +3873,11 @@ def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
         ]
     )
     return render_standard_page(
-        title="WuWa Next Banner Countdown: 3.4 Date and Timer",
-        description="Check the WuWa next banner countdown, including the Version 3.4 checkpoint, next banner date context, and follow-up timing pages.",
+        title=f"WuWa Next Banner Countdown: {target_date}",
+        description=f"Check the WuWa next banner countdown for {table_phase}, including the {target_date} target, featured characters, schedule links, and pull advice.",
         path="/wuthering-waves-next-banner-countdown/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next banner countdown',
-        heading="WuWa Next Banner Countdown: 3.4 Date and Timer",
+        heading=f"WuWa Next Banner Countdown: {target_date}",
         lead="This page answers next-banner countdown intent immediately, then moves users into the full next-banner or schedule page if they need more context.",
         answer=answer,
         body=body,
@@ -4289,6 +4290,24 @@ def update_pages(snapshot: dict[str, object]) -> None:
     )
     if lead_count != 1:
         raise RuntimeError("Failed to replace homepage hero lead")
+    current = snapshot["current"]
+    current_month = date.fromisoformat(str(snapshot["updated"])).strftime("%B %Y")
+    index_text, eyebrow_count = re.subn(
+        r'(<span class="eyebrow">)[^<]*(</span>\s*<h1>Wuthering Waves Banner Tracker for Current and Next Banners</h1>)',
+        rf'\1{current_month} Version {current["version"]} banner tracker\2',
+        index_text,
+        count=1,
+    )
+    if eyebrow_count != 1:
+        raise RuntimeError("Failed to replace homepage hero eyebrow")
+    index_text, showcase_eyebrow_count = re.subn(
+        r'(<div class="hero-showcase-copy">\s*<span class="eyebrow">)[^<]*(</span>)',
+        rf'\1Version {current["version"]} tracking\2',
+        index_text,
+        count=1,
+    )
+    if showcase_eyebrow_count != 1:
+        raise RuntimeError("Failed to replace homepage showcase eyebrow")
     index_text = replace_block_exact(index_text, "HOME_STATUS", build_home_status(snapshot))
     index_text = replace_block_exact(index_text, "HOME_TIMELINE", build_home_timeline(snapshot))
     index_text = replace_block_exact(index_text, "HOME_MEDIA", build_home_media(snapshot["updated"]))
@@ -4296,6 +4315,21 @@ def update_pages(snapshot: dict[str, object]) -> None:
     INDEX_HTML.write_text(index_text, encoding="utf-8")
 
     next_text = NEXT_HTML.read_text(encoding="utf-8")
+    next_item = snapshot["next"]
+    next_names = " & ".join(next_item["featured_characters"]) if next_item["featured_characters"] else next_item["banner_name"]
+    next_names_sentence = " and ".join(next_item["featured_characters"]) if next_item["featured_characters"] else next_item["banner_name"]
+    next_title = f"WuWa Next Banner: {next_names} | Version {next_item['version']}"
+    next_description = (
+        f"The next WuWa banner is {next_item['banner_name']} with {next_names_sentence}, "
+        f"starting {fmt_human_date(next_item['start_date'])}. Check weapons, countdown, and pull advice."
+    )
+    next_text = replace_page_metadata(
+        next_text,
+        title=next_title,
+        description=next_description,
+        headline=next_title,
+        h1=f"WuWa Next Banner: {next_names_sentence}",
+    )
     next_text = replace_block_exact(next_text, "NEXT_INTRO", build_next_intro(snapshot))
     next_text = replace_block_exact(next_text, "NEXT_MEDIA", build_next_media(snapshot))
     next_text = replace_block_exact(next_text, "NEXT_CARDS", build_next_cards(snapshot))
