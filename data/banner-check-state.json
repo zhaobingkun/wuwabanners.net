@@ -1,5 +1,5 @@
 {
-  "report_generated_at": "2026-07-28T10:52:27",
+  "report_generated_at": "2026-07-30T09:56:05",
   "summary": {
     "rows_checked": 12,
     "rows_needing_review": 12,
@@ -20,7 +20,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 40 days old"
+        "last_checked is 42 days old"
       ]
     },
     "ww-3.3-phase-1-character": {
@@ -32,7 +32,7 @@
       "source_type": "official_site",
       "needs_review": true,
       "reasons": [
-        "last_checked is 40 days old"
+        "last_checked is 42 days old"
       ]
     },
     "ww-3.3-phase-1-weapon": {
@@ -44,7 +44,7 @@
       "source_type": "secondary_media",
       "needs_review": true,
       "reasons": [
-        "last_checked is 70 days old",
+        "last_checked is 72 days old",
         "source page did not clearly match expected banner names",
         "source_type is secondary_media"
       ]
@@ -58,7 +58,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 40 days old"
+        "last_checked is 42 days old"
       ]
     },
     "ww-3.3-phase-2-weapon": {
@@ -70,7 +70,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 40 days old"
+        "last_checked is 42 days old"
       ]
     },
     "ww-3.4-phase-1-character": {
@@ -82,7 +82,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 40 days old"
+        "last_checked is 42 days old"
       ]
     },
     "ww-3.4-phase-1-weapon": {
@@ -94,7 +94,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 40 days old"
+        "last_checked is 42 days old"
       ]
     },
     "ww-3.4-phase-1-preview": {
@@ -106,7 +106,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 40 days old"
+        "last_checked is 42 days old"
       ]
     },
     "ww-3.5-phase-1-character": {
@@ -326,13 +326,13 @@
     }
   },
   "auto_updates": [
-    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-07-28",
-    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-07-28",
-    "ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-07-28",
-    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-07-28",
-    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-07-28",
-    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-07-28",
-    "ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-07-28"
+    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-07-30",
+    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-07-30",
+    "ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-07-30",
+    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-07-30",
+    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-07-30",
+    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-07-30",
+    "ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-07-30"
   ],
   "manual_review_ids": [
     "ww-3.3-phase-1-weapon",

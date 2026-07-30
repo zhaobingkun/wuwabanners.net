@@ -5,7 +5,7 @@ import csv
 import html
 import json
 import re
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 
@@ -201,6 +201,12 @@ def parse_date(value: str) -> date | None:
     return date.fromisoformat(value.split(" ")[0])
 
 
+def parse_datetime(value: str) -> datetime | None:
+    if not value:
+        return None
+    return datetime.fromisoformat(value)
+
+
 def latest_checked(rows: list[dict[str, str]]) -> date:
     values = [parse_date(row["last_checked"]) for row in rows if row.get("last_checked")]
     picked = max((value for value in values if value is not None), default=None)
@@ -228,7 +234,7 @@ def pick_current_and_next(rows: list[dict[str, str]], updated: date) -> tuple[di
         for row in rows
         if row["banner_type"] == "character" and row["start_date"] and row["end_date"] and row["status"] in {"official", "expected"}
     ]
-    char_rows.sort(key=lambda row: parse_date(row["start_date"]) or date.max)
+    char_rows.sort(key=lambda row: parse_datetime(row["start_date"]) or datetime.max)
     if not char_rows:
         raise RuntimeError("No character banner rows with dates found in banner-data.csv")
     preview_rows = [
@@ -238,13 +244,15 @@ def pick_current_and_next(rows: list[dict[str, str]], updated: date) -> tuple[di
     ]
     preview_rows.sort(key=row_sort_key)
 
-    current_row = next(
-        (
-            row
-            for row in char_rows
-            if (parse_date(row["start_date"]) or date.min) <= updated <= (parse_date(row["end_date"]) or date.max)
-        ),
-        None,
+    active_rows = [
+        row
+        for row in char_rows
+        if (parse_date(row["start_date"]) or date.min) <= updated <= (parse_date(row["end_date"]) or date.max)
+    ]
+    current_row = (
+        max(active_rows, key=lambda row: parse_datetime(row["start_date"]) or datetime.min)
+        if active_rows
+        else None
     )
     if current_row is None:
         past = [row for row in char_rows if (parse_date(row["start_date"]) or date.min) <= updated]
@@ -3826,16 +3834,25 @@ def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
         target_date = "Not announced yet"
         table_phase = "Pending official reveal"
         table_focus = "Post-current lineup pending official confirmation"
+        page_title = "WuWa Next Banner Countdown: Date Not Announced"
+        page_description = (
+            f"The next WuWa banner date after {snapshot['current']['banner_name']} is not official yet. "
+            "Track the current end date, reveal status, schedule, and pull advice."
+        )
     elif is_preview_phase(next_item):
         answer = f"As of {updated}, the next tracked banner countdown points to {phase_event_label(next_item)} for {next_item['banner_name']}. The full next phase lineup is still unconfirmed."
         target_date = phase_event_label(next_item)
         table_phase = str(next_item["banner_name"])
         table_focus = next_character_copy(next_item)
+        page_title = f"WuWa Next Banner Countdown: {target_date}"
+        page_description = f"Check the WuWa next banner countdown for {table_phase}, including the {target_date} target, featured characters, schedule links, and pull advice."
     else:
         answer = f"As of {updated}, the next tracked banner countdown points to {fmt_human_date(next_item['start_date'])}, when {next_item['banner_name']} is scheduled to begin."
         target_date = phase_event_label(next_item)
         table_phase = str(next_item["banner_name"])
         table_focus = next_character_copy(next_item)
+        page_title = f"WuWa Next Banner Countdown: {target_date}"
+        page_description = f"Check the WuWa next banner countdown for {table_phase}, including the {target_date} target, featured characters, schedule links, and pull advice."
     body = "\n".join(
         [
             render_card_grid(
@@ -3873,11 +3890,11 @@ def render_next_banner_countdown_page(snapshot: dict[str, object]) -> str:
         ]
     )
     return render_standard_page(
-        title=f"WuWa Next Banner Countdown: {target_date}",
-        description=f"Check the WuWa next banner countdown for {table_phase}, including the {target_date} target, featured characters, schedule links, and pull advice.",
+        title=page_title,
+        description=page_description,
         path="/wuthering-waves-next-banner-countdown/",
         breadcrumbs='<a href="/">Home</a> / <a href="/banners/">Banners</a> / Next banner countdown',
-        heading=f"WuWa Next Banner Countdown: {target_date}",
+        heading=page_title,
         lead="This page answers next-banner countdown intent immediately, then moves users into the full next-banner or schedule page if they need more context.",
         answer=answer,
         body=body,
@@ -4316,19 +4333,28 @@ def update_pages(snapshot: dict[str, object]) -> None:
 
     next_text = NEXT_HTML.read_text(encoding="utf-8")
     next_item = snapshot["next"]
-    next_names = " & ".join(next_item["featured_characters"]) if next_item["featured_characters"] else next_item["banner_name"]
-    next_names_sentence = " and ".join(next_item["featured_characters"]) if next_item["featured_characters"] else next_item["banner_name"]
-    next_title = f"WuWa Next Banner: {next_names} | Version {next_item['version']}"
-    next_description = (
-        f"The next WuWa banner is {next_item['banner_name']} with {next_names_sentence}, "
-        f"starting {fmt_human_date(next_item['start_date'])}. Check weapons, countdown, and pull advice."
-    )
+    if has_distinct_next(snapshot):
+        next_names = " & ".join(next_item["featured_characters"]) if next_item["featured_characters"] else next_item["banner_name"]
+        next_names_sentence = " and ".join(next_item["featured_characters"]) if next_item["featured_characters"] else next_item["banner_name"]
+        next_title = f"WuWa Next Banner: {next_names} | Version {next_item['version']}"
+        next_description = (
+            f"The next WuWa banner is {next_item['banner_name']} with {next_names_sentence}, "
+            f"starting {fmt_human_date(next_item['start_date'])}. Check weapons, countdown, and pull advice."
+        )
+        next_h1 = f"WuWa Next Banner: {next_names_sentence}"
+    else:
+        next_title = "WuWa Next Banner: Release Date & Official Updates"
+        next_description = (
+            f"The next WuWa banner after {snapshot['current']['banner_name']} is not official yet. "
+            "Track reveal status, the current end date, rerun context, and pull advice."
+        )
+        next_h1 = "WuWa Next Banner: Official Reveal Watch"
     next_text = replace_page_metadata(
         next_text,
         title=next_title,
         description=next_description,
         headline=next_title,
-        h1=f"WuWa Next Banner: {next_names_sentence}",
+        h1=next_h1,
     )
     next_text = replace_block_exact(next_text, "NEXT_INTRO", build_next_intro(snapshot))
     next_text = replace_block_exact(next_text, "NEXT_MEDIA", build_next_media(snapshot))

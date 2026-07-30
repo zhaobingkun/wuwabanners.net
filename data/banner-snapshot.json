@@ -1,22 +1,20 @@
 {
-  "updated": "2026-07-28",
+  "updated": "2026-07-30",
   "current": {
     "version": "3.5",
-    "phase": "Phase 1",
+    "phase": "Phase 2",
     "banner_type": "character",
-    "banner_name": "Version 3.5 Phase 1",
+    "banner_name": "Version 3.5 Phase 2",
     "featured_characters": [
-      "Yangyang: Xuanling",
-      "Lynae",
-      "Luuk Herssen"
+      "Suisui",
+      "Aemeath"
     ],
     "featured_weapons": [
-      "Azure Oath",
-      "Spectrum Blaster",
-      "Daybreaker's Spine"
+      "Firstlight's Herald",
+      "Everbright Polestar"
     ],
-    "start_date": "2026-07-10 10:00",
-    "end_date": "2026-07-30 09:59",
+    "start_date": "2026-07-30 10:00",
+    "end_date": "2026-08-19 11:59",
     "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
     "announcement_date": "2026-07-08",
     "status": "official"

@@ -323,3 +323,22 @@
 - Added verified local character art for Yangyang: Xuanling and Suisui, and added official Wuthering Waves X URLs to the trusted source validation list.
 - `scripts/run_banner_update_cycle.py` and `scripts/verify_site_build.py` passed after the Version 3.5 rebuild. The 2026-07-28 daily source check still flags the four X source rows for manual review because automated X fetching fails; this is source-health noise, not a contradiction of the manually verified official posts.
 - No distinct new July 28 announcement was found; this release corrects the previously missed Version 3.5 update.
+
+## 2026-07-29 Notes
+
+- Daily banner check re-run at 2026-07-29T10:42:50. Script comparison result: `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The reported changes were only row-aging and candidate `last_checked` churn from July 28 to July 29. The same four Version 3.5 X sources remain automated-fetch failures, and the same PCGamer 3.3 weapon row remains manual review.
+- Manual inspection of the official Wuthering Waves X profile found a new Suisui `Chapter of Composure` artwork post about 44 minutes before the check. The pinned Suisui Resonator Showcase was about 23 hours old, and the Version 3.5 upcoming-events compilation was about 16 hours old.
+- These posts promote the already-recorded Version 3.5 Phase 2 lineup; they do not change the confirmed Suisui/Aemeath lineup, Firstlight's Herald/Everbright Polestar weapons, or July 30 10:00 server-time start.
+- No site rebuild or publication is needed today. Recheck after the July 30 phase switch to confirm the live in-game state.
+
+## 2026-07-30 Notes
+
+- Daily banner check ran at 2026-07-30T09:56:05, just before the scheduled phase change. Its `CHANGED` result was only row-aging and candidate `last_checked` churn; no new lineup, date, weapon, or source row appeared.
+- Manual inspection of the official Wuthering Waves X profile found Aemeath's `Guiding Starlance` Resonator Review, the `Virtual Crisis: Quadrant Trials` July 30 event notice, `The Four Seasons of Suisui`, and the Suisui EP. These support the already-recorded Version 3.5 Phase 2 rollout without changing its banner facts.
+- At 2026-07-30 10:00 CST/server time, Version 3.5 Phase 2 became current: Suisui and Aemeath with Firstlight's Herald and Everbright Polestar, scheduled through 2026-08-19 11:59.
+- A production check immediately after 10:00 showed that the live current-banner page still described Version 3.5 Phase 1. The site now needs a rebuild so Phase 2 becomes current and the post-Phase-2 next-banner state is recalculated.
+- The initial read-only check did not rebuild or publish. After the user authorized a Git submission, the four Version 3.5 rows were manually re-verified and their `last_checked` values advanced to 2026-07-30.
+- Fixed `pick_current_and_next` to prefer the banner with the latest start timestamp when two phases share a calendar date. This prevents Phase 1 ending at 09:59 from winning over Phase 2 starting at 10:00.
+- Made next-banner and next-banner-countdown metadata switch to an honest “not announced” state when the current phase is also the last known official phase.
+- Rebuilt the site successfully: Phase 2 is current, the next banner is pending official reveal, the update cycle and verifier passed, and local HTTP smoke tests returned 200 for the homepage, current/next/countdown/schedule pages, and Suisui/Aemeath hubs.
