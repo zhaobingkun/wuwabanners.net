@@ -12,9 +12,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA_CSV = ROOT / "data" / "banner-data.csv"
 DATA_JSON = ROOT / "data" / "banner-snapshot.json"
+NEWS_JSON = ROOT / "data" / "news.json"
 REFERENCE_JSON = ROOT / "data" / "reference-images.json"
 IMG_DIR = ROOT / "assets" / "img"
 INDEX_HTML = ROOT / "index.html"
+NEWS_INDEX_HTML = ROOT / "news" / "index.html"
 NEXT_HTML = ROOT / "wuthering-waves-next-banner" / "index.html"
 CURRENT_HTML = ROOT / "wuthering-waves-current-banner" / "index.html"
 HISTORY_HTML = ROOT / "wuthering-waves-banner-history" / "index.html"
@@ -74,6 +76,7 @@ def render_reference_video_embed() -> str:
 
 BASE_URLS = [
     "https://wuwabanners.net/",
+    "https://wuwabanners.net/news/",
     "https://wuwabanners.net/banners/",
     "https://wuwabanners.net/guides/",
     "https://wuwabanners.net/wuthering-waves-next-banner/",
@@ -107,6 +110,14 @@ INDEXABLE_REFERENCE_SECTIONS = {"wuthering-waves-characters"}
 def load_rows() -> list[dict[str, str]]:
     with DATA_CSV.open(newline="", encoding="utf-8") as fh:
         return list(csv.DictReader(fh))
+
+
+def load_news_items() -> list[dict[str, object]]:
+    if not NEWS_JSON.exists():
+        return []
+    items = json.loads(NEWS_JSON.read_text(encoding="utf-8"))
+    items.sort(key=lambda item: str(item.get("published_at") or ""), reverse=True)
+    return items
 
 
 def split_field(value: str) -> list[str]:
@@ -734,6 +745,7 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
           <article class="card"><h3>Current banner ends</h3><p><strong>{fmt_human_date(current["end_date"])}</strong></p><p>{", ".join(current["featured_characters"])} stay live through the current tracked phase.</p><p><a href="/wuthering-waves-current-banner-end-date/">Open current banner end date</a></p></article>
           <article class="card"><h3>{next_card_title}</h3><p><strong>{next_card_date}</strong></p><p>{next_card_body}</p><p><a href="/wuthering-waves-next-banner-date/">Open next banner date</a></p></article>
           <article class="card"><h3>Pull or save check</h3><p><strong>{comparison_title}</strong></p><p>Compare the live lineup, next checkpoint, rerun history, and pity before spending a limited Astrite budget.</p><p><a href="/pull-advice/">Open pull advice</a></p></article>
+          <article class="card"><h3>Official news channel</h3><p><strong>Announcements without banner overreach</strong></p><p>Official broadcasts, event notices, and version news live in the news channel until they confirm banner facts.</p><p><a href="/news/">Open news</a></p></article>
         </div>
         <div class="table-wrap">
           <table>
@@ -3400,6 +3412,220 @@ def render_standard_page(
 """
 
 
+def news_item_path(item: dict[str, object]) -> str:
+    slug = str(item["slug"])
+    return f"/news/{slug}/"
+
+
+def news_related_links(item: dict[str, object]) -> str:
+    links = item.get("related_links") or []
+    if not isinstance(links, list):
+        return ""
+    rendered = []
+    for link in links:
+        if not isinstance(link, dict):
+            continue
+        label = html.escape(str(link.get("label") or "Related page"))
+        url = html.escape(str(link.get("url") or "/news/"), quote=True)
+        rendered.append(f'<a class="directory-link" href="{url}">{label}</a>')
+    if not rendered:
+        return ""
+    return f"""        <div class="reference-directory">
+          {chr(10).join(rendered)}
+        </div>"""
+
+
+def render_news_index_page(news_items: list[dict[str, object]], snapshot: dict[str, object]) -> str:
+    latest = news_items[0] if news_items else None
+    description = "Official Wuthering Waves news, livestream notices, event posts, and banner-impact notes tracked separately from confirmed banner data."
+    cards = []
+    for item in news_items:
+        path = news_item_path(item)
+        cards.append(
+            f'''        <article class="card">
+          <span class="eyebrow">{html.escape(str(item.get("category") or "Official news"))}</span>
+          <h2><a href="{path}">{html.escape(str(item["title"]))}</a></h2>
+          <p class="muted">{html.escape(str(item.get("display_date") or ""))}</p>
+          <p>{html.escape(str(item.get("summary") or ""))}</p>
+          <p><a href="{path}">Read the official-news note</a></p>
+        </article>'''
+        )
+    cards_html = "\n".join(cards) if cards else '        <article class="card"><h2>No official news tracked yet</h2><p>The channel will list official Wuthering Waves news once a verified item is added.</p></article>'
+    latest_answer = (
+        f"The latest tracked official-news item is {latest['title']}. It is tracked as news until it changes confirmed banner facts."
+        if latest
+        else "No official-news item is tracked yet."
+    )
+    payload = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "CollectionPage",
+                "name": "Wuthering Waves News",
+                "url": "https://wuwabanners.net/news/",
+                "description": description,
+                "isPartOf": {"@type": "WebSite", "name": "WuWa Banners", "url": "https://wuwabanners.net/"},
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://wuwabanners.net/"},
+                    {"@type": "ListItem", "position": 2, "name": "News", "item": "https://wuwabanners.net/news/"},
+                ],
+            },
+        ],
+    }
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wuthering Waves News | Official Updates and Banner Impact</title>
+  <meta name="description" content="{html.escape(description)}">
+  <link rel="canonical" href="https://wuwabanners.net/news/">
+  <meta property="og:title" content="Wuthering Waves News">
+  <meta property="og:description" content="{html.escape(description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wuwabanners.net/news/">
+  <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wuthering Waves News">
+  <meta name="twitter:description" content="{html.escape(description)}">
+  <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{FONT_PRELOAD_BLOCK}
+  <link rel="stylesheet" href="{CSS_HREF}">
+  <script type="application/ld+json">
+{json.dumps(payload, ensure_ascii=False, indent=2)}
+  </script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/news/">News</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <main class="section"><div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / News</div>
+    <h1>Wuthering Waves News</h1>
+    <p class="lead">Official Wuthering Waves announcements, livestream notices, event posts, and version news belong here first. Banner pages update only when a notice confirms lineup, weapon, date, or phase facts.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> {html.escape(latest_answer)}</div>
+    <section class="section">
+      <h2>Latest official-news notes</h2>
+      <div class="card-grid">
+{cards_html}
+      </div>
+    </section>
+    <section class="section two-col">
+      <div class="card">
+        <h2>What goes in news?</h2>
+        <p>Preview broadcasts, official event posts, music releases, version notices, and other verified official updates can be logged here even when they do not change the banner tracker.</p>
+      </div>
+      <div class="card">
+        <h2>What changes banner pages?</h2>
+        <p>Only confirmed character lineups, weapon lineups, phase dates, in-game Convene data, or official source URLs should change the current banner, next banner, schedule, or history pages.</p>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Banner context</h2>
+      <p>The current confirmed banner remains {html.escape(str(snapshot["current"]["banner_name"]))}, featuring {html.escape(", ".join(snapshot["current"]["featured_characters"]))} through {fmt_human_date(str(snapshot["current"]["end_date"]))}. The next banner remains pending until official reveal.</p>
+    </section>
+  </div></main>
+  <script defer src="{JS_SRC}"></script>
+{GTAG_SNIPPET}
+</body>
+</html>
+"""
+
+
+def render_news_article_page(item: dict[str, object], snapshot: dict[str, object]) -> str:
+    path = news_item_path(item)
+    title = str(item["title"])
+    description = str(item.get("summary") or title)
+    body_paragraphs = "\n".join(f"      <p>{html.escape(str(paragraph))}</p>" for paragraph in item.get("body", []))
+    source_url = str(item.get("source_url") or "")
+    payload = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "NewsArticle",
+                "headline": title,
+                "description": description,
+                "datePublished": str(item.get("published_at") or ""),
+                "dateModified": str(item.get("published_at") or ""),
+                "author": {"@type": "Organization", "name": "WuWa Banners"},
+                "publisher": {"@type": "Organization", "name": "WuWa Banners", "url": "https://wuwabanners.net/"},
+                "mainEntityOfPage": f"https://wuwabanners.net{path}",
+                "url": f"https://wuwabanners.net{path}",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://wuwabanners.net/"},
+                    {"@type": "ListItem", "position": 2, "name": "News", "item": "https://wuwabanners.net/news/"},
+                    {"@type": "ListItem", "position": 3, "name": title, "item": f"https://wuwabanners.net{path}"},
+                ],
+            },
+        ],
+    }
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{html.escape(title)} | WuWa Banners</title>
+  <meta name="description" content="{html.escape(description)}">
+  <link rel="canonical" href="https://wuwabanners.net{path}">
+  <meta property="og:title" content="{html.escape(title)}">
+  <meta property="og:description" content="{html.escape(description)}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://wuwabanners.net{path}">
+  <meta property="og:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{html.escape(title)}">
+  <meta name="twitter:description" content="{html.escape(description)}">
+  <meta name="twitter:image" content="https://wuwabanners.net/assets/img/og-default.svg">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{FONT_PRELOAD_BLOCK}
+  <link rel="stylesheet" href="{CSS_HREF}">
+  <script type="application/ld+json">
+{json.dumps(payload, ensure_ascii=False, indent=2)}
+  </script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark">WB</span><span><strong>WuWa Banners</strong><small>Wuthering Waves banner tracker and guide hub</small></span></a><nav class="nav-links"><a href="/">Home</a><a href="/news/">News</a><a href="/banners/">Banners</a><a href="/guides/">Guides</a><a href="/wuthering-waves-characters/">Characters</a><a href="/wuthering-waves-weapons/">Weapons</a><a href="/wuthering-waves-items/">Items</a><a href="/wuthering-waves-banner-history/">History</a><a href="/wuthering-waves-pity-system/">Pity</a></nav></div></header>
+  <main class="section"><div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/news/">News</a> / {html.escape(title)}</div>
+    <article>
+      <span class="eyebrow">{html.escape(str(item.get("category") or "Official news"))}</span>
+      <h1>{html.escape(title)}</h1>
+      <p class="lead">{html.escape(description)}</p>
+      <div class="answer-box"><strong>Banner impact:</strong> {html.escape(str(item.get("banner_impact") or "This item is tracked as news until it changes confirmed banner facts."))}</div>
+      <p class="update-stamp">Published: {html.escape(str(item.get("display_date") or ""))}. Event time: {html.escape(str(item.get("event_time") or "TBA"))}.</p>
+      <section class="section">
+        <h2>What happened</h2>
+{body_paragraphs}
+      </section>
+      <section class="section two-col">
+        <div class="card">
+          <h2>Source</h2>
+          <p>{html.escape(str(item.get("source_label") or "Official source"))}</p>
+          <p><a href="{html.escape(source_url, quote=True)}" target="_blank" rel="nofollow noopener noreferrer">Open official source</a></p>
+        </div>
+        <div class="card">
+          <h2>Current tracker state</h2>
+          <p>{html.escape(str(snapshot["current"]["banner_name"]))} is still the confirmed current phase. The next banner remains pending official reveal.</p>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Related tracker pages</h2>
+{news_related_links(item)}
+      </section>
+    </article>
+  </div></main>
+  <script defer src="{JS_SRC}"></script>
+{GTAG_SNIPPET}
+</body>
+</html>
+"""
+
+
 def render_next_banner_date_page(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     updated = fmt_human_date(snapshot["updated"] + " 00:00")
@@ -4296,6 +4522,7 @@ def update_pages(snapshot: dict[str, object]) -> None:
     support_pages = get_support_pages(pull_pages)
     history_pages = get_history_detail_pages(snapshot)
     legacy_slugs = discover_legacy_guide_slugs(snapshot)
+    news_items = load_news_items()
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
     index_text, lead_count = re.subn(
@@ -4433,6 +4660,16 @@ def update_pages(snapshot: dict[str, object]) -> None:
     history_text = replace_block_exact(history_text, "HISTORY_SOURCES", build_history_sources(snapshot))
     HISTORY_HTML.write_text(history_text, encoding="utf-8")
 
+    NEWS_INDEX_HTML.parent.mkdir(parents=True, exist_ok=True)
+    NEWS_INDEX_HTML.write_text(render_news_index_page(news_items, snapshot), encoding="utf-8")
+    news_urls = ["https://wuwabanners.net/news/"]
+    for item in news_items:
+        page_dir = ROOT / news_item_path(item).strip("/")
+        page_dir.mkdir(parents=True, exist_ok=True)
+        page_path = page_dir / "index.html"
+        page_path.write_text(render_news_article_page(item, snapshot), encoding="utf-8")
+        news_urls.append(f"https://wuwabanners.net{news_item_path(item)}")
+
     rerun_text = RERUN_HTML.read_text(encoding="utf-8")
     rerun_text = replace_page_metadata(
         rerun_text,
@@ -4556,7 +4793,7 @@ PLACEHOLDER_PULL_COMPARE
     reference_urls = discover_reference_urls()
     discovered_urls = discover_canonical_sitemap_urls()
     SITEMAP_XML.write_text(
-        render_sitemap(character_urls + overview_urls + support_urls + legacy_urls + history_urls + reference_urls + discovered_urls),
+        render_sitemap(character_urls + overview_urls + support_urls + legacy_urls + history_urls + news_urls + reference_urls + discovered_urls),
         encoding="utf-8",
     )
 

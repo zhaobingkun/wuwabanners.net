@@ -342,3 +342,27 @@
 - Fixed `pick_current_and_next` to prefer the banner with the latest start timestamp when two phases share a calendar date. This prevents Phase 1 ending at 09:59 from winning over Phase 2 starting at 10:00.
 - Made next-banner and next-banner-countdown metadata switch to an honest “not announced” state when the current phase is also the last known official phase.
 - Rebuilt the site successfully: Phase 2 is current, the next banner is pending official reveal, the update cycle and verifier passed, and local HTTP smoke tests returned 200 for the homepage, current/next/countdown/schedule pages, and Suisui/Aemeath hubs.
+
+## 2026-07-31 Notes
+
+- Daily banner check ran at 2026-07-31T10:16:55. The script reported `CHANGED`, but no banner lineup, date, source URL, live CSV, or public page content changed.
+- The difference was only row aging and source-health churn: the rotating DearPlayers events page no longer exposed Chisa and Phrolova for the historical Version 3.3 Phase 2 row. The candidate file only refreshes six older safe rows.
+- Manual inspection of the official Wuthering Waves X profile found no July 31 post as of about 10:17 CST and no Version 3.6 or next-banner reveal. The latest visible posts were July 30 promotional or event items: August calendar art, Aemeath and Suisui images, and the In Search of Lost Jade web event.
+- Current Version 3.5 Phase 2 facts remain Suisui and Aemeath with Firstlight's Herald and Everbright Polestar through August 19 11:59 server time; the next banner remains pending.
+- No rebuild or publication is needed today.
+
+## 2026-08-02 Notes
+
+- Daily banner check generated at 2026-08-02T11:00:42. The script reported `CHANGED`, but the diff is still row-aging, source-health churn, and candidate `last_checked` refreshes only; no live CSV, lineup, date, weapon, or source URL changed.
+- Manual inspection of the official Wuthering Waves X profile found a new pinned Version 3.6 Preview Special Broadcast announcement posted on August 2. The broadcast is scheduled for August 7, 2026 at 19:00 UTC+8.
+- Treat the Version 3.6 broadcast notice as an upcoming-news signal, not a confirmed banner update. It does not yet reveal the next banner lineup, dates, or weapons.
+- Current Version 3.5 Phase 2 facts remain Suisui and Aemeath with Firstlight's Herald and Everbright Polestar through August 19 11:59 server time; the next banner remains pending official reveal.
+- No rebuild or publication is needed today unless the site later adds a non-banner news module for preview livestream notices.
+
+## 2026-08-02 News Channel
+
+- Added a static official-news channel at `/news/` backed by `data/news.json`, separate from `data/banner-data.csv`.
+- First news item covers the official Version 3.6 Preview Special Broadcast scheduled for August 7, 2026 at 19:00 UTC+8, with source URL `https://x.com/Wuthering_Waves/status/2083855332464615710`.
+- News pages use `CollectionPage` and `NewsArticle` structured data, canonical URLs, OG/Twitter metadata, and sitemap inclusion.
+- Keep official broadcasts, event notices, music posts, and version-news items in `data/news.json` until they confirm banner facts. Only update banner CSV/pages when lineup, weapon, date, phase, or source facts change.
+- `python3 scripts/run_banner_update_cycle.py` passed after the news-channel build and verifier update.

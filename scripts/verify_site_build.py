@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SNAPSHOT_JSON = ROOT / "data" / "banner-snapshot.json"
+NEWS_JSON = ROOT / "data" / "news.json"
 REFERENCE_JSON = ROOT / "data" / "reference-images.json"
 SITEMAP_XML = ROOT / "sitemap.xml"
 
@@ -63,6 +64,7 @@ def main() -> int:
     warnings: list[str] = []
 
     require_file(SNAPSHOT_JSON, failures)
+    require_file(NEWS_JSON, failures)
     require_file(REFERENCE_JSON, failures)
     require_file(SITEMAP_XML, failures)
     if failures:
@@ -71,6 +73,7 @@ def main() -> int:
         return 1
 
     snapshot = load_json(SNAPSHOT_JSON)
+    news_items = json.loads(NEWS_JSON.read_text(encoding="utf-8"))
     references = load_json(REFERENCE_JSON)
 
     current = snapshot["current"]
@@ -78,6 +81,7 @@ def main() -> int:
     history = snapshot.get("history", [])
 
     home = ROOT / "index.html"
+    news_page = ROOT / "news" / "index.html"
     next_page = ROOT / "wuthering-waves-next-banner" / "index.html"
     current_page = ROOT / "wuthering-waves-current-banner" / "index.html"
     history_page = ROOT / "wuthering-waves-banner-history" / "index.html"
@@ -94,11 +98,35 @@ def main() -> int:
             "Current Wuthering Waves banner snapshot",
             current["banner_name"],
             nxt["banner_name"],
+            "Official news channel",
             "Best starting points",
             "Choose your next page by question type",
         ],
         failures,
     )
+    require_text(
+        news_page,
+        [
+            "Wuthering Waves News",
+            "Latest official-news notes",
+            "What changes banner pages?",
+        ],
+        failures,
+    )
+    if not news_items:
+        failures.append("news.json has no tracked official-news items")
+    else:
+        first_news = news_items[0]
+        news_detail = ROOT / "news" / first_news["slug"] / "index.html"
+        require_text(
+            news_detail,
+            [
+                first_news["title"],
+                "Banner impact:",
+                "Open official source",
+            ],
+            failures,
+        )
     require_text(
         next_page,
         [
@@ -198,6 +226,7 @@ def main() -> int:
 
     key_urls = [
         "https://wuwabanners.net/",
+        "https://wuwabanners.net/news/",
         "https://wuwabanners.net/banners/",
         "https://wuwabanners.net/guides/",
         "https://wuwabanners.net/wuthering-waves-next-banner/",
@@ -209,6 +238,10 @@ def main() -> int:
         "https://wuwabanners.net/wuthering-waves-items/",
     ]
     require_sitemap_urls(key_urls, failures)
+    require_sitemap_urls(
+        [f"https://wuwabanners.net/news/{item['slug']}/" for item in news_items],
+        failures,
+    )
 
     reference_sample_urls = []
     for branch in ("characters", "weapons", "items"):
