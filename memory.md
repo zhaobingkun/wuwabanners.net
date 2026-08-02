@@ -366,3 +366,12 @@
 - News pages use `CollectionPage` and `NewsArticle` structured data, canonical URLs, OG/Twitter metadata, and sitemap inclusion.
 - Keep official broadcasts, event notices, music posts, and version-news items in `data/news.json` until they confirm banner facts. Only update banner CSV/pages when lineup, weapon, date, phase, or source facts change.
 - `python3 scripts/run_banner_update_cycle.py` passed after the news-channel build and verifier update.
+
+## 2026-08-02 Automation
+
+- Created Codex cron automation `wuwa-daily-official-update-auto-publish` for this project.
+- Schedule: daily at 11:10 local time.
+- Workflow: read project instructions, run `./scripts/run_daily_official_check.sh`, inspect report/diff, manually verify official sources when needed, and only publish confirmed official content changes.
+- If the update is news-only, add a normalized item to `data/news.json`, rebuild, verify, commit, push to `origin/main`, and production-check the new URLs.
+- If the update confirms banner facts, update `data/banner-data.csv`, rebuild, verify, commit, push to `origin/main`, and production-check affected URLs.
+- The automation prompt explicitly excludes source-health churn, fetch failures, row aging, version-number feed noise, `last_checked`-only candidate refreshes, and `scripts/__pycache__` from publish commits.
