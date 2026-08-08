@@ -375,3 +375,38 @@
 - If the update is news-only, add a normalized item to `data/news.json`, rebuild, verify, commit, push to `origin/main`, and production-check the new URLs.
 - If the update confirms banner facts, update `data/banner-data.csv`, rebuild, verify, commit, push to `origin/main`, and production-check affected URLs.
 - The automation prompt explicitly excludes source-health churn, fetch failures, row aging, version-number feed noise, `last_checked`-only candidate refreshes, and `scripts/__pycache__` from publish commits.
+
+## 2026-08-03 Notes
+
+- Daily banner check completed at 2026-08-03T11:12:25. The script comparison was `CHANGED`, but the diff contains only row-aging, `last_checked` candidate refreshes, a historical PCGamer term-match change, and recurring official X fetch failures.
+- No live `data/banner-data.csv` fields changed: lineup, dates, weapons, source URLs, and public page content remain unchanged. DearPlayers values `5.5`, `6.3`, and `3.0` remain unverified feed noise.
+- Current Version 3.5 Phase 2 facts remain Suisui and Aemeath with Firstlight's Herald and Everbright Polestar through 2026-08-19 11:59 server time; the next banner is still pending an official reveal.
+- Official search did not surface a new official banner announcement. No news item, rebuild, commit, push, or production check is needed.
+
+## 2026-08-04 Notes
+
+- Daily banner check completed at 2026-08-04T11:12:38. The comparison result was `NO_SIGNIFICANT_CHANGE`; the candidate only refreshed six safe-row `last_checked` values, while 4 source fetches failed and 12 rows need review from aging or source-health conditions.
+- DearPlayers emitted possible versions `5.5`, `6.3`, and `3.0`; these remain unverified feed noise. No live `data/banner-data.csv` lineup, date, weapon, or source URL changed.
+- Manual official-source search found no new banner facts. The official Version 3.6 preview broadcast notice was already recorded on August 2, and current Version 3.5 Phase 2 remains Suisui and Aemeath with Firstlight's Herald and Everbright Polestar through August 19 11:59 server time.
+- No news item, rebuild, commit, push, or production check is needed today. Leave generated check files and Python cache changes uncommitted.
+
+## 2026-08-05 Notes
+
+- Daily banner check completed at 2026-08-05T11:11:23. The comparison result was `CHANGED`, but all changes were source fetch failures, row aging, historical source-term churn, and no automatic candidate updates; there were no new version signals.
+- All 12 checked rows failed to fetch because the environment could not resolve the official/source hostnames. No live `data/banner-data.csv` lineup, date, weapon, or source URL changed.
+- Manual official-source search and profile checks found no new verified banner facts or separate official news item. The Version 3.6 preview broadcast notice from August 2 remains the latest tracked official news, and Version 3.5 Phase 2 remains current through August 19 11:59 server time.
+- No news item, rebuild, commit, push, or production check is needed today. Leave generated check files and Python cache changes uncommitted.
+
+## 2026-08-06 Notes
+
+- Daily banner check completed at 2026-08-06T11:11:03. The comparison result was `CHANGED`, but the changes were source-health recovery/failures, row aging, six safe-row `last_checked` candidate refreshes, and DearPlayers possible-version noise (`5.5`, `6.3`, `3.0`).
+- No live `data/banner-data.csv` lineup, date, weapon, or source URL changed. The four remaining failed fetches are the recurring X source for Version 3.5 rows; the manual-review rows otherwise reflect aging or weak historical sources.
+- Official search found no new verified banner facts or separate news item. The official Version 3.6 preview broadcast scheduled for August 7 is already recorded in `data/news.json`; Version 3.5 Phase 2 remains Suisui and Aemeath with Firstlight's Herald and Everbright Polestar through August 19 11:59 server time.
+- No news item, rebuild, commit, push, or production check is needed today. Leave generated check files, candidate data, and Python cache changes uncommitted.
+
+## 2026-08-08 Notes
+
+- Daily banner check completed at 2026-08-08T11:07:59. The comparison result was `CHANGED`, but all changes were source-health failures across 12 rows, row aging, and removal of unverified feed signals; there were no automatic candidate updates.
+- Manual official-source verification confirmed that the Version 3.6 Preview Special Broadcast aired on August 7 and that the official update page `https://wutheringwaves.kurogames.com/en/main/news/detail/5245` is now available. The broadcast introduced Qingxiao and Jingran, showed rerun direction for Denia, Hiyuki, and Mornye, and presented their associated signature weapons.
+- Added one normalized official-news item to `data/news.json` and generated `/news/wuthering-waves-version-3-6-preview-broadcast-reveals-update-content/`. Banner CSV was intentionally left unchanged because the exact phase dates and complete weapon listings were not directly verifiable from the primary page during this run.
+- `python3 scripts/run_banner_update_cycle.py` and `python3 scripts/verify_site_build.py` both passed. Generated check files and Python cache files remain excluded from the publish commit.
