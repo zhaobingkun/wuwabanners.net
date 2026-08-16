@@ -620,6 +620,25 @@ def replace_page_metadata(
     return text
 
 
+def replace_basic_metadata(text: str, *, title: str, description: str, twitter_title: str | None = None) -> str:
+    safe_title = html.escape(title, quote=True)
+    safe_twitter_title = html.escape(twitter_title or title, quote=True)
+    safe_description = html.escape(description, quote=True)
+    replacements = [
+        (r"(<title>).*?(</title>)", rf"\g<1>{safe_title}\2"),
+        (r'(<meta name="description" content=")[^"]*(">)', rf"\g<1>{safe_description}\2"),
+        (r'(<meta property="og:title" content=")[^"]*(">)', rf"\g<1>{safe_title}\2"),
+        (r'(<meta property="og:description" content=")[^"]*(">)', rf"\g<1>{safe_description}\2"),
+        (r'(<meta name="twitter:title" content=")[^"]*(">)', rf"\g<1>{safe_twitter_title}\2"),
+        (r'(<meta name="twitter:description" content=")[^"]*(">)', rf"\g<1>{safe_description}\2"),
+    ]
+    for pattern, replacement in replacements:
+        text, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
+        if count != 1:
+            raise RuntimeError(f"Failed to replace basic metadata pattern: {pattern}")
+    return text
+
+
 def slugify_character(name: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
     if not slug:
@@ -659,10 +678,11 @@ def build_home_lead(snapshot: dict[str, object]) -> str:
         planning_copy = "Treat unconfirmed banner names as watchlist context, not confirmed pull advice."
     next_sentence = next_copy[:1].upper() + next_copy[1:]
     return (
-        "Use this Wuthering Waves banner tracker to check the current banner lineup, "
-        "end date, next banner status, countdown, rerun history, and pity planning in one place. "
-        f'The current tracked phase features {", ".join(current["featured_characters"])} '
-        f'through {fmt_human_date(current["end_date"])}. {next_sentence}. {planning_copy}'
+        f'Current WuWa banner: {", ".join(current["featured_characters"])}. '
+        f'Banner countdown: the tracked phase ends on {fmt_human_date(current["end_date"])}. '
+        "Use this Wuthering Waves banner tracker for current banner, next banner, countdown, "
+        "banner history, rerun watch, pity, and pull-planning pages in one place. "
+        f"{next_sentence}. {planning_copy}"
     )
 
 
@@ -739,8 +759,8 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
         next_row_window = "Not announced yet"
         comparison_title = f"{current['banner_name']} vs next official reveal"
     return f"""      <div class="container">
-        <h2>Current Wuthering Waves banner snapshot</h2>
-        <p class="section-intro">This Wuthering Waves banner snapshot gives the fastest route to the live banner, next banner watch page, countdown, schedule, banner history, rerun tracker, and pity guide. Start with the current phase if you need today's lineup, then move to history or pity pages if you are deciding whether to spend or save Astrite.</p>
+        <h2>Current, next, countdown, and banner history snapshot</h2>
+        <p class="section-intro">This Wuthering Waves banner tracker is built for the highest-volume searches first: current banner now, next banner status, banner countdown, banner history, rerun tracker, and pity guide. Start with the live phase if you need today's lineup, use countdown for the deadline, then move to history or pity pages if you are deciding whether to spend or save Astrite.</p>
         <div class="card-grid" style="margin-bottom:1.25rem;">
           <article class="card"><h3>Current banner ends</h3><p><strong>{fmt_human_date(current["end_date"])}</strong></p><p>{", ".join(current["featured_characters"])} stay live through the current tracked phase.</p><p><a href="/wuthering-waves-current-banner-end-date/">Open current banner end date</a></p></article>
           <article class="card"><h3>{next_card_title}</h3><p><strong>{next_card_date}</strong></p><p>{next_card_body}</p><p><a href="/wuthering-waves-next-banner-date/">Open next banner date</a></p></article>
@@ -755,6 +775,7 @@ def build_home_timeline(snapshot: dict[str, object]) -> str:
               <tr><td>{next_row_type}</td><td>{next_row_name}</td><td>{next_row_window}</td><td><a href="/wuthering-waves-next-banner/">Next banner</a></td></tr>
               <tr><td>Countdown and schedule</td><td>{current["banner_name"]}</td><td>Ends {fmt_human_date(current["end_date"])}</td><td><a href="/wuthering-waves-banner-countdown/">Banner countdown</a></td></tr>
               <tr><td>Recent reference</td><td>{recent["banner_name"]}</td><td>{fmt_human_date(recent["start_date"])} to {fmt_human_date(recent["end_date"])}</td><td><a href="/wuthering-waves-banner-history/">Banner history</a></td></tr>
+              <tr><td>Official news</td><td>Version and event announcements</td><td>Tracked separately from confirmed banner facts</td><td><a href="/news/">News</a></td></tr>
               <tr><td>Save planning</td><td>Rerun and pity context</td><td>Use after checking live and next banners</td><td><a href="/wuthering-waves-next-rerun/">Next rerun</a> / <a href="/wuthering-waves-pity-system/">Pity system</a></td></tr>
             </tbody>
           </table>
@@ -936,8 +957,8 @@ def build_current_intro(snapshot: dict[str, object]) -> str:
     subphase_copy = ""
     if is_subphase(next_item):
         subphase_copy = f" The next same-version checkpoint is {', '.join(next_item['featured_characters'])} with {', '.join(next_item['featured_weapons'])} on {fmt_human_date(next_item['start_date'])}."
-    return f"""    <p class="lead">The WuWa current banner now is {current["banner_name"]}. The featured characters live today are {", ".join(current["featured_characters"])}, and the banner ends on {fmt_human_date(current["end_date"])}.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The current WuWa banner features {", ".join(current["featured_characters"])} with weapon focus {", ".join(current["featured_weapons"])}. It runs from {fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}.{subphase_copy}</div>
+    return f"""    <p class="lead">The WuWa current banner now is {current["banner_name"]}: {", ".join(current["featured_characters"])} are live, with weapon focus {", ".join(current["featured_weapons"])}, until {fmt_human_date(current["end_date"])}.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> Current WuWa banner characters are {", ".join(current["featured_characters"])}. Current weapon banner focus is {", ".join(current["featured_weapons"])}. The phase runs from {fmt_human_date(current["start_date"])} to {fmt_human_date(current["end_date"])}.{subphase_copy}</div>
 {render_status_strip(snapshot)}
 {render_quick_actions()}
     <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}.</p>"""
@@ -951,9 +972,9 @@ def build_current_description(snapshot: dict[str, object]) -> str:
         else f"{next_character_copy(snapshot['next'])} comparison"
     )
     return (
-        f"Check the WuWa current banner now, including {', '.join(current['featured_characters'])}, "
-        f"weapon focus, {fmt_human_date(current['end_date'])} end date, {next_copy}, countdown, "
-        "and pull-or-save advice."
+        f"WuWa current banner now: {', '.join(current['featured_characters'])}, "
+        f"{', '.join(current['featured_weapons'])}, {fmt_human_date(current['end_date'])} end date, "
+        f"{next_copy}, countdown, and pull advice."
     )
 
 
@@ -978,10 +999,10 @@ def build_current_cards(snapshot: dict[str, object]) -> str:
     if is_subphase(next_item):
         next_copy = f"{', '.join(next_item['featured_characters'])} and {', '.join(next_item['featured_weapons'])} are the next same-version checkpoint on {fmt_human_date(next_item['start_date'])}."
     return f"""    <div class="card-grid">
-      <article class="card"><h2>Live lineup</h2><p>{", ".join(current["featured_characters"])} are the current featured characters in {current["banner_name"]}.</p></article>
-      <article class="card"><h2>Weapon focus</h2><p>The companion weapon focus is {", ".join(current["featured_weapons"])} through {fmt_human_date(current["end_date"])}.</p></article>
-      <article class="card"><h2>Deadline</h2><p>The current phase ends on {fmt_human_date(current["end_date"])}. Check countdown and pity before last-minute pulls.</p></article>
-      <article class="card"><h2>Next checks</h2><p>{next_copy}</p></article>
+      <article class="card"><h2>Current banner characters</h2><p>{", ".join(current["featured_characters"])} are the current featured characters in {current["banner_name"]}.</p><p><a href="/wuthering-waves-current-banner-characters/">Open current character list</a></p></article>
+      <article class="card"><h2>Current weapon banner</h2><p>The companion weapon focus is {", ".join(current["featured_weapons"])} through {fmt_human_date(current["end_date"])}.</p><p><a href="/wuthering-waves-weapon-banner/">Open weapon banner</a></p></article>
+      <article class="card"><h2>Current banner end date</h2><p>The current phase ends on {fmt_human_date(current["end_date"])}. Check the banner countdown before last-minute pulls.</p><p><a href="/wuthering-waves-banner-countdown/">Open countdown</a></p></article>
+      <article class="card"><h2>Next banner check</h2><p>{next_copy}</p><p><a href="/wuthering-waves-next-banner/">Open next banner</a></p></article>
     </div>"""
 
 
@@ -1079,8 +1100,15 @@ def build_current_sources(snapshot: dict[str, object]) -> str:
 def build_history_intro(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
     next_item = snapshot["next"]
-    return f"""    <p class="lead">Use this WuWa banner history list and chart to compare recent Wuthering Waves version phases, featured characters, featured weapons, and banner windows before judging rerun timing.</p>
-    <div class="answer-box"><strong>Direct answer:</strong> The recent tracked WuWa banner history is listed below as a quick chart, with {next_item["banner_name"]} as the next banner-related checkpoint. Open a phase detail page when you need exact lineup and source context.</div>
+    current = snapshot["current"]
+    return f"""    <p class="lead">Use this WuWa banner history list to scan past Wuthering Waves banners by version, phase, featured characters, weapon focus, and dates before judging rerun timing.</p>
+    <div class="answer-box"><strong>Direct answer:</strong> The banner history table below lists the latest tracked phases, including the current {current["banner_name"]} with {", ".join(current["featured_characters"])}. {next_item["banner_name"]} is the next banner-related checkpoint in the tracker. Open a phase detail page for exact lineup, weapon, date, and source context.</div>
+    <nav class="quick-actions" aria-label="Banner history shortcuts">
+      <a href="/wuthering-waves-all-banners/">All banners</a>
+      <a href="/wuthering-waves-banner-order/">Banner order</a>
+      <a href="/wuthering-waves-next-rerun/">Rerun tracker</a>
+      <a href="/wuthering-waves-banner-countdown/">Countdown</a>
+    </nav>
     <p class="update-stamp">Last updated: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
@@ -1139,6 +1167,12 @@ def build_history_table(snapshot: dict[str, object]) -> str:
         )
     cards_html = "\n".join(cards)
     return f"""      <h2>Recent banner history list</h2>
+      <p class="section-intro">The table is written for searches such as WuWa banner history, WuWa banners history, past banners, banner history chart, and rerun history. Use it to compare what ran before, then open the detail page for one phase when you need a source-backed breakdown.</p>
+      <div class="card-grid" style="margin-bottom:1.25rem;">
+        <article class="card"><h3>Latest tracked phase</h3><p>{snapshot["current"]["banner_name"]}: {", ".join(snapshot["current"]["featured_characters"])} through {fmt_human_date(snapshot["current"]["end_date"])}.</p><p><a href="/wuthering-waves-current-banner/">Open current banner</a></p></article>
+        <article class="card"><h3>Rerun planning route</h3><p>Use older phase spacing as context, not as proof of the next rerun.</p><p><a href="/wuthering-waves-next-rerun/">Open rerun tracker</a></p></article>
+        <article class="card"><h3>Countdown route</h3><p>After checking history, use countdown for the live deadline and next official checkpoint.</p><p><a href="/wuthering-waves-banner-countdown/">Open countdown</a></p></article>
+      </div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Version</th><th>Phase</th><th>Banner</th><th>Featured characters</th><th>Featured weapons</th><th>Dates</th><th>Detail page</th></tr></thead>
@@ -1424,16 +1458,17 @@ def build_countdown_intro(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
     updated = snapshot["updated"]
+    current_names = ", ".join(current["featured_characters"])
     if not has_distinct_next(snapshot):
-        answer_copy = f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}. The next post-current banner date is not official yet."
-        next_context = "the next official post-current checkpoint is still pending"
+        answer_copy = f"The {current_names} banner countdown ends on {fmt_human_date(current['end_date'])}. The next post-current banner date is not official yet."
+        next_context = "next banner countdown is pending official confirmation"
     elif is_preview_phase(next_item):
-        answer_copy = f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
+        answer_copy = f"The {current_names} banner countdown ends on {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
         next_context = f"the next official checkpoint is {next_item['banner_name']}"
     else:
-        answer_copy = f"{current['banner_name']} ends on {fmt_human_date(current['end_date'])}, and {next_item['banner_name']} begins on {fmt_human_date(next_item['start_date'])}."
+        answer_copy = f"The {current_names} banner countdown ends on {fmt_human_date(current['end_date'])}, and {next_item['banner_name']} begins on {fmt_human_date(next_item['start_date'])}."
         next_context = f"the next tracked phase is {next_item['banner_name']}"
-    return f"""    <p class="lead">This page answers the WuWa banner countdown timer question first: when the live {", ".join(current["featured_characters"])} phase ends, what {next_context}, and which page to open next for schedule or pull advice.</p>
+    return f"""    <p class="lead">This WuWa banner countdown answers the quick timer question first: when the live {current_names} banner ends, what {next_context}, and which page to open next for schedule, current banner, next banner, or pull advice.</p>
     <div class="answer-box"><strong>Direct answer:</strong> {answer_copy}</div>
 {render_status_strip(snapshot)}
 {render_quick_actions()}
@@ -1464,9 +1499,9 @@ def build_countdown_cards(snapshot: dict[str, object]) -> str:
         next_title = "Next phase start"
         next_copy = f"{next_item['banner_name']} is scheduled to start on {fmt_human_date(next_item['start_date'])}."
     return f"""    <div class="card-grid">
-      <article class="card"><h2>Current phase end</h2><p>{current["banner_name"]} is scheduled to end on {fmt_human_date(current["end_date"])}.</p></article>
-      <article class="card"><h2>{next_title}</h2><p>{next_copy}</p></article>
-      <article class="card"><h2>Why clarity matters</h2><p>Countdown checks are often quick mobile visits, so the date needs to appear in plain text before the supporting table and links.</p></article>
+      <article class="card"><h2>Suisui and Aemeath countdown</h2><p>{current["banner_name"]} is scheduled to end on {fmt_human_date(current["end_date"])}. Use this as the live banner timer before spending near the deadline.</p><p><a href="/wuthering-waves-current-banner/">Open current banner</a></p></article>
+      <article class="card"><h2>{next_title}</h2><p>{next_copy}</p><p><a href="/wuthering-waves-next-banner/">Open next banner</a></p></article>
+      <article class="card"><h2>Banner timer vs schedule</h2><p>Use this countdown page for the next deadline. Use the schedule page when you need phase order, past timing, and date context together.</p><p><a href="/wuthering-waves-banner-schedule/">Open schedule</a></p></article>
     </div>"""
 
 
@@ -1482,6 +1517,7 @@ def build_countdown_table(snapshot: dict[str, object]) -> str:
         next_event = "Next phase starts" if not is_preview_phase(next_item) else "Next official preview"
         next_date = phase_event_label(next_item)
     return f"""      <h2>Banner timing snapshot</h2>
+      <p class="section-intro">This section covers the query variants that are already getting impressions: WuWa banner countdown, WuWa countdown, banner timer, next banner countdown, and character-specific countdown checks.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Phase</th><th>Event</th><th>Date</th></tr></thead>
@@ -1490,6 +1526,23 @@ def build_countdown_table(snapshot: dict[str, object]) -> str:
             <tr><td>{next_name}</td><td>{next_event}</td><td>{next_date}</td></tr>
           </tbody>
         </table>
+      </div>
+{build_countdown_faq(snapshot)}"""
+
+
+def build_countdown_faq(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    next_item = snapshot["next"]
+    current_names = ", ".join(current["featured_characters"])
+    if has_distinct_next(snapshot):
+        next_answer = f"The next tracked checkpoint is {next_item['banner_name']} on {phase_event_label(next_item)}."
+    else:
+        next_answer = "The next post-current banner countdown is not official yet. Wait for Kuro to publish the next dated banner notice before treating any future timer as confirmed."
+    return f"""      <h2>Banner countdown FAQ</h2>
+      <div class="faq-list">
+        <article class="faq-item"><h3>When does the {html.escape(current_names)} banner end?</h3><p>The current {html.escape(current_names)} banner ends on {fmt_human_date(current["end_date"])} according to the tracked official source.</p></article>
+        <article class="faq-item"><h3>What is the next WuWa banner countdown?</h3><p>{html.escape(next_answer)}</p></article>
+        <article class="faq-item"><h3>Is the next banner timer confirmed?</h3><p>A timer is confirmed only when an official notice or in-game Convene data gives a start or end time. Preview broadcasts and version news stay in watch mode until they confirm exact banner timing.</p></article>
       </div>"""
 
 
@@ -4525,6 +4578,12 @@ def update_pages(snapshot: dict[str, object]) -> None:
     news_items = load_news_items()
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
+    index_text = replace_basic_metadata(
+        index_text,
+        title="Wuthering Waves Banner Tracker: Current, Next & Countdown",
+        description="Track the current Wuthering Waves banner, next banner status, countdown timer, banner history, rerun watch, pity, and pull advice before spending Astrite.",
+        twitter_title="Wuthering Waves Banner Tracker",
+    )
     index_text, lead_count = re.subn(
         r'(<h1>Wuthering Waves Banner Tracker for Current and Next Banners</h1>\s*)<p class="lead">.*?</p>',
         rf'\1<p class="lead">{html.escape(build_home_lead(snapshot))}</p>',
@@ -4609,7 +4668,14 @@ def update_pages(snapshot: dict[str, object]) -> None:
     NEXT_HTML.write_text(next_text, encoding="utf-8")
 
     current_text = CURRENT_HTML.read_text(encoding="utf-8")
-    current_text = replace_meta_description(current_text, build_current_description(snapshot))
+    current_names_short = ", ".join(current["featured_characters"])
+    current_text = replace_page_metadata(
+        current_text,
+        title=f"WuWa Current Banner: {current_names_short} & End Date",
+        description=build_current_description(snapshot),
+        headline=f"WuWa Current Banner: {current_names_short} & End Date",
+        h1=f"WuWa Current Banner: {current_names_short}, Weapons, and End Date",
+    )
     current_text = replace_block_exact(current_text, "CURRENT_INTRO", build_current_intro(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_MEDIA", build_current_media(snapshot))
     current_text = replace_block_exact(current_text, "CURRENT_CARDS", build_current_cards(snapshot))
@@ -4649,10 +4715,10 @@ def update_pages(snapshot: dict[str, object]) -> None:
     history_text = HISTORY_HTML.read_text(encoding="utf-8")
     history_text = replace_page_metadata(
         history_text,
-        title="WuWa Banner History List & Chart | Wuthering Waves",
-        description="Browse the WuWa banner history list and chart with Wuthering Waves phases, featured characters, weapons, dates, and rerun context.",
-        headline="WuWa Banner History List & Chart",
-        h1="WuWa Banner History List and Chart",
+        title="WuWa Banner History: All Past Banners & Rerun Timeline",
+        description="Browse WuWa banner history with past Wuthering Waves banners, characters, weapons, dates, banner order, and rerun timeline context.",
+        headline="WuWa Banner History: All Past Banners & Rerun Timeline",
+        h1="WuWa Banner History: Past Banners and Rerun Timeline",
     )
     history_text = replace_block_exact(history_text, "HISTORY_INTRO", build_history_intro(snapshot))
     history_text = replace_block_exact(history_text, "HISTORY_MEDIA", build_history_media(snapshot))
@@ -4688,10 +4754,10 @@ def update_pages(snapshot: dict[str, object]) -> None:
     countdown_text = COUNTDOWN_HTML.read_text(encoding="utf-8")
     countdown_text = replace_page_metadata(
         countdown_text,
-        title="WuWa Banner Countdown Timer: Current & Next Dates",
-        description="Check the WuWa banner countdown timer, current banner end date, next banner date status, schedule links, and pull-or-save context.",
-        headline="WuWa Banner Countdown Timer: Current & Next Dates",
-        h1="WuWa Banner Countdown Timer and Current-Next Dates",
+        title="WuWa Banner Countdown: Suisui End Time & Next Banner",
+        description="Check the WuWa banner countdown for Suisui and Aemeath, current banner end time, next banner timer status, schedule links, and pull advice.",
+        headline="WuWa Banner Countdown: Suisui End Time & Next Banner",
+        h1="WuWa Banner Countdown: Suisui End Time and Next Banner",
     )
     countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_INTRO", build_countdown_intro(snapshot))
     countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_MEDIA", build_countdown_media(snapshot))
