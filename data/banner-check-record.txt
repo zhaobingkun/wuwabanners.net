@@ -1,6 +1,6 @@
 WuWa Banner Check Record
-Generated at: 2026-07-30T09:56:30
-Compared report generated at: 2026-07-30T09:56:05
+Generated at: 2026-08-23T11:13:16
+Compared report generated at: 2026-08-23T11:12:51
 Comparison result: CHANGED
 
 What you should look at first
@@ -14,18 +14,17 @@ Current summary
 - failed_source_fetches: 4
 - possible_new_versions: 5.5, 6.3, 3.0
 - manual_review_rows: ww-3.3-phase-1-weapon, ww-3.5-phase-1-character, ww-3.5-phase-1-weapon, ww-3.5-phase-2-character, ww-3.5-phase-2-weapon
-- automatic_candidate_updates: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-07-30, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-07-30, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-07-30, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-07-30, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-07-30, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-07-30, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-07-30
+- automatic_candidate_updates: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-08-23, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-08-23, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-08-23, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-08-23, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-08-23, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-08-23, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-08-23
 
 Changes since last run
-- ww-3.2-phase-2-character: reasons changed. Added: last_checked is 42 days old. Removed: last_checked is 41 days old
-- ww-3.3-phase-1-character: reasons changed. Added: last_checked is 42 days old. Removed: last_checked is 41 days old
-- ww-3.3-phase-1-weapon: reasons changed. Added: last_checked is 72 days old. Removed: last_checked is 71 days old
-- ww-3.3-phase-2-character: reasons changed. Added: last_checked is 42 days old. Removed: last_checked is 41 days old
-- ww-3.3-phase-2-weapon: reasons changed. Added: last_checked is 42 days old. Removed: last_checked is 41 days old
-- ww-3.4-phase-1-character: reasons changed. Added: last_checked is 42 days old. Removed: last_checked is 41 days old
-- ww-3.4-phase-1-preview: reasons changed. Added: last_checked is 42 days old. Removed: last_checked is 41 days old
-- ww-3.4-phase-1-weapon: reasons changed. Added: last_checked is 42 days old. Removed: last_checked is 41 days old
-- Automatic candidate updates changed. Added: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-07-30, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-07-30, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-07-30, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-07-30, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-07-30, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-07-30, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-07-30. Removed: ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-07-29, ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-07-29, ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-07-29, ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-07-29, ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-07-29, ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-07-29, ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-07-29
+- Summary changed: failed_source_fetches: 5 -> 4
+- ww-3.3-phase-2-weapon: reasons changed. Added: none. Removed: source fetch failed: fetch-failed
+- ww-3.3-phase-2-weapon: source probe fetch_ok changed: False -> True
+- ww-3.3-phase-2-weapon: source probe status changed: fetch-failed -> curl-ok
+- ww-3.3-phase-2-weapon: source probe term_hits changed: [] -> ['3.3', 'Forged Dwarf Star', 'Kumokiri', 'Lethean Elegy']
+- ww-3.3-phase-2-weapon: source probe version_hits changed: [] -> ['3.3']
+- Automatic candidate updates changed. Added: ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-08-23. Removed: none
+- Manual review rows changed. Added: none. Removed: ww-3.3-phase-2-weapon
 
 Action today
 - Something changed compared with the previous run.

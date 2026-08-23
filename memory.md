@@ -1,5 +1,11 @@
 # Project Memory
 
+## 2026-08-23 Cleanup Follow-up
+
+- The daily automation had left the repository one commit ahead plus tracked generated check files, candidate/report artifacts, project memory notes, and tracked Python cache changes. The generated report still showed no real banner/news update: only source-health recovery/failures, safe-row `last_checked` refreshes, row aging, and DearPlayers version noise.
+- The existing ahead commit `903b31f` is a Search Console SEO optimization for the homepage, banner history, countdown, current banner, and generator output, not daily-check noise. It should be pushed as a real site-maintenance update.
+- Because discarding the tracked generated/memory changes was blocked by safety review, preserve them in a cleanup commit instead of force-resetting or deleting files. No banner facts, `data/banner-data.csv`, or `data/news.json` were changed by this cleanup.
+
 ## Daily Check Workflow
 
 - Read `AGENTS.md` and this file first.
@@ -239,6 +245,97 @@
 - DearPlayers feed still emits possible version references `3.5`, `5.5`, `6.3`, and `3.0`; treat these as feed noise unless an official banner row, date, lineup, or source page changes.
 - Official YouTube feed check still failed with SSL/curl timeout.
 
+## 2026-08-09 Notes
+
+- Daily official check completed at 2026-08-09 11:11 Asia/Shanghai. Result was `CHANGED` only from source-health recovery/failures, row aging, six safe-row `last_checked` candidate refreshes, and DearPlayers possible-version signals (`5.5`, `6.3`, `3.0`).
+- Live `data/banner-data.csv` and `data/news.json` had no real content changes. The Version 3.6 Preview Special Broadcast and its official update page were already recorded on August 7; official-source search found no newer verifiable banner or news notice.
+- No rebuild, commit, push, or production check was performed. Existing generated check files and Python cache noise remain uncommitted; no unrelated changes were staged.
+
+## 2026-08-22 Notes
+
+- Daily official check completed at 2026-08-22 11:12 Asia/Shanghai. Result was `NO_SIGNIFICANT_CHANGE`; seven safe-row `last_checked` values refreshed, while 12 rows need review from aging, the recurring secondary PCGamer row, or four failed X-source fetches.
+- DearPlayers emitted possible versions `5.5`, `6.3`, and `3.0`; these remain unverified feed noise. Live `data/banner-data.csv` and `data/news.json` had no lineup, date, weapon, source URL, or news-content changes.
+- Manual official-site review found no newer verifiable banner facts or separate official news item after the recorded Version 3.6 preview update. The official news index was reachable; X and YouTube remained limited by SSL/timeout fetch failures.
+- No news item, rebuild, commit, push, or production verification was performed. Generated check files, candidate data, project memory, and Python cache noise remain uncommitted; no unrelated changes were staged.
+
+## 2026-08-21 Notes
+
+- Daily official check completed at 2026-08-21 11:14 Asia/Shanghai. Result was `NO_SIGNIFICANT_CHANGE`; the candidate only refreshed seven safe-row `last_checked` values, while 12 rows need review from aging, the recurring secondary PCGamer row, or four failed X fetches.
+- DearPlayers emitted possible versions `5.5`, `6.3`, and `3.0`; these remain unverified feed noise. No live `data/banner-data.csv` lineup, date, weapon, source URL, or `data/news.json` content changed.
+- Manual official-site, official X, and official YouTube checks found no newer verifiable banner facts or separate official news item after the recorded Version 3.6 update. No rebuild, commit, push, or production check was performed.
+- Generated check files, candidate data, project memory, and Python cache noise remain uncommitted; no unrelated changes were staged.
+
+## 2026-08-19 Notes
+
+- Daily official check completed at 2026-08-19 11:13 Asia/Shanghai. Result was `NO_SIGNIFICANT_CHANGE`; six safe-row `last_checked` candidate refreshes, row aging, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`) were the only findings.
+- Live `data/banner-data.csv` and `data/news.json` were unchanged. Manual official-source review found only the already-recorded Version 3.6 material; no new verified banner lineup, date, weapon, source URL, or separate news item was found.
+- No news item, rebuild, commit, push, or production verification was performed. Generated check files, candidate data, project memory, and Python cache noise remain uncommitted.
+
+## 2026-08-18 Notes
+
+- Daily check completed at 2026-08-18 19:34 Asia/Shanghai. Result was `CHANGED` only from six safe-row `last_checked` candidate refreshes, row aging, recovery from prior source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- Live `data/banner-data.csv` and `data/news.json` were unchanged; no confirmed lineup, date, weapon, source URL, or separate official news update was found.
+- Manual official-source search checked the official news page plus official X and YouTube channels and found no newer verifiable banner or news notice after the recorded Version 3.6 update.
+- No news item, rebuild, commit, push, or production verification was performed. Generated check files, candidate data, project memory, and Python cache noise remain uncommitted.
+
+## 2026-08-17 Notes
+
+- Daily official check completed at 2026-08-17 11:12 Asia/Shanghai. Result was `CHANGED` only from DNS/source-health failures, aging rows, and removal of prior unverified feed signals; 12 source fetches failed, with no possible new versions or automatic candidate updates.
+- `data/banner-data.csv` and `data/news.json` were unchanged. Manual official-source search found no newer verifiable banner facts or separate official news item after the recorded Version 3.6 update.
+- No news item, rebuild, commit, push, or production check was performed. Generated check files, candidate data, and Python cache noise remain uncommitted.
+
+## 2026-08-16 Search Console Optimization
+
+- Analyzed the downloaded GSC export from `/Users/zhaobingkun/Downloads/wuwabanners.net-Performance-on-Search-2026-08-16/`. Main opportunity clusters were countdown (8,311 impressions, 0.17% CTR, average position 9.3), history (5,664 impressions, 0.41% CTR, average position 9.9), current/now (2,727 impressions, 0.18% CTR, average position 14.1), and next/upcoming (2,582 impressions, 0.08% CTR, average position 27.7).
+- Optimized generator output for the homepage, banner history page, banner countdown page, and current banner page. Changes focus on stronger title/meta/H1 alignment, direct-answer copy, query-matching section intros, and internal links to current, next, countdown, history, schedule, rerun, and news routes.
+- Banner facts were not changed. Current live facts remain Version 3.5 Phase 2 with Suisui and Aemeath, Firstlight's Herald and Everbright Polestar, ending August 19, 2026; the next post-current banner remains pending official reveal.
+- `python3 scripts/run_banner_update_cycle.py` passed after the optimization. Manual output spot-check confirmed homepage, history, countdown, and current banner pages have updated metadata; countdown page was thickened to about 511 HTML-extracted English tokens and includes a visible countdown FAQ.
+
+## 2026-08-16 11:12 Run
+
+- Daily official check completed at 2026-08-16 11:12 Asia/Shanghai. Result was `CHANGED` only from 12 source fetch failures, row aging, and removal of unverified feed signals; there were no automatic candidate updates or confirmed new version signals.
+- Live `data/banner-data.csv` and `data/news.json` had no real content changes. Manual official-site and official-X/YouTube searches found no newer verifiable banner facts or separate official news item after the recorded Version 3.6 update.
+- No news item, rebuild, commit, push, or production check was performed. Generated check files, candidate data, and Python cache noise remain uncommitted.
+
+## 2026-08-16 Notes
+
+- Daily official check completed at 2026-08-16T06:00:36. The comparison result was `CHANGED`, but the differences were six safe-row `last_checked` candidate refreshes, row aging, the recurring historical PCGamer mismatch, four X source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- Live `data/banner-data.csv` and `data/news.json` had no confirmed content changes. Official-site and current-source checks did not surface a newer verifiable banner or news notice after the Version 3.6 update already recorded.
+- No news item, rebuild, commit, push, or production check was performed. Generated check files, candidate data, `memory.md`, and Python cache noise remain uncommitted.
+
+## 2026-08-14 Notes
+
+- Daily official check completed at 2026-08-14 11:11 Asia/Shanghai. Result was `CHANGED`, but the differences were only historical row aging, six safe-row `last_checked` candidate refreshes, the recurring old PCGamer source-term mismatch, and four X source fetch failures.
+- DearPlayers still emitted unverified possible versions `5.5`, `6.3`, and `3.0`; these remain feed noise. Live `data/banner-data.csv` and `data/news.json` had no content changes.
+- Official-source search found no newer verifiable banner facts or separate official news item after the Version 3.6 Preview Broadcast/update already recorded on August 8.
+- No rebuild, commit, push, or production check was performed. Generated check files, candidate data, and Python cache noise remain uncommitted.
+
+## 2026-08-12 Notes
+
+- Daily banner check completed at 2026-08-12 17:07 Asia/Shanghai. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, weapon, or public page content changed.
+- Candidate CSV only refreshed `last_checked` for six safe rows. Twelve rows need review because of aging, recurring old-source mismatch, or four X source fetch failures; do not publish from these diagnostics.
+- DearPlayers emitted possible versions `5.5`, `6.3`, and `3.0`; these remain unverified feed noise, not new banner facts. Official YouTube still failed with SSL/curl timeout.
+- Manual official-source search found no newer verified announcement after the already-recorded Version 3.6 Preview Broadcast/update page. No rebuild, commit, push, or production check was performed.
+
+## 2026-08-13 Notes
+
+- Daily official check completed at 2026-08-13 11:13 Asia/Shanghai. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, weapon, or public page content changed.
+- Candidate CSV only refreshed `last_checked` for six safe rows. Twelve rows need review because of aging, the recurring old PCGamer source mismatch, and four X source fetch failures; do not publish from these diagnostics.
+- DearPlayers emitted possible versions `5.5`, `6.3`, and `3.0`; these remain unverified feed noise, not new banner facts. Official YouTube still failed with SSL/curl timeout.
+- Official-source search found no newer verifiable banner or news notice after the already-recorded Version 3.6 Preview Broadcast/update page. No rebuild, commit, push, or production check was performed.
+
+## 2026-08-11 Notes
+
+- Daily official check completed at 2026-08-11 11:12 Asia/Shanghai. Result was `CHANGED` only from row aging, six safe-row `last_checked` candidate refreshes, the recurring old PCGamer source mismatch, four X source fetch failures, and DearPlayers possible-version signals (`5.5`, `6.3`, `3.0`).
+- Live `data/banner-data.csv` and `data/news.json` had no real content changes. Current official-source search found no newer verifiable banner or news notice after the already-recorded Version 3.6 Preview Special Broadcast and official update page.
+- No rebuild, commit, push, or production check was performed. Generated check files, candidate data, and Python cache noise remain uncommitted.
+
+## 2026-08-10 Notes
+
+- Daily official check completed at 2026-08-10 11:13 Asia/Shanghai. Result was `NO_SIGNIFICANT_CHANGE`; only six safe-row `last_checked` candidate refreshes, row aging, four source fetch failures, and DearPlayers possible-version signals (`5.5`, `6.3`, `3.0`) were present.
+- Live `data/banner-data.csv` and `data/news.json` had no real content changes. The Version 3.6 Preview Special Broadcast and its official update page remain the latest recorded official update; official-source search found no newer verifiable banner or news notice.
+- No rebuild, commit, push, or production check was performed. Generated check files, candidate data, and Python cache noise remain uncommitted.
+
 ## 2026-07-19 Notes
 
 - Daily banner check re-run at 2026-07-19T16:39:00. Result: `NO_SIGNIFICANT_CHANGE`; no banner lineup, date, source URL, live CSV, or public page content changed.
@@ -404,6 +501,12 @@
 - Official search found no new verified banner facts or separate news item. The official Version 3.6 preview broadcast scheduled for August 7 is already recorded in `data/news.json`; Version 3.5 Phase 2 remains Suisui and Aemeath with Firstlight's Herald and Everbright Polestar through August 19 11:59 server time.
 - No news item, rebuild, commit, push, or production check is needed today. Leave generated check files, candidate data, and Python cache changes uncommitted.
 
+## 2026-08-23 11:12 Asia/Shanghai
+
+- Daily check reported `CHANGED` only from six safe-row `last_checked` refreshes, row aging, one historical source fetch failure, four X source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live banner CSV and news content were unchanged.
+- Manual official news/index and official-source searches found no newer verifiable banner facts or separate official news item after the recorded Version 3.6 update. Official pages were reachable but exposed no new indexed detail; X and YouTube remained fetch-limited.
+- No news item, rebuild, commit, push, or production verification was performed. Generated check files, candidate data, project memory, and Python cache noise remain uncommitted; the worktree remains one commit ahead of `origin/main`.
+
 ## 2026-08-08 Notes
 
 - Daily banner check completed at 2026-08-08T11:07:59. The comparison result was `CHANGED`, but all changes were source-health failures across 12 rows, row aging, and removal of unverified feed signals; there were no automatic candidate updates.
@@ -411,3 +514,9 @@
 - Added one normalized official-news item to `data/news.json` and generated `/news/wuthering-waves-version-3-6-preview-broadcast-reveals-update-content/`. Banner CSV was intentionally left unchanged because the exact phase dates and complete weapon listings were not directly verifiable from the primary page during this run.
 - `python3 scripts/run_banner_update_cycle.py` and `python3 scripts/verify_site_build.py` both passed. Generated check files and Python cache files remain excluded from the publish commit.
 - The commit was pushed as `cf09d26`, but production HEAD checks for the new news page, `/news/`, and `/sitemap.xml` were blocked because `wuwabanners.net` could not be resolved by DNS (`curl: (6) Could not resolve host`).
+
+## 2026-08-09 Notes
+
+- Daily official check completed at 2026-08-09 11:11 Asia/Shanghai. Result was `CHANGED` only from source-health recovery/failures, row aging, six safe-row `last_checked` candidate refreshes, and DearPlayers possible-version signals (`5.5`, `6.3`, `3.0`).
+- Live `data/banner-data.csv` and `data/news.json` had no real content changes. The Version 3.6 Preview Special Broadcast and its official update page were already recorded on August 7; official-source search found no newer verifiable banner or news notice.
+- No rebuild, commit, push, or production check was performed. Existing generated check files and Python cache noise remain uncommitted; no unrelated changes were staged.

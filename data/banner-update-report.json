@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30T09:56:05",
+  "generated_at": "2026-08-23T11:12:51",
   "csv_path": "data/banner-data.csv",
   "row_checks": [
     {
@@ -12,10 +12,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 42,
+      "age_days": 66,
       "needs_review": true,
       "reasons": [
-        "last_checked is 42 days old"
+        "last_checked is 66 days old"
       ]
     },
     {
@@ -28,10 +28,10 @@
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
       "last_checked": "2026-06-18",
-      "age_days": 42,
+      "age_days": 66,
       "needs_review": true,
       "reasons": [
-        "last_checked is 42 days old"
+        "last_checked is 66 days old"
       ]
     },
     {
@@ -44,12 +44,11 @@
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "source_type": "secondary_media",
       "last_checked": "2026-05-19",
-      "age_days": 72,
+      "age_days": 96,
       "needs_review": true,
       "reasons": [
-        "last_checked is 72 days old",
-        "source_type is secondary_media",
-        "source page did not clearly match expected banner names"
+        "last_checked is 96 days old",
+        "source_type is secondary_media"
       ]
     },
     {
@@ -62,10 +61,10 @@
       "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 42,
+      "age_days": 66,
       "needs_review": true,
       "reasons": [
-        "last_checked is 42 days old"
+        "last_checked is 66 days old"
       ]
     },
     {
@@ -78,10 +77,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 42,
+      "age_days": 66,
       "needs_review": true,
       "reasons": [
-        "last_checked is 42 days old"
+        "last_checked is 66 days old"
       ]
     },
     {
@@ -94,10 +93,10 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 42,
+      "age_days": 66,
       "needs_review": true,
       "reasons": [
-        "last_checked is 42 days old"
+        "last_checked is 66 days old"
       ]
     },
     {
@@ -110,10 +109,10 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 42,
+      "age_days": 66,
       "needs_review": true,
       "reasons": [
-        "last_checked is 42 days old"
+        "last_checked is 66 days old"
       ]
     },
     {
@@ -126,10 +125,10 @@
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 42,
+      "age_days": 66,
       "needs_review": true,
       "reasons": [
-        "last_checked is 42 days old"
+        "last_checked is 66 days old"
       ]
     },
     {
@@ -141,10 +140,11 @@
       "status": "official",
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
       "source_type": "official_social",
-      "last_checked": "2026-07-28",
-      "age_days": 2,
+      "last_checked": "2026-07-30",
+      "age_days": 24,
       "needs_review": true,
       "reasons": [
+        "last_checked is 24 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -157,10 +157,11 @@
       "status": "official",
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
       "source_type": "official_social",
-      "last_checked": "2026-07-28",
-      "age_days": 2,
+      "last_checked": "2026-07-30",
+      "age_days": 24,
       "needs_review": true,
       "reasons": [
+        "last_checked is 24 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -173,10 +174,11 @@
       "status": "official",
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
       "source_type": "official_social",
-      "last_checked": "2026-07-28",
-      "age_days": 2,
+      "last_checked": "2026-07-30",
+      "age_days": 24,
       "needs_review": true,
       "reasons": [
+        "last_checked is 24 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -189,10 +191,11 @@
       "status": "official",
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
       "source_type": "official_social",
-      "last_checked": "2026-07-28",
-      "age_days": 2,
+      "last_checked": "2026-07-30",
+      "age_days": 24,
       "needs_review": true,
       "reasons": [
+        "last_checked is 24 days old",
         "source fetch failed: fetch-failed"
       ]
     }
@@ -227,10 +230,13 @@
       "url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "fetch_ok": true,
       "status": "curl-ok",
-      "term_hits": [],
-      "version_hits": [],
+      "term_hits": [
+        "3.3"
+      ],
+      "version_hits": [
+        "3.5"
+      ],
       "notes": [
-        "Fetched page did not contain the expected banner or unit names.",
         "Fetched page did not clearly expose the current version string."
       ]
     },
@@ -239,8 +245,7 @@
       "fetch_ok": true,
       "status": "curl-ok",
       "term_hits": [
-        "Chisa",
-        "Phrolova"
+        "Denia"
       ],
       "version_hits": [],
       "notes": [
