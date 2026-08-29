@@ -1,9 +1,9 @@
 {
-  "report_generated_at": "2026-08-23T11:12:51",
+  "report_generated_at": "2026-08-29T16:32:40",
   "summary": {
     "rows_checked": 12,
     "rows_needing_review": 12,
-    "failed_source_fetches": 4,
+    "failed_source_fetches": 5,
     "possible_new_versions": [
       "5.5",
       "6.3",
@@ -20,7 +20,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 66 days old"
+        "last_checked is 72 days old"
       ]
     },
     "ww-3.3-phase-1-character": {
@@ -32,7 +32,7 @@
       "source_type": "official_site",
       "needs_review": true,
       "reasons": [
-        "last_checked is 66 days old"
+        "last_checked is 72 days old"
       ]
     },
     "ww-3.3-phase-1-weapon": {
@@ -44,7 +44,8 @@
       "source_type": "secondary_media",
       "needs_review": true,
       "reasons": [
-        "last_checked is 96 days old",
+        "last_checked is 102 days old",
+        "source fetch failed: fetch-failed",
         "source_type is secondary_media"
       ]
     },
@@ -57,7 +58,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 66 days old"
+        "last_checked is 72 days old"
       ]
     },
     "ww-3.3-phase-2-weapon": {
@@ -69,7 +70,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 66 days old"
+        "last_checked is 72 days old"
       ]
     },
     "ww-3.4-phase-1-character": {
@@ -81,7 +82,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 66 days old"
+        "last_checked is 72 days old"
       ]
     },
     "ww-3.4-phase-1-weapon": {
@@ -93,7 +94,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 66 days old"
+        "last_checked is 72 days old"
       ]
     },
     "ww-3.4-phase-1-preview": {
@@ -105,7 +106,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 66 days old"
+        "last_checked is 72 days old"
       ]
     },
     "ww-3.5-phase-1-character": {
@@ -117,7 +118,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 24 days old",
+        "last_checked is 30 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -130,7 +131,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 24 days old",
+        "last_checked is 30 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -143,7 +144,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 24 days old",
+        "last_checked is 30 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -156,7 +157,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 24 days old",
+        "last_checked is 30 days old",
         "source fetch failed: fetch-failed"
       ]
     }
@@ -186,16 +187,12 @@
       "notes": []
     },
     "ww-3.3-phase-1-weapon": {
-      "fetch_ok": true,
-      "status": "curl-ok",
-      "term_hits": [
-        "3.3"
-      ],
-      "version_hits": [
-        "3.5"
-      ],
+      "fetch_ok": false,
+      "status": "fetch-failed",
+      "term_hits": [],
+      "version_hits": [],
       "notes": [
-        "Fetched page did not clearly expose the current version string."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 28."
       ]
     },
     "ww-3.3-phase-2-character": {
@@ -263,7 +260,7 @@
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 28."
       ]
     },
     "ww-3.5-phase-1-weapon": {
@@ -272,7 +269,7 @@
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 28."
       ]
     },
     "ww-3.5-phase-2-character": {
@@ -281,7 +278,7 @@
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 28."
       ]
     },
     "ww-3.5-phase-2-weapon": {
@@ -290,7 +287,7 @@
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 28."
       ]
     }
   },
@@ -331,13 +328,13 @@
     }
   },
   "auto_updates": [
-    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-08-23",
-    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-08-23",
-    "ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-08-23",
-    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-08-23",
-    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-08-23",
-    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-08-23",
-    "ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-08-23"
+    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-08-29",
+    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-08-29",
+    "ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-08-29",
+    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-08-29",
+    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-08-29",
+    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-08-29",
+    "ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-08-29"
   ],
   "manual_review_ids": [
     "ww-3.3-phase-1-weapon",
