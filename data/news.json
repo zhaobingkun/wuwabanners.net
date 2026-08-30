@@ -1,5 +1,35 @@
 [
   {
+    "slug": "wuthering-waves-official-enemy-information-august-29-2026",
+    "title": "Wuthering Waves Official Site Posts New Enemy Information",
+    "category": "Official update",
+    "published_at": "2026-08-29 00:00",
+    "display_date": "August 29, 2026",
+    "event_time": "Not specified",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5375",
+    "summary": "Kuro published an official enemy-information notice for Wuthering Waves on August 29, 2026.",
+    "banner_impact": "This notice does not confirm any banner lineup, phase date, featured weapon, or version change, so confirmed banner data remains unchanged.",
+    "body": [
+      "The official Wuthering Waves website published a new enemy-information notice on August 29, 2026. The notice is categorized as game information rather than a banner or version schedule announcement.",
+      "For banner tracking, there is no directly verifiable character lineup, weapon lineup, phase timing, or version release information in this notice. WuWa Banners therefore leaves the confirmed banner dataset unchanged."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-6-preview-broadcast-reveals-update-content",
     "title": "Wuthering Waves Version 3.6 Preview Broadcast Reveals New Update Content",
     "category": "Official update",

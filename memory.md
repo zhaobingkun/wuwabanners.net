@@ -1,5 +1,11 @@
 # Project Memory
 
+## 2026-08-30 Daily Official Check
+
+- Daily official check completed at 2026-08-30 21:32 Asia/Shanghai. The automated `CHANGED` result contained only seven safe-row `last_checked` refreshes, aging/review thresholds, historical source recovery, four X fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no banner lineup, date, weapon, or source URL change.
+- Manual official-site review found the August 29 official Japanese notice `https://wutheringwaves.kurogames.com/jp/main/news/detail/5375`, an enemy-information notice with no banner-impacting facts. Added exactly one normalized official news item stating that confirmed banner data remains unchanged; left `data/banner-data.csv` untouched.
+- Rebuilt with `python3 scripts/run_banner_update_cycle.py` and passed `python3 scripts/verify_site_build.py`. The publishable files are the new news item, generated news index/detail page, sitemap, and this memory note; generated daily-check artifacts remain unpublishable noise.
+
 ## 2026-08-29 Daily Check Cleanup
 
 - Preserved the accumulated tracked daily-check state from 2026-08-24 through 2026-08-28 in a cleanup commit instead of deleting or force-resetting it. The dirty files were limited to `data/banner-check-history.log`, `data/banner-check-record.txt`, `data/banner-check-state.json`, `data/banner-data.candidate.csv`, `data/banner-data.diff.txt`, `data/banner-update-report.json`, and `memory.md`.
