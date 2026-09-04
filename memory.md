@@ -568,3 +568,27 @@
 - Daily official check reported `CHANGED`, but only from seven safe-row `last_checked` refreshes, 12 aging/review thresholds, recovery of seven historical source probes, five source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
 - Live `data/banner-data.csv` and `data/news.json` had no lineup, date, weapon, source URL, or news-content changes. Official news-index, X, and YouTube spot checks found no newer verifiable official banner or news notice; X returned 403 and YouTube exposed no current listing in the available fetch.
 - No news item, rebuild, commit, push, or production verification was performed. Generated check files and project memory remain uncommitted; no unrelated files were staged.
+
+## 2026-09-04 12:53 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the report was `CHANGED` only because all 12 monitored source probes/feed checks failed, rows aged, and prior feed signals disappeared. There were no automatic candidate updates and no live banner-data changes.
+- Confirmed `data/banner-data.csv` and `data/news.json` have no content diff. Official news index search exposed no newer verifiable banner or news notice; official X returned 403. No banner or news update was safe to publish.
+- No rebuild, commit, push, or production verification was performed. Existing generated check artifacts and project memory remain uncommitted; no unrelated files were staged.
+
+## 2026-09-02 19:43 Asia/Shanghai
+
+- Read project instructions and automation memory, preserved the pre-existing generated check changes, and ran `./scripts/run_daily_official_check.sh`.
+- Daily check reported `CHANGED` only from seven safe-row `last_checked` refreshes, 12 aging/review thresholds, four X-linked source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live `data/banner-data.csv` and `data/news.json` had no content changes.
+- Manual official-source review found the official news index reachable but no newer verifiable banner facts or separate official news notice after the recorded August 29 enemy-information item. X returned 403 and YouTube exposed no usable current listing. No news item, rebuild, commit, push, or production verification was performed; generated check files and project memory remain uncommitted.
+
+## 2026-09-01 10:22 Asia/Shanghai
+
+- Daily official check reported `CHANGED`, but only from six safe-row `last_checked` refreshes, 12 aging/review thresholds, one additional source fetch failure, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live `data/banner-data.csv` and `data/news.json` had no content changes.
+- Manual official-site and official-social review found no newer verifiable banner facts or separate official news notice after the recorded August 29 enemy-information item. The official Japanese social activity found was dated August 26 and had no banner impact.
+- No news item, rebuild, commit, push, or production verification was performed. Generated check files remain uncommitted; no unrelated files were staged.
+
+## 2026-09-01 15:47 Asia/Shanghai
+
+- Daily official check reported `CHANGED`, but only from seven safe-row `last_checked` refreshes, 12 aging/review thresholds, recovery of two historical source probes, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live `data/banner-data.csv` and `data/news.json` had no content changes.
+- Manual official-source review found no newer verifiable banner facts or separate official news item after the recorded August 29 enemy-information notice. The latest discovered official notice remains banner-neutral; English official-site DNS failed in this run and X/YouTube remained fetch-limited.
+- No news item, rebuild, commit, push, or production verification was performed. Generated check files and project memory remain uncommitted; no unrelated files were staged.

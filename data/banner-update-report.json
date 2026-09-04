@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T16:32:40",
+  "generated_at": "2026-09-04T12:53:49",
   "csv_path": "data/banner-data.csv",
   "row_checks": [
     {
@@ -12,10 +12,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2029859537004736723",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 72,
+      "age_days": 78,
       "needs_review": true,
       "reasons": [
-        "last_checked is 72 days old"
+        "last_checked is 78 days old"
       ]
     },
     {
@@ -28,10 +28,10 @@
       "source_url": "https://blog.playstation.com/2026/04/17/wuthering-waves-version-3-3-reverbs-from-the-end-of-galaxies-update-arrives-april-30/",
       "source_type": "official_site",
       "last_checked": "2026-06-18",
-      "age_days": 72,
+      "age_days": 78,
       "needs_review": true,
       "reasons": [
-        "last_checked is 72 days old"
+        "last_checked is 78 days old"
       ]
     },
     {
@@ -44,12 +44,12 @@
       "source_url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
       "source_type": "secondary_media",
       "last_checked": "2026-05-19",
-      "age_days": 102,
+      "age_days": 108,
       "needs_review": true,
       "reasons": [
-        "last_checked is 102 days old",
+        "last_checked is 108 days old",
         "source_type is secondary_media",
-        "source fetch failed: fetch-failed"
+        "source page did not clearly match expected banner names"
       ]
     },
     {
@@ -62,10 +62,10 @@
       "source_url": "https://www.dearplayers.com/en-US/events/wuthering-waves",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 72,
+      "age_days": 78,
       "needs_review": true,
       "reasons": [
-        "last_checked is 72 days old"
+        "last_checked is 78 days old"
       ]
     },
     {
@@ -78,10 +78,10 @@
       "source_url": "https://www.dearplayers.com/en-US/updates/wuthering-waves/2056935442847535238",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 72,
+      "age_days": 78,
       "needs_review": true,
       "reasons": [
-        "last_checked is 72 days old"
+        "last_checked is 78 days old"
       ]
     },
     {
@@ -94,10 +94,10 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 72,
+      "age_days": 78,
       "needs_review": true,
       "reasons": [
-        "last_checked is 72 days old"
+        "last_checked is 78 days old"
       ]
     },
     {
@@ -110,10 +110,10 @@
       "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 72,
+      "age_days": 78,
       "needs_review": true,
       "reasons": [
-        "last_checked is 72 days old"
+        "last_checked is 78 days old"
       ]
     },
     {
@@ -126,10 +126,10 @@
       "source_url": "https://www.dearplayers.com/en-PH/updates/wuthering-waves/2058850561991057878",
       "source_type": "official_social",
       "last_checked": "2026-06-18",
-      "age_days": 72,
+      "age_days": 78,
       "needs_review": true,
       "reasons": [
-        "last_checked is 72 days old"
+        "last_checked is 78 days old"
       ]
     },
     {
@@ -142,10 +142,10 @@
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
       "source_type": "official_social",
       "last_checked": "2026-07-30",
-      "age_days": 30,
+      "age_days": 36,
       "needs_review": true,
       "reasons": [
-        "last_checked is 30 days old",
+        "last_checked is 36 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -159,10 +159,10 @@
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
       "source_type": "official_social",
       "last_checked": "2026-07-30",
-      "age_days": 30,
+      "age_days": 36,
       "needs_review": true,
       "reasons": [
-        "last_checked is 30 days old",
+        "last_checked is 36 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -176,10 +176,10 @@
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
       "source_type": "official_social",
       "last_checked": "2026-07-30",
-      "age_days": 30,
+      "age_days": 36,
       "needs_review": true,
       "reasons": [
-        "last_checked is 30 days old",
+        "last_checked is 36 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -193,10 +193,10 @@
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
       "source_type": "official_social",
       "last_checked": "2026-07-30",
-      "age_days": 30,
+      "age_days": 36,
       "needs_review": true,
       "reasons": [
-        "last_checked is 30 days old",
+        "last_checked is 36 days old",
         "source fetch failed: fetch-failed"
       ]
     }
@@ -229,12 +229,13 @@
     },
     {
       "url": "https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/",
-      "fetch_ok": false,
-      "status": "fetch-failed",
+      "fetch_ok": true,
+      "status": "curl-ok",
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 28."
+        "Fetched page did not contain the expected banner or unit names.",
+        "Fetched page did not clearly expose the current version string."
       ]
     },
     {
@@ -308,7 +309,7 @@
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 28."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
       ]
     },
     {
@@ -318,7 +319,7 @@
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 28."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
       ]
     },
     {
@@ -328,7 +329,7 @@
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 28."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
       ]
     },
     {
@@ -338,7 +339,7 @@
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 28."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
       ]
     }
   ],
@@ -399,7 +400,7 @@
   "summary": {
     "rows_checked": 12,
     "rows_needing_review": 12,
-    "failed_source_fetches": 5,
+    "failed_source_fetches": 4,
     "possible_new_versions": [
       "5.5",
       "6.3",
