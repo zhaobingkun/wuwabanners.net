@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-6-update-content-confirms-banner-schedule",
+    "title": "Wuthering Waves Version 3.6 Banner Schedule Confirmed",
+    "category": "Official update",
+    "published_at": "2026-08-18 00:00",
+    "display_date": "August 18, 2026",
+    "event_time": "Version 3.6: August 20, 2026 at 11:00 UTC+8",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
+    "summary": "Kuro's official Version 3.6 update content confirms both banner phases, dates, characters, and weapons.",
+    "banner_impact": "Version 3.6 Phase 1 runs August 20 to September 10, followed by Phase 2 from September 10 to September 29; the confirmed banner dataset is updated accordingly.",
+    "body": [
+      "Kuro Games published the official Wuthering Waves Version 3.6 update content on August 18, 2026. The notice confirms the version schedule and the featured Convene lineup for both phases.",
+      "Phase 1 runs from August 20 at 11:00 through September 10 at 09:59 server time with Qingxiao and Denia, plus Glint of Clouds and Forged Dwarf Star. Phase 2 begins September 10 at 10:00 and runs through September 29 at 11:59 with Jingran, Hiyuki, and Mornye, plus Thousandfold Deliverance, Frostburn, and Starfield Calibrator.",
+      "WuWa Banners has updated its confirmed banner history and current schedule from this official notice. Times are shown in server time because the game's Convene schedule uses that clock."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-official-enemy-information-august-29-2026",
     "title": "Wuthering Waves Official Site Posts New Enemy Information",
     "category": "Official update",

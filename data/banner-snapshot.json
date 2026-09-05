@@ -1,82 +1,46 @@
 {
-  "updated": "2026-07-30",
+  "updated": "2026-09-05",
   "current": {
-    "version": "3.5",
-    "phase": "Phase 2",
+    "version": "3.6",
+    "phase": "Phase 1",
     "banner_type": "character",
-    "banner_name": "Version 3.5 Phase 2",
+    "banner_name": "Version 3.6 Phase 1",
     "featured_characters": [
-      "Suisui",
-      "Aemeath"
+      "Qingxiao",
+      "Denia"
     ],
     "featured_weapons": [
-      "Firstlight's Herald",
-      "Everbright Polestar"
+      "Glint of Clouds",
+      "Forged Dwarf Star"
     ],
-    "start_date": "2026-07-30 10:00",
-    "end_date": "2026-08-19 11:59",
-    "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
-    "announcement_date": "2026-07-08",
+    "start_date": "2026-08-20 11:00",
+    "end_date": "2026-09-10 09:59",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
+    "announcement_date": "2026-08-18",
     "status": "official"
   },
   "next": {
-    "version": "3.5",
+    "version": "3.6",
     "phase": "Phase 2",
     "banner_type": "character",
-    "banner_name": "Version 3.5 Phase 2",
+    "banner_name": "Version 3.6 Phase 2",
     "featured_characters": [
-      "Suisui",
-      "Aemeath"
+      "Jingran",
+      "Hiyuki",
+      "Mornye"
     ],
     "featured_weapons": [
-      "Firstlight's Herald",
-      "Everbright Polestar"
+      "Thousandfold Deliverance",
+      "Frostburn",
+      "Starfield Calibrator"
     ],
-    "start_date": "2026-07-30 10:00",
-    "end_date": "2026-08-19 11:59",
-    "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344",
-    "announcement_date": "2026-07-08",
+    "start_date": "2026-09-10 10:00",
+    "end_date": "2026-09-29 11:59",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
+    "announcement_date": "2026-08-18",
     "status": "official"
   },
   "history": [
-    {
-      "version": "3.4",
-      "phase": "Phase 1",
-      "banner_name": "Version 3.4 The Dream Not Dreamed",
-      "featured_characters": [
-        "Lucy",
-        "Rebecca",
-        "Lucilla",
-        "Cartethyia"
-      ],
-      "featured_weapons": [
-        "Spectral Trigger",
-        "Skull Thrasher",
-        "Freeze Frame",
-        "Defier's Thorn"
-      ],
-      "start_date": "2026-06-08 10:00",
-      "end_date": "2026-07-09 11:59",
-      "source_url": "https://www.dearplayers.com/en-MY/updates/wuthering-waves/2060330327235518818"
-    },
-    {
-      "version": "3.5",
-      "phase": "Phase 1",
-      "banner_name": "Version 3.5 Phase 1",
-      "featured_characters": [
-        "Yangyang: Xuanling",
-        "Lynae",
-        "Luuk Herssen"
-      ],
-      "featured_weapons": [
-        "Azure Oath",
-        "Spectrum Blaster",
-        "Daybreaker's Spine"
-      ],
-      "start_date": "2026-07-10 10:00",
-      "end_date": "2026-07-30 09:59",
-      "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344"
-    },
     {
       "version": "3.5",
       "phase": "Phase 2",
@@ -92,6 +56,40 @@
       "start_date": "2026-07-30 10:00",
       "end_date": "2026-08-19 11:59",
       "source_url": "https://x.com/Wuthering_Waves/status/2074780539987669344"
+    },
+    {
+      "version": "3.6",
+      "phase": "Phase 1",
+      "banner_name": "Version 3.6 Phase 1",
+      "featured_characters": [
+        "Qingxiao",
+        "Denia"
+      ],
+      "featured_weapons": [
+        "Glint of Clouds",
+        "Forged Dwarf Star"
+      ],
+      "start_date": "2026-08-20 11:00",
+      "end_date": "2026-09-10 09:59",
+      "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310"
+    },
+    {
+      "version": "3.6",
+      "phase": "Phase 2",
+      "banner_name": "Version 3.6 Phase 2",
+      "featured_characters": [
+        "Jingran",
+        "Hiyuki",
+        "Mornye"
+      ],
+      "featured_weapons": [
+        "Thousandfold Deliverance",
+        "Frostburn",
+        "Starfield Calibrator"
+      ],
+      "start_date": "2026-09-10 10:00",
+      "end_date": "2026-09-29 11:59",
+      "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310"
     }
   ]
 }

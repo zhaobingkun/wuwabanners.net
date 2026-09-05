@@ -1,5 +1,12 @@
 # Project Memory
 
+## 2026-09-05 Daily Official Check
+
+- Daily check completed at 2026-09-05 15:57 Asia/Shanghai. The automated `CHANGED` result was source-health noise: all 12 checked sources failed DNS/fetch, prior unverified feed version signals disappeared, and rows aged; there were no automatic candidate updates.
+- Manual official-source review found the official Version 3.6 update-content notice at `https://wutheringwaves.kurogames.com/en/main/news/detail/5310`, which confirms Phase 1 and Phase 2 dates, character lineups, and weapon lineups. Added four official Version 3.6 rows to `data/banner-data.csv` and one normalized official news item to `data/news.json`.
+- Rebuilt the static site successfully with `python3 scripts/run_banner_update_cycle.py` and passed `python3 scripts/verify_site_build.py`. Generated current/next pages, character pages, banner history, news page, sitemap, and related snapshots now reflect Version 3.6.
+- The initial rebuild exposed a CSV quoting error in the newly added Phase 2 notes because commas were not quoted; fixed the two rows and reran both validations successfully. Generated daily-check artifacts remain unpublishable noise and should not be staged.
+
 ## 2026-08-30 Daily Official Check
 
 - Daily official check completed at 2026-08-30 21:32 Asia/Shanghai. The automated `CHANGED` result contained only seven safe-row `last_checked` refreshes, aging/review thresholds, historical source recovery, four X fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no banner lineup, date, weapon, or source URL change.
