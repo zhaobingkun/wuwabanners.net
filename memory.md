@@ -599,3 +599,9 @@
 - Daily official check reported `CHANGED`, but only from seven safe-row `last_checked` refreshes, 12 aging/review thresholds, recovery of two historical source probes, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live `data/banner-data.csv` and `data/news.json` had no content changes.
 - Manual official-source review found no newer verifiable banner facts or separate official news item after the recorded August 29 enemy-information notice. The latest discovered official notice remains banner-neutral; English official-site DNS failed in this run and X/YouTube remained fetch-limited.
 - No news item, rebuild, commit, push, or production verification was performed. Generated check files and project memory remain uncommitted; no unrelated files were staged.
+## 2026-09-06 11:52 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; result was `CHANGED` only from 12 source/feed fetch failures, row aging, and three safe-row `last_checked` candidate refreshes. No new version signal or banner CSV change was detected.
+- Manual official-source review found official YouTube Resonator Archive Preview videos for Hsin and Suoming, published August 28, 2026. Added exactly one normalized news item covering the Version 3.7 character reveal; it explicitly leaves phase dates, banner order, and weapon lineups unconfirmed.
+- Rebuilt with `python3 scripts/run_banner_update_cycle.py`; after rerunning the snapshot build sequentially, `python3 scripts/verify_site_build.py` passed. `data/banner-data.csv` was intentionally unchanged.
+- No commit or push yet; generated daily-check artifacts remain unpublishable noise and the news page, sitemap, and `data/news.json` are the publishable changes.
