@@ -1,9 +1,9 @@
 {
-  "report_generated_at": "2026-09-04T12:53:49",
+  "report_generated_at": "2026-09-10T00:55:04",
   "summary": {
-    "rows_checked": 12,
-    "rows_needing_review": 12,
-    "failed_source_fetches": 4,
+    "rows_checked": 16,
+    "rows_needing_review": 16,
+    "failed_source_fetches": 5,
     "possible_new_versions": [
       "5.5",
       "6.3",
@@ -20,7 +20,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 78 days old"
+        "last_checked is 84 days old"
       ]
     },
     "ww-3.3-phase-1-character": {
@@ -32,7 +32,7 @@
       "source_type": "official_site",
       "needs_review": true,
       "reasons": [
-        "last_checked is 78 days old"
+        "last_checked is 84 days old"
       ]
     },
     "ww-3.3-phase-1-weapon": {
@@ -44,8 +44,8 @@
       "source_type": "secondary_media",
       "needs_review": true,
       "reasons": [
-        "last_checked is 108 days old",
-        "source page did not clearly match expected banner names",
+        "last_checked is 114 days old",
+        "source fetch failed: fetch-failed",
         "source_type is secondary_media"
       ]
     },
@@ -58,7 +58,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 78 days old"
+        "last_checked is 84 days old"
       ]
     },
     "ww-3.3-phase-2-weapon": {
@@ -70,7 +70,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 78 days old"
+        "last_checked is 84 days old"
       ]
     },
     "ww-3.4-phase-1-character": {
@@ -82,7 +82,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 78 days old"
+        "last_checked is 84 days old"
       ]
     },
     "ww-3.4-phase-1-weapon": {
@@ -94,7 +94,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 78 days old"
+        "last_checked is 84 days old"
       ]
     },
     "ww-3.4-phase-1-preview": {
@@ -106,7 +106,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 78 days old"
+        "last_checked is 84 days old"
       ]
     },
     "ww-3.5-phase-1-character": {
@@ -118,7 +118,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 36 days old",
+        "last_checked is 42 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -131,7 +131,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 36 days old",
+        "last_checked is 42 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -144,7 +144,7 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 36 days old",
+        "last_checked is 42 days old",
         "source fetch failed: fetch-failed"
       ]
     },
@@ -157,8 +157,56 @@
       "source_type": "official_social",
       "needs_review": true,
       "reasons": [
-        "last_checked is 36 days old",
+        "last_checked is 42 days old",
         "source fetch failed: fetch-failed"
+      ]
+    },
+    "ww-3.6-phase-1-character": {
+      "banner_name": "Version 3.6 Phase 1",
+      "version": "3.6",
+      "phase": "Phase 1",
+      "status": "official",
+      "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
+      "source_type": "official_site",
+      "needs_review": true,
+      "reasons": [
+        "source page did not clearly match expected banner names"
+      ]
+    },
+    "ww-3.6-phase-1-weapon": {
+      "banner_name": "Version 3.6 Phase 1 Weapons",
+      "version": "3.6",
+      "phase": "Phase 1",
+      "status": "official",
+      "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
+      "source_type": "official_site",
+      "needs_review": true,
+      "reasons": [
+        "source page did not clearly match expected banner names"
+      ]
+    },
+    "ww-3.6-phase-2-character": {
+      "banner_name": "Version 3.6 Phase 2",
+      "version": "3.6",
+      "phase": "Phase 2",
+      "status": "official",
+      "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
+      "source_type": "official_site",
+      "needs_review": true,
+      "reasons": [
+        "source page did not clearly match expected banner names"
+      ]
+    },
+    "ww-3.6-phase-2-weapon": {
+      "banner_name": "Version 3.6 Phase 2 Weapons",
+      "version": "3.6",
+      "phase": "Phase 2",
+      "status": "official",
+      "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
+      "source_type": "official_site",
+      "needs_review": true,
+      "reasons": [
+        "source page did not clearly match expected banner names"
       ]
     }
   },
@@ -187,13 +235,12 @@
       "notes": []
     },
     "ww-3.3-phase-1-weapon": {
-      "fetch_ok": true,
-      "status": "curl-ok",
+      "fetch_ok": false,
+      "status": "fetch-failed",
       "term_hits": [],
       "version_hits": [],
       "notes": [
-        "Fetched page did not clearly expose the current version string.",
-        "Fetched page did not contain the expected banner or unit names."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.pcgamer.com/games/rpg/wuthering-waves-banner-next-current/']' returned non-zero exit status 28."
       ]
     },
     "ww-3.3-phase-2-character": {
@@ -290,6 +337,46 @@
       "notes": [
         "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://x.com/Wuthering_Waves/status/2074780539987669344']' returned non-zero exit status 35."
       ]
+    },
+    "ww-3.6-phase-1-character": {
+      "fetch_ok": true,
+      "status": "curl-ok",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "Fetched page did not clearly expose the current version string.",
+        "Fetched page did not contain the expected banner or unit names."
+      ]
+    },
+    "ww-3.6-phase-1-weapon": {
+      "fetch_ok": true,
+      "status": "curl-ok",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "Fetched page did not clearly expose the current version string.",
+        "Fetched page did not contain the expected banner or unit names."
+      ]
+    },
+    "ww-3.6-phase-2-character": {
+      "fetch_ok": true,
+      "status": "curl-ok",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "Fetched page did not clearly expose the current version string.",
+        "Fetched page did not contain the expected banner or unit names."
+      ]
+    },
+    "ww-3.6-phase-2-weapon": {
+      "fetch_ok": true,
+      "status": "curl-ok",
+      "term_hits": [],
+      "version_hits": [],
+      "notes": [
+        "Fetched page did not clearly expose the current version string.",
+        "Fetched page did not contain the expected banner or unit names."
+      ]
     }
   },
   "feeds": {
@@ -306,7 +393,7 @@
       "version_hits": [],
       "suggested_new_versions": [],
       "notes": [
-        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/@WutheringWaves/videos']' returned non-zero exit status 28."
+        "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1020)>; curl fallback failed: Command '['curl', '-L', '-sS', '--max-time', '20', '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'https://www.youtube.com/@WutheringWaves/videos']' returned non-zero exit status 35."
       ]
     },
     "dearplayers_updates": {
@@ -329,19 +416,23 @@
     }
   },
   "auto_updates": [
-    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-09-04",
-    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-09-04",
-    "ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-09-04",
-    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-09-04",
-    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-09-04",
-    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-09-04",
-    "ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-09-04"
+    "ww-3.2-phase-2-character: last_checked 2026-06-18 -> 2026-09-10",
+    "ww-3.3-phase-1-character: last_checked 2026-06-18 -> 2026-09-10",
+    "ww-3.3-phase-2-character: last_checked 2026-06-18 -> 2026-09-10",
+    "ww-3.3-phase-2-weapon: last_checked 2026-06-18 -> 2026-09-10",
+    "ww-3.4-phase-1-character: last_checked 2026-06-18 -> 2026-09-10",
+    "ww-3.4-phase-1-weapon: last_checked 2026-06-18 -> 2026-09-10",
+    "ww-3.4-phase-1-preview: last_checked 2026-06-18 -> 2026-09-10"
   ],
   "manual_review_ids": [
     "ww-3.3-phase-1-weapon",
     "ww-3.5-phase-1-character",
     "ww-3.5-phase-1-weapon",
     "ww-3.5-phase-2-character",
-    "ww-3.5-phase-2-weapon"
+    "ww-3.5-phase-2-weapon",
+    "ww-3.6-phase-1-character",
+    "ww-3.6-phase-1-weapon",
+    "ww-3.6-phase-2-character",
+    "ww-3.6-phase-2-weapon"
   ]
 }

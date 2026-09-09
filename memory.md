@@ -605,3 +605,22 @@
 - Manual official-source review found official YouTube Resonator Archive Preview videos for Hsin and Suoming, published August 28, 2026. Added exactly one normalized news item covering the Version 3.7 character reveal; it explicitly leaves phase dates, banner order, and weapon lineups unconfirmed.
 - Rebuilt with `python3 scripts/run_banner_update_cycle.py`; after rerunning the snapshot build sequentially, `python3 scripts/verify_site_build.py` passed. `data/banner-data.csv` was intentionally unchanged.
 - No commit or push yet; generated daily-check artifacts remain unpublishable noise and the news page, sitemap, and `data/news.json` are the publishable changes.
+
+## 2026-09-07 17:25 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; result was `CHANGED` only from all 16 source/feed fetch failures, row aging, and removal of prior unverified version signals. No automatic candidate updates or live banner CSV changes occurred.
+- Manual official-source review found no newer verifiable banner facts or separate official news item after the recorded Version 3.7 character-reveal news. The official news index was reachable; X returned 403 and YouTube exposed no usable current listing.
+- No news item, rebuild, commit, push, or production verification was performed. Only generated daily-check artifacts and this project-memory note are dirty; no unrelated files were staged.
+
+## 2026-09-08 16:15 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; result was `CHANGED` only from recovery of official-site/DearPlayers probes, six source fetch failures, row aging, six safe `last_checked` candidate refreshes, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). No live banner CSV change occurred.
+- Manual official-site, official YouTube, and official X review found no newer verifiable banner facts or separate official news item after the recorded Version 3.7 Hsin/Suoming character-reveal news. The official news page was reachable but exposed no usable newer listing; X returned 403 and YouTube had no usable current listing.
+- No news item, banner update, rebuild, commit, push, or production verification was performed. Generated daily-check artifacts and this project-memory note remain uncommitted; no unrelated files were staged.
+- 2026-09-08 23:15 CST: GSC P0 updated the high-impression History, Timeline, Countdown, and Pull Advice entries. Countdown and Timeline now rebuild current/next banner facts from `banner-data.csv`; keep these pages generator-owned so phase changes cannot leave stale character names in titles or first-answer copy. The unrelated daily-check candidate/report noise from this run was deliberately excluded from the SEO release.
+
+## 2026-09-10 08:55 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; result was `CHANGED` only from seven safe `last_checked` candidate refreshes, row aging, five source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live `data/banner-data.csv` and `data/news.json` had no content changes.
+- Manual official-source review found no newer verifiable banner facts or separate official news item after the recorded Version 3.7 Hsin/Suoming reveal. The official news page was reachable but exposed no usable newer listing; X/YouTube remained fetch-limited. Search results from media/community sources were not used for publication.
+- No news item, banner update, rebuild, commit, push, or production verification was performed. Generated daily-check artifacts and this project-memory note remain uncommitted; no unrelated files were staged.
