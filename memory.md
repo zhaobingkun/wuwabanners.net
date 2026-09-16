@@ -1,5 +1,28 @@
 # Project Memory
 
+## 2026-09-16 11:14 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; result was `NO_SIGNIFICANT_CHANGE`. The report contained seven safe `last_checked` candidate refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live `data/banner-data.csv` was unchanged.
+- Manual official-source review confirmed a new Version 3.7 Preview Special Broadcast announcement for September 19, 2026 at 19:00 UTC+8. It is an official timing notice only, so no banner lineup, phase, date, or weapon facts were added to the banner CSV.
+- Added exactly one normalized official preview item to `data/news.json`, rebuilt the site, and passed `python3 scripts/verify_site_build.py`. Publishable changes are the news item/detail page, news index, sitemap, and this memory note; daily-check artifacts and generated Python cache remain unpublishable noise.
+
+## 2026-09-14 11:13 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; result was `CHANGED` only from four safe-row `last_checked` candidate refreshes, 16 aging/manual-review rows, seven source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). The only changed historical probe was a source-health failure for `ww-3.3-phase-2-weapon`; no banner lineup, date, weapon, source URL, or live news content changed.
+- Manual official-source review found no newer verifiable banner facts or separate official news item after the recorded Version 3.7 Hsin/Suoming reveal. A direct official-site curl was DNS-limited in this environment; web search did not surface a newer usable official notice. No news item, banner update, rebuild, commit, push, or production verification was performed.
+- Generated daily-check artifacts and this project-memory note remain uncommitted; no unrelated files were staged.
+
+## 2026-09-13 11:13 Asia/Shanghai
+
+- Daily check reported `CHANGED` only from six safe-row `last_checked` refreshes, row aging, five source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). The changed manual-review row was the historical Version 3.3 Phase 2 weapon source fetch; two Version 3.4 source probes recovered. No banner lineup, date, weapon, source URL, or news-content changes appeared in the live data.
+- Official site feed was reachable with no version signal. Official YouTube remained unavailable because of SSL/curl timeout; official-site search/manual review found no newer verifiable banner facts or separate official news item after the recorded Version 3.7 Hsin/Suoming reveal.
+- No site rebuild, commit, push, or production verification was performed. Generated daily-check artifacts and this project-memory note remain uncommitted.
+
+## 2026-09-11 11:13 Asia/Shanghai
+
+- Daily check reported `CHANGED` only from seven safe `last_checked` candidate refreshes, row aging/manual-review thresholds, and four source fetch failures; no possible new versions or automatic banner-content updates appeared.
+- `data/banner-data.csv` and `data/news.json` had no content diff. Official-site/search review found no newer verifiable banner facts or separate official news notice after the recorded Version 3.7 Hsin/Suoming reveal. No rebuild, commit, push, or production verification was performed; generated check artifacts remain uncommitted.
+
 ## 2026-09-05 Daily Official Check
 
 - Daily check completed at 2026-09-05 15:57 Asia/Shanghai. The automated `CHANGED` result was source-health noise: all 12 checked sources failed DNS/fetch, prior unverified feed version signals disappeared, and rows aged; there were no automatic candidate updates.
@@ -624,3 +647,15 @@
 - Ran `./scripts/run_daily_official_check.sh`; result was `CHANGED` only from seven safe `last_checked` candidate refreshes, row aging, five source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live `data/banner-data.csv` and `data/news.json` had no content changes.
 - Manual official-source review found no newer verifiable banner facts or separate official news item after the recorded Version 3.7 Hsin/Suoming reveal. The official news page was reachable but exposed no usable newer listing; X/YouTube remained fetch-limited. Search results from media/community sources were not used for publication.
 - No news item, banner update, rebuild, commit, push, or production verification was performed. Generated daily-check artifacts and this project-memory note remain uncommitted; no unrelated files were staged.
+
+## 2026-09-10 11:45 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the comparison result was `NO_SIGNIFICANT_CHANGE`. The report contained only seven safe `last_checked` candidate refreshes, row aging, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` were unchanged. Manual official-site and official-social review found no newer verifiable banner facts or separate news item after the recorded Version 3.7 Hsin/Suoming reveal; current Version 3.6 Phase 2 facts were already covered by the existing official update record.
+- No news item, banner update, rebuild, commit, push, or production verification was performed. Generated check artifacts and this project-memory note remain uncommitted; no unrelated files were staged.
+
+## 2026-09-12 11:12 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the comparison result was `NO_SIGNIFICANT_CHANGE`. The report contained only seven safe `last_checked` candidate refreshes, row aging, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` were unchanged. Manual official-site and official-social review found no newer verifiable banner facts or separate news item after the recorded Version 3.7 Hsin/Suoming reveal; the official news page was reachable, while YouTube/X remained fetch-limited.
+- No news item, banner update, rebuild, commit, push, or production verification was performed. Generated check artifacts and this project-memory note remain uncommitted; no unrelated files were staged.
