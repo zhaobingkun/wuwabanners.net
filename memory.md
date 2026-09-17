@@ -7,6 +7,7 @@
 - Rebuilt the site: Version 3.6 Phase 2 (Jingran, Hiyuki, Mornye) is now current through September 29, and next-banner surfaces clearly say the following lineup is pending official confirmation. Updated homepage title/description toward the existing high-impression, low-CTR banner intent and aligned the verifier with pending-next behavior.
 - `python3 scripts/run_banner_update_cycle.py` passed, including Python compile checks, JavaScript syntax check, core page validation, focus-character page checks, and sitemap checks. Production redirect review confirmed HTTP redirects to `https://wuwabanners.net/` from both HTTP and HTTPS `www`; the canonical host returns 200.
 - No live Search Console connector was available. SEO prioritization used the repository's July 20 Search Console opportunity exports, so refresh those exports before judging CTR impact. No commit, push, or deployment was performed in this work session.
+- Published the phase-rollover and SEO refresh in commit `3459425`. Live browser verification then found one static Next Banner hero block still referring to Version 3.4 and a blank pending-next source line; converted that hero to a generated block and added an explicit pending-source label for the follow-up release.
 
 ## 2026-09-17 11:11 Asia/Shanghai
 

@@ -850,6 +850,60 @@ def build_next_intro(snapshot: dict[str, object]) -> str:
       <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}.</p>"""
 
 
+def build_next_hero(snapshot: dict[str, object]) -> str:
+    current = snapshot["current"]
+    target = snapshot["next"] if has_distinct_next(snapshot) else current
+    characters = list(target["featured_characters"])
+    weapons = list(target["featured_weapons"])
+    character_labels = characters + ["Banner focus"] * max(0, 3 - len(characters))
+    weapon_labels = weapons + ["Weapon focus"] * max(0, 2 - len(weapons))
+    phase_card = "/assets/img/current-banner-card.svg"
+    main_src = get_reference_src("characters", character_labels[0]) or phase_card
+    second_src = get_reference_src("characters", character_labels[1]) or phase_card
+    third_src = get_reference_src("characters", character_labels[2]) or phase_card
+    first_weapon_src = get_reference_src("weapons", weapon_labels[0]) or phase_card
+    second_weapon_src = get_reference_src("weapons", weapon_labels[1]) or phase_card
+    if has_distinct_next(snapshot):
+        strong = f"Compare the live banner against {target['banner_name']} before spending."
+        body = "Use the confirmed next-phase lineup and dates as the planning baseline, then recheck the official notice at the phase change."
+    else:
+        strong = f"Compare {current['banner_name']} against the next official reveal before spending."
+        body = f"{join_names(list(current['featured_characters']))} are live now; the post-current lineup is still pending official confirmation."
+    return f"""      <div class="hub-hero">
+        <div class="hub-hero-media" aria-hidden="true">
+          <figure class="hub-hero-tile hub-hero-tile--major">
+            <img src="{main_src}" alt="" width="512" height="512" decoding="async">
+            <span class="hub-hero-label">{html.escape(character_labels[0])}</span>
+          </figure>
+          <div class="hub-hero-stack">
+            <figure class="hub-hero-tile hub-hero-tile--wide">
+              <img src="{second_src}" alt="" width="512" height="512" decoding="async">
+              <span class="hub-hero-label">{html.escape(character_labels[1])}</span>
+            </figure>
+            <figure class="hub-hero-tile hub-hero-tile--wide hub-hero-tile--artifact">
+              <img src="{first_weapon_src}" alt="" width="512" height="512" decoding="async">
+              <span class="hub-hero-label">{html.escape(weapon_labels[0])}</span>
+            </figure>
+          </div>
+          <div class="hub-hero-stack">
+            <figure class="hub-hero-tile hub-hero-tile--wide">
+              <img src="{third_src}" alt="" width="512" height="512" decoding="async">
+              <span class="hub-hero-label">{html.escape(character_labels[2])}</span>
+            </figure>
+            <figure class="hub-hero-tile hub-hero-tile--wide hub-hero-tile--artifact">
+              <img src="{second_weapon_src}" alt="" width="512" height="512" decoding="async">
+              <span class="hub-hero-label">{html.escape(weapon_labels[1])}</span>
+            </figure>
+          </div>
+        </div>
+        <div class="hub-hero-copy">
+          <span class="eyebrow">Next reveal watch</span>
+          <strong>{html.escape(strong)}</strong>
+          <p>{html.escape(body)}</p>
+        </div>
+      </div>"""
+
+
 def build_next_media(snapshot: dict[str, object]) -> str:
     next_item = snapshot["next"]
     return f"""      <div class="media-grid" style="margin-top:1.25rem;">
@@ -979,10 +1033,11 @@ def build_next_sources(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
     current = snapshot["current"]
     next_item = snapshot["next"]
+    next_source = str(next_item["source_url"] or "Pending official announcement")
     return f"""        <div class="sources">
           <strong>Sources used for this {fmt_human_date(updated + " 00:00")} snapshot</strong><br>
           Current phase source: {current["source_url"]}<br>
-          Next phase source: {next_item["source_url"]}<br>
+          Next phase source: {next_source}<br>
           Official video archive: https://www.youtube.com/@WutheringWaves
         </div>"""
 
@@ -4747,6 +4802,7 @@ def update_pages(snapshot: dict[str, object]) -> None:
         h1=next_h1,
     )
     next_text = replace_block_exact(next_text, "NEXT_INTRO", build_next_intro(snapshot))
+    next_text = replace_block_exact(next_text, "NEXT_HERO", build_next_hero(snapshot))
     next_text = replace_block_exact(next_text, "NEXT_MEDIA", build_next_media(snapshot))
     next_text = replace_block_exact(next_text, "NEXT_CARDS", build_next_cards(snapshot))
     next_text = replace_block_exact(next_text, "NEXT_TABLE", build_next_table(snapshot))
