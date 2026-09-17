@@ -1,25 +1,7 @@
 {
-  "updated": "2026-09-05",
+  "updated": "2026-09-17",
+  "source_checked": "2026-09-05",
   "current": {
-    "version": "3.6",
-    "phase": "Phase 1",
-    "banner_type": "character",
-    "banner_name": "Version 3.6 Phase 1",
-    "featured_characters": [
-      "Qingxiao",
-      "Denia"
-    ],
-    "featured_weapons": [
-      "Glint of Clouds",
-      "Forged Dwarf Star"
-    ],
-    "start_date": "2026-08-20 11:00",
-    "end_date": "2026-09-10 09:59",
-    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
-    "announcement_date": "2026-08-18",
-    "status": "official"
-  },
-  "next": {
     "version": "3.6",
     "phase": "Phase 2",
     "banner_type": "character",
@@ -39,6 +21,19 @@
     "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5310",
     "announcement_date": "2026-08-18",
     "status": "official"
+  },
+  "next": {
+    "version": "TBA",
+    "phase": "Pending official reveal",
+    "banner_type": "pending",
+    "banner_name": "the next officially confirmed banner",
+    "featured_characters": [],
+    "featured_weapons": [],
+    "start_date": "",
+    "end_date": "",
+    "source_url": "",
+    "announcement_date": "",
+    "status": "pending"
   },
   "history": [
     {

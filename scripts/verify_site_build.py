@@ -79,6 +79,7 @@ def main() -> int:
     current = snapshot["current"]
     nxt = snapshot["next"]
     history = snapshot.get("history", [])
+    next_marker = "Pending official reveal" if nxt.get("banner_type") == "pending" else nxt["banner_name"]
 
     home = ROOT / "index.html"
     news_page = ROOT / "news" / "index.html"
@@ -97,7 +98,7 @@ def main() -> int:
         [
             "Current Wuthering Waves banner snapshot",
             current["banner_name"],
-            nxt["banner_name"],
+            next_marker,
             "Official news channel",
             "Best starting points",
             "Choose your next page by question type",
@@ -146,16 +147,14 @@ def main() -> int:
         ],
         failures,
     )
-    require_text(
-        history_page,
-        [
-            "Recent banner history list",
-            history[0]["banner_name"] if history else "Version",
-            current["banner_name"],
-            nxt["banner_name"],
-        ],
-        failures,
-    )
+    history_needles = [
+        "Recent banner history list",
+        history[0]["banner_name"] if history else "Version",
+        current["banner_name"],
+    ]
+    if nxt.get("banner_type") != "pending":
+        history_needles.append(next_marker)
+    require_text(history_page, history_needles, failures)
     require_text(
         pull_page,
         (
@@ -170,7 +169,7 @@ def main() -> int:
                 "Current phase pull pages",
                 "Next phase pull pages",
                 current["featured_characters"][0],
-                nxt["banner_name"],
+                next_marker,
             ]
         ),
         failures,

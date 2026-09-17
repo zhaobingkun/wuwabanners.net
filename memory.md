@@ -1,5 +1,19 @@
 # Project Memory
 
+## 2026-09-17 Phase Rollover and SEO Refresh
+
+- Found that generated pages still showed Version 3.6 Phase 1 as current after its September 10 end date because `build_banner_snapshot.py` selected current/next using the newest CSV `last_checked` date instead of the actual build date. The confirmed CSV itself was correct.
+- Updated snapshot generation to use the build date for phase selection while preserving the newest source-check date separately as `source_checked`. Added an explicit pending-next state so current character pages do not compare a phase against itself when the following lineup is not yet official.
+- Rebuilt the site: Version 3.6 Phase 2 (Jingran, Hiyuki, Mornye) is now current through September 29, and next-banner surfaces clearly say the following lineup is pending official confirmation. Updated homepage title/description toward the existing high-impression, low-CTR banner intent and aligned the verifier with pending-next behavior.
+- `python3 scripts/run_banner_update_cycle.py` passed, including Python compile checks, JavaScript syntax check, core page validation, focus-character page checks, and sitemap checks. Production redirect review confirmed HTTP redirects to `https://wuwabanners.net/` from both HTTP and HTTPS `www`; the canonical host returns 200.
+- No live Search Console connector was available. SEO prioritization used the repository's July 20 Search Console opportunity exports, so refresh those exports before judging CTR impact. No commit, push, or deployment was performed in this work session.
+
+## 2026-09-17 11:11 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; result was `CHANGED` only because DNS resolution failed for all 16 banner source probes and all three feed checks. No automatic candidate updates were available; the live banner CSV and news content were unchanged.
+- Manual official-source/search review found no newer independently verifiable banner facts or separate news item beyond the already recorded Version 3.7 Preview Special Broadcast scheduled for September 19, 2026 at 19:00 UTC+8. Search did not surface a newer official notice; automated access to official feeds remained DNS-limited.
+- No rebuild, commit, push, or production verification was performed. Preserved the pre-existing generated checker changes and Python cache change; these remain unpublishable noise.
+
 ## 2026-09-16 11:14 Asia/Shanghai
 
 - Ran `./scripts/run_daily_official_check.sh`; result was `NO_SIGNIFICANT_CHANGE`. The report contained seven safe `last_checked` candidate refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). Live `data/banner-data.csv` was unchanged.

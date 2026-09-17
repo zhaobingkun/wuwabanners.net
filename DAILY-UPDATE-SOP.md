@@ -27,7 +27,8 @@
 - 早上检查一次
 - 运行 `python3 scripts/check_official_banner_updates.py`
 - 如果没有新的官方变化，不要改 `data/banner-data.csv`
-- 不需要重建
+- 如果今天没有跨过 CSV 中已确认的 phase 起止时间，不需要重建
+- 如果已确认的 phase 起止时间今天生效，即使没有新公告，也要重建并检查 current / next 状态
 
 ### 前瞻前 / 切池前窗口
 
@@ -152,4 +153,4 @@ python3 -m http.server 4173
 
 - 看官方有没有变
 - 只有需要时才改 CSV
-- 只有数据真变了才重建
+- 官方数据变了，或已确认的 phase 日期正式生效时，才重建

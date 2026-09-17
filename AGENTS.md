@@ -24,6 +24,7 @@ This repository powers `wuwabanners.net`, a static SEO site that tracks Wutherin
 - Record useful project context, lessons, and daily outcomes in `memory.md`.
 - Prefer the repo's existing scripts and data flow.
 - For daily banner checks, run `./scripts/run_daily_official_check.sh`, then inspect the generated report and diff before deciding whether content changed.
+- A confirmed phase start or end date becoming effective is a real content change even when no new official notice appears. Rebuild and verify the site on phase-transition days so current/next routing rolls forward from the existing confirmed CSV.
 - If only generated check files changed, report that no publish is needed.
 
 ## SEO Rules

@@ -352,17 +352,21 @@ def apply_known_subphase_overlay(current: dict[str, object], next_item: dict[str
 
 
 def build_snapshot(rows: list[dict[str, str]]) -> dict[str, object]:
-    updated = latest_checked(rows)
-    current_char, next_char, history_rows = pick_current_and_next(rows, updated)
+    generated = date.today()
+    source_checked = latest_checked(rows)
+    current_char, next_char, history_rows = pick_current_and_next(rows, generated)
     current_weapon = find_weapon_row(rows, current_char["version"], current_char["phase"])
     next_weapon = find_weapon_row(rows, next_char["version"], next_char["phase"])
 
     current_payload = banner_payload(current_char, current_weapon)
     next_payload = banner_payload(next_char, next_weapon)
-    current_payload, next_payload = apply_known_subphase_overlay(current_payload, next_payload, updated)
+    current_payload, next_payload = apply_known_subphase_overlay(current_payload, next_payload, generated)
+    if next_char is current_char and is_same_banner_phase(current_payload, next_payload):
+        next_payload = pending_next_payload()
 
     return {
-        "updated": updated.isoformat(),
+        "updated": generated.isoformat(),
+        "source_checked": source_checked.isoformat(),
         "current": current_payload,
         "next": next_payload,
         "history": [
@@ -486,12 +490,24 @@ def join_or_fallback(values: list[str], fallback: str) -> str:
     return ", ".join(values) if values else fallback
 
 
+def join_names(values: list[str]) -> str:
+    if len(values) < 2:
+        return "".join(values)
+    if len(values) == 2:
+        return " & ".join(values)
+    return f"{', '.join(values[:-1])} & {values[-1]}"
+
+
 def is_preview_phase(phase: dict[str, object]) -> bool:
     return str(phase.get("banner_type") or "") == "preview"
 
 
 def is_subphase(phase: dict[str, object]) -> bool:
     return bool(phase.get("is_subphase"))
+
+
+def is_pending_phase(phase: dict[str, object]) -> bool:
+    return str(phase.get("banner_type") or "") == "pending"
 
 
 def is_same_banner_phase(left: dict[str, object], right: dict[str, object]) -> bool:
@@ -505,7 +521,25 @@ def is_same_banner_phase(left: dict[str, object], right: dict[str, object]) -> b
 
 
 def has_distinct_next(snapshot: dict[str, object]) -> bool:
+    if is_pending_phase(snapshot["next"]):
+        return False
     return not is_same_banner_phase(snapshot["current"], snapshot["next"])
+
+
+def pending_next_payload() -> dict[str, object]:
+    return {
+        "version": "TBA",
+        "phase": "Pending official reveal",
+        "banner_type": "pending",
+        "banner_name": "the next officially confirmed banner",
+        "featured_characters": [],
+        "featured_weapons": [],
+        "start_date": "",
+        "end_date": "",
+        "source_url": "",
+        "announcement_date": "",
+        "status": "pending",
+    }
 
 
 def phase_event_date(phase: dict[str, object]) -> str:
@@ -549,6 +583,8 @@ def next_weapon_copy(next_item: dict[str, object]) -> str:
 
 
 def next_event_copy(next_item: dict[str, object]) -> str:
+    if is_pending_phase(next_item):
+        return "The next banner timing and lineup are pending an official announcement."
     if is_preview_phase(next_item):
         event_label = phase_event_label(next_item)
         if event_label == "TBA":
@@ -2079,7 +2115,10 @@ def build_support_strategy(page: dict[str, str], snapshot: dict[str, object]) ->
     character = page["character"]
     primary, compare = support_phase_context(page, snapshot)
     primary_weapons = ", ".join(primary["featured_weapons"]) if primary["featured_weapons"] else "the tracked phase weapon set"
-    compare_characters = ", ".join(compare["featured_characters"])
+    compare_characters = join_or_fallback(
+        list(compare["featured_characters"]),
+        "future officially revealed characters",
+    )
     if page["kind"] == "materials":
         left_title = "What you can safely do now"
         left_body = f"Use this page to pre-plan stamina around {primary['banner_name']}. Safe work usually means shared credits, common field drops, and broad upgrade routes that still help even if {character} changes slightly at live confirmation."
@@ -2112,7 +2151,7 @@ def build_support_branch_context(page: dict[str, str], snapshot: dict[str, objec
     slug = page["slug"]
     primary, compare = support_phase_context(page, snapshot)
     if page["kind"] == "materials":
-        compare_copy = f"Before heavy stamina spending, compare {character} against the still competing needs of {', '.join(compare['featured_characters'])}. Keep the page clear about what is safe now and what should wait."
+        compare_copy = f"Before heavy stamina spending, compare {character} against the still competing needs of {join_or_fallback(list(compare['featured_characters']), 'future officially revealed characters')}. Keep the page clear about what is safe now and what should wait."
     elif page["kind"] == "build":
         compare_copy = f"Before locking premium gear assumptions, compare {character} against the other tracked phase. Leave room to adjust before {primary['banner_name']} or {compare['banner_name']} settles fully."
     else:
@@ -4638,10 +4677,16 @@ def update_pages(snapshot: dict[str, object]) -> None:
     news_items = load_news_items()
 
     index_text = INDEX_HTML.read_text(encoding="utf-8")
+    current = snapshot["current"]
+    current_names = ", ".join(current["featured_characters"])
+    current_names_meta = join_names(list(current["featured_characters"]))
     index_text = replace_basic_metadata(
         index_text,
-        title="Wuthering Waves Banner Tracker: Current, Next & Countdown",
-        description="Track the current Wuthering Waves banner, next banner status, countdown timer, banner history, rerun watch, pity, and pull advice before spending Astrite.",
+        title="WuWa Banner Tracker: Current Banner & Next Update",
+        description=(
+            f"Current WuWa banner: {current_names_meta}, ending {fmt_human_date(current['end_date'])}. "
+            "Track the next official reveal, countdown, history, pity, weapons, and pull advice."
+        ),
         twitter_title="Wuthering Waves Banner Tracker",
     )
     index_text, lead_count = re.subn(
@@ -4653,7 +4698,6 @@ def update_pages(snapshot: dict[str, object]) -> None:
     )
     if lead_count != 1:
         raise RuntimeError("Failed to replace homepage hero lead")
-    current = snapshot["current"]
     current_month = date.fromisoformat(str(snapshot["updated"])).strftime("%B %Y")
     index_text, eyebrow_count = re.subn(
         r'(<span class="eyebrow">)[^<]*(</span>\s*<h1>Wuthering Waves Banner Tracker for Current and Next Banners</h1>)',
