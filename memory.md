@@ -680,3 +680,22 @@
 - Ran `./scripts/run_daily_official_check.sh`; the comparison result was `NO_SIGNIFICANT_CHANGE`. The report contained only seven safe `last_checked` candidate refreshes, row aging, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
 - `data/banner-data.csv` and `data/news.json` were unchanged. Manual official-site and official-social review found no newer verifiable banner facts or separate news item after the recorded Version 3.7 Hsin/Suoming reveal; the official news page was reachable, while YouTube/X remained fetch-limited.
 - No news item, banner update, rebuild, commit, push, or production verification was performed. Generated check artifacts and this project-memory note remain uncommitted; no unrelated files were staged.
+
+## 2026-09-18 GSC CTR and intent consolidation
+
+- Reviewed the 2026-06-16 through 2026-09-15 GSC exports. The highest-value CTR opportunities were `/wuthering-waves-banner-history/`, `/wuthering-waves-banner-countdown/`, and `/wuthering-waves-timeline/`; their page titles, metadata, and first-screen answers were tightened around the queries already earning first-page exposure.
+- Consolidated current-character and current-end-date answers into `/wuthering-waves-current-banner/`, and next-date and next-countdown answers into `/wuthering-waves-next-banner/`. Homepage and generated status links now point to the parent-page answer anchors. The legacy child URLs remain in place and no 301 redirects were added.
+- Query intent audit: the homepage should remain the broad banner tracker; Next Banner owns future reveal/date/countdown intent; Schedule retains timetable intent for now; `/banners/` is the strongest overlap candidate with the homepage. Separate GSC query and page exports cannot prove same-query URL cannibalization, so redirect decisions require a query-plus-page export or filtered GSC inspection.
+- `python3 scripts/run_banner_update_cycle.py`, `python3 scripts/verify_site_build.py`, and `git diff --check` passed. No commit, push, or deployment was performed; pre-existing daily-check and Python-cache changes were preserved.
+
+## 2026-09-18 External GSC report review
+
+- The report correctly identified sustained daily-click growth and a real September 5 step-up, but its attribution was too strong. Comparing August 29–September 4 with September 5–11 shows both daily clicks (3.0 to 11.29) and daily impressions (1,084 to 1,896) rose, while average daily position improved (25.37 to 8.97); the change cannot be labeled ranking-only.
+- The timing matches a concrete September 5 site update that added the confirmed Version 3.6 dataset and rebuilt many banner and character pages. A second GSC landing-page optimization shipped September 8. Version 3.6 Phase 2 itself started September 10, so it did not open on September 5 as the report implied.
+- Page-level averages alone do not prove that seven banner URLs cannibalize one another, that decision pages inherently earn higher CTR, or that `/banners/` should immediately redirect. Those decisions still require query-plus-page GSC data and an indexing report. Uncited external keyword-volume figures for Next Banner, Tier List, and Codes were not treated as verified evidence.
+
+## 2026-09-18 Parent-page internal-link consolidation
+
+- Retargeted `/banners/` from the homepage-overlapping `Wuthering Waves Banner Tracker` position to `WuWa Banner Guides and Tools`, with directory-focused metadata and first-screen copy. It remains an indexable collection hub and keeps its self-canonical; no redirect was added.
+- Replaced all rendered internal links to the four legacy Current/Next child URLs with answer anchors on `/wuthering-waves-current-banner/` and `/wuthering-waves-next-banner/`. This removed 122 rendered links to the current-character child page and the remaining directory links to current-end, next-date, and next-countdown child pages.
+- The legacy child pages and sitemap entries remain available while query-plus-page GSC evidence is collected. The full update cycle, site verifier, and `git diff --check` passed; no commit, push, or deployment was performed.

@@ -133,7 +133,7 @@ def main() -> int:
         [
             current["banner_name"],
             nxt["banner_name"],
-            "Current and next banner snapshot",
+            "Next banner date, lineup, and current phase",
             "Should you pull now or wait?",
         ],
         failures,
@@ -176,7 +176,17 @@ def main() -> int:
     )
     require_text(
         banners_hub,
-        ["Priority banner pages", "Banner directory", "Timing cluster"],
+        ["WuWa Banner Guides and Tools", "Priority banner pages", "Banner directory", "Timing cluster"],
+        failures,
+    )
+    require_absent_text(
+        banners_hub,
+        [
+            'href="/wuthering-waves-current-banner-end-date/"',
+            'href="/wuthering-waves-current-banner-characters/"',
+            'href="/wuthering-waves-next-banner-date/"',
+            'href="/wuthering-waves-next-banner-countdown/"',
+        ],
         failures,
     )
     require_text(

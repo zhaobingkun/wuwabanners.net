@@ -99,7 +99,7 @@ def get_detail_context(kind: str, name: str) -> tuple[str, str, str]:
         return (
             "Where to go next",
             f"If you are checking {name} for a banner decision, start with pull advice or the current banner list. If you only need the portrait and spelling, this page is enough.",
-            '<a class="directory-link" href="/pull-advice/">Open pull advice</a><a class="directory-link" href="/wuthering-waves-current-banner-characters/">Current banner characters</a><a class="directory-link" href="/wuthering-waves-next-character/">Next character</a>',
+            '<a class="directory-link" href="/pull-advice/">Open pull advice</a><a class="directory-link" href="/wuthering-waves-current-banner/#current-banner-characters">Current banner characters</a><a class="directory-link" href="/wuthering-waves-next-character/">Next character</a>',
         )
     if kind == "weapons":
         return (
@@ -138,7 +138,7 @@ def get_branch_links(kind: str) -> str:
     if kind == "characters":
         hrefs = [
             ("/pull-advice/", "Pull advice hub"),
-            ("/wuthering-waves-current-banner-characters/", "Current banner characters"),
+            ("/wuthering-waves-current-banner/#current-banner-characters", "Current banner characters"),
             ("/wuthering-waves-next-character/", "Next character"),
             ("/wuthering-waves-current-banner/", "Current banner"),
             ("/wuthering-waves-next-banner/", "Next banner"),
@@ -176,7 +176,7 @@ def render_detail(kind: str, entry: dict[str, str], entries: list[dict[str, str]
     neighbor_cards = render_neighbor_cards(kind, previous_entry, next_entry)
     context_title, context_copy, context_links = get_detail_context(kind, name)
     if kind == "characters":
-        related = '<li><a href="/pull-advice/">Pull advice</a></li><li><a href="/wuthering-waves-current-banner-characters/">Current banner characters</a></li><li><a href="/wuthering-waves-next-character/">Next character</a></li>'
+        related = '<li><a href="/pull-advice/">Pull advice</a></li><li><a href="/wuthering-waves-current-banner/#current-banner-characters">Current banner characters</a></li><li><a href="/wuthering-waves-next-character/">Next character</a></li>'
         why = f"{name} gets a dedicated page so players can confirm the portrait and name without digging through the full character list."
         faq = f'<article class="faq-item"><h3>What is the best next page after {name}?</h3><p>Open pull advice if you are deciding whether to spend, or the current banner page if you need live phase context.</p></article>'
     elif kind == "weapons":
