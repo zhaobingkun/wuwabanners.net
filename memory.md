@@ -711,3 +711,9 @@
 - Added `/wuthering-waves-tier-list/` as a Version 3.6 editorial account-value ranking with role guidance, methodology, current-banner context, FAQ schema, and a Jingran watchlist position instead of an unsupported early ranking. Placements were cross-checked against multiple current Version 3.6 sources and are explicitly labeled non-official.
 - Added `/wuthering-waves-codes/` with `WUTHERINGGIFT` as the only September 18 code confirmed by two current code trackers, exact rewards, in-game redemption steps, recent expired Version 3.6 livestream codes, troubleshooting, FAQ and HowTo schema, and source timestamps.
 - Linked both pages from the homepage and Guides hub, linked the tier list from the character branch, added both canonical URLs through sitemap discovery, and extended the build verifier. Full rebuild, verifier, JSON-LD parsing, internal-link checks, `git diff --check`, and local browser visual checks passed. The pages have not been committed, pushed, or deployed yet.
+
+## 2026-09-18 12:11 Asia/Shanghai Tier List and Codes deployment
+
+- Published the Tier List, Codes, related internal links, sitemap entries, generated character links, and verification rules in commit `f9c4689` to `origin/main`.
+- Production returned HTTP 200 for `/wuthering-waves-tier-list/`, `/wuthering-waves-codes/`, `/guides/`, and `/sitemap.xml`. Fresh production HTML contained the Version 3.6 tier-list heading, Jingran watchlist text, `WUTHERINGGIFT`, both Guides links, and both sitemap URLs.
+- Daily-check artifacts, candidate data, generated reports, and Python cache changes remain uncommitted and were excluded from the release.
