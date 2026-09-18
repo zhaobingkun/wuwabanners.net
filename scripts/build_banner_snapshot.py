@@ -4516,6 +4516,7 @@ def render_characters_hub_page(snapshot: dict[str, object]) -> str:
         <a class="directory-link" href="/wuthering-waves-next-character/">Next character</a>
         <a class="directory-link" href="/wuthering-waves-current-banner/">Current banner</a>
         <a class="directory-link" href="/wuthering-waves-next-banner/">Next banner</a>
+        <a class="directory-link" href="/wuthering-waves-tier-list/">Character tier list</a>
       </div>
     </section>
     <section class="section">

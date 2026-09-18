@@ -142,6 +142,7 @@ def get_branch_links(kind: str) -> str:
             ("/wuthering-waves-next-character/", "Next character"),
             ("/wuthering-waves-current-banner/", "Current banner"),
             ("/wuthering-waves-next-banner/", "Next banner"),
+            ("/wuthering-waves-tier-list/", "Character tier list"),
         ]
     elif kind == "weapons":
         hrefs = [

@@ -92,6 +92,8 @@ def main() -> int:
     characters_hub = ROOT / "wuthering-waves-characters" / "index.html"
     weapons_hub = ROOT / "wuthering-waves-weapons" / "index.html"
     items_hub = ROOT / "wuthering-waves-items" / "index.html"
+    tier_list_page = ROOT / "wuthering-waves-tier-list" / "index.html"
+    codes_page = ROOT / "wuthering-waves-codes" / "index.html"
 
     require_text(
         home,
@@ -209,6 +211,31 @@ def main() -> int:
         ["How to use this item list", "Item page path", "Related item pages"],
         failures,
     )
+    require_text(
+        tier_list_page,
+        [
+            "Wuthering Waves Tier List 3.6",
+            "WuWa Version 3.6 character tier list",
+            "How this Wuthering Waves tier list is ranked",
+            "Jingran",
+        ],
+        failures,
+    )
+    require_text(
+        codes_page,
+        [
+            "Wuthering Waves Codes",
+            "WUTHERINGGIFT",
+            "How to redeem Wuthering Waves codes",
+            "Recently expired WuWa codes",
+        ],
+        failures,
+    )
+    require_text(
+        guides_hub,
+        ["/wuthering-waves-tier-list/", "/wuthering-waves-codes/"],
+        failures,
+    )
 
     # Ensure focus character hubs and support pages exist.
     focus_names = current["featured_characters"] + nxt["featured_characters"]
@@ -245,6 +272,8 @@ def main() -> int:
         "https://wuwabanners.net/wuthering-waves-characters/",
         "https://wuwabanners.net/wuthering-waves-weapons/",
         "https://wuwabanners.net/wuthering-waves-items/",
+        "https://wuwabanners.net/wuthering-waves-tier-list/",
+        "https://wuwabanners.net/wuthering-waves-codes/",
     ]
     require_sitemap_urls(key_urls, failures)
     require_sitemap_urls(

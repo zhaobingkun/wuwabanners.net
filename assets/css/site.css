@@ -716,6 +716,36 @@ h1 {
   margin: 1rem 0 1.4rem;
 }
 
+.code-token {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.55rem;
+  border: 1px solid rgba(95, 240, 223, 0.3);
+  border-radius: 7px;
+  background: rgba(95, 240, 223, 0.08);
+  color: var(--accent);
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.94em;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.tier-label {
+  display: inline-flex;
+  min-width: 3rem;
+  justify-content: center;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 800;
+  color: #07100f;
+}
+
+.tier-label--s { background: #5ff0df; }
+.tier-label--a { background: #8d7cff; color: #fff; }
+.tier-label--b { background: #f0c46d; }
+.tier-label--c { background: #9da8b8; }
+.tier-label--watch { background: #ff9c73; }
+
 .table-wrap {
   overflow-x: auto;
   border: 1px solid var(--line);

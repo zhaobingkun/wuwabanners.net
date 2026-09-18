@@ -705,3 +705,9 @@
 - Published the CTR and parent-page consolidation work in commit `77ed9b3` to `origin/main`; the push also included the prior local documentation-only commit `50f1a1c`.
 - Production HEAD checks returned HTTP 200 for the homepage, `/banners/`, Current Banner, Next Banner, History, Countdown, and Timeline. Fresh production HTML confirmed the new page titles, Current/Next answer anchors, and the `WuWa Banner Guides and Tools` hub position.
 - Daily-check artifacts, candidate data, generated reports, and Python cache changes remain uncommitted and were excluded from the release.
+
+## 2026-09-18 Tier List and Codes pages
+
+- Added `/wuthering-waves-tier-list/` as a Version 3.6 editorial account-value ranking with role guidance, methodology, current-banner context, FAQ schema, and a Jingran watchlist position instead of an unsupported early ranking. Placements were cross-checked against multiple current Version 3.6 sources and are explicitly labeled non-official.
+- Added `/wuthering-waves-codes/` with `WUTHERINGGIFT` as the only September 18 code confirmed by two current code trackers, exact rewards, in-game redemption steps, recent expired Version 3.6 livestream codes, troubleshooting, FAQ and HowTo schema, and source timestamps.
+- Linked both pages from the homepage and Guides hub, linked the tier list from the character branch, added both canonical URLs through sitemap discovery, and extended the build verifier. Full rebuild, verifier, JSON-LD parsing, internal-link checks, `git diff --check`, and local browser visual checks passed. The pages have not been committed, pushed, or deployed yet.
