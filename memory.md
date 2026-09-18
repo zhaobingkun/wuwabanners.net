@@ -4,7 +4,7 @@
 
 - Daily check reported `CHANGED` from source-health recovery, four remaining fetch failures, candidate `last_checked` refreshes, row aging, and unverified DearPlayers signals (`5.5`, `6.3`, `3.0`); no banner facts changed.
 - Verified an official Japanese Wuthering Waves channel short anime featuring Hsin, published September 16, 2026. Hsin was already announced for Version 3.7; the video adds no banner schedule facts. Added one news item and left `data/banner-data.csv` unchanged.
-- Rebuilt with `python3 scripts/run_banner_update_cycle.py` and passed `python3 scripts/verify_site_build.py`. Publishable files are the news item/detail page, news index, sitemap, generated snapshot date stamps, and this memory note. Daily-check artifacts and Python cache remain unpublishable noise.
+- Rebuilt with `python3 scripts/run_banner_update_cycle.py` and passed `python3 scripts/verify_site_build.py`. Published as commit `6a53cb3` to `origin/main`. Production HEAD checks returned HTTP 200 for the new detail page, news index, and `sitemap.xml`. Publishable files are the news item/detail page, news index, sitemap, generated snapshot date stamps, and this memory note. Daily-check artifacts and Python cache remain unpublishable noise.
 
 ## 2026-09-17 Phase Rollover and SEO Refresh
 
