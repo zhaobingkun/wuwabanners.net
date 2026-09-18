@@ -699,3 +699,9 @@
 - Retargeted `/banners/` from the homepage-overlapping `Wuthering Waves Banner Tracker` position to `WuWa Banner Guides and Tools`, with directory-focused metadata and first-screen copy. It remains an indexable collection hub and keeps its self-canonical; no redirect was added.
 - Replaced all rendered internal links to the four legacy Current/Next child URLs with answer anchors on `/wuthering-waves-current-banner/` and `/wuthering-waves-next-banner/`. This removed 122 rendered links to the current-character child page and the remaining directory links to current-end, next-date, and next-countdown child pages.
 - The legacy child pages and sitemap entries remain available while query-plus-page GSC evidence is collected. The full update cycle, site verifier, and `git diff --check` passed; no commit, push, or deployment was performed.
+
+## 2026-09-18 11:53 Asia/Shanghai Deployment
+
+- Published the CTR and parent-page consolidation work in commit `77ed9b3` to `origin/main`; the push also included the prior local documentation-only commit `50f1a1c`.
+- Production HEAD checks returned HTTP 200 for the homepage, `/banners/`, Current Banner, Next Banner, History, Countdown, and Timeline. Fresh production HTML confirmed the new page titles, Current/Next answer anchors, and the `WuWa Banner Guides and Tools` hub position.
+- Daily-check artifacts, candidate data, generated reports, and Python cache changes remain uncommitted and were excluded from the release.
