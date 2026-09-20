@@ -4,7 +4,7 @@
 
 - Daily check returned `NO_SIGNIFICANT_CHANGE`; only safe candidate `last_checked` refreshes, aging/manual-review rows, four fetch failures, and unverified DearPlayers version signals appeared. `data/banner-data.csv` had no automatic content diff.
 - Manual official-source review verified the official Version 3.7 update page at `https://wutheringwaves.kurogames.com/en/main/news/detail/5453`. It confirms the September 30 release, Hsin and Suoming, and Phase I/Phase II Resonator and weapon Convene content, including Blooming Jadehaven, Kumokiri, Moongazer's Sigil, Unspoken Rue, Freeze Frame, and Spectrum Blaster.
-- Added one normalized official news item. The page does not state exact phase start/end timestamps in directly verifiable text, so the dated banner CSV remains unchanged rather than publishing inferred timing. Rebuild and site verification are required before release; daily-check artifacts and Python cache remain unpublishable noise.
+- Added one normalized official news item. The page does not state exact phase start/end timestamps in directly verifiable text, so the dated banner CSV remains unchanged rather than publishing inferred timing. Local rebuild, verifier, and `git diff --check` passed; content commit `2757ecc` was pushed to `origin/main`. Production HEAD checks were blocked by terminal DNS failure, while external fetch still showed the old news index and could not access the new detail page or sitemap after a cache/deploy wait. Daily-check artifacts and Python cache remain unpublishable noise.
 
 ## 2026-09-19 Daily Official Check
 
