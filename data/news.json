@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-7-update-confirms-convene-content-september-19-2026",
+    "title": "Wuthering Waves Version 3.7 Confirms New Convene Content",
+    "category": "Official update",
+    "published_at": "2026-09-19 23:00",
+    "display_date": "September 19, 2026",
+    "event_time": "Version 3.7 launches September 30, 2026",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5453",
+    "summary": "Kuro confirmed Version 3.7, Hsin and Suoming, and the new phase-based Resonator and weapon Convene content.",
+    "banner_impact": "The official update confirms Version 3.7 launches September 30 and lists its Phase I and Phase II Convene content, including Blooming Jadehaven and Unspoken Rue. Exact phase start and end times are not stated on the official page, so the confirmed banner CSV remains unchanged until those dates are directly verifiable.",
+    "body": [
+      "Kuro Games published the official Version 3.7 update overview after the Preview Special Broadcast. The update, titled Prism's Illusion, Heart's Illumination, launches on September 30, 2026 and introduces Hsin and Suoming as new Resonators.",
+      "The official page lists two Featured Resonator Convene phases and two Featured Weapon Convene phases. Phase I includes Blooming Jadehaven, Kumokiri, and Moongazer's Sigil; Phase II includes Unspoken Rue, Freeze Frame, and Spectrum Blaster.",
+      "For banner tracking, the notice confirms real Version 3.7 content but does not publish the exact phase start and end timestamps in the page text. WuWa Banners therefore records the update as official news while keeping the dated banner CSV on the last fully verifiable schedule until Kuro publishes the missing timing details in a directly checkable notice."
+    ],
+    "related_links": [
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-official-hsin-short-anime-september-16-2026",
     "title": "Wuthering Waves Releases Official Hsin Short Anime",
     "category": "Official character feature",

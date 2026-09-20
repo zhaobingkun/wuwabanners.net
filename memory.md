@@ -1,5 +1,17 @@
 # Project Memory
 
+## 2026-09-20 Version 3.7 Official Update
+
+- Daily check returned `NO_SIGNIFICANT_CHANGE`; only safe candidate `last_checked` refreshes, aging/manual-review rows, four fetch failures, and unverified DearPlayers version signals appeared. `data/banner-data.csv` had no automatic content diff.
+- Manual official-source review verified the official Version 3.7 update page at `https://wutheringwaves.kurogames.com/en/main/news/detail/5453`. It confirms the September 30 release, Hsin and Suoming, and Phase I/Phase II Resonator and weapon Convene content, including Blooming Jadehaven, Kumokiri, Moongazer's Sigil, Unspoken Rue, Freeze Frame, and Spectrum Blaster.
+- Added one normalized official news item. The page does not state exact phase start/end timestamps in directly verifiable text, so the dated banner CSV remains unchanged rather than publishing inferred timing. Rebuild and site verification are required before release; daily-check artifacts and Python cache remain unpublishable noise.
+
+## 2026-09-19 Daily Official Check
+
+- Daily check completed at 2026-09-19 11:23 Asia/Shanghai. `CHANGED` was caused only by six safe-row `last_checked` refreshes, historical source-health failure/recovery, row aging/manual review, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review found the official Version 3.7 Preview Special Broadcast listing scheduled for September 19, 2026 at 19:00 UTC+8, but no already-published lineup, phase date, weapon, or other banner facts before the broadcast. No new news item was added.
+- No rebuild, commit, push, or production verification was performed. Generated daily-check artifacts, candidate data, and Python cache remain uncommitted noise.
+
 ## 2026-09-18 Official Hsin Feature
 
 - Daily check reported `CHANGED` from source-health recovery, four remaining fetch failures, candidate `last_checked` refreshes, row aging, and unverified DearPlayers signals (`5.5`, `6.3`, `3.0`); no banner facts changed.
