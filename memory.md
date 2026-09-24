@@ -1,5 +1,21 @@
 # Project Memory
 
+## 2026-09-24 Daily Official Check
+
+- Daily check completed at 2026-09-24 11:12 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`. The report showed seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers signals (`5.5`, `6.3`, `3.0`); `data/banner-data.csv` had no content diff.
+- Manual official-site review found the September 22 Version 3.7 Update Maintenance Notice, confirming maintenance on September 30 from 04:00 to 11:00 UTC+8. It added no directly verifiable phase start/end, banner-order, or new weapon facts, so the banner CSV stayed unchanged.
+- Added exactly one normalized official news item, rebuilt the static site, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Publishable changes are the news item/detail page, news index, generated snapshot/date surfaces, sitemap, and this memory note; daily-check artifacts and Python cache remain unpublishable noise.
+
+## 2026-09-23 Daily Official Check
+
+- Daily check completed at 2026-09-23 11:18 Asia/Shanghai with `CHANGED` caused only by five safe candidate `last_checked` refreshes, 16 aging/manual-review rows, six source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review checked the official news index and the recorded Version 3.7 page; no newer verifiable official banner facts or separate publishable news item was found. No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, project memory, and Python cache remain uncommitted noise.
+
+## 2026-09-21 Daily Official Check
+
+- Daily check completed at 2026-09-21 11:14 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`. The report contained seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers signals (`5.5`, `6.3`, `3.0`); `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-site review found no newer verifiable banner facts or separate official news item beyond the already-recorded Version 3.7 material. No rebuild, commit, push, or production verification was performed. Generated daily-check artifacts and Python cache remain uncommitted noise.
+
 ## 2026-09-20 Version 3.7 Official Update
 
 - Daily check returned `NO_SIGNIFICANT_CHANGE`; only safe candidate `last_checked` refreshes, aging/manual-review rows, four fetch failures, and unverified DearPlayers version signals appeared. `data/banner-data.csv` had no automatic content diff.
@@ -717,6 +733,12 @@
 - Published the CTR and parent-page consolidation work in commit `77ed9b3` to `origin/main`; the push also included the prior local documentation-only commit `50f1a1c`.
 - Production HEAD checks returned HTTP 200 for the homepage, `/banners/`, Current Banner, Next Banner, History, Countdown, and Timeline. Fresh production HTML confirmed the new page titles, Current/Next answer anchors, and the `WuWa Banner Guides and Tools` hub position.
 - Daily-check artifacts, candidate data, generated reports, and Python cache changes remain uncommitted and were excluded from the release.
+
+## 2026-09-22 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the comparison result was `NO_SIGNIFICANT_CHANGE`. The report contained seven safe `last_checked` candidate refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` were unchanged. Manual review of the official news page, the recorded Version 3.7 detail page, official YouTube, official X availability, and DearPlayers found no newer verifiable banner facts or separate publishable news item.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, this memory note, and Python cache remain uncommitted; no unrelated files were staged.
 
 ## 2026-09-18 Tier List and Codes pages
 

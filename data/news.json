@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-7-maintenance-notice-september-30-2026",
+    "title": "Wuthering Waves Version 3.7 Maintenance Set for September 30",
+    "category": "Official update",
+    "published_at": "2026-09-22 00:00",
+    "display_date": "September 22, 2026",
+    "event_time": "2026-09-30 04:00-11:00 UTC+8",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/3788",
+    "summary": "Kuro scheduled Version 3.7 maintenance for September 30, with the update expected to follow the maintenance window.",
+    "banner_impact": "The notice confirms the Version 3.7 release and maintenance timing but does not add directly verifiable phase start or end times, banner order, or new featured weapon facts; confirmed banner data remains unchanged.",
+    "body": [
+      "Kuro Games published an official Version 3.7 maintenance notice on September 22, 2026. The notice schedules maintenance for September 30 from 04:00 to 11:00 UTC+8 for Prism's Illusion, Heart's Illumination.",
+      "For banner tracking, this notice confirms the release-day maintenance window but does not publish a new phase schedule, banner order, or additional featured weapon lineup beyond the Version 3.7 update information already recorded.",
+      "WuWa Banners therefore records this as an official timing update while leaving the confirmed banner dataset unchanged until phase dates and lineups are directly verifiable."
+    ],
+    "related_links": [
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-7-update-confirms-convene-content-september-19-2026",
     "title": "Wuthering Waves Version 3.7 Confirms New Convene Content",
     "category": "Official update",
