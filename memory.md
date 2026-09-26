@@ -1,5 +1,17 @@
 # Project Memory
 
+## 2026-09-26 Daily Official Check
+
+- Daily check completed at 2026-09-26 11:15 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`: seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
+- Manual official-source review found a new September 25 Hsin Resonator Demonstration on the official Wuthering Waves channel. It is a character feature for the already-confirmed Version 3.7 Hsin and adds no directly verifiable phase timing, banner order, rerun, or weapon facts.
+- Added exactly one normalized official character-news item, rebuilt the static site, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Banner CSV remains unchanged; daily-check artifacts and Python cache remain unpublishable noise.
+
+## 2026-09-25 Daily Official Check
+
+- Daily check completed at 2026-09-25 11:14 Asia/Shanghai with `CHANGED` caused only by seven safe candidate `last_checked` refreshes, source-health recovery/failures, 16 aging/manual-review rows, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-site review found no newer publishable update beyond the already-recorded September 22 Version 3.7 maintenance notice; the official index still lists the September 20 enemy notice and September 19 Version 3.7 preview/special report, all already covered or non-banner-impacting. No new phase timing, lineup, weapon, or other banner fact was directly verifiable.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, project memory, and Python cache remain uncommitted noise.
+
 ## 2026-09-24 Daily Official Check
 
 - Daily check completed at 2026-09-24 11:12 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`. The report showed seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers signals (`5.5`, `6.3`, `3.0`); `data/banner-data.csv` had no content diff.

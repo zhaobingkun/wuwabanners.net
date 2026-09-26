@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-official-hsin-resonator-demonstration-september-25-2026",
+    "title": "Wuthering Waves Publishes Official Hsin Resonator Demonstration",
+    "category": "Official character feature",
+    "published_at": "2026-09-25 00:00",
+    "display_date": "September 25, 2026",
+    "event_time": "Not specified",
+    "source_label": "Official Wuthering Waves YouTube channel",
+    "source_url": "https://www.youtube.com/watch?v=1kRICb93uIE",
+    "summary": "The official Hsin demonstration gives another Version 3.7 character spotlight without changing confirmed banner timing.",
+    "banner_impact": "Hsin was already confirmed for Version 3.7; this demonstration adds no directly verifiable phase date, banner order, rerun, or featured weapon facts, so confirmed banner data remains unchanged.",
+    "body": [
+      "The official Wuthering Waves channel published the Hsin Resonator demonstration, Post-Lament Anthropocene: Stars Intertwined | Hsin, on September 25, 2026.",
+      "The video is a character feature for Hsin, who was already confirmed for Version 3.7. It does not publish the exact phase schedule, banner order, rerun lineup, or featured weapon details.",
+      "WuWa Banners therefore records this as official character news while leaving the confirmed banner dataset unchanged."
+    ],
+    "related_links": [
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-7-maintenance-notice-september-30-2026",
     "title": "Wuthering Waves Version 3.7 Maintenance Set for September 30",
     "category": "Official update",
