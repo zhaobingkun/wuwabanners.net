@@ -1,5 +1,24 @@
 # Project Memory
 
+## 2026-09-27 Daily Official Check
+
+- Daily check completed at 2026-09-27 11:12 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`: seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
+- Manual official-source review found the September 24 Tiered Client Resource Downloads notice and confirmed it adds no phase timing, banner order, rerun, or featured weapon facts. Added exactly one normalized official feature-news item; banner data remains unchanged.
+- Rebuilt with `python3 scripts/run_banner_update_cycle.py`, passed `python3 scripts/verify_site_build.py` and `git diff --check`. Daily-check artifacts, candidate data, and Python cache remain unpublishable noise.
+
+## 2026-09-26 AdSense Low-Value Content Second Pass
+
+- Strengthened the 12 current-focus support pages for Jingran, Hiyuki, and Mornye with character-specific editorial decision notes covering pull planning, materials, builds, and team shells. The copy is framed as account-planning guidance and does not invent kit or banner facts.
+- Added six crawlable trust/transparency pages: About, Sources and Methodology, Update Policy, Contact, Privacy, and Disclaimer. Linked them from the homepage and each trust page, and added them to the sitemap and build verifier.
+- Fixed duplicate phase-history titles, including older generated Version 3.3 pages, by making the phase part of the title during the rebuild. The site now has 284 HTML pages, 106 sitemap URLs, and no duplicate `<title>` groups in the local audit.
+- `python3 scripts/run_banner_update_cycle.py`, `python3 scripts/verify_site_build.py`, Python compile checks, JavaScript syntax check, and `git diff --check` passed. No commit or publish was performed; daily-check artifacts and Python cache remain unpublishable noise.
+
+## 2026-09-26 AdSense Low-Value Content First Pass
+
+- Audited the static site for AdSense low-value risk: 278 HTML pages, 74 pages under 300 visible words, and 51 character support pages with highly repetitive template structure. Google guidance emphasizes unique, original, substantial content and warns against auto-generated or cookie-cutter pages.
+- First cleanup pass keeps all URLs live but adds `noindex,follow` to 59 weapon detail pages, 49 item detail pages, and 70 legacy non-focus character/support pages. The sitemap now contains 100 indexable URLs instead of 278.
+- Core banner pages, hubs, current focus character hubs, current focus support pages, and useful history/news pages remain indexable. Build, verifier, and sitemap generation passed; no commit or publish performed yet.
+
 ## 2026-09-26 Daily Official Check
 
 - Daily check completed at 2026-09-26 11:15 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`: seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.

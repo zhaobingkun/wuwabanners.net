@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-tiered-client-resource-downloads-september-24-2026",
+    "title": "Wuthering Waves Announces Tiered Client Resource Downloads",
+    "category": "Official feature notice",
+    "published_at": "2026-09-24 00:00",
+    "display_date": "September 24, 2026",
+    "event_time": "After the Version 3.7 update",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news",
+    "summary": "Kuro announced tiered resource packages for PC and mobile without changing confirmed banner facts.",
+    "banner_impact": "The notice describes a limited test of UHD, HD, and SD resource packages after Version 3.7; it adds no phase timing, banner order, rerun, or featured weapon facts, so confirmed banner data remains unchanged.",
+    "body": [
+      "Kuro Games published an official notice on September 24, 2026 about Tiered Client Resource Downloads, a limited test that lets players choose resource packages based on device storage and specifications.",
+      "The notice describes UHD, HD, and SD package tiers for PC and HD/SD tiers for iOS and Android. The test is scheduled to become available after the Version 3.7 update, with additional package and pre-download details for different platforms.",
+      "For banner tracking, this is a client-feature announcement rather than a Convene schedule notice. It does not confirm phase dates, banner order, reruns, or featured weapons, so WuWa Banners leaves the confirmed banner dataset unchanged."
+    ],
+    "related_links": [
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-official-hsin-resonator-demonstration-september-25-2026",
     "title": "Wuthering Waves Publishes Official Hsin Resonator Demonstration",
     "category": "Official character feature",
