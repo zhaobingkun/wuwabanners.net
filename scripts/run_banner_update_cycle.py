@@ -16,6 +16,7 @@ def run_step(label: str, command: list[str]) -> None:
 
 def main() -> int:
     run_step("Rebuild reference detail pages", ["python3", "scripts/build_reference_pages.py"])
+    run_step("Build trust and transparency pages", ["python3", "scripts/build_trust_pages.py"])
     run_step("Rebuild banner snapshot pages", ["python3", "scripts/build_banner_snapshot.py"])
     run_step(
         "Compile-check Python scripts",
@@ -25,6 +26,7 @@ def main() -> int:
             "py_compile",
             "scripts/build_banner_snapshot.py",
             "scripts/build_reference_pages.py",
+            "scripts/build_trust_pages.py",
             "scripts/verify_site_build.py",
             "scripts/run_banner_update_cycle.py",
         ],

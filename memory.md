@@ -1,5 +1,11 @@
 # Project Memory
 
+## 2026-09-28 Daily Official Check
+
+- Daily check completed at 2026-09-28 11:12 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`: seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
+- Manual official-source review found no newer publishable item beyond the already-recorded September 25 Hsin Resonator Demonstration and September 24 tiered client resource-download notice. No new phase timing, banner order, lineup, rerun, weapon, or other banner-impacting fact was directly verifiable.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, project memory, and Python cache remain uncommitted noise.
+
 ## 2026-09-27 Daily Official Check
 
 - Daily check completed at 2026-09-27 11:12 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`: seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.

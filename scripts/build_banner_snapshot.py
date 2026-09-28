@@ -103,6 +103,12 @@ BASE_URLS = [
     "https://wuwabanners.net/wuthering-waves-weapons/",
     "https://wuwabanners.net/wuthering-waves-characters/",
     "https://wuwabanners.net/pull-advice/",
+    "https://wuwabanners.net/about/",
+    "https://wuwabanners.net/sources/",
+    "https://wuwabanners.net/update-policy/",
+    "https://wuwabanners.net/contact/",
+    "https://wuwabanners.net/privacy/",
+    "https://wuwabanners.net/disclaimer/",
 ]
 
 INDEXABLE_REFERENCE_SECTIONS = {"wuthering-waves-characters"}
@@ -1444,7 +1450,7 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
       </a>'''
         )
     history_nav_html = "\n".join(history_nav_cards) if history_nav_cards else '      <p class="muted">This is the only tracked phase in the current history window.</p>'
-    title = f"{page['version']} Banner History | WuWa Banners"
+    title = f"{banner_name} Banner History | WuWa Banners"
     description = f"View the {banner_name} banner history detail page with featured characters, featured weapons, dates, and rerun context."
     faq_json = json.dumps(
         {
@@ -1584,6 +1590,25 @@ def render_history_detail_page(page: dict[str, object], snapshot: dict[str, obje
 </body>
 </html>
 """
+
+
+def refresh_history_detail_titles() -> None:
+    history_root = ROOT / "wuthering-waves-banner-history"
+    pattern = re.compile(r"version-(?P<version>[0-9-]+)-(?P<phase>phase-[0-9]+)$")
+    for page_path in history_root.glob("version-*-phase-*/index.html"):
+        match = pattern.fullmatch(page_path.parent.name)
+        if not match:
+            continue
+        version = match.group("version").replace("-", ".")
+        phase = match.group("phase").replace("-", " ").title()
+        text = page_path.read_text(encoding="utf-8")
+        text = re.sub(
+            r"<title>.*?</title>",
+            f"<title>{version} {phase} Banner History | WuWa Banners</title>",
+            text,
+            count=1,
+        )
+        page_path.write_text(text, encoding="utf-8")
 
 
 def build_rerun_intro(snapshot: dict[str, object]) -> str:
@@ -1989,6 +2014,94 @@ def build_character_blocks(page: dict[str, str], snapshot: dict[str, object]) ->
       <article class="card"><h2>Reasons to wait longer</h2><p>Wait even beyond {character} if your real target is a rerun unit and the next phase still does not match your account needs.</p></article>
       <article class="card"><h2>Weapon and pity pressure</h2><p>Saving for {character} only wins if the next phase weapon set {next_weapons} does not turn the plan into a worse pity trap than the live banner.</p></article>
     </div>"""
+
+
+FOCUS_EDITORIAL_NOTES = {
+    "jingran": {
+        "pull": [
+            ("Jingran account lens", "Start with the account problem you want to solve during Version 3.6 Phase 2. A character pull is easier to justify when it closes a real roster gap instead of adding another interesting option."),
+            ("Late-phase spending boundary", "Because the tracked phase ends September 29, compare the remaining banner window with your pity position before farming or spending. The short window makes a rushed weapon decision especially easy to regret."),
+            ("What this page does not assume", "This page does not treat a character name as proof of performance. Use the current phase facts for timing, then judge the account fit from your own roster, testing, and resource limit."),
+        ],
+        "materials": [
+            ("Jingran prep order", "Separate broadly reusable currency and common drops from rare, character-specific routes. The first bucket protects your stamina plan if your pull decision changes."),
+            ("Before farming rare drops", "Check pity, the September 29 phase end, and the full character-plus-weapon budget first. A materials page should reduce waste, not pressure you into a banner."),
+            ("Useful stopping point", "Stop at a practical first build threshold until the character is live in your account. Save the final route-locked farm for after you know the role actually fits your roster."),
+        ],
+        "build": [
+            ("Jingran build question", "The first build decision is not perfect stats; it is whether Jingran needs a stable, repeatable route for immediate live use or a flexible route while you compare future spending."),
+            ("Fallback before premium", "Choose a usable fallback weapon and upgrade order before considering premium options. This keeps the page useful for accounts that want the character without committing to the whole weapon plan."),
+            ("Testing checkpoint", "After a first workable setup, review field time, rotation comfort, and team-slot cost in your own account. Do not turn a generic template recommendation into a permanent investment without that check."),
+        ],
+        "team-comps": [
+            ("Jingran team question", "Build the first shell around the job your account needs Jingran to perform. Start with a practical core and sustain option before adding a premium pairing."),
+            ("Keep one slot movable", "Leave one partner slot flexible while you test the live phase. That makes the team page useful even if your roster cannot reproduce an ideal showcase team."),
+            ("Compare the full cost", "A team is only a good pull recommendation if the characters, weapons, and pity pressure fit together. Compare the complete Jingran plan against saving before locking every slot."),
+        ],
+    },
+    "hiyuki": {
+        "pull": [
+            ("Hiyuki account lens", "Evaluate Hiyuki against the account role you are missing, not against a general tier label. The useful question is whether the live Phase 2 choice improves your next few teams."),
+            ("Pity and timing check", "Treat the September 29 phase end as a hard planning boundary. Check how much pity remains and whether you can still preserve resources for a later official reveal."),
+            ("Avoid name-only certainty", "The page records confirmed banner timing and source context; it does not claim that every account should pull. Your roster, weapon plan, and testing result still decide the recommendation."),
+        ],
+        "materials": [
+            ("Hiyuki material buckets", "Begin with stock that remains useful across multiple upgrade routes. Only move into rare or weekly-locked farming after the pull decision survives a pity and roster check."),
+            ("Do not let farming decide the pull", "Materials already spent should not become a reason to keep spending. Keep the resource plan separate from the banner decision so sunk cost does not replace evidence."),
+            ("First useful milestone", "Aim for a practical first-use threshold, then revisit rare farming after live testing. This gives the account an exit point if Hiyuki is not the best fit."),
+        ],
+        "build": [
+            ("Hiyuki build lens", "Use the first build to answer whether Hiyuki is comfortable and affordable on your account. The page should make a low-risk route clear before it discusses premium optimization."),
+            ("Separate safe and aspirational gear", "Keep fallback equipment and expensive options in different lanes. That distinction matters when the character banner and weapon banner compete for the same pity budget."),
+            ("Review after real use", "After testing, check whether the rotation, field-time demand, and team slot feel sustainable for your account. Those observations are more useful than copying a generic best-in-slot list."),
+        ],
+        "team-comps": [
+            ("Hiyuki team-building lens", "Define the team job before naming partners. A good first shell should make Hiyuki usable with the roster you actually own, not only with a premium future lineup."),
+            ("One stable shell, one test slot", "Use sustain and broad support as the stable base, then leave one slot open for testing. This avoids rebuilding the entire roster when a different partner feels better."),
+            ("Team cost is part of pull value", "Count the cost of the full team, not just the character. If Hiyuki needs too many new pieces for your account, saving can be the stronger decision even when the page looks promising."),
+        ],
+    },
+    "mornye": {
+        "pull": [
+            ("Mornye account lens", "Judge Mornye by the account decision in front of you: do you need another Phase 2 option now, or is preserving pity for a later official target more valuable?"),
+            ("Resource ceiling", "Set a stopping point before pulling. Include character pity, possible weapon spending, and the September 29 phase deadline so a late-cycle decision does not expand without control."),
+            ("Use evidence in layers", "Confirmed phase data answers when Mornye is available. Your own roster check and live testing must answer whether that availability is worth the resources for your account."),
+        ],
+        "materials": [
+            ("Mornye farming rule", "Start with shared currency and common materials, then pause before rare route-locked farming. This keeps your preparation useful if your Phase 2 priority changes."),
+            ("Protect stamina from uncertainty", "A materials checklist should show what is safe now and what should wait. Do not treat a generated estimate or an old community list as a confirmed requirement."),
+            ("Farm after the decision", "Once Mornye is live and the account fit is clear, finish the rare route. The order protects both stamina and the option to save for the next official cycle."),
+        ],
+        "build": [
+            ("Mornye build decision", "Choose the first route around reliable account value: a usable setup, a realistic fallback weapon, and an upgrade order you can actually finish."),
+            ("Do not overfit the template", "Premium gear should be a later branch, not the default answer. Keeping a lower-cost route visible makes this page useful to players who want Mornye without recreating a showcase account."),
+            ("Account review checkpoint", "After initial testing, compare comfort, team demand, and resource cost with the alternative of saving. A build is successful when it improves the account, not when every slot is maximized."),
+        ],
+        "team-comps": [
+            ("Mornye team lens", "Start from the missing team function in your account and build outward. The first shell should remain understandable and playable before you explore premium combinations."),
+            ("Plan a fallback shell", "Keep one lower-cost partner route available. This protects the page from becoming useful only to players who already own a perfect set of supports."),
+            ("Compare team pressure", "If the full Mornye team consumes too much pity or resource capacity, compare it with the current roster before pulling. Team cost belongs in the recommendation, not just in a footnote."),
+        ],
+    },
+}
+
+
+def build_focus_editorial_notes(page: dict[str, str]) -> str:
+    if page.get("mode") != "current":
+        return ""
+    notes = FOCUS_EDITORIAL_NOTES.get(page.get("slug"), {}).get(page.get("kind", "pull"), [])
+    if not notes:
+        return ""
+    cards = "\n".join(
+        f'      <article class="card"><h2>{html.escape(title)}</h2><p>{html.escape(copy)}</p></article>'
+        for title, copy in notes
+    )
+    return f'''    <section class="section">
+      <h2>{html.escape(page["character"])} editorial decision notes</h2>
+      <div class="card-grid">
+{cards}
+      </div>
+    </section>'''
 
 
 def build_character_decision_matrix(page: dict[str, str], snapshot: dict[str, object]) -> str:
@@ -3062,6 +3175,7 @@ def render_support_page(page: dict[str, str], snapshot: dict[str, object]) -> st
     <h1>Wuthering Waves {character} {kind_label}</h1>
 {build_support_intro(page, snapshot)}
 {build_support_media(page)}
+{build_focus_editorial_notes(page)}
 {build_support_cards(page, snapshot)}
 {build_support_strategy(page, snapshot)}
 {build_support_branch_context(page, snapshot)}
@@ -3179,6 +3293,7 @@ def render_character_page(page: dict[str, str], snapshot: dict[str, object]) -> 
 {build_character_intro(page, snapshot)}
 {build_character_media(page)}
 {build_character_blocks(page, snapshot)}
+{build_focus_editorial_notes({**page, "kind": "pull"})}
 {build_character_decision_matrix(page, snapshot)}
 {build_character_support_links(page)}
     <section class="section">
@@ -3519,12 +3634,30 @@ def render_sitemap(extra_urls: list[str]) -> str:
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     seen: set[str] = set()
     for url in BASE_URLS + extra_urls:
+        if not sitemap_url_is_indexable(url):
+            continue
         if url in seen:
             continue
         seen.add(url)
         lines.append(f"  <url><loc>{url}</loc></url>")
     lines.append("</urlset>")
     return "\n".join(lines) + "\n"
+
+
+def sitemap_url_is_indexable(url: str) -> bool:
+    prefix = "https://wuwabanners.net/"
+    if not url.startswith(prefix):
+        return True
+    relative = url.removeprefix(prefix).strip("/")
+    page = ROOT / "index.html" if not relative else ROOT / relative / "index.html"
+    if not page.exists():
+        return True
+    head = page.read_text(encoding="utf-8", errors="ignore").split("</head>", 1)[0]
+    return not re.search(
+        r'<meta\s+[^>]*name=["\']robots["\'][^>]*content=["\'][^"\']*noindex',
+        head,
+        flags=re.I,
+    )
 
 
 def discover_reference_urls() -> list[str]:
@@ -3609,8 +3742,10 @@ def render_standard_page(
     answer: str,
     body: str,
     faq_items: list[tuple[str, str]],
+    noindex: bool = False,
 ) -> str:
     faq_json = render_faq_json(title, path, faq_items)
+    robots_meta = '  <meta name="robots" content="noindex,follow">\n' if noindex else ""
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3618,7 +3753,7 @@ def render_standard_page(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)}</title>
   <meta name="description" content="{html.escape(description)}">
-  <link rel="canonical" href="https://wuwabanners.net{path}">
+{robots_meta}  <link rel="canonical" href="https://wuwabanners.net{path}">
   <meta property="og:title" content="{html.escape(title)}">
   <meta property="og:description" content="{html.escape(description)}">
   <meta property="og:type" content="article">
@@ -4633,6 +4768,7 @@ def render_legacy_character_page(slug: str, character: str, snapshot: dict[str, 
             (f"What should the {character} overview page do now?", f"It should point to current banner, next banner, rerun watch, and planning pages instead of pretending {character} is still a live focus character."),
             (f"Why keep a {character} hub if the character is not currently featured?", "Because direct character searches still happen, and a neutral hub is better than an outdated phase-specific recommendation."),
         ],
+        noindex=True,
     )
 
 
@@ -4677,6 +4813,7 @@ def render_legacy_pull_page(slug: str, character: str, snapshot: dict[str, objec
             (f"Should you pull {character} right now?", f"Only if a future rerun plan still makes sense after you compare the live banner, next official update, and your pity state. {character} is not a current live-focus answer."),
             (f"What should you check before saving for {character}?", "Check the current banner, next banner, pity carry-over, and rerun-watch context before assuming an old character target is still your best plan."),
         ],
+        noindex=True,
     )
 
 
@@ -4759,6 +4896,7 @@ def render_legacy_support_page(slug: str, character: str, kind: str, snapshot: d
             (f"What should a {character} {kind_label.lower()} page do when the character is off-cycle?", "It should work as a neutral reference, not as a live or next-phase commitment page."),
             (f"Why keep {character} {kind_label.lower()} inside the banner site structure?", "Because character-specific planning still connects to current-banner, rerun-watch, and pity decisions even when the character is not currently featured."),
         ],
+        noindex=True,
     )
 
 
@@ -5088,6 +5226,7 @@ PLACEHOLDER_PULL_COMPARE
         page_path = page_dir / "index.html"
         page_path.write_text(render_history_detail_page(page, snapshot), encoding="utf-8")
         history_urls.append(f"https://wuwabanners.net{page['path']}")
+    refresh_history_detail_titles()
 
     reference_urls = discover_reference_urls()
     discovered_urls = discover_canonical_sitemap_urls()

@@ -94,6 +94,17 @@ def main() -> int:
     items_hub = ROOT / "wuthering-waves-items" / "index.html"
     tier_list_page = ROOT / "wuthering-waves-tier-list" / "index.html"
     codes_page = ROOT / "wuthering-waves-codes" / "index.html"
+    trust_pages = [
+        ROOT / "about" / "index.html",
+        ROOT / "sources" / "index.html",
+        ROOT / "update-policy" / "index.html",
+        ROOT / "contact" / "index.html",
+        ROOT / "privacy" / "index.html",
+        ROOT / "disclaimer" / "index.html",
+    ]
+
+    for path in trust_pages:
+        require_file(path, failures)
 
     require_text(
         home,
@@ -258,7 +269,11 @@ def main() -> int:
             first_entry = entries[0]
             entry_page = ROOT / f"wuthering-waves-{branch}" / first_entry["slug"] / "index.html"
             require_file(entry_page, failures)
-            require_absent_text(entry_page, ['<meta name="robots" content="noindex,follow">'], failures)
+            expected_noindex = branch in {"weapons", "items"}
+            if expected_noindex:
+                require_text(entry_page, ['<meta name="robots" content="noindex,follow">'], failures)
+            else:
+                require_absent_text(entry_page, ['<meta name="robots" content="noindex,follow">'], failures)
 
     key_urls = [
         "https://wuwabanners.net/",
@@ -274,6 +289,12 @@ def main() -> int:
         "https://wuwabanners.net/wuthering-waves-items/",
         "https://wuwabanners.net/wuthering-waves-tier-list/",
         "https://wuwabanners.net/wuthering-waves-codes/",
+        "https://wuwabanners.net/about/",
+        "https://wuwabanners.net/sources/",
+        "https://wuwabanners.net/update-policy/",
+        "https://wuwabanners.net/contact/",
+        "https://wuwabanners.net/privacy/",
+        "https://wuwabanners.net/disclaimer/",
     ]
     require_sitemap_urls(key_urls, failures)
     require_sitemap_urls(
@@ -282,7 +303,7 @@ def main() -> int:
     )
 
     reference_sample_urls = []
-    for branch in ("characters", "weapons", "items"):
+    for branch in ("characters",):
         entries = references.get(branch, [])
         if entries:
             reference_sample_urls.append(
