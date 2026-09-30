@@ -5,6 +5,7 @@
 - Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` with seven safe `last_checked` candidate refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
 - Manual official-source review found the Japanese official Version 3.7 release notice, published September 28, confirming release on September 30. It adds no directly checkable Phase I/II start or end timestamps, so `data/banner-data.csv` remains unchanged.
 - Added exactly one normalized official release-news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Only the news data/detail/index, sitemap, and this memory note are intended for publication; daily-check artifacts, generated date-only surfaces, and Python cache remain unpublishable noise.
+- Published as commit `7419a49` to `origin/main`. Production `curl -I -L` checks returned HTTP 200 for the new detail page, `/news/`, `/sitemap.xml`, and the homepage.
 
 ## 2026-09-28 Daily Official Check
 
