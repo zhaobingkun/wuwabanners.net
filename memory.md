@@ -1,5 +1,11 @@
 # Project Memory
 
+## 2026-09-30 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` with seven safe `last_checked` candidate refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- Manual official-source review found the Japanese official Version 3.7 release notice, published September 28, confirming release on September 30. It adds no directly checkable Phase I/II start or end timestamps, so `data/banner-data.csv` remains unchanged.
+- Added exactly one normalized official release-news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Only the news data/detail/index, sitemap, and this memory note are intended for publication; daily-check artifacts, generated date-only surfaces, and Python cache remain unpublishable noise.
+
 ## 2026-09-28 Daily Official Check
 
 - Daily check completed at 2026-09-28 11:12 Asia/Shanghai with `NO_SIGNIFICANT_CHANGE`: seven safe candidate `last_checked` refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
@@ -770,6 +776,12 @@
 - Published the CTR and parent-page consolidation work in commit `77ed9b3` to `origin/main`; the push also included the prior local documentation-only commit `50f1a1c`.
 - Production HEAD checks returned HTTP 200 for the homepage, `/banners/`, Current Banner, Next Banner, History, Countdown, and Timeline. Fresh production HTML confirmed the new page titles, Current/Next answer anchors, and the `WuWa Banner Guides and Tools` hub position.
 - Daily-check artifacts, candidate data, generated reports, and Python cache changes remain uncommitted and were excluded from the release.
+
+## 2026-09-29 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The report showed seven safe `last_checked` candidate refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` had no content diff. Manual official-site review found no newer publishable item beyond the already-recorded September 25 Hsin demonstration, September 24 tiered client resource-download notice, and September 22/23 Version 3.7 maintenance/preview notices; no new phase timing, lineup, rerun, weapon, or separate news fact was directly verifiable.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, project memory, existing generated page changes, and Python cache remain uncommitted; no unrelated files were staged.
 
 ## 2026-09-22 Daily Official Check
 

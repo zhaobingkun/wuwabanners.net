@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-7-released-september-30-2026",
+    "title": "Wuthering Waves Version 3.7 Releases on September 30",
+    "category": "Official release notice",
+    "published_at": "2026-09-28 00:00",
+    "display_date": "September 28, 2026",
+    "event_time": "2026-09-30 release",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5530",
+    "summary": "Kuro confirmed the Version 3.7 release date without publishing directly checkable phase timing.",
+    "banner_impact": "The release notice confirms Version 3.7 goes live on September 30 but does not state Phase I or Phase II banner start and end times, so banner CSV facts remain unchanged.",
+    "body": [
+      "Kuro Games published an official Version 3.7 release notice on September 28, 2026. The Japanese official site states that Prism's Illusion, Heart's Illumination begins distribution on September 30.",
+      "This confirms the version release date after the previously recorded maintenance and update-content notices. It does not provide directly checkable Phase I or Phase II Convene start and end timestamps.",
+      "WuWa Banners records the release notice as official news while leaving the confirmed banner CSV unchanged until Kuro publishes verifiable phase timing and lineup details."
+    ],
+    "related_links": [
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-tiered-client-resource-downloads-september-24-2026",
     "title": "Wuthering Waves Announces Tiered Client Resource Downloads",
     "category": "Official feature notice",
