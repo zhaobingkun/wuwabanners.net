@@ -1,5 +1,11 @@
 # Project Memory
 
+## 2026-10-01 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the automated `CHANGED` result was limited to two safe `last_checked` refreshes, 16 aging/manual-review rows, nine source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- Manual official-source review found the September 29 Version 3.7 Phase I Resonator and weapon Convene notice at `https://wutheringwaves.kurogames.com/zh-tw/main/news/detail/5528`. It confirms Hsin and Chisa plus Kumokiri and Moongazer's Sigil after the Version 3.7 update through October 22, 2026 at 09:59 server time.
+- Added exactly one normalized official Phase I news item and two confirmed banner CSV rows, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Existing generated worktree changes were preserved and only clean-build-equivalent outputs will be staged; daily-check artifacts and Python cache remain unpublishable noise.
+
 ## 2026-09-30 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` with seven safe `last_checked` candidate refreshes, 16 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).

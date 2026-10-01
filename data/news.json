@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-7-phase-1-convenes-september-30-2026",
+    "title": "Wuthering Waves Version 3.7 Phase I Convene Details",
+    "category": "Official banner notice",
+    "published_at": "2026-09-29 00:00",
+    "display_date": "September 29, 2026",
+    "event_time": "September 30, 2026 after the Version 3.7 update through October 22, 2026 at 09:59 server time",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/zh-tw/main/news/detail/5528",
+    "summary": "Kuro confirmed the Version 3.7 Phase I character and weapon Convene lineups and end time.",
+    "banner_impact": "Phase I runs after the Version 3.7 update through October 22 at 09:59 server time, featuring Hsin and Chisa plus Kumokiri and Moongazer's Sigil; the confirmed banner CSV now records these facts.",
+    "body": [
+      "Kuro Games published the official Version 3.7 Phase I Resonator and weapon Convene notice on September 29, 2026.",
+      "The notice confirms that the Phase I activities begin after the Version 3.7 update and run through October 22, 2026 at 09:59 server time. The featured Resonators are Hsin and Chisa, while the featured weapons are Kumokiri and Moongazer's Sigil.",
+      "WuWa Banners has added these directly verifiable Phase I dates and lineups to the confirmed banner dataset. Phase II remains separate until its own official timing and lineup are directly published."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      },
+      {
+        "label": "Banner history",
+        "url": "/wuthering-waves-banner-history/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-7-released-september-30-2026",
     "title": "Wuthering Waves Version 3.7 Releases on September 30",
     "category": "Official release notice",
