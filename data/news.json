@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-7-patch-notes-september-30-2026",
+    "title": "Wuthering Waves Version 3.7 Patch Notes Go Live",
+    "category": "Official patch notes",
+    "published_at": "2026-09-30 00:00",
+    "display_date": "September 30, 2026",
+    "event_time": "September 30, 2026 after maintenance",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news",
+    "summary": "Kuro published the Version 3.7 patch notes and confirmed the update is live with Hsin available through a Featured Resonator Convene.",
+    "banner_impact": "The patch notes confirm Version 3.7 is live and reaffirm Hsin's Featured Resonator Convene availability, but add no new directly checkable Phase II timing or lineup facts; the confirmed banner CSV remains unchanged.",
+    "body": [
+      "Kuro Games published the official Patch Notes for Wuthering Waves Version 3.7: Prism's Illusion, Heart's Illumination on September 30, 2026, following the scheduled maintenance window.",
+      "The notes confirm that Hsin is obtainable through the [As Full as Tonight, Forever] Featured Resonator Convene and summarize the new stories, events, systems, and quality-of-life changes that went live with Version 3.7.",
+      "For banner tracking, this patch-notes release confirms that the version is live but does not publish a new directly checkable Phase II start or end time, rerun order, or featured weapon lineup. WuWa Banners therefore leaves the confirmed banner dataset unchanged."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      },
+      {
+        "label": "Banner history",
+        "url": "/wuthering-waves-banner-history/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-7-phase-1-convenes-september-30-2026",
     "title": "Wuthering Waves Version 3.7 Phase I Convene Details",
     "category": "Official banner notice",

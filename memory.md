@@ -1,5 +1,11 @@
 # Project Memory
 
+## 2026-10-02 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The automated differences were limited to seven safe `last_checked` refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`); `data/banner-data.csv` had no content diff.
+- Manual official-site review found the September 30 Version 3.7 patch notes listed on the official English news index. The notes confirm the update is live and Hsin is obtainable through a Featured Resonator Convene, but add no new directly checkable Phase II timing, rerun order, or featured weapon lineup.
+- Added exactly one normalized official patch-notes news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Only `data/news.json`, the generated news detail/index, `sitemap.xml`, and this memory note are intended for publication; date-only generated pages, daily-check artifacts, the candidate CSV, Python cache, and the pre-existing Version 3.5 history-page change remain unpublishable noise.
+
 ## 2026-10-01 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the automated `CHANGED` result was limited to two safe `last_checked` refreshes, 16 aging/manual-review rows, nine source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
