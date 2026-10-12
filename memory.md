@@ -1,5 +1,23 @@
 # Project Memory
 
+## 2026-10-12 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from four safe `last_checked` candidate refreshes, 18 aging/manual-review rows, eight source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
+- Manual official-source review found the previously unrecorded official Version 3.7 update-content page at `https://wutheringwaves.kurogames.com/zh-tw/main/news/detail/5562`, dated September 30, 2026. It confirms Version 3.7 content including Hsin, Suoming, Blooming Jadehaven, and Unspoken Rue, but does not provide a complete Phase II schedule, so the confirmed banner CSV remains unchanged.
+- Added exactly one normalized official update-news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the new news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, date-only generated pages, and Python cache remain unpublishable noise.
+
+## 2026-10-05 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` with seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` had no content diff. Manual official-site review confirmed the latest visible official notices remain the September 29–30 Version 3.7 Phase I, patch-notes, and event notices; the existing Hsin/Chisa, Kumokiri/Moongazer's Sigil, and October 22 end-time records remain the latest directly verifiable banner facts. No new Phase II timing, lineup, weapon, or separate publishable banner-impacting news fact was found.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated page changes, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
+## 2026-10-03 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the comparison was `CHANGED` only because seven safe `last_checked` refreshes, aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`) changed. `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review confirmed the latest September 30 Version 3.7 patch-notes page and related Battle Rush/fan-creation notices. The patch notes and the already-recorded September 29 Phase I notice add no new directly checkable Phase II timing, lineup, rerun, or featured-weapon facts; the patch-notes news item already exists.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated page changes, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
 ## 2026-10-02 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The automated differences were limited to seven safe `last_checked` refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`); `data/banner-data.csv` had no content diff.
@@ -813,3 +831,34 @@
 - Published the Tier List, Codes, related internal links, sitemap entries, generated character links, and verification rules in commit `f9c4689` to `origin/main`.
 - Production returned HTTP 200 for `/wuthering-waves-tier-list/`, `/wuthering-waves-codes/`, `/guides/`, and `/sitemap.xml`. Fresh production HTML contained the Version 3.6 tier-list heading, Jingran watchlist text, `WUTHERINGGIFT`, both Guides links, and both sitemap URLs.
 - Daily-check artifacts, candidate data, generated reports, and Python cache changes remain uncommitted and were excluded from the release.
+
+## 2026-10-04 15:20 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from 18 aging/manual-review rows, six source fetch failures, seven safe `last_checked` candidate refreshes, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` had no content diff. Official-source review confirmed the existing Version 3.7 Phase I record (Hsin/Chisa with Kumokiri and Moongazer's Sigil through October 22); no new verifiable Phase II lineup, dates, weapons, or separate banner-impacting news item was found.
+- No rebuild, commit, push, or production verification was performed. Existing generated checker artifacts, candidate/report files, generated pages, project memory, and Python cache changes were preserved and not staged.
+
+## 2026-10-07 11:12 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` had no content diff. Manual official-site review confirmed the September 30 Version 3.7 content overview is already represented in the existing news record, while the September 29 Phase I notice remains the latest directly verifiable dated banner fact; no newer Phase II timing, lineup, weapon, or separate publishable news item was found.
+- No rebuild, commit, push, or production verification was performed. Existing checker artifacts, candidate/report files, generated pages, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
+## 2026-10-08 11:12 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` with seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` had no content diff. Manual official-site review found the October 6 Tidal Photography winners notice as the newest visible item; the September 29 Version 3.7 Phase I notice remains the latest directly verifiable dated banner fact. The September 30 Version 3.7 content overview is already covered by the existing patch-notes item and adds no new Phase II timing, lineup, weapon, or separate publishable news fact.
+- No rebuild, commit, push, or production verification was performed. Checker artifacts, candidate/report files, existing generated page changes, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
+## 2026-10-09 11:12 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` with seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` had no content diff. Manual official-site review found the October 6 Tidal Photography winners notice and the already-recorded September 30 Version 3.7 patch/content notice; the September 29 Phase I notice remains the latest directly verifiable dated banner fact through October 22. No new Phase II timing, lineup, weapon, or separate publishable news fact was found.
+- No rebuild, commit, push, or production verification was performed. Checker artifacts, candidate/report files, existing generated page changes, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
+## 2026-10-10 11:10 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only because all 18 monitored rows failed to fetch and reached aging/manual-review thresholds. There were no automatic candidate updates and no possible new version signals.
+- Manual official-source review found the October 6 Tidal Photography winners notice and recent region-preview content, but neither adds directly verifiable Phase II timing, lineup, rerun, featured-weapon, or other banner facts. The September 29 Version 3.7 Phase I notice remains the latest confirmed dated banner record through October 22.
+- `data/banner-data.csv` and `data/news.json` were unchanged. No normalized news item was added because the newly visible notices are non-banner-impacting and do not add a useful publishable update for this banner tracker.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated pages, project memory, and Python cache remain uncommitted; no unrelated files were staged.

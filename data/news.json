@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-7-update-content-september-30-2026",
+    "title": "Wuthering Waves Version 3.7 Update Content Goes Live",
+    "category": "Official update content",
+    "published_at": "2026-09-30 00:00",
+    "display_date": "September 30, 2026",
+    "event_time": "September 30, 2026 after maintenance",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/zh-tw/main/news/detail/5562",
+    "summary": "Kuro published the live Version 3.7 update content, including new Resonators and signature weapons.",
+    "banner_impact": "The notice confirms Version 3.7 content including Hsin, Suoming, Blooming Jadehaven, and Unspoken Rue, but does not publish Phase II timing or a complete dated banner lineup; the confirmed banner CSV remains unchanged.",
+    "body": [
+      "Kuro Games published the official Version 3.7 update-content notice on September 30, 2026, after the maintenance window for Prism's Illusion, Heart's Illumination.",
+      "The notice confirms new Resonators Hsin and Suoming, plus the five-star weapons Blooming Jadehaven and Unspoken Rue, alongside the new area, story content, echoes, and system updates introduced with Version 3.7.",
+      "For banner tracking, this page confirms which Version 3.7 characters and signature weapons belong to the update, but it does not provide a complete Phase II start and end schedule. WuWa Banners therefore records the official update as news while leaving the confirmed banner CSV unchanged."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-7-patch-notes-september-30-2026",
     "title": "Wuthering Waves Version 3.7 Patch Notes Go Live",
     "category": "Official patch notes",
