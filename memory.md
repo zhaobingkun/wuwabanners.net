@@ -5,6 +5,7 @@
 - Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` for banner facts. The only automated changes were seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` was unchanged.
 - Manual official-source review found the previously unrecorded official Version 3.7 Fan Creation Event notice at `https://wutheringwaves.kurogames.com/en/main/news/detail/5573`, covering September 30 through October 31, 2026 PT. It is news-only and adds no banner lineup, phase timing, rerun, or featured-weapon facts.
 - Added exactly one normalized news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the new news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, pre-existing generated page changes, and Python cache remain unpublishable noise.
+- Published as commit `339ba77` to `origin/main`. Production `curl -I -L` checks for the new detail page, news index, sitemap, and homepage were blocked by local DNS resolution failure; an external read still showed the old news index after a short wait, so deployment freshness remains unverified.
 
 ## 2026-10-13 Daily Official Check
 
