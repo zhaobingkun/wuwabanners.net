@@ -1,5 +1,17 @@
 # Project Memory
 
+## 2026-10-15 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` for banner facts. The only automated changes were seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` was unchanged.
+- Manual official-source review found the previously unrecorded official Version 3.7 Fan Creation Event notice at `https://wutheringwaves.kurogames.com/en/main/news/detail/5573`, covering September 30 through October 31, 2026 PT. It is news-only and adds no banner lineup, phase timing, rerun, or featured-weapon facts.
+- Added exactly one normalized news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the new news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, pre-existing generated page changes, and Python cache remain unpublishable noise.
+
+## 2026-10-13 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from six safe `last_checked` candidate refreshes, 18 aging/manual-review rows, five source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review checked the official Wuthering Waves news index and the recorded Version 3.7 content and Phase I notices. The official site still shows the September 29–30 Version 3.7 notices as the latest relevant items; no new directly verifiable Phase II lineup, weapon, or separate banner-impacting news fact was found.
+- No site content update, rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated pages, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
 ## 2026-10-12 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from four safe `last_checked` candidate refreshes, 18 aging/manual-review rows, eight source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
@@ -862,3 +874,9 @@
 - Manual official-source review found the October 6 Tidal Photography winners notice and recent region-preview content, but neither adds directly verifiable Phase II timing, lineup, rerun, featured-weapon, or other banner facts. The September 29 Version 3.7 Phase I notice remains the latest confirmed dated banner record through October 22.
 - `data/banner-data.csv` and `data/news.json` were unchanged. No normalized news item was added because the newly visible notices are non-banner-impacting and do not add a useful publishable update for this banner tracker.
 - No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated pages, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
+## 2026-10-14 11:11 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only because all 18 monitored rows failed to fetch, reached aging/manual-review thresholds, and prior unverified feed signals disappeared. There were no automatic candidate updates and no possible new version signals.
+- Independent official-site review found the October 6 winners notice and the existing September 29-30 Version 3.7 notices; the latest banner-specific notice remains Version 3.7 Phase I. No new Phase II timing, lineup, rerun, weapon, or separate publishable banner-impacting news fact was verified.
+- `data/banner-data.csv` and `data/news.json` were unchanged. No normalized news item was added, and no rebuild, commit, push, or production verification was performed. Daily-check artifacts, existing generated pages, project memory, and Python cache remain uncommitted; no unrelated files were staged.
