@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-huanglong-sentinels-records-october-14-2026",
+    "title": "Wuthering Waves Publishes Huanglong Sentinels Records",
+    "category": "Official lore notice",
+    "published_at": "2026-10-14 00:00",
+    "display_date": "October 14, 2026",
+    "event_time": "Not specified",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5608",
+    "summary": "Kuro published a new official lore record compiling historical notes about Huanglong's Sentinels.",
+    "banner_impact": "The notice contains no banner lineup, phase timing, rerun, featured Resonator, or featured weapon facts; the confirmed banner CSV remains unchanged.",
+    "body": [
+      "Kuro Games published the official Post-Lament Anthropocene: Comprehensive Mirror for Historians — Records of the Huanglong Sentinels notice on October 14, 2026.",
+      "The page compiles notes from the Pioneer Association about the Sentinels' past deeds, local chronicles, anecdotes, and folk legends. It also labels some conclusions as speculative and still unverified.",
+      "For banner tracking, this is an official lore notice only. It does not confirm any character or weapon Convene, phase date, rerun order, or banner lineup, so WuWa Banners leaves the confirmed banner dataset unchanged."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-7-fan-creation-event-september-30-2026",
     "title": "Wuthering Waves Version 3.7 Fan Creation Event Goes Live",
     "category": "Official event notice",
