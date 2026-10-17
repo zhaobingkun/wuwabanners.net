@@ -1,4 +1,34 @@
-[
+[{
+  "slug": "wuthering-waves-suoming-official-character-notice-october-17-2026",
+  "title": "Wuthering Waves Publishes Suoming Character Notice",
+  "category": "Official character notice",
+  "published_at": "2026-10-17 00:00",
+  "display_date": "October 17, 2026",
+  "event_time": "Not specified",
+  "source_label": "Official Wuthering Waves website",
+  "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5625",
+  "summary": "Kuro published an official character notice introducing Suoming, Seal Master of the Ten Seals Covenant.",
+  "banner_impact": "The notice introduces Suoming but does not confirm a banner lineup, phase timing, rerun, or featured weapon; the confirmed banner CSV remains unchanged.",
+  "body": [
+    "Kuro Games published the official Post-Lament Anthropocene: Stars Intertwined | Suoming notice on October 17, 2026.",
+    "The notice introduces Suoming as Seal Master of the Ten Seals Covenant and Intendant of Mengzhou's Ministry of Sentinel Affairs.",
+    "For banner tracking, this is an official character notice only. It does not confirm a Convene date, phase order, rerun, or featured weapon, so WuWa Banners leaves the confirmed banner dataset unchanged."
+  ],
+  "related_links": [
+    {
+      "label": "Current banner",
+      "url": "/wuthering-waves-current-banner/"
+    },
+    {
+      "label": "Next banner watch page",
+      "url": "/wuthering-waves-next-banner/"
+    },
+    {
+      "label": "Banner schedule",
+      "url": "/wuthering-waves-banner-schedule/"
+    }
+  ]
+},
   {
     "slug": "wuthering-waves-huanglong-sentinels-records-october-14-2026",
     "title": "Wuthering Waves Publishes Huanglong Sentinels Records",
