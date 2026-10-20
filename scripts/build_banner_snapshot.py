@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import csv
 import html
 import json
@@ -1667,22 +1668,71 @@ def build_rerun_sources(snapshot: dict[str, object]) -> str:
       </div>"""
 
 
+def countdown_source_row(phase: dict[str, object]) -> dict[str, str]:
+    """Keep the original timezone and verification date; never infer a UTC offset."""
+    matches = [row for row in load_rows() if row['banner_type'] == 'character'
+               and row['version'] == phase['version'] and row['phase'] == phase['phase']]
+    return matches[0] if len(matches) == 1 else {}
+
+
+def countdown_deadline(phase: dict[str, object]) -> str:
+    value = str(phase['end_date'])
+    source = countdown_source_row(phase)
+    timezone = source.get('timezone') or 'timezone not specified; check the official notice'
+    clock = value.split(' ', 1)[1] if ' ' in value else ''
+    when = fmt_human_date(value) + (f' at {clock}' if clock else '')
+    return f'{when} ({timezone.lower()})'
+
+
+def countdown_faq_items(snapshot: dict[str, object]) -> list[tuple[str, str]]:
+    current = snapshot['current']
+    next_item = snapshot['next']
+    names = ', '.join(current['featured_characters'])
+    if has_distinct_next(snapshot):
+        next_answer = f"The next tracked checkpoint is {next_item['banner_name']} on {phase_event_label(next_item)}."
+    else:
+        next_answer = 'The next post-current banner countdown is not official yet. Wait for Kuro to publish the next dated banner notice before treating any future timer as confirmed.'
+    return [
+        (f'When does the {names} banner end?', f'The current {names} banner is scheduled to end on {countdown_deadline(current)}, according to the tracked source. Confirm the deadline in your in-game Convene before last-minute pulls.'),
+        ('What is the next WuWa banner countdown?', next_answer),
+        ('Does this page convert the deadline to my local timezone?', 'No. The displayed deadline keeps the timezone label from the source record. It is not a device-local conversion or a live seconds-remaining timer. Use your in-game Convene for the deadline on your server.'),
+        ('Is a version update date the same as a banner deadline?', 'Not necessarily. Maintenance, version launches, and individual Convene phases can have different times. This page shows the tracked banner deadline; use the schedule for phase order and check the official notice for maintenance.'),
+    ]
+
+
+def render_countdown_page(text: str, snapshot: dict[str, object]) -> str:
+    """Narrow renderer shared by single-page releases and the normal full build."""
+    for key, render in [('COUNTDOWN_INTRO', build_countdown_intro),
+                        ('COUNTDOWN_MEDIA', build_countdown_media),
+                        ('COUNTDOWN_CARDS', build_countdown_cards),
+                        ('COUNTDOWN_TABLE', build_countdown_table),
+                        ('COUNTDOWN_SOURCES', build_countdown_sources)]:
+        text = replace_block_exact(text, key, render(snapshot))
+
+    pattern = r'(<script type="application/ld\+json">)\s*(.*?)\s*(</script>)'
+    matches = list(re.finditer(pattern, text, re.S))
+    if len(matches) != 1:
+        raise RuntimeError('Expected exactly one countdown JSON-LD block')
+    match = matches[0]
+    payload = json.loads(match.group(2))
+    faqs = [node for node in payload.get('@graph', []) if node.get('@type') == 'FAQPage']
+    if len(faqs) != 1:
+        raise RuntimeError('Expected exactly one countdown FAQPage')
+    faqs[0]['mainEntity'] = [{'@type': 'Question', 'name': question,
+                             'acceptedAnswer': {'@type': 'Answer', 'text': answer}}
+                            for question, answer in countdown_faq_items(snapshot)]
+    encoded = json.dumps(payload, indent=2, ensure_ascii=False).replace('<', '\\u003c')
+    return text[:match.start(2)] + encoded + text[match.end(2):]
+
+
 def build_countdown_intro(snapshot: dict[str, object]) -> str:
     current = snapshot["current"]
     next_item = snapshot["next"]
     updated = snapshot["updated"]
     current_names = ", ".join(current["featured_characters"])
-    if not has_distinct_next(snapshot):
-        answer_copy = f"The {current_names} banner countdown ends on {fmt_human_date(current['end_date'])}. The next post-current banner date is not official yet."
-        next_context = "next banner countdown is pending official confirmation"
-    elif is_preview_phase(next_item):
-        answer_copy = f"The {current_names} banner countdown ends on {fmt_human_date(current['end_date'])}, and the next tracked official update is {next_item['banner_name']} on {phase_event_label(next_item)}."
-        next_context = f"the next official checkpoint is {next_item['banner_name']}"
-    else:
-        answer_copy = f"The {current_names} banner countdown ends on {fmt_human_date(current['end_date'])}, and {next_item['banner_name']} begins on {fmt_human_date(next_item['start_date'])}."
-        next_context = f"the next tracked phase is {next_item['banner_name']}"
-    return f"""    <p class="lead">Check the live WuWa banner end date first, then confirm the next official banner timing before spending Astrite near the deadline.</p>
-    <div class="answer-box"><strong>WuWa banner countdown:</strong> {answer_copy}</div>
+    return f"""    <p class="lead">Check when the current WuWa banner ends, which timezone the source uses, and whether the next banner has a confirmed date.</p>
+    <div class="answer-box"><strong>Current banner deadline:</strong> The {html.escape(current_names)} banner is scheduled to end on <strong>{html.escape(countdown_deadline(current))}</strong>. Confirm the time in your server's in-game Convene before last-minute pulls.</div>
+    <p>{html.escape(next_event_copy(next_item)) if has_distinct_next(snapshot) else 'The next post-current banner date is not official yet.'} These are scheduled deadlines, not a live seconds-remaining timer.</p>
 {render_status_strip(snapshot)}
 {render_quick_actions()}
     <p class="update-stamp">Banner snapshot rebuilt from CSV: {fmt_human_date(updated + " 00:00")}.</p>"""
@@ -1713,7 +1763,7 @@ def build_countdown_cards(snapshot: dict[str, object]) -> str:
         next_copy = f"{next_item['banner_name']} is scheduled to start on {fmt_human_date(next_item['start_date'])}."
     current_names = " and ".join(current["featured_characters"])
     return f"""    <div class="card-grid">
-      <article class="card"><h2>{current_names} countdown</h2><p>{current["banner_name"]} is scheduled to end on {fmt_human_date(current["end_date"])}. Use this as the live banner timer before spending near the deadline.</p><p><a href="/wuthering-waves-current-banner/">Open current banner</a></p></article>
+      <article class="card"><h2>{current_names} countdown</h2><p>{html.escape(str(current['banner_name']))} is scheduled to end on {html.escape(countdown_deadline(current))}. Check the in-game deadline on your own server before spending.</p><p><a href="/wuthering-waves-current-banner/">Open current banner</a></p></article>
       <article class="card"><h2>{next_title}</h2><p>{next_copy}</p><p><a href="/wuthering-waves-next-banner/">Open next banner</a></p></article>
       <article class="card"><h2>Banner timer vs schedule</h2><p>Use this countdown page for the next deadline. Use the schedule page when you need phase order, past timing, and date context together.</p><p><a href="/wuthering-waves-banner-schedule/">Open schedule</a></p></article>
     </div>"""
@@ -1731,12 +1781,12 @@ def build_countdown_table(snapshot: dict[str, object]) -> str:
         next_event = "Next phase starts" if not is_preview_phase(next_item) else "Next official preview"
         next_date = phase_event_label(next_item)
     return f"""      <h2>Banner timing snapshot</h2>
-      <p class="section-intro">This section covers the query variants that are already getting impressions: WuWa banner countdown, WuWa countdown, banner timer, next banner countdown, and character-specific countdown checks.</p>
+      <p class="section-intro">The current phase deadline and the next official checkpoint are listed separately. Keep the source timezone when comparing them; a banner deadline is not necessarily the version-update or maintenance time.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Phase</th><th>Event</th><th>Date</th></tr></thead>
           <tbody>
-            <tr><td>{current["banner_name"]}</td><td>Current phase ends</td><td>{fmt_human_date(current["end_date"])}</td></tr>
+            <tr><td>{html.escape(str(current['banner_name']))}</td><td>Current phase ends</td><td>{html.escape(countdown_deadline(current))}</td></tr>
             <tr><td>{next_name}</td><td>{next_event}</td><td>{next_date}</td></tr>
           </tbody>
         </table>
@@ -1745,18 +1795,11 @@ def build_countdown_table(snapshot: dict[str, object]) -> str:
 
 
 def build_countdown_faq(snapshot: dict[str, object]) -> str:
-    current = snapshot["current"]
-    next_item = snapshot["next"]
-    current_names = ", ".join(current["featured_characters"])
-    if has_distinct_next(snapshot):
-        next_answer = f"The next tracked checkpoint is {next_item['banner_name']} on {phase_event_label(next_item)}."
-    else:
-        next_answer = "The next post-current banner countdown is not official yet. Wait for Kuro to publish the next dated banner notice before treating any future timer as confirmed."
+    items = '\n'.join(f'        <article class="faq-item"><h3>{html.escape(question)}</h3><p>{html.escape(answer)}</p></article>'
+                      for question, answer in countdown_faq_items(snapshot))
     return f"""      <h2>Banner countdown FAQ</h2>
       <div class="faq-list">
-        <article class="faq-item"><h3>When does the {html.escape(current_names)} banner end?</h3><p>The current {html.escape(current_names)} banner ends on {fmt_human_date(current["end_date"])} according to the tracked official source.</p></article>
-        <article class="faq-item"><h3>What is the next WuWa banner countdown?</h3><p>{html.escape(next_answer)}</p></article>
-        <article class="faq-item"><h3>Is the next banner timer confirmed?</h3><p>A timer is confirmed only when an official notice or in-game Convene data gives a start or end time. Preview broadcasts and version news stay in watch mode until they confirm exact banner timing.</p></article>
+{items}
       </div>"""
 
 
@@ -1765,7 +1808,8 @@ def build_countdown_sources(snapshot: dict[str, object]) -> str:
     updated = snapshot["updated"]
     return f"""      <div class="sources">
         <strong>Sources used for this {fmt_human_date(updated + " 00:00")} countdown snapshot</strong><br>
-        Current phase source: {current["source_url"]}<br>
+        Current phase source: <a href="{html.escape(str(current['source_url']), quote=True)}">Open the recorded official Convene notice</a><br>
+        Source record last verified: {html.escape(countdown_source_row(current).get('last_checked') or 'not recorded')}. Rebuilding this page does not re-verify the source.<br>
         Official video archive: https://www.youtube.com/@WutheringWaves
       </div>"""
 
@@ -5103,11 +5147,7 @@ def update_pages(snapshot: dict[str, object]) -> None:
         headline="WuWa Banner Countdown: Current End Date and Next Banner",
         h1="WuWa Banner Countdown: Current End Date and Next Banner",
     )
-    countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_INTRO", build_countdown_intro(snapshot))
-    countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_MEDIA", build_countdown_media(snapshot))
-    countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_CARDS", build_countdown_cards(snapshot))
-    countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_TABLE", build_countdown_table(snapshot))
-    countdown_text = replace_block_exact(countdown_text, "COUNTDOWN_SOURCES", build_countdown_sources(snapshot))
+    countdown_text = render_countdown_page(countdown_text, snapshot)
     COUNTDOWN_HTML.write_text(countdown_text, encoding="utf-8")
 
     timeline_text = TIMELINE_HTML.read_text(encoding="utf-8")
@@ -5245,6 +5285,16 @@ PLACEHOLDER_PULL_COMPARE
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--countdown-only', action='store_true',
+                        help='Render only the countdown page from the existing snapshot; leave all other outputs untouched.')
+    args = parser.parse_args()
+    if args.countdown_only:
+        snapshot = json.loads(DATA_JSON.read_text(encoding='utf-8'))
+        text = COUNTDOWN_HTML.read_text(encoding='utf-8')
+        COUNTDOWN_HTML.write_text(render_countdown_page(text, snapshot), encoding='utf-8')
+        print('Updated only the countdown page; snapshot and other pages unchanged')
+        return 0
     rows = load_rows()
     snapshot = build_snapshot(rows)
     write_json(snapshot)
