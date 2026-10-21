@@ -1,4 +1,35 @@
 [{
+  "slug": "wuthering-waves-upcoming-events-version-3-7-october-20-2026",
+  "title": "Wuthering Waves Lists Upcoming Version 3.7 Events",
+  "category": "Official event notice",
+  "published_at": "2026-10-20 00:00",
+  "display_date": "October 20, 2026",
+  "event_time": "Not specified",
+  "source_label": "Official Wuthering Waves website",
+  "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5653",
+  "summary": "Kuro published an official compilation of upcoming events in Wuthering Waves Version 3.7.",
+  "banner_impact": "The event compilation adds no complete Phase II banner lineup, phase timing, rerun, or featured-weapon facts; the confirmed banner CSV remains unchanged.",
+  "body": [
+    "Kuro Games published the official Upcoming Events in Wuthering Waves Version 3.7 notice on October 20, 2026.",
+    "The page compiles upcoming Version 3.7 activities for players and serves as an official event-calendar update for the current version.",
+    "For banner tracking, this notice does not publish a complete Phase II Convene lineup, phase start and end time, rerun order, or featured weapon schedule. WuWa Banners therefore records the notice as official news while leaving the confirmed banner dataset unchanged."
+  ],
+  "related_links": [
+    {
+      "label": "Current banner",
+      "url": "/wuthering-waves-current-banner/"
+    },
+    {
+      "label": "Next banner watch page",
+      "url": "/wuthering-waves-next-banner/"
+    },
+    {
+      "label": "Banner schedule",
+      "url": "/wuthering-waves-banner-schedule/"
+    }
+  ]
+},
+  {
   "slug": "wuthering-waves-suoming-official-character-notice-october-17-2026",
   "title": "Wuthering Waves Publishes Suoming Character Notice",
   "category": "Official character notice",

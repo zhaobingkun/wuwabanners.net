@@ -1,5 +1,29 @@
 # Project Memory
 
+## 2026-10-21 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
+- Manual official-source review found the new official `Upcoming Events in Wuthering Waves Version 3.7` notice, published October 20, 2026 at `https://wutheringwaves.kurogames.com/en/main/news/detail/5653`. It is an event-calendar update with no complete Phase II banner lineup, phase timing, rerun, or featured-weapon facts.
+- Added exactly one normalized news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the new news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, existing generated page changes, and Python cache remain unpublishable noise.
+
+## 2026-10-19 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The automated differences were limited to seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review found no newer publishable banner or news item beyond the already-recorded October 17 Suoming notice and October 14 Huanglong Sentinels notice. The official index also showed October 13 story-cinematics wallpaper and October 6 photo-challenge winners notices; none adds banner lineup, phase timing, rerun, or featured-weapon facts. The confirmed Version 3.7 Phase I end time remains October 22, 2026 at 09:59 server time.
+- No site content update, rebuild, commit, push, or production verification was performed. Daily-check artifacts, existing generated page changes, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
+## 2026-10-20 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The report showed seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review checked the official news index and Version 3.7 update-content notice. The latest relevant official notices remain the already-recorded October 17 Suoming character notice and October 14 Huanglong Sentinels lore notice; the 3.7 update-content page's Phase II activity timing is already covered by the existing record and still does not provide a new complete banner lineup or featured-weapon schedule for a safe CSV update.
+- No new normalized news item or banner fact was identified. No rebuild, commit, push, or production verification was performed. Daily-check artifacts, existing generated page changes, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
+## 2026-10-18 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The automated differences were limited to seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`); `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-site review found no newer publishable banner or news item than the already-recorded October 17 Suoming notice and October 14 Huanglong Sentinels records. The official index's October 13 enemy/wallpaper notices and October 6 photo-challenge winners notice add no banner lineup, phase timing, rerun, or featured-weapon facts; the current Version 3.7 Phase I end time remains October 22, 2026 at 09:59 server time.
+- No site content update, rebuild, commit, push, or production verification was performed. Daily-check artifacts, existing generated page changes, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
 ## 2026-10-15 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` for banner facts. The only automated changes were seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` was unchanged.
