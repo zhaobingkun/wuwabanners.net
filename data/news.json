@@ -1,5 +1,37 @@
-[{
-  "slug": "wuthering-waves-upcoming-events-version-3-7-october-20-2026",
+[
+  {
+    "slug": "wuthering-waves-version-3-7-phase-2-convenes-october-21-2026",
+    "title": "Wuthering Waves Version 3.7 Phase II Banners Begin October 22",
+    "category": "Official banner notice",
+    "published_at": "2026-10-21 00:00",
+    "display_date": "October 21, 2026",
+    "event_time": "October 22, 2026 at 10:00 through November 11, 2026 at 11:59 server time",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5668",
+    "summary": "Kuro confirmed the Version 3.7 Phase II banner window and featured Resonator and weapon Convene details.",
+    "banner_impact": "Phase II runs from October 22 at 10:00 through November 11 at 11:59 server time; the confirmed banner dataset now records Suoming, Lucilla, and Lynae plus Unspoken Rue, Freeze Frame, and Spectrum Blaster.",
+    "body": [
+      "Kuro Games published the official Version 3.7 Featured Resonator/Weapon Convene: Phase II notice on October 21, 2026.",
+      "The notice confirms a shared Phase II window from October 22, 2026 at 10:00 through November 11, 2026 at 11:59 server time. It explicitly lists Lucilla and Lynae as featured Resonators and Freeze Frame and Spectrum Blaster as featured weapons. The official Version 3.7 content notice also identifies Suoming and Unspoken Rue as Version 3.7 event Convene additions.",
+      "WuWa Banners has rolled the confirmed Phase II dates and lineups into the banner dataset so the current-banner and next-banner pages can move forward from the expired Phase I record."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
+    "slug": "wuthering-waves-upcoming-events-version-3-7-october-20-2026",
   "title": "Wuthering Waves Lists Upcoming Version 3.7 Events",
   "category": "Official event notice",
   "published_at": "2026-10-20 00:00",

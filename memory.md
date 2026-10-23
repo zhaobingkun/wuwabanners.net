@@ -1,5 +1,17 @@
 # Project Memory
 
+## 2026-10-23 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the automated `CHANGED` result was limited to seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- Manual official-source review opened the official Version 3.7 Phase II notice at `https://wutheringwaves.kurogames.com/en/main/news/detail/5668`, published October 21, 2026. It confirms the October 22 10:00 through November 11 11:59 server-time window plus Lucilla, Lynae, Freeze Frame, and Spectrum Blaster. The official Version 3.7 content notice also confirms Suoming and Unspoken Rue as Version 3.7 Convene additions.
+- Added two confirmed Version 3.7 Phase II rows to `data/banner-data.csv` and exactly one normalized Phase II news item to `data/news.json`. Rebuilt successfully with `python3 scripts/run_banner_update_cycle.py` and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Existing date-only generated pages, daily-check artifacts, and Python cache remain unrelated noise unless they are clean-build outputs required by this release.
+
+## 2026-10-22 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; `CHANGED` was limited to seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review found no newer publishable official banner facts or separate news item after the October 20 Version 3.7 upcoming-events notice already recorded in `data/news.json`. The official Phase I notice confirms the October 22, 2026 09:59 server-time end date; the phase-transition checkpoint was reached, but no Phase II lineup, timing, rerun, or featured-weapon facts are confirmed.
+- Rebuilt with `python3 scripts/run_banner_update_cycle.py`, passed `python3 scripts/verify_site_build.py` and `git diff --check`. The rebuild refreshed local generated snapshot/date surfaces, but those generated-page changes were already present before this run and remain unpublishable working-tree noise. No new news item or banner CSV update was made; no commit, push, or production verification was performed.
+
 ## 2026-10-21 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
