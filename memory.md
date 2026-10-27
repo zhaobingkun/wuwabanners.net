@@ -938,3 +938,9 @@
 - The current CSV deadline is 2026-10-22 09:59 with the label Server time; its source-row last_checked is 2026-10-01. This repair exposes already-recorded data, not a newly verified announcement or a live countdown timer. A page rebuild must not claim that its official source was re-verified.
 - Added a --countdown-only render mode and focused regression tests. Use the existing snapshot for a narrow release so unrelated date-only pages and checker data remain untouched. The normal full build also calls the same renderer, preserving the repair on future phase updates.
 - Source date and page build date are independent. Preserve all pre-existing local date changes and daily notes outside this commit. Full GSC/GA4 evidence, release SHA, production verification, and 7/14/28-day review results belong in the daily automation's independent SEO report.
+
+## 2026-10-27 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The report showed seven safe `last_checked` candidate refreshes, 20 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- Manual official-site review found the previously unrecorded October 21, 2026 `Resonator Review | Radiant Spectrum — Lynae` notice at `https://wutheringwaves.kurogames.com/en/main/news/detail/5616`. It is a character feature only and adds no banner timing, order, rerun, or featured-weapon facts; `data/banner-data.csv` remains unchanged.
+- Added exactly one normalized news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the Lynae news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, pre-existing generated page changes, and Python cache remain unpublishable noise.
