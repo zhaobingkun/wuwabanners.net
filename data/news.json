@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-8-preview-special-broadcast-november-6-2026",
+    "title": "Wuthering Waves Version 3.8 Preview Broadcast Set for November 6",
+    "category": "Official preview broadcast notice",
+    "published_at": "2026-10-30 00:00",
+    "display_date": "October 30, 2026",
+    "event_time": "November 6, 2026 at 20:00 Japan Standard Time; pre-show begins at 19:20",
+    "source_label": "Official Wuthering Waves Japan X account",
+    "source_url": "https://x.com/WW_JP_Official",
+    "summary": "Kuro's official Japan account scheduled the Version 3.8 preview broadcast for November 6, 2026.",
+    "banner_impact": "The broadcast notice confirms only the preview date and time; it does not confirm Version 3.8 banner lineups, phase dates, reruns, or featured weapons, so the confirmed banner dataset remains unchanged.",
+    "body": [
+      "Kuro's official Wuthering Waves Japan account announced that the Version 3.8 preview special broadcast will air on November 6, 2026 at 20:00 Japan Standard Time, with a short pre-show scheduled for 19:20.",
+      "The announcement points players to the official Wuthering Waves YouTube channel and previews the upcoming Version 3.8 information event. It does not publish a complete Convene lineup or confirm any banner timing, rerun order, or featured weapon.",
+      "For banner tracking, WuWa Banners records this as an official preview notice only. The confirmed banner CSV remains unchanged until an official notice verifies the Version 3.8 banner facts."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-lynae-resonator-review-october-21-2026",
     "title": "Wuthering Waves Publishes Lynae Resonator Review",
     "category": "Official character feature",

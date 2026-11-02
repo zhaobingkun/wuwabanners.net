@@ -1,5 +1,35 @@
 # Project Memory
 
+## 2026-11-02 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from five safe `last_checked` candidate refreshes, 20 aging/manual-review rows, six source fetch failures/recoveries, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
+- Manual official-source review found the official Japanese Wuthering Waves account's Version 3.8 preview broadcast announcement: November 6, 2026 at 20:00 Japan Standard Time, with a 19:20 pre-show. It confirms no banner lineup, phase timing, rerun, or featured-weapon facts.
+- Added exactly one normalized news item for the official preview announcement, rebuilt successfully with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the new Version 3.8 news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, pre-existing generated-page changes, and Python cache remain unpublishable noise.
+
+## 2026-11-01 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from six safe `last_checked` candidate refreshes, 20 aging/manual-review rows, five source fetch failures/recoveries, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-news review found the official index still topped by the already-recorded October 20-21 Version 3.7 upcoming-events, Phase II, and Lynae notices. No newer verifiable banner lineup, phase timing, rerun, featured-weapon fact, or separate publishable news item was found.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated page changes, project memory, and Python cache remain uncommitted noise; no unrelated files were staged.
+
+## 2026-10-29 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from one safe `last_checked` candidate refresh, 20 aging/manual-review rows, 10 source fetch failures, and no possible new version signals. `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review checked the official Wuthering Waves news index and current official-domain results. The latest relevant items remain the already-recorded October 21 Version 3.7 Phase II notice and the October 21 Lynae review; no new banner lineup, phase date, rerun, featured weapon, or separate publishable news fact was verified.
+- No site content update, rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated-page changes, project memory, and Python cache remain uncommitted noise; no unrelated files were staged.
+
+## 2026-10-28 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from 20 failed source fetches and 20 aging/manual-review rows. There were no possible new version signals and no automatic candidate updates.
+- Manual official-source review searched the official Wuthering Waves news index and current official-domain results. The newest relevant official material remains the already-recorded Version 3.7 Phase II notice and existing Version 3.7 event/news items; no new banner lineup, phase date, rerun, featured weapon, or separate publishable news fact was verified.
+- No site content update, rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated-page changes, project memory, and Python cache remain uncommitted noise; no unrelated files were staged.
+
+## 2026-10-24 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from seven safe `last_checked` candidate refreshes, 20 aging/manual-review rows, four source fetch failures, unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`), and the already-published Version 3.7 Phase II rows appearing in manual review. `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-source review checked the official Wuthering Waves news index and current official search results. No newer publishable banner facts or separate official news item was found after the October 21 Version 3.7 Phase II notice already published on October 23.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated pages, project memory, and Python cache remain uncommitted noise; no unrelated files were staged.
+
 ## 2026-10-23 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the automated `CHANGED` result was limited to seven safe `last_checked` candidate refreshes, 18 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
@@ -939,8 +969,20 @@
 - Added a --countdown-only render mode and focused regression tests. Use the existing snapshot for a narrow release so unrelated date-only pages and checker data remain untouched. The normal full build also calls the same renderer, preserving the repair on future phase updates.
 - Source date and page build date are independent. Preserve all pre-existing local date changes and daily notes outside this commit. Full GSC/GA4 evidence, release SHA, production verification, and 7/14/28-day review results belong in the daily automation's independent SEO report.
 
+## 2026-10-26 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The report showed seven safe `last_checked` candidate refreshes, 20 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- `data/banner-data.csv` and `data/news.json` had no content diff. Manual official-site review found the October 20 Upcoming Events notice and October 21 Version 3.7 Phase II notices already represented in the current site; no newer banner facts or separate publishable news item was found.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated page changes, project memory, and Python cache remain uncommitted; no unrelated files were staged.
+
 ## 2026-10-27 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE`. The report showed seven safe `last_checked` candidate refreshes, 20 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`).
 - Manual official-site review found the previously unrecorded October 21, 2026 `Resonator Review | Radiant Spectrum — Lynae` notice at `https://wutheringwaves.kurogames.com/en/main/news/detail/5616`. It is a character feature only and adds no banner timing, order, rerun, or featured-weapon facts; `data/banner-data.csv` remains unchanged.
 - Added exactly one normalized news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the Lynae news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, pre-existing generated page changes, and Python cache remain unpublishable noise.
+
+## 2026-10-30 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; `CHANGED` was limited to five safe `last_checked` candidate refreshes, 20 aging/manual-review rows, six source fetch failures or recoveries, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
+- Manual official-site review found no newer publishable banner or news item after the already-recorded October 21 Version 3.7 Phase II and Lynae notices. The official news index still showed October 20-21 as the latest relevant entries; no new phase timing, lineup, rerun, featured-weapon fact, or separate news item was verified.
+- No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated page changes, project memory, and Python cache remain unpublishable noise; no unrelated files were staged.
