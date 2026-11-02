@@ -5,6 +5,7 @@
 - Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from five safe `last_checked` candidate refreshes, 20 aging/manual-review rows, six source fetch failures/recoveries, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
 - Manual official-source review found the official Japanese Wuthering Waves account's Version 3.8 preview broadcast announcement: November 6, 2026 at 20:00 Japan Standard Time, with a 19:20 pre-show. It confirms no banner lineup, phase timing, rerun, or featured-weapon facts.
 - Added exactly one normalized news item for the official preview announcement, rebuilt successfully with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the new Version 3.8 news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, pre-existing generated-page changes, and Python cache remain unpublishable noise.
+- Committed as `8dd5e84` (`Add Version 3.8 preview broadcast news`) and pushed to `origin/main`. Production `curl -I -L` checks for the new detail page, `/news/`, `/sitemap.xml`, and `/` were blocked by local DNS resolution failure for `wuwabanners.net`; online freshness remains unverified.
 
 ## 2026-11-01 Daily Official Check
 
