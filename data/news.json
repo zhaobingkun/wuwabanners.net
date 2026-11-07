@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-8-preview-november-12-2026",
+    "title": "Wuthering Waves Version 3.8 Arrives November 12",
+    "category": "Official version preview",
+    "published_at": "2026-11-06 00:00",
+    "display_date": "November 6, 2026",
+    "event_time": "Version 3.8 launches November 12, 2026 at UTC+8",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/",
+    "summary": "Kuro confirmed that Version 3.8, Lilies in a Dying Dream, launches on November 12, 2026.",
+    "banner_impact": "The official preview confirms the Version 3.8 release date and Reverb Convene availability, but does not provide a complete phase lineup, rerun order, or featured-weapon schedule for the confirmed banner dataset.",
+    "body": [
+      "Kuro Games published the official Wuthering Waves Version Preview for Version 3.8, Lilies in a Dying Dream, on November 6, 2026.",
+      "The notice confirms that Version 3.8 is scheduled to release on November 12, 2026 at UTC+8. It also says that Reverb Resonator and Reverb Weapon Convenes will be available after the update.",
+      "For banner tracking, this is an official version-preview notice only. It does not publish a complete phase lineup, rerun order, or featured-weapon schedule, so WuWa Banners leaves the confirmed banner CSV unchanged until those facts are verified by an official Convene notice."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-8-preview-special-broadcast-november-6-2026",
     "title": "Wuthering Waves Version 3.8 Preview Broadcast Set for November 6",
     "category": "Official preview broadcast notice",

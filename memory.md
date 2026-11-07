@@ -1,5 +1,11 @@
 # Project Memory
 
+## 2026-11-07 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` for banner data. The automated output contained six safe `last_checked` refreshes, 20 aging/manual-review rows, five source fetch failures, and weak DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
+- Manual official-source review found the official Version 3.8 preview notice published November 6, 2026. It confirms Version 3.8 “Lilies in a Dying Dream” is scheduled for November 12, 2026 (UTC+8), and official social summaries confirm Reverb Resonator/Weapon Convenes after the update. No complete Phase I/II lineup, rerun order, or featured-weapon schedule was verified, so `data/banner-data.csv` remains unchanged.
+- Added exactly one normalized news-only item to `data/news.json`, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the new Version 3.8 news detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, pre-existing generated-page changes, and Python cache remain unpublishable noise.
+
 ## 2026-11-02 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the result was `CHANGED` only from five safe `last_checked` candidate refreshes, 20 aging/manual-review rows, six source fetch failures/recoveries, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
@@ -987,3 +993,14 @@
 - Ran `./scripts/run_daily_official_check.sh`; `CHANGED` was limited to five safe `last_checked` candidate refreshes, 20 aging/manual-review rows, six source fetch failures or recoveries, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` and `data/news.json` had no content diff.
 - Manual official-site review found no newer publishable banner or news item after the already-recorded October 21 Version 3.7 Phase II and Lynae notices. The official news index still showed October 20-21 as the latest relevant entries; no new phase timing, lineup, rerun, featured-weapon fact, or separate news item was verified.
 - No rebuild, commit, push, or production verification was performed. Daily-check artifacts, candidate/report files, existing generated page changes, project memory, and Python cache remain unpublishable noise; no unrelated files were staged.
+# 2026-11-03 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh` at 11:09 Asia/Shanghai. The result was `NO_SIGNIFICANT_CHANGE`: seven safe `last_checked` candidate refreshes, 20 aging/manual-review rows, four source fetch failures, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). No live banner CSV or news content changed.
+- Manual official-site review found the current Version 3.7 Phase II notice already recorded, with the confirmed window ending November 11, 2026 at 11:59 server time. The existing Version 3.8 preview-broadcast notice is already recorded and does not confirm banner lineup, phase dates, reruns, or weapons.
+- No news item, banner update, rebuild, commit, push, or production verification was performed. Preserved the pre-existing generated HTML/check artifacts and Python cache noise; no files were staged.
+
+# 2026-11-05 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh` at 11:12 Asia/Shanghai. The result was `CHANGED` only from 20 aging/manual-review rows, four failed source fetches, seven safe candidate `last_checked` refreshes, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). No live banner CSV or news content changed.
+- Manual official-site review found no newer publishable banner or news item after the recorded October 21 Version 3.7 Phase II notices. No Version 3.8 banner lineup, phase date, rerun, or featured-weapon facts were officially confirmed.
+- No news item, banner update, rebuild, commit, push, or production verification was performed. Preserved the pre-existing generated HTML/check artifacts and Python cache noise; no unrelated files were staged.
