@@ -1,5 +1,11 @@
 # Project Memory
 
+## 2026-11-08 Daily Official Check
+
+- Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` for the confirmed banner CSV. The automated output contained seven safe `last_checked` refreshes, 20 aging/manual-review rows, four source fetch failures, and weak DearPlayers version signals (`5.5`, `6.3`, `3.0`).
+- Manual official-source review confirmed that the official Wuthering Waves site lists a November 7 Version 3.8 maintenance notice and Lily character notice. The maintenance/update material confirms Version 3.8 starts November 12, 2026, introduces Lily and Lullaby, and opens pre-download on November 10; no complete Phase I/II banner schedule or end date was directly verifiable, so `data/banner-data.csv` remains unchanged.
+- Added exactly one normalized news-only item to `data/news.json`. Rebuild and site verification are required before deciding the publishable file set; generated daily-check artifacts, pre-existing generated-page changes, and Python cache remain unpublishable noise.
+
 ## 2026-11-07 Daily Official Check
 
 - Ran `./scripts/run_daily_official_check.sh`; the result was `NO_SIGNIFICANT_CHANGE` for banner data. The automated output contained six safe `last_checked` refreshes, 20 aging/manual-review rows, five source fetch failures, and weak DearPlayers version signals (`5.5`, `6.3`, `3.0`). `data/banner-data.csv` had no content diff.
