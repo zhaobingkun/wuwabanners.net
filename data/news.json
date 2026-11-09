@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-lily-profile-reveal-dream-weaving-november-8-2026",
+    "title": "Wuthering Waves Profile Reveal: Dream Weaving — Lily",
+    "category": "Official character profile",
+    "published_at": "2026-11-08 00:00",
+    "display_date": "November 8, 2026",
+    "event_time": "Not specified",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/5725",
+    "summary": "Kuro published an official profile reveal for Lily, the new Version 3.8 Resonator.",
+    "banner_impact": "The profile confirms no new phase timing, banner order, rerun, or featured-weapon facts, so the confirmed banner CSV remains unchanged.",
+    "body": [
+      "Kuro Games published the official Profile Reveal | Dream Weaving — Lily notice on November 8, 2026.",
+      "The profile introduces Lily as a young perfumer whose rare Resonance Ability led her to become a psychotherapist for soldiers during the Federated Cities' Resonator War. It adds character context but no new Convene schedule details.",
+      "For banner tracking, this is an official character profile only. It does not add a phase date, banner order, rerun, or featured weapon, so WuWa Banners leaves the confirmed banner dataset unchanged."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-version-3-8-maintenance-lily-lullaby-november-7-2026",
     "title": "Wuthering Waves Version 3.8 Maintenance Confirms Lily and Lullaby",
     "category": "Official maintenance notice",

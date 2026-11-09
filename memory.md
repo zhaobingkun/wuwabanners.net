@@ -1010,3 +1010,9 @@
 - Ran `./scripts/run_daily_official_check.sh` at 11:12 Asia/Shanghai. The result was `CHANGED` only from 20 aging/manual-review rows, four failed source fetches, seven safe candidate `last_checked` refreshes, and unverified DearPlayers version signals (`5.5`, `6.3`, `3.0`). No live banner CSV or news content changed.
 - Manual official-site review found no newer publishable banner or news item after the recorded October 21 Version 3.7 Phase II notices. No Version 3.8 banner lineup, phase date, rerun, or featured-weapon facts were officially confirmed.
 - No news item, banner update, rebuild, commit, push, or production verification was performed. Preserved the pre-existing generated HTML/check artifacts and Python cache noise; no unrelated files were staged.
+
+## 2026-11-09 12:07 Asia/Shanghai
+
+- Ran `./scripts/run_daily_official_check.sh`; `CHANGED` was limited to seven safe `last_checked` candidate refreshes, 20 aging/manual-review rows, and four source/feed fetch failures. There were no possible new version signals and no banner CSV content diff.
+- Manual official-source review found the new `Profile Reveal | Dream Weaving — Lily` notice at `https://wutheringwaves.kurogames.com/en/main/news/detail/5725`, published November 8, 2026. It is a character profile only and adds no phase timing, banner order, rerun, or featured-weapon facts, so `data/banner-data.csv` remains unchanged.
+- Added exactly one normalized news item, rebuilt with `python3 scripts/run_banner_update_cycle.py`, and passed `python3 scripts/verify_site_build.py` plus `git diff --check`. Intended publishable files are `data/news.json`, the new Lily detail page, `news/index.html`, `sitemap.xml`, and this memory note; daily-check artifacts, pre-existing generated pages, and Python cache remain unpublishable noise.
