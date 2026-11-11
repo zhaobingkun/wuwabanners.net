@@ -1,5 +1,36 @@
 [
   {
+    "slug": "wuthering-waves-version-3-8-update-content-november-9-2026",
+    "title": "Wuthering Waves Version 3.8 Update Content Confirms Lily and Lullaby",
+    "category": "Official version update content",
+    "published_at": "2026-11-09 00:00",
+    "display_date": "November 9, 2026",
+    "event_time": "Version 3.8 launches November 12, 2026 at UTC+8",
+    "source_label": "Official Wuthering Waves website",
+    "source_url": "https://wutheringwaves.kurogames.com/en/main/news/detail/3153",
+    "summary": "Kuro published the Version 3.8 update-content notice ahead of the November 12 launch.",
+    "banner_impact": "The notice confirms Lily and Lullaby for Version 3.8, but it does not publish a complete phase schedule, rerun order, or banner end date, so the confirmed banner CSV remains unchanged.",
+    "body": [
+      "Kuro Games published the official Wuthering Waves Update Content notice for Version 3.8, Lilies in a Dying Dream, on November 9, 2026.",
+      "The notice confirms that Version 3.8 is planned for release on November 12, 2026 at UTC+8. It again identifies Lily as the new 5-star Resonator and Lullaby as the new 5-star pistol, and lists the main story, area, events, and gameplay additions arriving with the update.",
+      "For banner tracking, this is an official version-content notice with confirmed character and weapon names, but it does not provide a complete Phase I or Phase II Convene schedule, rerun order, or banner end date. WuWa Banners therefore records the update as news while leaving the confirmed banner CSV unchanged until official timing details are published."
+    ],
+    "related_links": [
+      {
+        "label": "Current banner",
+        "url": "/wuthering-waves-current-banner/"
+      },
+      {
+        "label": "Next banner watch page",
+        "url": "/wuthering-waves-next-banner/"
+      },
+      {
+        "label": "Banner schedule",
+        "url": "/wuthering-waves-banner-schedule/"
+      }
+    ]
+  },
+  {
     "slug": "wuthering-waves-lily-profile-reveal-dream-weaving-november-8-2026",
     "title": "Wuthering Waves Profile Reveal: Dream Weaving — Lily",
     "category": "Official character profile",
